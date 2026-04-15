@@ -110,7 +110,7 @@ export default function Contact() {
               duration={0.6}
               delay={0.1}
             >
-              <div className="p-6 space-y-6 rounded-[32px]"
+              <div className="p-6 space-y-6 rounded-[var(--radius)]"
                 style={{ background: "rgba(255,255,255,0.86)", border: "1px solid rgba(15,23,42,0.08)", boxShadow: "0 16px 38px rgba(15,23,42,0.08)" }}>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1">פרטי יצירת קשר</h3>
@@ -161,7 +161,7 @@ export default function Contact() {
             >
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="p-6 sm:p-8 space-y-5 rounded-[32px]"
+                className="p-6 sm:p-8 space-y-5 rounded-[var(--radius)]"
                 style={{ background: "rgba(255,255,255,0.88)", border: "1px solid rgba(15,23,42,0.08)", boxShadow: "0 16px 38px rgba(15,23,42,0.08)" }}
               >
                 {isSuccess && (
@@ -318,7 +318,7 @@ export default function Contact() {
         }
         whileHover={reduce ? undefined : { scale: 1.1 }}
         whileTap={reduce ? undefined : { scale: 0.95 }}
-        className="hidden md:flex fixed bottom-6 left-6 z-50 w-14 h-14 rounded-[22px] bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
+        className="hidden md:flex fixed bottom-6 left-6 z-50 w-14 h-14 rounded-[var(--radius-soft)] bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
         style={{ boxShadow: "0 8px 24px rgba(16,185,129,0.4)" }}
       >
         <MessageCircle size={26} className="text-white" fill="white" />

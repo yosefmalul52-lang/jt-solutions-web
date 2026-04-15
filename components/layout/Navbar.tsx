@@ -80,7 +80,7 @@ export default function Navbar() {
       >
         <nav
           dir="rtl"
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[28px] flex items-center justify-between pointer-events-auto"
+          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto"
           style={{
             background: scrolled ? "rgba(221,227,234,0.74)" : "rgba(221,227,234,0.58)",
             backdropFilter: "blur(16px)",
@@ -164,7 +164,7 @@ export default function Navbar() {
               background: "rgba(249,250,251,0.95)",
               backdropFilter: "blur(20px)",
               border: "1px solid rgba(0,0,0,0.08)",
-              borderRadius: "22px",
+              borderRadius: "var(--radius-soft)",
               boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
             }}
           >

@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, Clock3, Image as ImageIcon, MoveLeft, ShieldCheck } from "lucide-react";
+import { BarChart3, Clock3, MoveLeft, Quote, ShieldCheck } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 import CtaButton from "@/components/ui/CtaButton";
 
@@ -59,9 +59,13 @@ const testimonials = [
     name: "רועי חדד",
     role: "שותף, מותג קמעונאות דיגיטלית",
   },
+  {
+    quote:
+      "מהפגישה הראשונה ועד העלייה לאוויר, הכל היה ברור ומדויק. קיבלנו אתר שמייצר פניות איכותיות ומסודר לעבודת צוות יומיומית.",
+    name: "שירה בן-דוד",
+    role: "מנהלת פיתוח עסקי, חברת שירותים",
+  },
 ];
-
-const techChips = ["Next.js", "Node.js", "Custom Dashboard", "Automations"];
 
 export default function Proof() {
   return (
@@ -139,7 +143,7 @@ export default function Proof() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 text-center rounded-[var(--radius-soft)] overflow-hidden border border-white/40 divide-y sm:divide-y-0 sm:divide-x divide-white/40 bg-white/70 backdrop-blur-md">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 text-center rounded-[var(--radius-soft)] overflow-hidden border border-slate-200/80 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 bg-white/70 backdrop-blur-md">
             {trustStats.map((stat) => (
               <div
                 key={stat.label}
@@ -147,6 +151,7 @@ export default function Proof() {
               >
                 <div className="text-3xl font-extrabold tracking-tight text-slate-900">{stat.value}</div>
                 <div className="text-xs mt-1 font-semibold" style={{ color: "#334155" }}>{stat.label}</div>
+                <div className="mx-auto mt-2 h-px w-12 bg-slate-200/80" />
                 <div className="text-[11px] mt-1" style={{ color: "#64748B" }}>{stat.sub}</div>
               </div>
             ))}
@@ -162,7 +167,7 @@ export default function Proof() {
 
         <Reveal
           as="article"
-          className="mt-8 rounded-[var(--radius)] p-6 sm:p-8 bg-white/90 backdrop-blur-md border border-white/40 shadow-premium"
+          className="mt-8 mb-12 rounded-[var(--radius)] p-6 sm:p-8 bg-white/90 backdrop-blur-md border border-white/40 shadow-premium"
           viewportKey="sectionTight"
           y={22}
           duration={0.6}
@@ -172,75 +177,58 @@ export default function Proof() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-[0.6fr_0.4fr] gap-8 md:gap-10 items-center" dir="ltr">
             <div className="order-2 lg:order-1">
-              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl aspect-[4/3] shadow-premium flex items-center justify-center border border-white/40">
-                <div className="flex flex-col items-center gap-3 text-center px-6">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                    style={{ background: "rgba(255,255,255,0.72)", border: "1px solid rgba(148,163,184,0.28)" }}
-                  >
-                    <ImageIcon size={24} style={{ color: "#64748B" }} />
-                  </div>
-                  <p className="text-xs sm:text-sm font-medium" style={{ color: "#64748B" }}>
-                    אזור מוקאפ מוכן לתמונת פלטפורמת מגדים באיכות גבוהה
-                  </p>
-                </div>
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl aspect-square shadow-premium overflow-hidden border border-white/40">
+                <video
+                  className="h-full w-full object-cover"
+                  src="/jt site lead animation.mov"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label="אנימציית הדגמה של אתר JT"
+                />
               </div>
             </div>
 
             <div className="order-1 lg:order-2 text-right" dir="rtl">
-              <span
-                className="inline-flex px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4"
-                style={{
-                  color: "#0F172A",
-                  background: "rgba(255,255,255,0.7)",
-                  border: "1px solid rgba(148,163,184,0.26)",
-                  backdropFilter: "blur(6px)",
-                }}
-              >
-                מקרה בוחן: איקומרס ואוטומציה
-              </span>
-
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-slate-900">
-                מגדים קייטרינג: מניהול ידני למערכת הזמנות ולוגיסטיקה אוטומטית
+             תפסיקו לרדוף אחרי לידים: המערכת שעושה עבורכם את העבודה
               </h3>
 
-              <div className="mt-5 space-y-3.5 text-sm sm:text-base leading-relaxed" style={{ color: "#475569" }}>
-                <p>
-                  <strong className="text-slate-900">האתגר:</strong> העסק התבסס על תיאום ידני, מעקב מבוזר וחוסר שקיפות בתהליך ההזמנה,
-                  מה שיצר עומס תפעולי והאט את קצב המכירה.
-                </p>
-                <p>
-                  <strong className="text-slate-900">הפתרון הטכנולוגי:</strong> פיתחנו מערכת מלאה עם Frontend מותאם לקהל היעד, Backend
-                  לניהול הזמנות דרך דשבורד אדמין ייעודי, ואוטומציות ללוגיסטיקת משלוחים שמפחיתות עבודה ידנית.
-                </p>
-                <p>
-                  <strong className="text-slate-900">התוצאה:</strong> מעבר לתהליך עבודה רציף ומדיד, שיפור מהירות התפעול, וחוויית הזמנה
-                  מקצועית שמאפשרת לעסק לצמוח בלי עומס מיותר.
-                </p>
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-2.5 justify-end">
-                {techChips.map((chip) => (
-                  <span
-                    key={chip}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                    style={{
-                      color: "#334155",
-                      background: "rgba(255,255,255,0.68)",
-                      border: "1px solid rgba(148,163,184,0.24)",
-                      backdropFilter: "blur(6px)",
-                    }}
-                  >
-                    {chip}
-                  </span>
-                ))}
-              </div>
+              <ol className="mt-5 space-y-4 text-sm sm:text-base leading-relaxed list-decimal list-inside" style={{ color: "#475569" }}>
+                <li>
+                  <strong className="text-slate-900">השארת פרטים </strong>
+                  <p className="mt-1">
+                    ברגע שלקוח פוטנציאלי ממלא טופס באתר שלך (שם, טלפון, צורך), המערכת &ldquo;מתעוררת&rdquo; לחיים באופן מיידי. הנתונים
+                    נשלפים מהאתר באותו רגע, ללא צורך בהעתקה ידנית.
+                  </p>
+                </li>
+                <li>
+                  <strong className="text-slate-900">התראה מיידית במייל </strong>
+                  <p className="mt-1">
+                    אתה לא צריך לנחש אם נכנס ליד. המערכת שולחת הודעה אוטומטית למייל שלך או של אנשי המכירות עם כל פרטי הפנייה. כך אתם
+                    נשארים מעודכנים בזמן אמת, גם כשאתם לא מול האתר.
+                  </p>
+                </li>
+                <li>
+                  <strong className="text-slate-900">רישום אוטומטי ב-CRM</strong>
+                  <p className="mt-1">
+                    במקום שהלידים &ldquo;יישכחו&rdquo; במייל, הם &ldquo;נוחתים&rdquo; ישירות בתוך ה-CRM שלך .
+                  </p>
+                  <ul className="mt-2 space-y-1.5 list-disc list-inside">
+                    <li>נוצר כרטיס לקוח חדש באופן אוטומטי.</li>
+                    <li>כל המידע מהטופס (כולל הערות הלקוח) מתועד ומסודר.</li>
+                    <li>הליד משויך אוטומטית לסטטוס התואם כדי שתוכלו להתחיל לטפל בו.</li>
+                  </ul>
+                </li>
+              </ol>
             </div>
           </div>
         </Reveal>
 
         <Reveal className="mt-8" viewportKey="sectionTight" y={22} duration={0.6}>
-          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-slate-900 text-center mb-6">
+          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-slate-900 text-center mb-14">
             מה אומרים העסקים שעשו את הקפיצה?
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5" dir="rtl">
@@ -252,19 +240,21 @@ export default function Proof() {
                   backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.78), rgba(248,250,252,0.8))",
                 }}
               >
-                <div className="flex items-center justify-end gap-1.5 text-yellow-400 text-base" aria-label="5 כוכבים">
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
+                <div className="flex justify-end">
+                  <span
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-soft)] border"
+                    style={{ background: "rgba(37,99,235,0.08)", borderColor: "rgba(37,99,235,0.2)", color: "#2563eb" }}
+                    aria-hidden
+                  >
+                    <Quote size={15} />
+                  </span>
                 </div>
-                <p className="text-sm leading-relaxed mt-3 text-right" style={{ color: "#475569" }}>
+                <p className="text-sm font-semibold leading-relaxed mt-3 text-right" style={{ color: "#475569" }}>
                   &ldquo;{item.quote}&rdquo;
                 </p>
                 <div className="mt-4 pt-3 border-t border-white/40 text-right">
-                  <p className="text-sm font-semibold" style={{ color: "#334155" }}>{item.name}</p>
-                  <p className="text-xs mt-1" style={{ color: "#64748B" }}>{item.role}</p>
+                  <p className="text-sm font-semibold" style={{ color: "#1d4ed8" }}>{item.name}</p>
+                  <p className="text-xs mt-1" style={{ color: "#2563eb" }}>{item.role}</p>
                 </div>
               </article>
             ))}

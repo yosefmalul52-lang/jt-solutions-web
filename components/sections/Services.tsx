@@ -263,7 +263,7 @@ function ServiceRecordDropdown({
       >
         <div className="flex items-center gap-2.5 min-w-0">
           <div
-            className="w-8 h-8 rounded-[12px] flex items-center justify-center shrink-0 border"
+            className="w-8 h-8 rounded-[var(--radius-soft)] flex items-center justify-center shrink-0 border"
             style={{
               background: accent.wrapBg,
               borderColor: accent.wrapBorder,

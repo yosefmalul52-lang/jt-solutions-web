@@ -91,7 +91,7 @@ export default function Pricing() {
               key={tier.id}
               className={`relative isolate rounded-[var(--radius)] p-6 bg-white/80 backdrop-blur-md border border-white/40 hover:-translate-y-1 transition-all duration-300 ease-out ${
                 tier.popular
-                  ? "ring-1 ring-violet-300/40 shadow-none hover:shadow-none"
+                  ? "border-2 !border-blue-500 ring-1 ring-violet-300/40 shadow-none hover:shadow-none"
                   : "shadow-premium hover:shadow-xl"
               }`}
               style={
@@ -115,7 +115,7 @@ export default function Pricing() {
               {tier.popular && (
                 <span
                   className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3.5 py-1.5 rounded-[var(--radius-soft)]"
-                  style={{ color: "#ffffff", background: "#0f172a", border: "1px solid rgba(255,255,255,0.16)" }}
+                  style={{ color: "#ffffff", background: "#2563eb", border: "1px solid rgba(37,99,235,0.45)" }}
                 >
                   הנבחר ביותר
                 </span>

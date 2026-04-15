@@ -62,7 +62,7 @@ export default function MobileStickyCta() {
           className="md:hidden fixed bottom-3 left-5 right-5 z-[65]"
         >
           <div
-            className="rounded-[16px] p-1.5"
+            className="rounded-[var(--radius-soft)] p-1.5"
             style={{
               background: "rgba(255,255,255,0.76)",
               border: "1px solid rgba(15,23,42,0.08)",
