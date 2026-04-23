@@ -95,10 +95,7 @@ export default function Hero() {
                   <span
                     key={item.text}
                     className="text-xs font-semibold px-3 py-1.5 rounded-[var(--radius-soft)] inline-flex items-center gap-1.5 border border-gray-200 bg-white"
-                    style={{
-                      color: "#475569",
-                      boxShadow: "0 2px 8px rgba(15,23,42,0.04)",
-                    }}
+                    style={{ boxShadow: "0 2px 8px rgba(15,23,42,0.04)" }}
                   >
                     <CheckCircle className="h-4 w-4 shrink-0" style={{ color: "#4f46e5" }} />
                     {item.text}

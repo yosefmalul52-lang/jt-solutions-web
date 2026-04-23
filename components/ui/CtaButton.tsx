@@ -33,7 +33,7 @@ export default function CtaButton({
 }: CtaButtonProps) {
   const reduce = useReducedMotion();
   const baseClass =
-    "inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 md:px-9 md:py-3.5 text-sm md:text-base font-medium transition-shadow transition-colors transition-transform duration-200";
+    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-soft)] px-7 py-3 md:px-8 md:py-3 text-sm md:text-base font-semibold transition-shadow transition-colors transition-transform duration-200";
 
   const primaryClass =
     "text-white shadow-glow";

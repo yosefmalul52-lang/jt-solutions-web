@@ -85,9 +85,6 @@ export default function Contact() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Reveal className="text-center mb-16" viewportKey="section" y={24} duration={0.6}>
-            <span className="premium-badge mb-4">
-              יוצאים לדרך
-            </span>
             <h2 className="premium-title mb-4">
               מוכנים למעטפת דיגיטלית אחת שעובדת?
               <br />

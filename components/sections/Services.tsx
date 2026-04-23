@@ -22,7 +22,7 @@ import Reveal from "@/components/motion/Reveal";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 
 const DROPDOWN_PANEL_BG_DEFAULT =
-  "linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(249,250,251,0.96) 55%, rgba(244,247,255,0.5) 100%)";
+  "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)";
 
 type PhaseId = "phase-a" | "phase-b" | "phase-c";
 
@@ -107,13 +107,13 @@ const PHASE_THEMES: Record<
     rowBorder: "rgba(15, 23, 42, 0.08)",
   },
   "phase-b": {
-    cardGradient: "linear-gradient(165deg, rgba(14,165,233,0.12) 0%, rgba(255,255,255,0.95) 42%, #f8fafc 100%)",
-    cardBorder: "rgba(14, 165, 233, 0.28)",
+    cardGradient: "#ffffff",
+    cardBorder: "rgba(15, 23, 42, 0.1)",
     rowIdle: "rgba(248, 250, 252, 0.95)",
     rowHover: "rgba(241, 245, 249, 0.98)",
     rowBorder: "rgba(15, 23, 42, 0.08)",
     dropdownPanelBg:
-      "linear-gradient(180deg, rgba(255,255,255,0.99) 0%, rgba(249,250,251,0.98) 100%)",
+      "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
   },
   "phase-c": {
     cardGradient: "#ffffff",
@@ -246,7 +246,7 @@ function ServiceRecordDropdown({
       className="rounded-[var(--radius-soft)] border overflow-hidden transition-[box-shadow,border-color] duration-200"
       style={{
         borderColor: isOpen ? accent.wrapBorder : theme.rowBorder,
-        boxShadow: isOpen ? "var(--shadow-glow)" : "0 1px 2px rgba(15,23,42,0.04)",
+        boxShadow: isOpen ? "0 10px 22px -16px rgba(15,23,42,0.3)" : "0 1px 2px rgba(15,23,42,0.04)",
       }}
     >
       <button
@@ -306,10 +306,10 @@ function ServiceRecordDropdown({
 
               <Link
                 href={service.href}
-                className="flex w-full items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-white transition-[filter,box-shadow] duration-200 hover:brightness-[1.05]"
+                className="flex w-full items-center justify-center gap-2 rounded-[var(--radius-soft)] px-4 py-3 text-sm font-semibold text-white transition-[filter,box-shadow] duration-200 hover:brightness-[1.05]"
                 style={{
-                  background: "var(--gradient-cta)",
-                  boxShadow: "var(--shadow-glow)",
+                  background: "#2563eb",
+                  boxShadow: "0 8px 18px rgba(37,99,235,0.18)",
                 }}
                 onClick={onClose}
               >
@@ -344,7 +344,7 @@ export default function Services() {
     <section
       id="services"
       className="py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F5F7FF 58%, #F7F9FF 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 58%, #F3F6FB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-16" viewportKey="sectionLoose" y={24} duration={0.6}>
@@ -360,7 +360,7 @@ export default function Services() {
           <div
             aria-hidden
             className="hidden lg:block absolute top-[38px] left-[16.5%] right-[16.5%] h-px"
-            style={{ background: "linear-gradient(90deg, rgba(16,179,231,0.2), rgba(124,58,237,0.24), rgba(16,179,231,0.2))" }}
+            style={{ background: "linear-gradient(90deg, rgba(148,163,184,0.3), rgba(148,163,184,0.6), rgba(148,163,184,0.3))" }}
           />
 
           <motion.div
@@ -376,7 +376,7 @@ export default function Services() {
                 <motion.article
                   variants={phaseItem}
                   key={phase.id}
-                  className="relative rounded-[var(--radius)] p-5 sm:p-6 backdrop-blur-md shadow-premium hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out border"
+                  className="relative rounded-[var(--radius)] p-5 sm:p-6 bg-white shadow-premium hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out border"
                   style={{
                     background: t.cardGradient,
                     borderColor: t.cardBorder,
@@ -409,28 +409,13 @@ export default function Services() {
         </Reveal>
 
         <Reveal
-          className="mt-10 relative overflow-hidden rounded-[var(--radius)] border border-slate-200/80 bg-gradient-to-b from-white via-white to-[#f4f7ff] shadow-[0_1px_3px_rgba(15,23,42,0.06),0_12px_40px_-18px_rgba(124,58,237,0.08)]"
+          className="mt-10 relative overflow-hidden rounded-[var(--radius)] border border-slate-200 bg-white shadow-premium"
           viewportKey="sectionLoose"
           y={20}
           duration={0.6}
         >
-          <div
-            className="absolute inset-x-0 top-0 h-[3px] opacity-90"
-            style={{ background: "var(--gradient-cta)" }}
-            aria-hidden
-          />
           <div className="relative px-5 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-10" dir="rtl">
             <div className="max-w-3xl">
-              <span
-                className="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em]"
-                style={{
-                  color: "#5b21b6",
-                  background: "rgba(124, 58, 237, 0.07)",
-                  borderColor: "rgba(124, 58, 237, 0.18)",
-                }}
-              >
-                מעטפת Growth
-              </span>
               <h3 className="mt-3 text-xl sm:text-2xl font-bold text-slate-900 leading-snug tracking-tight">
                 ליווי{" "}
                 <span className="gradient-text">מקצה לקצה</span>

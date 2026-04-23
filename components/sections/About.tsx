@@ -1,8 +1,7 @@
 "use client";
 
-import { CheckCircle2, Layers, MoveLeft, Radar } from "lucide-react";
+import { CheckCircle2, Layers, Radar } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
-import CtaButton from "@/components/ui/CtaButton";
 
 const pillars = [
   {
@@ -16,12 +15,12 @@ const pillars = [
     ],
     icon: Layers,
     accent: {
-      border: "rgba(124, 58, 237, 0.22)",
-      bg: "linear-gradient(160deg, rgba(124, 58, 237, 0.06) 0%, rgba(255, 255, 255, 0.97) 50%, #ffffff 100%)",
-      iconBg: "rgba(124, 58, 237, 0.11)",
-      iconBorder: "rgba(124, 58, 237, 0.2)",
-      iconColor: "#6d28d9",
-      titleColor: "#5b21b6",
+      border: "rgba(37, 99, 235, 0.2)",
+      bg: "#ffffff",
+      iconBg: "rgba(37, 99, 235, 0.09)",
+      iconBorder: "rgba(37, 99, 235, 0.18)",
+      iconColor: "#1d4ed8",
+      titleColor: "#1e40af",
     },
   },
   {
@@ -35,12 +34,12 @@ const pillars = [
     ],
     icon: Radar,
     accent: {
-      border: "rgba(14, 165, 233, 0.24)",
-      bg: "linear-gradient(160deg, rgba(14, 165, 233, 0.07) 0%, rgba(255, 255, 255, 0.97) 50%, #ffffff 100%)",
-      iconBg: "rgba(14, 165, 233, 0.12)",
-      iconBorder: "rgba(14, 165, 233, 0.22)",
-      iconColor: "#0284c7",
-      titleColor: "#0369a1",
+      border: "rgba(30, 64, 175, 0.16)",
+      bg: "#ffffff",
+      iconBg: "rgba(30, 64, 175, 0.08)",
+      iconBorder: "rgba(30, 64, 175, 0.18)",
+      iconColor: "#1e40af",
+      titleColor: "#1e3a8a",
     },
   },
 ];
@@ -50,7 +49,7 @@ export default function About() {
     <section
       id="about"
       className="py-16 md:py-24 lg:py-32"
-      style={{ background: "linear-gradient(180deg, #F8FAFF 0%, #F9FAFB 60%, #F4F7FF 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 60%, #F3F6FB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-10 md:mb-14 max-w-3xl mx-auto" viewportKey="section" y={20} duration={0.6}>
@@ -64,16 +63,11 @@ export default function About() {
         </Reveal>
 
         <Reveal
-          className="relative overflow-hidden rounded-[var(--radius)] border border-slate-200/80 bg-gradient-to-b from-white via-white to-[#f4f7ff] shadow-[0_1px_3px_rgba(15,23,42,0.06),0_14px_36px_-20px_rgba(124,58,237,0.1)]"
+          className="relative overflow-hidden rounded-[var(--radius)] border border-slate-200 bg-white shadow-premium"
           viewportKey="sectionTight"
           y={32}
           duration={0.7}
         >
-          <div
-            className="absolute inset-x-0 top-0 h-[3px] opacity-90"
-            style={{ background: "var(--gradient-cta)" }}
-            aria-hidden
-          />
           <div className="relative p-5 sm:p-7 md:p-9" dir="rtl">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
               {pillars.map((item, i) => {
@@ -134,8 +128,7 @@ export default function About() {
               className="mt-6 rounded-[var(--radius-soft)] border px-4 py-4 md:px-6 md:py-5"
               style={{
                 borderColor: "rgba(15, 23, 42, 0.08)",
-                background:
-                  "linear-gradient(120deg, rgba(124, 58, 237, 0.04) 0%, rgba(255, 255, 255, 0.85) 48%, rgba(14, 165, 233, 0.05) 100%)",
+                background: "#f8fafc",
               }}
             >
               <p className="text-sm md:text-[0.9375rem] leading-relaxed text-slate-600 text-center md:text-right">
@@ -146,18 +139,6 @@ export default function About() {
           </div>
         </Reveal>
 
-        <Reveal className="flex flex-col items-center gap-3 mt-8 md:mt-10" viewportKey="section" y={16} duration={0.55}>
-          <p className="text-xs sm:text-sm text-center text-slate-500 max-w-md">
-            רוצים לראות איך זה נראה בפועל? עבודות אמיתיות מהשטח.
-          </p>
-          <CtaButton
-            variant="secondary"
-            className="text-sm"
-            icon={MoveLeft}
-            label="לצפייה בפרויקטים"
-            href="/#projects"
-          />
-        </Reveal>
       </div>
     </section>
   );

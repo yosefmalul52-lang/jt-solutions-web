@@ -63,7 +63,7 @@ export default function Pricing() {
     <section
       id="pricing"
       className="py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F7FAFF 0%, #F9FAFB 56%, #F4F7FF 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 58%, #F3F6FB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14" viewportKey="sectionLoose" y={20} duration={0.6}>
@@ -73,8 +73,7 @@ export default function Pricing() {
             <span className="gradient-text">שמתאים לשלב העסק</span>
           </h2>
           <p className="premium-subtitle max-w-3xl mx-auto">
-            שלוש רמות שירות ברורות — כדי לדעת מאיפה מתחילים ולאן מתקדמים. אחרי העלייה לאוויר המסע ממשיך: אופטימיזציה,
-            ניהול שוטף ותחזוקה, כדי שהנכס ימשיך לעבוד בשבילכם.
+            שלוש רמות שירות ברורות עם תוצאה עסקית צפויה, זמן עליה לאוויר והתאמה לשלב שבו העסק נמצא עכשיו.
           </p>
         </Reveal>
 
@@ -89,9 +88,9 @@ export default function Pricing() {
             <motion.article
               variants={tierItem}
               key={tier.id}
-              className={`relative isolate rounded-[var(--radius)] p-6 bg-white/80 backdrop-blur-md border border-white/40 hover:-translate-y-1 transition-all duration-300 ease-out ${
+              className={`relative isolate rounded-[var(--radius)] p-6 bg-white border border-slate-200 hover:-translate-y-1 transition-all duration-300 ease-out ${
                 tier.popular
-                  ? "border-2 !border-blue-500 ring-1 ring-violet-300/40 shadow-none hover:shadow-none"
+                  ? "border-2 !border-blue-500 shadow-none hover:shadow-none"
                   : "shadow-premium hover:shadow-xl"
               }`}
               style={
@@ -100,18 +99,6 @@ export default function Pricing() {
                   : { boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.05)" }
               }
             >
-              {tier.popular && (
-                <div
-                  aria-hidden
-                  className="absolute -inset-1 rounded-[calc(var(--radius)+4px)] pointer-events-none -z-10"
-                  style={{
-                    background: "linear-gradient(120deg, #10b3e7, #7c3aed)",
-                    opacity: 0.18,
-                    filter: "blur(14px)",
-                  }}
-                />
-              )}
-
               {tier.popular && (
                 <span
                   className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3.5 py-1.5 rounded-[var(--radius-soft)]"
@@ -145,13 +132,7 @@ export default function Pricing() {
           id="tech-stack"
           className="scroll-mt-28 md:scroll-mt-32 pt-16 md:pt-20 lg:pt-24 mt-8 md:mt-10"
         >
-          <div className="relative rounded-[var(--radius)] border border-slate-200/80 bg-white/70 backdrop-blur-md overflow-hidden shadow-[0_1px_0_rgba(15,23,42,0.04)]">
-            <div
-              aria-hidden
-              className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-slate-300/80 to-transparent"
-            />
-            <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(165deg,rgba(248,250,252,0.9)_0%,transparent_42%,rgba(241,245,249,0.35)_100%)]" />
-
+          <div className="relative rounded-[var(--radius)] border border-slate-200 bg-white shadow-premium">
             <div className="relative px-6 py-10 md:px-10 md:py-12 lg:px-12 lg:py-14">
               <Reveal className="mb-10 md:mb-12" viewportKey="sectionLoose" y={20} duration={0.6}>
                 <div className="max-w-3xl mx-auto text-center md:text-start">
@@ -181,7 +162,7 @@ export default function Pricing() {
                       y={18}
                       duration={0.55}
                       delay={0.08 * i}
-                      className="group relative rounded-2xl border border-slate-200/90 border-s-2 border-s-indigo-400/25 bg-white/90 p-5 md:p-6 transition-colors duration-300 hover:border-slate-300 hover:border-s-indigo-400/35 hover:bg-white"
+                      className="group relative rounded-[var(--radius-soft)] border border-slate-200 border-s-2 border-s-blue-400/30 bg-white p-5 md:p-6 transition-colors duration-300 hover:border-slate-300 hover:border-s-blue-500/45"
                     >
                       <div className="flex flex-col gap-4 h-full">
                         <div className="flex items-center gap-3">

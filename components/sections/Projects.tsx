@@ -8,22 +8,21 @@ export default function Projects() {
     <section
       id="projects"
       className="relative overflow-hidden py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F8FAFF 0%, #F9FAFB 52%, #F6F8FF 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 52%, #F5F8FC 100%)" }}
     >
       <div
         aria-hidden
         className="pointer-events-none absolute right-[9%] top-14 h-36 w-36 rounded-full"
-        style={{ background: "rgba(91,33,182,0.08)", filter: "blur(38px)" }}
+        style={{ background: "rgba(37,99,235,0.07)", filter: "blur(42px)" }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute left-[7%] bottom-10 h-32 w-32 rounded-full"
-        style={{ background: "rgba(14,165,233,0.08)", filter: "blur(34px)" }}
+        style={{ background: "rgba(30,64,175,0.06)", filter: "blur(38px)" }}
       />
 
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-16 pb-6 text-center" viewportKey="section" y={22} duration={0.62}>
-          <span className="premium-badge mb-4">פרויקטים נבחרים</span>
           <h2 className="premium-title mt-1">
             פרויקטים שמייצרים צמיחה אמיתית
           </h2>
