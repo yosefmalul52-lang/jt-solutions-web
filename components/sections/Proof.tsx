@@ -203,13 +203,14 @@ export default function Proof() {
     <section
       id="proof"
       className="py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 56%, #F3F6FB 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F2F6FC 50%, #F9FAFB 100%)" }}
     >
-      <div
-        aria-hidden
-        className="absolute top-10 right-[8%] w-36 h-36 rounded-full pointer-events-none"
-        style={{ background: "rgba(37,99,235,0.08)", filter: "blur(42px)" }}
-      />
+      <div aria-hidden className="section-blob-layer overflow-hidden">
+        <div
+          className="absolute top-10 right-[8%] w-36 h-36 rounded-full"
+          style={{ background: "rgba(37,99,235,0.2)", filter: "blur(34px)" }}
+        />
+      </div>
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14" viewportKey="sectionProof" y={20} duration={0.65}>
           <h2 className="premium-title">

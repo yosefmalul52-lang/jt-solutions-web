@@ -3,8 +3,8 @@
 :root {
   --background: #F9FAFB;
   --foreground: #0f172a;
-  --accent-from: #1d4ed8;
-  --accent-to: #2563eb;
+  --accent-from: #5b21b6;
+  --accent-to: #4f46e5;
   --muted: #64748b;
   --border: rgba(15, 23, 42, 0.08);
   --card: #ffffff;
@@ -21,11 +21,11 @@
   --text-display: clamp(2.2rem, 5.5vw, 4.4rem);
   --text-title: clamp(1.8rem, 3.8vw, 3.1rem);
   --text-body: clamp(1rem, 1.6vw, 1.125rem);
-  --cta-from: #1d4ed8;
-  --cta-to: #2563eb;
-  --gradient-cta: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
-  --shadow-glow: 0 8px 18px rgba(37, 99, 235, 0.16);
-  --shadow-glow-active: 0 12px 24px rgba(37, 99, 235, 0.2);
+  --cta-from: #10b3e7;
+  --cta-to: #7c3aed;
+  --gradient-cta: linear-gradient(90deg, #10b3e7 0%, #7c3aed 100%);
+  --shadow-glow: 0 15px 35px -5px rgba(124, 58, 237, 0.125), 0 10px 24px -8px rgba(16, 179, 231, 0.1);
+  --shadow-glow-active: 0 20px 42px -6px rgba(124, 58, 237, 0.17), 0 12px 30px -8px rgba(16, 179, 231, 0.14);
 }
 
 @theme inline {
@@ -69,7 +69,7 @@ body {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #1e40af, #2563eb);
+  background: linear-gradient(135deg, #5b21b6, #4f46e5 50%, #0ea5e9);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -85,15 +85,19 @@ body {
 
 .section-shell {
   position: relative;
+  isolation: isolate;
 }
 
-.section-shell::before {
-  content: "";
+.section-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-shell > .section-blob-layer {
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
-  background: transparent;
-  opacity: 1;
 }
 
 .premium-badge {

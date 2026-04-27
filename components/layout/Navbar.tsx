@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -11,9 +11,9 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const navLinks = [
   { label: "שירותים", href: "/#services" },
-  { label: "אודות", href: "/#about" },
-  { label: "הוכחות", href: "/#proof" },
   { label: "פרויקטים", href: "/#projects" },
+  { label: "הוכחות", href: "/#proof" },
+  { label: "אודות", href: "/#about" },
   { label: "אחרי ההשקה", href: "/#tech-stack" },
   { label: "צור קשר", href: "/#contact" },
 ];
@@ -23,6 +23,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("#hero");
   const pathname = usePathname();
+  const navScrollLockTargetRef = useRef<string | null>(null);
+  const navScrollLockTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -32,37 +34,90 @@ export default function Navbar() {
 
   useEffect(() => {
     if (pathname !== "/") return;
-    const sectionIds = [
-      "#hero",
-      "#services",
-      "#about",
-      "#proof",
-      "#projects",
-      "#pricing",
-      "#tech-stack",
-      "#contact",
-    ];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target?.id) {
-          setActiveHash(`#${visible.target.id}`);
+
+    const sectionIds = ["#hero", ...navLinks.map((link) => link.href.slice(1))];
+    const sections = sectionIds
+      .map((id) => document.querySelector<HTMLElement>(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    const pickClosestSectionToViewportCenter = () => {
+      if (sections.length === 0) return;
+
+      const lockedTarget = navScrollLockTargetRef.current;
+      if (lockedTarget) {
+        const targetSection = document.querySelector<HTMLElement>(lockedTarget);
+        if (targetSection) {
+          const reachedTarget = Math.abs(targetSection.getBoundingClientRect().top) <= 140;
+          if (!reachedTarget) {
+            setActiveHash(lockedTarget);
+            return;
+          }
         }
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: [0.2, 0.4, 0.6] },
-    );
-    sectionIds.forEach((id) => {
-      const el = document.querySelector(id);
-      if (el) observer.observe(el);
+        navScrollLockTargetRef.current = null;
+      }
+
+      const centerY = window.innerHeight / 2;
+      let closestId = "#hero";
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top - centerY);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestId = `#${section.id}`;
+        }
+      }
+
+      setActiveHash(closestId);
+    };
+
+    // Respect direct hash navigation on first paint.
+    if (window.location.hash) {
+      setActiveHash(window.location.hash);
+    } else {
+      pickClosestSectionToViewportCenter();
+    }
+
+    const observer = new IntersectionObserver(pickClosestSectionToViewportCenter, {
+      // "Center band" trigger: updates when sections pass middle viewport area.
+      rootMargin: "-45% 0px -45% 0px",
+      threshold: [0, 0.1, 0.25, 0.4, 0.6, 0.8, 1],
     });
-    return () => observer.disconnect();
+    sections.forEach((section) => observer.observe(section));
+
+    window.addEventListener("scroll", pickClosestSectionToViewportCenter, { passive: true });
+    window.addEventListener("resize", pickClosestSectionToViewportCenter);
+    window.addEventListener("hashchange", pickClosestSectionToViewportCenter);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", pickClosestSectionToViewportCenter);
+      window.removeEventListener("resize", pickClosestSectionToViewportCenter);
+      window.removeEventListener("hashchange", pickClosestSectionToViewportCenter);
+      if (navScrollLockTimerRef.current !== null) {
+        window.clearTimeout(navScrollLockTimerRef.current);
+        navScrollLockTimerRef.current = null;
+      }
+      navScrollLockTargetRef.current = null;
+    };
   }, [pathname]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    if (href.startsWith("/#")) setActiveHash(href.slice(1));
+    if (href.startsWith("/#")) {
+      const targetHash = href.slice(1);
+      setActiveHash(targetHash);
+      navScrollLockTargetRef.current = targetHash;
+      if (navScrollLockTimerRef.current !== null) {
+        window.clearTimeout(navScrollLockTimerRef.current);
+      }
+      // Fallback unlock in case the scroll is interrupted.
+      navScrollLockTimerRef.current = window.setTimeout(() => {
+        navScrollLockTargetRef.current = null;
+        navScrollLockTimerRef.current = null;
+      }, 1800);
+    }
     if (pathname === "/" && href.startsWith("/#")) {
       const id = href.slice(1);
       const el = document.querySelector(id);
@@ -99,8 +154,8 @@ export default function Navbar() {
               alt="JT Solutions לוגו"
               width={320}
               height={96}
-              className="h-12 w-auto object-contain"
-              sizes="(min-width: 640px) 220px, 180px"
+              className="h-24 w-auto object-contain"
+              sizes="(min-width: 640px) 260px, 210px"
               priority
             />
           </Link>
@@ -150,8 +205,6 @@ export default function Navbar() {
           </div>
         </nav>
       </motion.header>
-      <div className="h-[90px] sm:h-[102px]" />
-
       <AnimatePresence>
         {mobileOpen && (
           <motion.div

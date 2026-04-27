@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Send, MessageCircle, Mail, Phone } from "lucide-react";
+import { Send, Mail, Phone } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -81,7 +82,7 @@ export default function Contact() {
       <section
         id="contact"
         className="py-16 md:py-24 lg:py-32 relative overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #F1F5FF 0%, #F8FAFF 45%, #F9FAFB 100%)" }}
+        style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #EEF3FF 45%, #F9FAFB 100%)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Reveal className="text-center mb-16" viewportKey="section" y={24} duration={0.6}>
@@ -318,7 +319,7 @@ export default function Contact() {
         className="hidden md:flex fixed bottom-6 left-6 z-50 w-14 h-14 rounded-[var(--radius-soft)] bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
         style={{ boxShadow: "0 8px 24px rgba(16,185,129,0.4)" }}
       >
-        <MessageCircle size={26} className="text-white" fill="white" />
+        <WhatsAppIcon aria-hidden className="h-7 w-7 text-white" />
       </motion.a>
     </>
   );

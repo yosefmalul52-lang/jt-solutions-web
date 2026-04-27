@@ -8,18 +8,18 @@ export default function Projects() {
     <section
       id="projects"
       className="relative overflow-hidden py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 52%, #F5F8FC 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F3F7FD 50%, #F9FAFB 100%)" }}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-[9%] top-14 h-36 w-36 rounded-full"
-        style={{ background: "rgba(37,99,235,0.07)", filter: "blur(42px)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-[7%] bottom-10 h-32 w-32 rounded-full"
-        style={{ background: "rgba(30,64,175,0.06)", filter: "blur(38px)" }}
-      />
+      <div aria-hidden className="section-blob-layer overflow-hidden">
+        <div
+          className="absolute right-[9%] top-14 h-36 w-36 rounded-full"
+          style={{ background: "rgba(37,99,235,0.19)", filter: "blur(34px)" }}
+        />
+        <div
+          className="absolute left-[7%] bottom-10 h-32 w-32 rounded-full"
+          style={{ background: "rgba(30,64,175,0.16)", filter: "blur(30px)" }}
+        />
+      </div>
 
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-16 pb-6 text-center" viewportKey="section" y={22} duration={0.62}>

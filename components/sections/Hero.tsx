@@ -22,31 +22,32 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative -mt-[90px] sm:-mt-[102px] pt-[90px] sm:pt-[102px] min-h-screen flex flex-col overflow-hidden section-shell"
-      style={{ background: "linear-gradient(180deg, #F7F9FF 0%, #F9FAFB 70%, #F4F7FF 100%)" }}
+      className="relative -mt-[90px] sm:-mt-[102px] pt-[90px] sm:pt-[102px] h-[100svh] min-h-[100svh] flex flex-col overflow-hidden section-shell"
+      style={{
+        background: "linear-gradient(180deg, #F9FAFB 0%, #F3F6FF 42%, #F9FAFB 100%)",
+      }}
     >
-      <div
-        aria-hidden
-        className="absolute top-[8%] right-[4%] w-[22rem] h-[22rem] max-w-[50vw] rounded-full pointer-events-none"
-        style={{ background: "rgba(91,33,182,0.24)", filter: "blur(48px)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-[10%] left-[2%] w-[28rem] h-[28rem] max-w-[55vw] rounded-full pointer-events-none"
-        style={{ background: "rgba(16,179,231,0.2)", filter: "blur(52px)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute top-[32%] left-[-4%] w-[18rem] h-[18rem] max-w-[42vw] rounded-full pointer-events-none"
-        style={{ background: "rgba(79,70,229,0.2)", filter: "blur(44px)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-[36%] right-[2%] w-80 h-80 max-w-[44vw] rounded-full pointer-events-none"
-        style={{ background: "rgba(129,140,248,0.18)", filter: "blur(46px)" }}
-      />
+      <div aria-hidden className="section-blob-layer overflow-hidden">
+        <div
+          className="absolute top-[8%] right-[4%] w-[22rem] h-[22rem] max-w-[50vw] rounded-full"
+          style={{ background: "rgba(91,33,182,0.34)", filter: "blur(42px)" }}
+        />
+        <div
+          className="absolute bottom-[10%] left-[2%] w-[28rem] h-[28rem] max-w-[55vw] rounded-full"
+          style={{ background: "rgba(16,179,231,0.3)", filter: "blur(46px)" }}
+        />
+        <div
+          className="absolute top-[32%] left-[-4%] w-[18rem] h-[18rem] max-w-[42vw] rounded-full"
+          style={{ background: "rgba(79,70,229,0.28)", filter: "blur(38px)" }}
+        />
+        <div
+          className="absolute bottom-[36%] right-[2%] w-80 h-80 max-w-[44vw] rounded-full"
+          style={{ background: "rgba(129,140,248,0.28)", filter: "blur(40px)" }}
+        />
+      </div>
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[2px] bg-[#F8FAFC] pointer-events-none z-20" />
 
-      <div className="relative z-10 flex flex-1 flex-col w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-24 lg:py-28">
+      <div className="relative z-10 flex h-full flex-col w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12">
         <motion.div
           variants={heroStagger}
           initial="hidden"
@@ -54,7 +55,7 @@ export default function Hero() {
           viewport={motionViewport.sectionLoose}
           className="flex flex-1 flex-col"
         >
-          <div className="flex flex-1 flex-col justify-center">
+          <div className="flex flex-1 flex-col justify-center mt-8 md:mt-10">
             <div className="flex flex-col items-center text-center" dir="rtl">
               <motion.h1 variants={heroItemUp} className="display-title max-w-4xl mx-auto">
                 פתרונות דיגיטל מקצה לקצה:{" "}

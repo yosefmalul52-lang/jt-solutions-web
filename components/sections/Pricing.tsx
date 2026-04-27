@@ -63,7 +63,7 @@ export default function Pricing() {
     <section
       id="pricing"
       className="py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 58%, #F3F6FB 100%)" }}
+      style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F2F5FB 50%, #F9FAFB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14" viewportKey="sectionLoose" y={20} duration={0.6}>

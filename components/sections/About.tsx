@@ -48,8 +48,8 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-16 md:py-24 lg:py-32"
-      style={{ background: "linear-gradient(180deg, #F8FAFC 0%, #F9FAFB 60%, #F3F6FB 100%)" }}
+      className="py-16 md:py-24 lg:py-32 section-shell"
+      style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F2F5FB 50%, #F9FAFB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-10 md:mb-14 max-w-3xl mx-auto" viewportKey="section" y={20} duration={0.6}>

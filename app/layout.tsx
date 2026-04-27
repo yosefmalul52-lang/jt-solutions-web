@@ -6,6 +6,7 @@ import "./globals.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ScrollProgress from "@/components/layout/ScrollProgress";
+import CookieConsent from "@/components/layout/CookieConsent";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
         <ScrollProgress />
         <TrackingProvider>{children}</TrackingProvider>
+        <CookieConsent />
         {hasValidGaId ? <GoogleAnalytics gaId={gaId} /> : null}
         <Suspense fallback={null}>
           <MetaPixel />

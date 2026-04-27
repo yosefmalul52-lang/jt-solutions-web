@@ -138,9 +138,25 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" dir="rtl">
           <p className="text-xs" style={{ color: "#94A3B8" }}>&copy; 2025 JT Solutions. כל הזכויות שמורות.</p>
-          <p className="text-xs" style={{ color: "#94A3B8" }}>מעטפת דיגיטלית מלאה לעסקים בצמיחה</p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy-policy"
+              className="text-xs transition-colors duration-200 hover:text-slate-700"
+              style={{ color: "#94A3B8" }}
+            >
+              מדיניות פרטיות
+            </Link>
+            <span style={{ color: "#CBD5E1" }}>|</span>
+            <Link
+              href="/accessibility"
+              className="text-xs transition-colors duration-200 hover:text-slate-700"
+              style={{ color: "#94A3B8" }}
+            >
+              הצהרת נגישות
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
