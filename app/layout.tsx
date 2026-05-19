@@ -4,6 +4,7 @@ import { Heebo } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
+import JtPixel from "@/components/analytics/JtPixel";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
@@ -83,11 +84,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
       <head>
-        <script
-          src="http://localhost:3000/api/v1/pixel"
-          data-jt-id="jt_live_prod_998877665544"
-          async
-        />
+        <JtPixel />
       </head>
       <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
         <ScrollProgress />
