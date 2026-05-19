@@ -82,6 +82,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
+      <head>
+        <script
+          src="http://localhost:3000/api/v1/pixel"
+          data-jt-id="jt_live_prod_998877665544"
+          async
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
         <ScrollProgress />
         <TrackingProvider>{children}</TrackingProvider>
