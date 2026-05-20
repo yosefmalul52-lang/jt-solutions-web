@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Send, Mail, Phone } from "lucide-react";
+import { Send, Mail, Phone, Facebook, Instagram } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
+import { contactLinks } from "@/lib/site";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -101,48 +102,105 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <Reveal
-              className="lg:col-span-2 flex flex-col gap-5"
+              className="lg:col-span-2 flex flex-col gap-4"
               viewportKey="inView"
               x={-24}
               y={0}
               duration={0.6}
               delay={0.1}
             >
-              <div className="p-6 space-y-6 rounded-[var(--radius)]"
-                style={{ background: "rgba(255,255,255,0.86)", border: "1px solid rgba(15,23,42,0.08)", boxShadow: "0 16px 38px rgba(15,23,42,0.08)" }}>
+              <div
+                className="space-y-4 rounded-[var(--radius)] p-4 sm:p-5"
+                style={{ background: "rgba(255,255,255,0.86)", border: "1px solid rgba(15,23,42,0.08)", boxShadow: "0 12px 28px rgba(15,23,42,0.06)" }}
+              >
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">פרטי יצירת קשר</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>
+                  <h3 className="text-base font-bold text-gray-900 mb-0.5">פרטי יצירת קשר</h3>
+                  <p className="text-xs leading-relaxed" style={{ color: "#6B7280" }}>
                     נקודת קשר אחת לכל התהליך.
                   </p>
                 </div>
-                <ul className="space-y-2 text-sm" style={{ color: "#4B5563" }}>
+                <ul className="space-y-1 text-xs" style={{ color: "#4B5563" }}>
                   <li>• תהליך עבודה ברור עם אבני דרך</li>
                   <li>• מוכנות לפרסום מיד עם סיום ההקמה</li>
                 </ul>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                      style={{ background: "rgba(79,70,229,0.08)", border: "1px solid rgba(79,70,229,0.15)" }}>
-                      <Mail size={16} style={{ color: "#4f46e5" }} />
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border"
+                      style={{ background: "rgba(16,179,231,0.12)", borderColor: "rgba(16,179,231,0.28)" }}
+                    >
+                      <Mail size={14} className="text-[#10b3e7]" />
                     </div>
                     <div>
-                      <div className="text-xs" style={{ color: "#9CA3AF" }}>אימייל</div>
-                      <a href="mailto:jtsolutions.officee@gmail.com" className="text-sm font-medium text-gray-800 hover:text-indigo-600 transition-colors">
-                        jtsolutions.officee@gmail.com
+                      <div className="text-[11px] font-semibold text-slate-500">אימייל</div>
+                      <a
+                        href={`mailto:${contactLinks.email}`}
+                        className="text-xs font-semibold text-slate-800 transition-colors hover:text-[#10b3e7]"
+                      >
+                        {contactLinks.email}
                       </a>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                      style={{ background: "rgba(79,70,229,0.08)", border: "1px solid rgba(79,70,229,0.15)" }}>
-                      <Phone size={16} style={{ color: "#4f46e5" }} />
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border"
+                      style={{ background: "rgba(34,197,94,0.12)", borderColor: "rgba(34,197,94,0.28)" }}
+                    >
+                      <Phone size={14} className="text-[#22C55E]" />
                     </div>
                     <div>
-                      <div className="text-xs" style={{ color: "#9CA3AF" }}>טלפון</div>
-                      <a href="tel:0528240230" className="text-sm font-medium text-gray-800 hover:text-indigo-600 transition-colors">
+                      <div className="text-[11px] font-semibold text-slate-500">טלפון</div>
+                      <a
+                        href={`tel:${contactLinks.phone}`}
+                        className="text-xs font-semibold text-slate-800 transition-colors hover:text-[#22C55E]"
+                      >
                         052-8240230
                       </a>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2.5 border-t border-slate-200/80 pt-3">
+                    <p className="text-[11px] font-semibold text-slate-500">רשתות חברתיות</p>
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border"
+                        style={{ background: "rgba(24,119,242,0.12)", borderColor: "rgba(24,119,242,0.28)" }}
+                      >
+                        <Facebook size={14} className="text-[#1877F2]" />
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-500">פייסבוק</div>
+                        <a
+                          href={contactLinks.facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-semibold text-slate-800 transition-colors hover:text-[#1877F2]"
+                        >
+                          JT Solutions
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <div
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border"
+                        style={{
+                          background: "linear-gradient(145deg, rgba(225,48,108,0.14) 0%, rgba(131,58,180,0.14) 100%)",
+                          borderColor: "rgba(225,48,108,0.3)",
+                        }}
+                      >
+                        <Instagram size={14} className="text-[#E1306C]" />
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-semibold text-slate-500">אינסטגרם</div>
+                        <a
+                          href={contactLinks.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-semibold text-slate-800 transition-colors hover:text-[#E1306C]"
+                        >
+                          @jt.solutions.il
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -277,25 +335,6 @@ export default function Contact() {
                     </>
                   )}
                 </button>
-
-                <div className="flex flex-wrap items-center justify-center gap-2">
-                  {["ללא התחייבות", "ללא ספאם", "מענה אישי"].map((item) => (
-                    <span
-                      key={item}
-                      className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-                      style={{ color: "#475569", background: "rgba(255,255,255,0.9)", border: "1px solid rgba(15,23,42,0.08)" }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-
-                <p className="text-xs text-center" style={{ color: "#9CA3AF" }}>
-                  ללא ספאם. ללא התחייבות.
-                </p>
-                <p className="text-xs text-center font-semibold" style={{ color: "#5B21B6" }}>
-                  מענה אישי תוך 24 שעות בימי עסקים
-                </p>
               </form>
             </Reveal>
           </div>
@@ -316,7 +355,7 @@ export default function Contact() {
         }
         whileHover={reduce ? undefined : { scale: 1.1 }}
         whileTap={reduce ? undefined : { scale: 0.95 }}
-        className="hidden md:flex fixed bottom-6 left-6 z-50 w-14 h-14 rounded-[var(--radius-soft)] bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
+        className="hidden md:flex fixed bottom-14 left-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
         style={{ boxShadow: "0 8px 24px rgba(16,185,129,0.4)" }}
       >
         <WhatsAppIcon aria-hidden className="h-7 w-7 text-white" />

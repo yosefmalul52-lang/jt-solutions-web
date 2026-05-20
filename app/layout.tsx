@@ -8,6 +8,7 @@ import JtPixel from "@/components/analytics/JtPixel";
 import MetaPixel from "@/components/analytics/MetaPixel";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
+import EqualWeb from "@/components/accessibility/EqualWeb";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
+        <EqualWeb />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

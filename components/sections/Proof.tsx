@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { Phone } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 
 type PillarKind = "metrics" | "availability" | "responsibility";
@@ -99,38 +100,7 @@ function LivePillarIcon({ kind }: { kind: PillarKind }) {
   }
 
   if (kind === "availability") {
-    return (
-      <svg viewBox="0 0 48 48" className="h-[22px] w-[22px]" aria-hidden>
-        <motion.path
-          d="M15.5 9.5C14.7 8.7 13.5 8.8 12.9 9.8L9.8 14.9C9.1 16 9.3 17.5 10.3 18.4L16.2 23.7C17.1 24.5 17.3 25.8 16.8 26.8L15.6 29C14.9 30.2 15.1 31.8 16.1 32.8L23.2 39.9C24.2 40.9 25.8 41.1 27 40.4L29.2 39.2C30.2 38.7 31.5 38.9 32.3 39.8L37.6 45.7C38.5 46.7 40 46.9 41.1 46.2L46.2 43.1C47.2 42.5 47.3 41.3 46.5 40.5L39.8 33.8C39 33 37.8 32.9 36.9 33.5L33.9 35.5C33.1 36 32.1 36.1 31.3 35.7C27.4 33.9 22.1 28.6 20.3 24.7C19.9 23.9 20 22.9 20.5 22.1L22.5 19.1C23.1 18.2 23 17 22.2 16.2L15.5 9.5Z"
-          stroke="currentColor"
-          strokeWidth="1.9"
-          strokeLinejoin="round"
-          fill="none"
-          animate={{ rotate: [0, -10, 8, -6, 0] }}
-          transition={{ duration: 1.35, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.75, ease: "easeInOut" }}
-          style={{ transformOrigin: "24px 24px" }}
-        />
-        <motion.path
-          d="M31.5 14.2C33.2 15.2 34.6 16.6 35.6 18.3"
-          stroke="currentColor"
-          strokeWidth="1.9"
-          strokeLinecap="round"
-          fill="none"
-          animate={{ opacity: [0.25, 0.95, 0.25] }}
-          transition={{ duration: 1.35, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.75, ease: "easeInOut" }}
-        />
-        <motion.path
-          d="M34.8 10.6C37.1 11.9 39.1 13.9 40.4 16.2"
-          stroke="currentColor"
-          strokeWidth="1.9"
-          strokeLinecap="round"
-          fill="none"
-          animate={{ opacity: [0.1, 0.75, 0.1] }}
-          transition={{ duration: 1.35, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.75, ease: "easeInOut", delay: 0.08 }}
-        />
-      </svg>
-    );
+    return <Phone size={22} strokeWidth={2} stroke="#10b3e7" aria-hidden />;
   }
 
   return (
@@ -160,19 +130,19 @@ function LivePillarIcon({ kind }: { kind: PillarKind }) {
 function getPillarIconTone(kind: PillarKind) {
   if (kind === "metrics") {
     return {
-      badgeStyle: { background: "rgba(37, 99, 235, 0.1)", border: "1px solid rgba(37, 99, 235, 0.22)" },
-      iconClass: "text-blue-600",
+      badgeStyle: { background: "rgba(37, 99, 235, 0.12)", border: "1px solid rgba(37, 99, 235, 0.26)" },
+      iconClass: "text-[#2563eb]",
     };
   }
   if (kind === "availability") {
     return {
-      badgeStyle: { background: "rgba(22, 163, 74, 0.1)", border: "1px solid rgba(22, 163, 74, 0.22)" },
-      iconClass: "text-emerald-600",
+      badgeStyle: { background: "rgba(16, 179, 231, 0.12)", border: "1px solid rgba(16, 179, 231, 0.28)" },
+      iconClass: "text-[#10b3e7]",
     };
   }
   return {
-    badgeStyle: { background: "rgba(124, 58, 237, 0.1)", border: "1px solid rgba(124, 58, 237, 0.22)" },
-    iconClass: "text-violet-600",
+    badgeStyle: { background: "rgba(124, 58, 237, 0.12)", border: "1px solid rgba(124, 58, 237, 0.28)" },
+    iconClass: "text-[#7c3aed]",
   };
 }
 
@@ -282,14 +252,29 @@ export default function Proof() {
 
         <Reveal
           as="article"
-          className="mt-8 mb-12 rounded-[var(--radius)] p-6 sm:p-8 bg-white border border-slate-200 shadow-premium"
+          className="mt-8 mb-12 rounded-[var(--radius)] p-6 sm:p-8 border shadow-premium relative overflow-hidden"
           viewportKey="sectionTight"
           y={22}
           duration={0.6}
+          style={{
+            borderColor: "rgba(79,70,229,0.18)",
+            background:
+              "linear-gradient(160deg, rgba(239,246,255,0.78) 0%, rgba(238,242,255,0.72) 38%, rgba(250,245,255,0.66) 100%)",
+          }}
         >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full"
+            style={{ background: "rgba(79,70,229,0.18)", filter: "blur(52px)" }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-24 -left-14 h-64 w-64 rounded-full"
+            style={{ background: "rgba(16,179,231,0.16)", filter: "blur(56px)" }}
+          />
           <div className="grid grid-cols-1 lg:grid-cols-[0.6fr_0.4fr] gap-8 md:gap-10 items-center" dir="ltr">
             <div className="order-2 lg:order-1" ref={leadVideoWrapRef}>
-              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl aspect-square shadow-premium overflow-hidden border border-white/40">
+              <div className="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl aspect-square shadow-premium overflow-hidden border border-white/60">
                 <video
                   ref={leadVideoRef}
                   className="h-full w-full object-cover"
@@ -304,9 +289,12 @@ export default function Proof() {
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 text-right" dir="rtl">
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-slate-900">
-             תפסיקו לרדוף אחרי לידים: המערכת שעושה עבורכם את העבודה
+            <div className="order-1 lg:order-2 text-right relative z-[1]" dir="rtl">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-slate-900 text-balance">
+                תפסיקו לרדוף אחרי לידים:{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#7c3aed]">
+                  המערכת שעושה עבורכם את העבודה
+                </span>
               </h3>
 
               <ol className="mt-5 space-y-4 text-sm sm:text-base leading-relaxed list-decimal list-inside" style={{ color: "#475569" }}>

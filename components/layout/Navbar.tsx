@@ -5,7 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import { contactLinks } from "@/lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -13,7 +14,6 @@ const navLinks = [
   { label: "שירותים", href: "/#services" },
   { label: "פרויקטים", href: "/#projects" },
   { label: "הוכחות", href: "/#proof" },
-  { label: "אודות", href: "/#about" },
   { label: "אחרי ההשקה", href: "/#tech-stack" },
   { label: "צור קשר", href: "/#contact" },
 ];
@@ -127,6 +127,14 @@ export default function Navbar() {
 
   return (
     <>
+      <svg aria-hidden className="absolute h-0 w-0 overflow-hidden">
+        <defs>
+          <linearGradient id="brandPhoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#10b3e7" />
+            <stop offset="100%" stopColor="#7c3aed" />
+          </linearGradient>
+        </defs>
+      </svg>
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -188,13 +196,17 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/#contact"
-              onClick={() => handleNavClick("/#contact")}
-              className="hidden md:inline-flex btn-primary text-sm"
+            <a
+              href={`tel:${contactLinks.phone}`}
+              aria-label="התקשרו אל JT Solutions"
+              className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]"
+              style={{
+                background: "linear-gradient(120deg, rgba(16,179,231,0.14), rgba(124,58,237,0.14))",
+                borderColor: "rgba(124,58,237,0.22)",
+              }}
             >
-              קובעים שיחת התאמה
-            </Link>
+              <Phone size={18} stroke="url(#brandPhoneGradient)" />
+            </a>
             <button
               onClick={() => setMobileOpen((p) => !p)}
               className="md:hidden p-2 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-all"
@@ -234,13 +246,19 @@ export default function Navbar() {
                 </li>
               ))}
               <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                <Link
-                  href="/#contact"
-                  onClick={() => handleNavClick("/#contact")}
-                  className="w-full inline-flex items-center justify-center btn-primary text-sm"
+                <a
+                  href={`tel:${contactLinks.phone}`}
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="התקשרו אל JT Solutions"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
+                  style={{
+                    background: "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
+                    borderColor: "rgba(124,58,237,0.22)",
+                  }}
                 >
-                  קובעים שיחת התאמה
-                </Link>
+                  <Phone size={18} stroke="url(#brandPhoneGradient)" />
+                  <span className="gradient-text">052-8240230</span>
+                </a>
               </li>
             </ul>
           </motion.div>

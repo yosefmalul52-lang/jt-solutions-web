@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
+import { contactLinks } from "@/lib/site";
 
 const quickLinks = [
   { label: "שירותים", href: "/#services" },
-  { label: "אודות", href: "/#about" },
   { label: "הוכחות", href: "/#proof" },
   { label: "פרויקטים", href: "/#projects" },
   { label: "אחרי ההשקה", href: "/#tech-stack" },
@@ -14,10 +13,25 @@ const quickLinks = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-];
+  {
+    icon: Facebook,
+    href: contactLinks.facebook,
+    label: "JT Solutions בפייסבוק",
+    iconColor: "#1877F2",
+    background: "rgba(24,119,242,0.12)",
+    borderColor: "rgba(24,119,242,0.28)",
+    hoverBackground: "rgba(24,119,242,0.2)",
+  },
+  {
+    icon: Instagram,
+    href: contactLinks.instagram,
+    label: "@jt.solutions.il באינסטגרם",
+    iconColor: "#E1306C",
+    background: "linear-gradient(145deg, rgba(225,48,108,0.14) 0%, rgba(131,58,180,0.14) 100%)",
+    borderColor: "rgba(225,48,108,0.3)",
+    hoverBackground: "linear-gradient(145deg, rgba(225,48,108,0.22) 0%, rgba(131,58,180,0.22) 100%)",
+  },
+] as const;
 
 export default function Footer() {
   return (
@@ -27,39 +41,32 @@ export default function Footer() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10" style={{ borderBottom: "1px solid rgba(15,23,42,0.08)" }}>
-          <div className="md:col-span-1 space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/jt-logo.png"
-                alt="JT Solutions לוגו"
-                width={190}
-                height={62}
-                className="object-contain h-12 w-auto"
-              />
-            </Link>
-            <p className="text-sm leading-relaxed max-w-xs" style={{ color: "#6B7280" }}>
-              שיחת התאמה קצרה, המלצה ברורה, וביצוע מקצה לקצה שמייצר תוצאות.
+          <div className="md:col-span-1">
+            <h4 className="text-sm font-semibold text-gray-900 mb-4">JT Solutions</h4>
+            <p className="max-w-xs text-sm leading-relaxed" style={{ color: "#6B7280" }}>
+              מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים.
             </p>
-            <div className="space-y-1">
-              <a href="mailto:jtsolutions.officee@gmail.com" className="block text-sm transition-colors duration-200"
-                style={{ color: "#6B7280" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#111827"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#6B7280"; }}>
-                jtsolutions.officee@gmail.com
-              </a>
-              <a href="tel:0528240230" className="block text-sm transition-colors duration-200"
-                style={{ color: "#6B7280" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#111827"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#6B7280"; }}>
-                052-8240230
-              </a>
-            </div>
-            <Link
-              href="/#contact"
-              className="btn-primary text-sm"
-            >
-              קובעים שיחת התאמה
-            </Link>
+            <p className="text-xs font-semibold text-gray-900 mt-6 mb-3">יצירת קשר</p>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href={`mailto:${contactLinks.email}`}
+                  className="text-sm transition-colors duration-200 hover:text-[#10b3e7]"
+                  style={{ color: "#6B7280" }}
+                >
+                  {contactLinks.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${contactLinks.phone}`}
+                  className="text-sm transition-colors duration-200 hover:text-[#22C55E]"
+                  style={{ color: "#6B7280" }}
+                >
+                  052-8240230
+                </a>
+              </li>
+            </ul>
           </div>
 
           <div>
@@ -101,41 +108,39 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">עקבו אחרינו</h4>
-            <div className="flex items-center gap-3">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-[var(--radius-soft)] flex items-center justify-center transition-all duration-200"
-                  style={{
-                    background: "rgba(255,255,255,0.86)",
-                    border: "1px solid rgba(15,23,42,0.08)",
-                    boxShadow: "0 12px 28px rgba(15,23,42,0.08)",
-                    color: "#94A3B8",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.color = "#5B21B6";
-                    el.style.borderColor = "rgba(91,33,182,0.2)";
-                    el.style.background = "rgba(91,33,182,0.08)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLAnchorElement;
-                    el.style.color = "#94A3B8";
-                    el.style.borderColor = "rgba(15,23,42,0.08)";
-                    el.style.background = "rgba(255,255,255,0.86)";
-                  }}
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
+          {socialLinks.length > 0 ? (
+            <div>
+              <h4 className="text-sm font-semibold text-gray-900 mb-4">עקבו אחרינו</h4>
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ icon: Icon, href, label, iconColor, background, borderColor, hoverBackground }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-soft)] border transition-all duration-200"
+                    style={{
+                      background,
+                      borderColor,
+                      boxShadow: "0 8px 20px rgba(15,23,42,0.06)",
+                      color: iconColor,
+                    }}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      el.style.background = hoverBackground;
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLAnchorElement;
+                      el.style.background = background;
+                    }}
+                  >
+                    <Icon size={16} style={{ color: iconColor }} />
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" dir="rtl">

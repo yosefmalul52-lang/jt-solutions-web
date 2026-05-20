@@ -24,7 +24,8 @@ export default function Projects() {
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <Reveal className="mb-16 pb-6 text-center" viewportKey="section" y={22} duration={0.62}>
           <h2 className="premium-title mt-1">
-            פרויקטים שמייצרים צמיחה אמיתית
+            פרויקטים שמייצרים{" "}
+            <span className="gradient-text">צמיחה אמיתית</span>
           </h2>
           <p className="premium-subtitle mx-auto mt-3 max-w-2xl">
             עיצוב נקי, חוויית משתמש מדויקת ותהליך ברור שמחבר בין נראות גבוהה לתוצאות עסקיות.
