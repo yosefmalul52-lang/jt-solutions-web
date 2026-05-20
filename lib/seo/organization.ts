@@ -7,8 +7,8 @@ export function getOrganizationJsonLd() {
     "@type": "ProfessionalService",
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/jt-logo.png`,
-    image: `${SITE_URL}/opengraph-image.png`,
+    logo: `${SITE_URL}/icon-512.png`,
+    image: `${SITE_URL}/icon-512.png`,
     telephone: contactLinks.phone,
     email: contactLinks.email,
     areaServed: {
@@ -35,6 +35,7 @@ export function getWebSiteJsonLd() {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
+      logo: `${SITE_URL}/icon-512.png`,
     },
   };
 }
