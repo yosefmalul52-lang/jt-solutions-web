@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Send, Mail, Phone, Facebook, Instagram } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
+import { trackPhoneClick, trackWhatsAppClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useForm } from "react-hook-form";
@@ -152,6 +153,7 @@ export default function Contact() {
                       <div className="text-[11px] font-semibold text-slate-500">טלפון</div>
                       <a
                         href={`tel:${contactLinks.phone}`}
+                        onClick={() => trackPhoneClick("contact_section")}
                         className="text-xs font-semibold text-slate-800 transition-colors hover:text-[#22C55E]"
                       >
                         052-8240230
@@ -345,6 +347,7 @@ export default function Contact() {
         href="https://wa.me/972528240230?text=שלום%2C%20אני%20מעוניין%20לשמוע%20עוד%20על%20השירותים%20שלכם"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsAppClick("contact_fab")}
         aria-label="שיחה ב-WhatsApp"
         initial={reduce === true ? false : { scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

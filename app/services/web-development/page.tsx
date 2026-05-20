@@ -1,18 +1,31 @@
-import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
+import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { Code2, Gauge, LayoutTemplate, Rocket, ShieldCheck } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "פיתוח אתרים ומערכות מותאמות | JT Solutions - סוכנות דיגיטל",
-  description:
-    "פיתוח אתרים ומערכות לעסקים עם ארכיטקטורה יציבה, מהירות טעינה גבוהה, התאמה למובייל, אבטחה ותשתית צמיחה שמגדילה פניות ומכירות.",
-};
+const slug = "web-development" as const;
+const seo = servicePages[slug];
+export const metadata = getServiceMetadata(slug);
+
+const faq = mergeServiceFaq(
+  [
+    { question: "אפשר לשלב עם מערכת קיימת?", answer: "כן. אנחנו מתחברים למערכות קיימות כמו CRM, מחסן, מערכת תשלומים ועוד — הכל נבחן בשיחת אפיון ראשונה." },
+    { question: "הקוד נשאר בבעלות העסק?", answer: "בהחלט. הבעלות המלאה על הקוד, הנכסים והתשתית נשארת אצלך לחלוטין." },
+    { question: "אפשר להמשיך להרחיב את המערכת בעתיד?", answer: "כן. הפיתוח מתוכנן מלכתחילה עם ארכיטקטורה שמאפשרת הוספת תכונות, שירותים ושילובים בלי לשבור מה שכבר בנוי." },
+    { question: "איזה טכנולוגיות אתם עובדים איתן?", answer: "אנחנו עובדים בעיקר עם Next.js, React ו-Node.js לצד תשתיות ענן מודרניות — כדי שתקבל מוצר מהיר, יציב ומתוחזק לאורך זמן." },
+    { question: "כמה אנשים נדרשים מצד הלקוח?", answer: "מספיק נקודת קשר אחת. אנחנו מנהלים את כל התהליך ומעדכנים בכל שלב, בלי לטרוד אותך בפרטים טכניים." },
+    { question: "מה כולל תהליך הבדיקות לפני ההשקה?", answer: "בודקים פונקציונליות, ביצועים, תאימות מכשירים, אבטחה ועוד — כדי שתעלה לאוויר עם ביטחון מלא." },
+    { question: "יש תמיכה לאחר ההשקה?", answer: "כן. לאחר ההשקה יש ליווי ראשוני לתקופת ייצוב, ואפשר להמשיך בתחזוקה שוטפת לפי הצורך." },
+  ],
+  slug,
+);
 
 export default function WebDevelopmentPage() {
   return (
     <>
+      <ServiceStructuredData path={seo.path} serviceName={seo.serviceName} description={seo.description} faq={faq} />
       <Navbar />
       <main className="flex-1">
         <ServiceTemplate
@@ -32,15 +45,7 @@ export default function WebDevelopmentPage() {
             { icon: ShieldCheck, text: "אבטחה, יציבות ובדיקות לפני השקה" },
             { icon: Rocket, text: "השקה מסודרת ותמיכה ראשונית לאחר עלייה לאוויר" },
           ]}
-          faq={[
-            { question: "אפשר לשלב עם מערכת קיימת?", answer: "כן. אנחנו מתחברים למערכות קיימות כמו CRM, מחסן, מערכת תשלומים ועוד — הכל נבחן בשיחת אפיון ראשונה." },
-            { question: "הקוד נשאר בבעלות העסק?", answer: "בהחלט. הבעלות המלאה על הקוד, הנכסים והתשתית נשארת אצלך לחלוטין." },
-            { question: "אפשר להמשיך להרחיב את המערכת בעתיד?", answer: "כן. הפיתוח מתוכנן מלכתחילה עם ארכיטקטורה שמאפשרת הוספת תכונות, שירותים ושילובים בלי לשבור מה שכבר בנוי." },
-            { question: "איזה טכנולוגיות אתם עובדים איתן?", answer: "אנחנו עובדים בעיקר עם Next.js, React ו-Node.js לצד תשתיות ענן מודרניות — כדי שתקבל מוצר מהיר, יציב ומתוחזק לאורך זמן." },
-            { question: "כמה אנשים נדרשים מצד הלקוח?", answer: "מספיק נקודת קשר אחת. אנחנו מנהלים את כל התהליך ומעדכנים בכל שלב, בלי לטרוד אותך בפרטים טכניים." },
-            { question: "מה כולל תהליך הבדיקות לפני ההשקה?", answer: "בודקים פונקציונליות, ביצועים, תאימות מכשירים, אבטחה ועוד — כדי שתעלה לאוויר עם ביטחון מלא." },
-            { question: "יש תמיכה לאחר ההשקה?", answer: "כן. לאחר ההשקה יש ליווי ראשוני לתקופת ייצוב, ואפשר להמשיך בתחזוקה שוטפת לפי הצורך." },
-          ]}
+          faq={faq}
         />
       </main>
       <Footer />

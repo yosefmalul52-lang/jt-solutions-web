@@ -1,18 +1,36 @@
-import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
+import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { FileText, MessageSquare, MonitorSmartphone, Target, Workflow } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "בניית דף נחיתה ממיר | JT Solutions - סוכנות דיגיטל",
-  description:
-    "בניית דפי נחיתה ממירים לעסקים עם אפיון שיווקי, כתיבה מכירתית, עיצוב רספונסיבי, חיבור טפסים ווואטסאפ, והטמעת פיקסלים למדידה ושיפור המרות.",
-};
+const slug = "landing-pages" as const;
+const seo = servicePages[slug];
+
+export const metadata = getServiceMetadata(slug);
+
+const baseFaq = [
+  { question: "כמה זמן לוקח לעלות עם דף חדש?", answer: "בדרך כלל עד שבועיים מרגע סגירת התוכן. אם החומרים מוכנים מראש, אפשר גם מהר יותר." },
+  { question: "הדף מתאים לקמפיינים ממומנים?", answer: "כן. הדף נבנה במיוחד כדי לתמוך בפרסום ממומן ב-Meta וב-Google, עם מדידה מלאה ועמוד מהיר בנייד." },
+  { question: "אפשר לבצע שיפורים אחרי העלייה לאוויר?", answer: "כן. לאחר ההשקה מבצעים מעקב אחר נתוני התנהגות ומתאימים את הדף לפי מה שעובד בפועל." },
+  { question: "מה צריך להכין לפני שמתחילים?", answer: "מספיק שיש לך מושג בסיסי על המסר ועל קהל היעד. אנחנו מלווים בתהליך האפיון, הכתיבה והעיצוב." },
+  { question: "הדף מותאם לכל מכשיר?", answer: "כן. כל דף נבנה רספונסיבי לחלוטין — מובייל, טאבלט ודסקטופ — כי רוב התנועה מגיעה מהנייד." },
+  { question: "אפשר לחבר את הדף לוואטסאפ?", answer: "כן. מחברים כפתורי פנייה לוואטסאפ, טפסי ליד ומנגנוני מדידה כדי שכל פנייה תתועד ותגיע אליך ישירות." },
+  { question: "מה ההבדל בין דף נחיתה לאתר תדמית?", answer: "דף נחיתה מוקדש למסר אחד וקריאה לפעולה אחת, בעיקר לתמיכה בקמפיינים. אתר תדמית מציג את כל פעילות העסק ומבנה מתאים לביקורים אורגניים חוזרים." },
+] as const;
+
+const faq = mergeServiceFaq([...baseFaq], slug);
 
 export default function LandingPagesServicePage() {
   return (
     <>
+      <ServiceStructuredData
+        path={seo.path}
+        serviceName={seo.serviceName}
+        description={seo.description}
+        faq={faq}
+      />
       <Navbar />
       <main className="flex-1">
         <ServiceTemplate
@@ -32,15 +50,7 @@ export default function LandingPagesServicePage() {
             { icon: Workflow, text: "הטמעת פיקסלים ומדידה לקבלת נתונים אמיתיים" },
             { icon: FileText, text: "דף ביקורות ותוכן מחזק אמון" },
           ]}
-          faq={[
-            { question: "כמה זמן לוקח לעלות עם דף חדש?", answer: "בדרך כלל עד שבועיים מרגע סגירת התוכן. אם החומרים מוכנים מראש, אפשר גם מהר יותר." },
-            { question: "הדף מתאים לקמפיינים ממומנים?", answer: "כן. הדף נבנה במיוחד כדי לתמוך בפרסום ממומן ב-Meta וב-Google, עם מדידה מלאה ועמוד מהיר בנייד." },
-            { question: "אפשר לבצע שיפורים אחרי העלייה לאוויר?", answer: "כן. לאחר ההשקה מבצעים מעקב אחר נתוני התנהגות ומתאימים את הדף לפי מה שעובד בפועל." },
-            { question: "מה צריך להכין לפני שמתחילים?", answer: "מספיק שיש לך מושג בסיסי על המסר ועל קהל היעד. אנחנו מלווים בתהליך האפיון, הכתיבה והעיצוב." },
-            { question: "הדף מותאם לכל מכשיר?", answer: "כן. כל דף נבנה רספונסיבי לחלוטין — מובייל, טאבלט ודסקטופ — כי רוב התנועה מגיעה מהנייד." },
-            { question: "אפשר לחבר את הדף לוואטסאפ?", answer: "כן. מחברים כפתורי פנייה לוואטסאפ, טפסי ליד ומנגנוני מדידה כדי שכל פנייה תתועד ותגיע אליך ישירות." },
-            { question: "מה ההבדל בין דף נחיתה לאתר תדמית?", answer: "דף נחיתה מוקדש למסר אחד וקריאה לפעולה אחת, בעיקר לתמיכה בקמפיינים. אתר תדמית מציג את כל פעילות העסק ומבנה מתאים לביקורים אורגניים חוזרים." },
-          ]}
+          faq={faq}
         />
       </main>
       <Footer />

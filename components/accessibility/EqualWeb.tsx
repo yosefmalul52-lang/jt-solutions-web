@@ -17,8 +17,8 @@ window.interdeal = {
   Menulang: "HE",
   draggable: true,
   btnStyle: {
-    // [desktop top offset, mobile bottom offset] — desktop was 50% (= middle); anchor near page bottom
-    vPosition: ["calc(100vh - 6.5rem)", "24px"],
+    // [desktop: CSS top, mobile: CSS bottom] — EqualWeb defaults: desktop=top, mobile=bottom
+    vPosition: ["calc(100dvh - 5.5rem)", "5.5rem"],
     margin: ["0", "0"],
     scale: ["0.5", "0.5"],
     color: {

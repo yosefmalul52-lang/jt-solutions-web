@@ -281,3 +281,14 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-track { background: #F3F4F6; }
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+
+/* EqualWeb — מובייל וטאבלט: כפתור נגישות צמוד לתחתית (מעל FAB וואטסאפ) */
+@media (max-width: 1024px) {
+  #INDmenu-btn,
+  #INDmenu-btn.INDmenu-btn,
+  .INDcircle-btn,
+  #INDbtnWrap #INDmenu-btn {
+    top: auto !important;
+    bottom: 5.5rem !important;
+  }
+}

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, MoveLeft } from "lucide-react";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 import CtaButton from "@/components/ui/CtaButton";
+import { trackCtaClick } from "@/lib/analytics/track";
 
 const trustItems = [
   { text: "מענה אישי תוך 24 שעות" },
@@ -61,11 +62,10 @@ export default function Hero() {
           dir="rtl"
         >
           <motion.h1 variants={heroItemUp} className="display-title max-w-4xl mx-auto">
-            פתרונות דיגיטל מקצה לקצה:{" "}
+            סוכנות דיגיטל בישראל:{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b3e7] to-[#7c3aed]">
-              מהמיתוג ועד המכירה הראשונה
+              מעטפת אחת מהמיתוג ועד לידים שמגיעים
             </span>
-            .
           </motion.h1>
 
           <motion.h2
@@ -73,7 +73,8 @@ export default function Hero() {
             className="max-w-3xl mx-auto text-lg sm:text-2xl font-medium leading-relaxed mt-8 sm:mt-10"
             style={{ color: "#6B7280" }}
           >
-            בונים עבורך את התשתית הטכנולוגית שתעבוד בשבילך – אפיון חכם, עיצוב מנצח ואוטומציות שחוסכות זמן.
+            בונים עבורך אתרים ממירים, דפי נחיתה, חנויות איקומרס, מיתוג ואוטומציה — אפיון חכם, עיצוב מקצועי
+            ותהליך ברור שמחבר הכל לפניות אמיתיות.
           </motion.h2>
 
           <motion.div
@@ -82,12 +83,18 @@ export default function Hero() {
           >
             <CtaButton
               id="hero-main-cta"
-              onClick={() => scrollTo("#contact")}
+              onClick={() => {
+                trackCtaClick("hero", "אני רוצה אבחון לעסק שלי");
+                scrollTo("#contact");
+              }}
               icon={MoveLeft}
               label="אני רוצה אבחון לעסק שלי"
             />
             <CtaButton
-              onClick={() => scrollTo("#services")}
+              onClick={() => {
+                trackCtaClick("hero", "איך זה עובד");
+                scrollTo("#services");
+              }}
               icon={MoveLeft}
               variant="secondary"
               label="איך זה עובד?"

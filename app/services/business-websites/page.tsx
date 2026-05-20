@@ -1,18 +1,30 @@
-import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
+import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { Gauge, Globe, LayoutDashboard, ShieldCheck, Timer } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "בניית אתר תדמית לעסק | JT Solutions - סוכנות דיגיטל",
-  description:
-    "בניית אתרי תדמית מותאמים אישית לעסקים: עד 10 עמודים, חוויית משתמש מקצועית, אופטימיזציית מהירות ב-Next.js, התאמה למובייל ונגישות להגדלת פניות.",
-};
+const slug = "business-websites" as const;
+const seo = servicePages[slug];
+export const metadata = getServiceMetadata(slug);
+
+const faq = mergeServiceFaq(
+  [
+    { question: "אפשר לעלות לאוויר עם תוכן קיים?", answer: "כן. אם יש לך טקסטים, תמונות או מצגת קיימת — אפשר לבנות על זה. אנחנו גם מסייעים לשדרג ולחדד תוכן כחלק מהתהליך." },
+    { question: "האתר בנוי לקידום ושיווק בהמשך?", answer: "כן. המבנה הטכני, מהירות הטעינה והמבנה הסמנטי מותאמים לעבודה שיווקית — קידום אורגני, קמפיינים ממומנים ועוד." },
+    { question: "אפשר להוסיף עמודים בעתיד?", answer: "בהחלט. האתר נבנה כמודולרי ומוכן לצמיחה — הוספת שירותים, בלוג, עמודי נחיתה ועוד." },
+    { question: "כמה עמודים כלולים בפרויקט?", answer: "בדרך כלל עד 10 עמודים. אם צריך יותר, מתאמים היקף מדויק בשיחת האפיון." },
+    { question: "האתר מותאם לכלל המכשירים?", answer: "כן. כל אתר עובר בדיקות תאימות מלאות — מובייל, טאבלט ודסקטופ — לפני שיוצא לאוויר." },
+    { question: "כמה זמן עד שרואים את האתר באינטרנט?", answer: "בדרך כלל בין 3 ל-5 שבועות מתחילת העבודה, תלוי בהיקף התוכן וזמינות החומרים." },
+  ],
+  slug,
+);
 
 export default function BusinessWebsitesServicePage() {
   return (
     <>
+      <ServiceStructuredData path={seo.path} serviceName={seo.serviceName} description={seo.description} faq={faq} />
       <Navbar />
       <main className="flex-1">
         <ServiceTemplate
@@ -32,14 +44,7 @@ export default function BusinessWebsitesServicePage() {
             { icon: Globe, text: "התאמה מלאה למובייל, טאבלט ודסקטופ" },
             { icon: Timer, text: "השקה מסודרת עם הדרכה קצרה לניהול שוטף" },
           ]}
-          faq={[
-            { question: "אפשר לעלות לאוויר עם תוכן קיים?", answer: "כן. אם יש לך טקסטים, תמונות או מצגת קיימת — אפשר לבנות על זה. אנחנו גם מסייעים לשדרג ולחדד תוכן כחלק מהתהליך." },
-            { question: "האתר בנוי לקידום ושיווק בהמשך?", answer: "כן. המבנה הטכני, מהירות הטעינה והמבנה הסמנטי מותאמים לעבודה שיווקית — קידום אורגני, קמפיינים ממומנים ועוד." },
-            { question: "אפשר להוסיף עמודים בעתיד?", answer: "בהחלט. האתר נבנה כמודולרי ומוכן לצמיחה — הוספת שירותים, בלוג, עמודי נחיתה ועוד." },
-            { question: "כמה עמודים כלולים בפרויקט?", answer: "בדרך כלל עד 10 עמודים. אם צריך יותר, מתאמים היקף מדויק בשיחת האפיון." },
-            { question: "האתר מותאם לכלל המכשירים?", answer: "כן. כל אתר עובר בדיקות תאימות מלאות — מובייל, טאבלט ודסקטופ — לפני שיוצא לאוויר." },
-            { question: "כמה זמן עד שרואים את האתר באינטרנט?", answer: "בדרך כלל בין 3 ל-5 שבועות מתחילת העבודה, תלוי בהיקף התוכן וזמינות החומרים." },
-          ]}
+          faq={faq}
         />
       </main>
       <Footer />

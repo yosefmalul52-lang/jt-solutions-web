@@ -1,12 +1,16 @@
+import type { ServiceSlug } from "@/lib/seo/services";
+
 export type ProjectItem = {
   id: string;
   title: string;
+  seoTitle: string;
   shortDescription: string;
   simpleTerms: string;
   problem: string;
   processPoints: [string, string, string];
   businessValue: string;
   technologies: string[];
+  relatedServiceSlug: ServiceSlug;
   image: {
     src: string;
     alt: string;
@@ -17,6 +21,7 @@ export const projects: ProjectItem[] = [
   {
     id: "magadim",
     title: "Magadim",
+    seoTitle: "פרויקט חנות איקומרס Magadim",
     shortDescription:
       "חנות דיגיטלית מהירה עם ניהול הזמנות אוטומטי ודשבורד ברור לצוות.",
     simpleTerms:
@@ -31,14 +36,16 @@ export const projects: ProjectItem[] = [
     businessValue:
       "יותר הזמנות נסגרות בלי תקיעות, זמן הטיפול יורד משמעותית, והעסק יכול לצמוח בלי להגדיל עומס תפעולי.",
     technologies: ["E-commerce", "Vercel Hosting", "Dashboard", "Automation"],
+    relatedServiceSlug: "ecommerce",
     image: {
       src: "/opengraph-image.png",
-      alt: "Magadim ecommerce dashboard preview",
+      alt: "תצוגת חנות איקומרס Magadim — דשבורד הזמנות וניהול",
     },
   },
   {
     id: "eb-hair",
     title: "EB Hair",
+    seoTitle: "פרויקט מיתוג ודף נחיתה EB Hair",
     shortDescription:
       "מיתוג יוקרתי ודף נחיתה ממוקד שממיר יותר מתעניינות לפגישות.",
     simpleTerms:
@@ -53,14 +60,16 @@ export const projects: ProjectItem[] = [
     businessValue:
       "העסק נראה יוקרתי ומדויק יותר, איכות הפניות עלתה, ונוצרה תחושת אמון שמקצרת את הדרך מסקרנות לקביעת תור.",
     technologies: ["Branding", "UX/UI", "Landing Page", "Lead Generation"],
+    relatedServiceSlug: "landing-pages",
     image: {
       src: "/opengraph-image.png",
-      alt: "EB Hair luxury landing page preview",
+      alt: "דף נחיתה יוקרתי EB Hair — מיתוג וממשק ממיר",
     },
   },
   {
     id: "ai-automation",
-    title: "Business Automation",
+    title: "אוטומציה עסקית",
+    seoTitle: "פרויקט אוטומציה וחיבור CRM",
     shortDescription:
       "אוטומציה עסקית שמחברת לידים, CRM ותהליכי המשך בזמן אמת.",
     simpleTerms:
@@ -75,9 +84,10 @@ export const projects: ProjectItem[] = [
     businessValue:
       "פחות לידים הולכים לאיבוד, זמן התגובה מתקצר, ותהליך המכירה נהיה צפוי, מדיד ויעיל הרבה יותר.",
     technologies: ["n8n", "CRM Integration", "Real-time Data", "Automation Flows"],
+    relatedServiceSlug: "ai-automation",
     image: {
       src: "/opengraph-image.png",
-      alt: "AI automation workflow and CRM integration preview",
+      alt: "תהליך אוטומציה עסקית — חיבור לידים ו-CRM",
     },
   },
 ];
@@ -85,4 +95,3 @@ export const projects: ProjectItem[] = [
 export function getProjectById(id: string) {
   return projects.find((project) => project.id === id);
 }
-

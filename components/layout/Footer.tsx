@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { Facebook, Instagram } from "lucide-react";
+import { trackPhoneClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 
 const quickLinks = [
   { label: "שירותים", href: "/#services" },
+  { label: "מדריכים", href: "/blog" },
   { label: "הוכחות", href: "/#proof" },
   { label: "פרויקטים", href: "/#projects" },
   { label: "אחרי ההשקה", href: "/#tech-stack" },
@@ -60,6 +62,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`tel:${contactLinks.phone}`}
+                  onClick={() => trackPhoneClick("footer")}
                   className="text-sm transition-colors duration-200 hover:text-[#22C55E]"
                   style={{ color: "#6B7280" }}
                 >
@@ -95,6 +98,8 @@ export default function Footer() {
                 { label: "מיתוג וזהות", href: "/services/branding" },
                 { label: "ניהול קמפיינים ותשתית פרסום", href: "/services/ad-infrastructure" },
                 { label: "בוט וואטסאפ ללקוחות", href: "/services/whatsapp-bot" },
+                { label: "אוטומציה לעסקים", href: "/services/ai-automation" },
+                { label: "פיתוח אתרים ומערכות", href: "/services/web-development" },
               ].map((service) => (
                 <li key={service.href}>
                   <Link href={service.href} className="text-sm transition-colors duration-200"

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import { trackPhoneClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -198,6 +199,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href={`tel:${contactLinks.phone}`}
+              onClick={() => trackPhoneClick("navbar")}
               aria-label="התקשרו אל JT Solutions"
               className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]"
               style={{
@@ -248,7 +250,10 @@ export default function Navbar() {
               <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                 <a
                   href={`tel:${contactLinks.phone}`}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={() => {
+                    trackPhoneClick("navbar_mobile");
+                    setMobileOpen(false);
+                  }}
                   aria-label="התקשרו אל JT Solutions"
                   className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
                   style={{

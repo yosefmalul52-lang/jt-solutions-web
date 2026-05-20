@@ -1,25 +1,32 @@
-import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
+import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
-import {
-  BotMessageSquare,
-  Clock,
-  ListTree,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import { BotMessageSquare, Clock, ListTree, ShieldCheck, Sparkles } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "בוט וואטסאפ לעסקים | JT Solutions - סוכנות דיגיטל",
-  description:
-    "בניית בוט וואטסאפ שמנהל שיחות עם לקוחות: מענה ראשוני, איסוף פרטים, ניתוב לנציג וחיסכון בזמן — בלי לאבד לידים ובלי עומס על הצוות.",
-};
+const slug = "whatsapp-bot" as const;
+const seo = servicePages[slug];
+export const metadata = getServiceMetadata(slug);
+
+const faq = mergeServiceFaq(
+  [
+    { question: "האם הבוט מחליף לגמרי בן אדם?", answer: "לא בהכרח. הבוט מטפל בשכבה הראשונה — מידע, סינון ואיסוף פרטים — ומעביר אליכם כשצריך החלטה אישית או מכירה." },
+    { question: "אפשר לחבר למערכות שאנחנו כבר עובדים איתן?", answer: "בהרבה מקרים כן. בשיחת האפיון נבדוק אילו חיבורים נדרשים — CRM, גיליון, מייל — ומה הכי פרקטי לעסק שלכם." },
+    { question: "מה קורה אם לקוח כותב משהו שלא צפינו?", answer: "מגדירים מסלול ברירת מחדל חכם — למשל בקשה לפרטים נוספים או העברה ישירה לנציג — כדי שאף פנייה לא נופלת בין הכסאות." },
+    { question: "הבוט עובד 24/7?", answer: "כן. אחד היתרונות המרכזיים הוא שהבוט עונה גם בלילה, בסופי שבוע ובחגים — בלי שתצטרכו להיות זמינים." },
+    { question: "כמה זמן לוקח לבנות ולהטמיע את הבוט?", answer: "בדרך כלל בין שבועיים לחמישה שבועות, תלוי במספר התסריטים והחיבורים הנדרשים." },
+    { question: "האם הניסוחים מותאמים לסגנון שלנו?", answer: "כן. הבוט מדבר בשפה שלכם — כתיבה ישירה ומקצועית שמתאימה לסגנון העסק ולקהל היעד." },
+    { question: "מה קורה אם רוצים לשנות תסריט אחרי ההשקה?", answer: "אפשר לעדכן ולשנות תסריטים בכל עת. נספק הדרכה כדי שתוכלו לנהל שינויים בסיסיים בעצמכם." },
+  ],
+  slug,
+);
 
 export default function WhatsAppBotPage() {
   return (
     <>
+      <ServiceStructuredData path={seo.path} serviceName={seo.serviceName} description={seo.description} faq={faq} />
       <Navbar />
       <main className="flex-1">
         <ServiceTemplate
@@ -40,15 +47,7 @@ export default function WhatsAppBotPage() {
             { icon: ShieldCheck, text: "הנחיות פרטיות ושימוש בנתונים בצורה אחראית" },
             { icon: Sparkles, text: "הדרכה קצרה להפעלה שוטפת ועדכונים לתסריטים" },
           ]}
-          faq={[
-            { question: "האם הבוט מחליף לגמרי בן אדם?", answer: "לא בהכרח. הבוט מטפל בשכבה הראשונה — מידע, סינון ואיסוף פרטים — ומעביר אליכם כשצריך החלטה אישית או מכירה." },
-            { question: "אפשר לחבר למערכות שאנחנו כבר עובדים איתן?", answer: "בהרבה מקרים כן. בשיחת האפיון נבדוק אילו חיבורים נדרשים — CRM, גיליון, מייל — ומה הכי פרקטי לעסק שלכם." },
-            { question: "מה קורה אם לקוח כותב משהו שלא צפינו?", answer: "מגדירים מסלול ברירת מחדל חכם — למשל בקשה לפרטים נוספים או העברה ישירה לנציג — כדי שאף פנייה לא נופלת בין הכסאות." },
-            { question: "הבוט עובד 24/7?", answer: "כן. אחד היתרונות המרכזיים הוא שהבוט עונה גם בלילה, בסופי שבוע ובחגים — בלי שתצטרכו להיות זמינים." },
-            { question: "כמה זמן לוקח לבנות ולהטמיע את הבוט?", answer: "בדרך כלל בין שבועיים לחמישה שבועות, תלוי במספר התסריטים והחיבורים הנדרשים." },
-            { question: "האם הניסוחים מותאמים לסגנון שלנו?", answer: "כן. הבוט מדבר בשפה שלכם — כתיבה ישירה ומקצועית שמתאימה לסגנון העסק ולקהל היעד." },
-            { question: "מה קורה אם רוצים לשנות תסריט אחרי ההשקה?", answer: "אפשר לעדכן ולשנות תסריטים בכל עת. נספק הדרכה כדי שתוכלו לנהל שינויים בסיסיים בעצמכם." },
-          ]}
+          faq={faq}
         />
       </main>
       <Footer />

@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, CheckCircle2, Home, Sparkles, Target } from "lucide-react";
 import PageEnter from "@/components/motion/PageEnter";
 import OutlineNavLink from "@/components/ui/OutlineNavLink";
 import type { ProjectItem } from "@/lib/projects";
+import { servicePages } from "@/lib/seo/services";
 
 export default function ProjectDetail({ project }: { project: ProjectItem }) {
+  const relatedService = servicePages[project.relatedServiceSlug];
+
   return (
     <div
       className="w-full py-16 md:py-24"
@@ -31,7 +35,7 @@ export default function ProjectDetail({ project }: { project: ProjectItem }) {
                 fill
                 sizes="100vw"
                 className="object-cover"
-                priority
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-slate-900/18 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
@@ -98,6 +102,18 @@ export default function ProjectDetail({ project }: { project: ProjectItem }) {
                   <h2 className="text-2xl font-bold text-slate-900">הערך העסקי</h2>
                   <p className="mt-3 text-base leading-relaxed text-slate-700 sm:text-lg">{project.businessValue}</p>
                 </article>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Link
+                    href={relatedService.path}
+                    className="text-sm font-semibold text-indigo-600 hover:underline"
+                  >
+                    לשירות {relatedService.serviceName}
+                  </Link>
+                  <Link href="/#contact" className="text-sm font-semibold text-slate-600 hover:text-slate-900">
+                    קובעים שיחת התאמה
+                  </Link>
+                </div>
               </div>
             </div>
           </header>

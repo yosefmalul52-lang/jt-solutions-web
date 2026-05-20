@@ -283,7 +283,7 @@ export default function Proof() {
                   loop
                   muted
                   playsInline
-                  preload="metadata"
+                  preload="none"
                   aria-label="אנימציית הדגמה של אתר JT"
                 />
               </div>

@@ -9,6 +9,8 @@ import MetaPixel from "@/components/analytics/MetaPixel";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
 import EqualWeb from "@/components/accessibility/EqualWeb";
+import JsonLd from "@/components/seo/JsonLd";
+import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/organization";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -67,21 +69,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const gaId = (process.env.NEXT_PUBLIC_GA_ID ?? "").trim();
   const hasValidGaId = /^G-[A-Z0-9]+$/i.test(gaId);
 
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: "JT Solutions",
-    url: "https://www.jt-solutions.org",
-    logo: "https://www.jt-solutions.org/logo.png",
-    image: "https://www.jt-solutions.org/logo.png",
-    telephone: "0528240230",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Kiryat Ata",
-      addressCountry: "IL",
-    },
-  };
-
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
       <head>
@@ -96,10 +83,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <MetaPixel />
         </Suspense>
         <EqualWeb />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />
       </body>
     </html>
   );
