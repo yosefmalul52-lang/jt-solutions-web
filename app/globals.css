@@ -282,7 +282,7 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
 
-/* EqualWeb — כל המסכים: כפתור נגישות בתחתית (EqualWeb מגדיר top:24px כברירת מחדל) */
+/* EqualWeb — כפתור נגישות קבוע בתחתית (נדרס ע"י #jt-ind-pin-style אחרי טעינת הווידג'ט) */
 #INDmenu-btn,
 #INDmenu-btn.INDmenu-btn,
 #INDWrap #INDmenu-btn,
@@ -290,13 +290,30 @@ html { scroll-behavior: smooth; }
 .INDMobile #INDmenu-btn,
 [data-indpositionright] #INDmenu-btn,
 .INDpositionRight #INDmenu-btn {
-  top: auto !important;
-  bottom: 1.25rem !important;
+  position: fixed !important;
+  top: unset !important;
   left: auto !important;
-  right: 0.75rem !important;
+  right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px)) !important;
   --indscale: 0.5 !important;
   transform: scale(0.5) !important;
   transform-origin: bottom right !important;
+  z-index: 2147483646 !important;
+}
+
+#INDWrap {
+  position: fixed !important;
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 0 !important;
+  width: 100% !important;
+  pointer-events: none !important;
+}
+
+#INDWrap #INDmenu-btn {
+  pointer-events: auto !important;
 }
 
 @media (max-width: 768px) {
