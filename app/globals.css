@@ -282,13 +282,21 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
 
-/* EqualWeb — מובייל וטאבלט: כפתור נגישות צמוד לתחתית (מעל FAB וואטסאפ) */
-@media (max-width: 1024px) {
+/* EqualWeb — מובייל: כפתור קטן וצמוד לתחתית (EqualWeb לא תמיד מזהה mobile) */
+@media (max-width: 768px) {
   #INDmenu-btn,
   #INDmenu-btn.INDmenu-btn,
-  .INDcircle-btn,
-  #INDbtnWrap #INDmenu-btn {
+  #INDWrap #INDmenu-btn,
+  [data-indmobile] #INDmenu-btn,
+  .INDMobile #INDmenu-btn,
+  [data-indpositionright] #INDmenu-btn,
+  .INDpositionRight #INDmenu-btn {
     top: auto !important;
-    bottom: 5.5rem !important;
+    bottom: 1.25rem !important;
+    right: 0.75rem !important;
+    --indscale: 0.38 !important;
+    transform: scale(0.38) !important;
+    transform-origin: bottom right !important;
+    padding: 8px !important;
   }
 }
