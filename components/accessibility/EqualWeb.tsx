@@ -17,8 +17,8 @@ window.interdeal = {
   Menulang: "HE",
   draggable: false,
   btnStyle: {
-    // [desktop top, mobile bottom] — undefined = EqualWeb default for that breakpoint
-    vPosition: [undefined, "1.25rem"],
+    // EqualWeb: ערך ראשון = top בדסקטופ, שני = bottom במובייל — נכפה לתחתית ב-CSS/JS בכל המסכים
+    vPosition: ["calc(100dvh - 5rem)", "1.25rem"],
     margin: ["0", "0"],
     scale: [0.5, 0.38],
     color: {
@@ -45,18 +45,19 @@ window.interdeal = {
   body ? body.appendChild(coreCall) : head.appendChild(coreCall);
 })(document, document.head, document.body);
 
-(function pinEqualWebMobileBtn() {
-  var mq = window.matchMedia("(max-width: 768px)");
+(function pinEqualWebBtnBottom() {
   function apply() {
-    if (!mq.matches) return;
     var btn = document.getElementById("INDmenu-btn");
     if (!btn) return;
+    var isMobile = window.matchMedia("(max-width: 768px)").matches;
+    var scale = isMobile ? "0.38" : "0.5";
     btn.style.setProperty("top", "auto", "important");
     btn.style.setProperty("bottom", "1.25rem", "important");
-    btn.style.setProperty("--indscale", "0.38", "important");
-    btn.style.setProperty("transform", "scale(0.38)", "important");
+    btn.style.setProperty("left", "auto", "important");
+    btn.style.setProperty("--indscale", scale, "important");
+    btn.style.setProperty("transform", "scale(" + scale + ")", "important");
     btn.style.setProperty("transform-origin", "bottom right", "important");
-    btn.style.setProperty("padding", "8px", "important");
+    if (isMobile) btn.style.setProperty("padding", "8px", "important");
   }
   apply();
   window.addEventListener("resize", apply);
