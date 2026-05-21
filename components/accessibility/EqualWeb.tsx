@@ -1,148 +1,242 @@
-import Script from "next/script";
+"use client";
 
-/**
- * EqualWeb accessibility widget for jt-solutions.org
- * @see https://login.equalweb.com/custom-button
- */
-const equalWebBootstrap = `
-window.interdeal = {
-  get sitekey() { return "925c8c9ec3014adac0359dd896ccd5f5"; },
-  get domains() {
-    return {
-      js: "https://cdn.equalweb.com/",
-      acc: "https://access.equalweb.com/",
-    };
-  },
-  Position: "right",
-  Menulang: "HE",
-  draggable: false,
-  btnStyle: {
-    vPosition: [undefined, "1.25rem"],
-    margin: ["0", "0"],
-    scale: [0.5, 0.38],
-    color: {
-      main: "#0a51f2",
-      second: "#ffffff",
-    },
-    icon: {
-      outline: false,
-      outlineColor: "#ffffff",
-      type: 11,
-      shape: "circle",
-    },
-  },
-};
+import { useEffect } from "react";
 
-(function injectIndPinStyles() {
-  var css =
-    "#INDmenu-btn{position:fixed!important;top:unset!important;left:auto!important;" +
-    "right:max(0.75rem,env(safe-area-inset-right,0px))!important;" +
-    "bottom:max(1.25rem,env(safe-area-inset-bottom,0px))!important;" +
-    "transform-origin:bottom right!important;z-index:2147483646!important;}" +
-    "@media (max-width:768px){#INDmenu-btn{--indscale:0.38!important;" +
-    "transform:scale(0.38)!important;padding:8px!important;}}";
-  var el = document.getElementById("jt-ind-pin-style");
-  if (!el) {
-    el = document.createElement("style");
-    el.id = "jt-ind-pin-style";
-    el.textContent = css;
-    document.head.appendChild(el);
+const SITE_KEY = "925c8c9ec3014adac0359dd896ccd5f5";
+const SCRIPT_URL = "https://cdn.equalweb.com/core/5.2.8/accessibility.js";
+const SCRIPT_INTEGRITY =
+  "sha512-ka0NgF7zDksnhoZ5ZCKlm+t0F7KTih5lCfXwuzQDnrwu/EdKZSsJotoJvQPd0cuVmV63s0q2cgoUjeki688PuQ==";
+const PIN_STYLE_ID = "jt-ind-pin-style";
+
+const PIN_CSS = `
+#INDmenu-btn,
+#INDmenu-btn.INDmenu-btn{
+  position:fixed!important;
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  top:auto!important;
+  bottom:max(1.25rem,env(safe-area-inset-bottom,0px))!important;
+  left:auto!important;
+  right:max(0.75rem,env(safe-area-inset-right,0px))!important;
+  transform-origin:bottom right!important;
+  z-index:2147483647!important;
+}
+@media (max-width:768px){
+  #INDmenu-btn,#INDmenu-btn.INDmenu-btn{
+    --indscale:0.55!important;
+    transform:scale(0.55)!important;
   }
-})();
+}
+@media (min-width:769px){
+  #INDmenu-btn,#INDmenu-btn.INDmenu-btn{
+    --indscale:0.5!important;
+    transform:scale(0.5)!important;
+  }
+}
+#INDWrap{
+  position:fixed!important;
+  inset:auto 0 0 auto!important;
+  width:auto!important;
+  height:auto!important;
+  overflow:visible!important;
+  pointer-events:none!important;
+  z-index:2147483646!important;
+}
+#INDWrap #INDmenu-btn{pointer-events:auto!important;}
+`;
 
-(function pinEqualWebBtnBottom() {
-  var mq = window.matchMedia("(max-width: 768px)");
+declare global {
+  interface Window {
+    interdeal?: Record<string, unknown>;
+    __jtEqualWebInit?: boolean;
+    __jtIndPinInterval?: ReturnType<typeof setInterval>;
+    __jtIndBtnObserver?: MutationObserver;
+    __jtIndRafId?: number;
+  }
+}
 
-  function apply() {
-    var btn = document.getElementById("INDmenu-btn");
-    if (!btn) return;
+function ensurePinStyles() {
+  if (document.getElementById(PIN_STYLE_ID)) return;
+  const el = document.createElement("style");
+  el.id = PIN_STYLE_ID;
+  el.textContent = PIN_CSS;
+  document.head.appendChild(el);
+}
 
-    var isMobile = mq.matches;
-    var scale = isMobile ? "0.38" : "0.5";
-    var bottom = "max(1.25rem, env(safe-area-inset-bottom, 0px))";
-    var right = "max(0.75rem, env(safe-area-inset-right, 0px))";
+function pinAccessibilityButton() {
+  const btn = document.getElementById("INDmenu-btn");
+  if (!btn) return false;
 
-    btn.style.removeProperty("top");
-    btn.style.setProperty("position", "fixed", "important");
-    btn.style.setProperty("top", "auto", "important");
-    btn.style.setProperty("bottom", bottom, "important");
-    btn.style.setProperty("left", "auto", "important");
-    btn.style.setProperty("right", right, "important");
-    btn.style.setProperty("--indscale", scale, "important");
-    btn.style.setProperty("transform", "scale(" + scale + ")", "important");
-    btn.style.setProperty("transform-origin", "bottom right", "important");
-    btn.style.setProperty("z-index", "2147483646", "important");
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  const scale = isMobile ? "0.55" : "0.5";
+  const bottom = "max(1.25rem, env(safe-area-inset-bottom, 0px))";
+  const right = "max(0.75rem, env(safe-area-inset-right, 0px))";
 
-    if (isMobile) btn.style.setProperty("padding", "8px", "important");
+  btn.style.removeProperty("top");
+  btn.style.setProperty("position", "fixed", "important");
+  btn.style.setProperty("display", "flex", "important");
+  btn.style.setProperty("visibility", "visible", "important");
+  btn.style.setProperty("opacity", "1", "important");
+  btn.style.setProperty("pointer-events", "auto", "important");
+  btn.style.setProperty("bottom", bottom, "important");
+  btn.style.setProperty("left", "auto", "important");
+  btn.style.setProperty("right", right, "important");
+  btn.style.setProperty("transform-origin", "bottom right", "important");
+  btn.style.setProperty("z-index", "2147483647", "important");
+  btn.style.setProperty("--indscale", scale, "important");
+  btn.style.setProperty("transform", `scale(${scale})`, "important");
 
-    var wrap = document.getElementById("INDWrap");
-    if (wrap) {
-      wrap.style.setProperty("position", "fixed", "important");
-      wrap.style.setProperty("top", "auto", "important");
-      wrap.style.setProperty("bottom", "0", "important");
-      wrap.style.setProperty("left", "0", "important");
-      wrap.style.setProperty("right", "0", "important");
-      wrap.style.setProperty("height", "0", "important");
-      wrap.style.setProperty("pointer-events", "none", "important");
-      btn.style.setProperty("pointer-events", "auto", "important");
+  const wrap = document.getElementById("INDWrap");
+  if (wrap) {
+    wrap.style.setProperty("position", "fixed", "important");
+    wrap.style.setProperty("top", "auto", "important");
+    wrap.style.setProperty("bottom", "0", "important");
+    wrap.style.setProperty("left", "auto", "important");
+    wrap.style.setProperty("right", "0", "important");
+    wrap.style.setProperty("width", "auto", "important");
+    wrap.style.setProperty("height", "auto", "important");
+    wrap.style.setProperty("overflow", "visible", "important");
+    wrap.style.setProperty("pointer-events", "none", "important");
+    wrap.style.setProperty("z-index", "2147483646", "important");
+  }
+
+  return true;
+}
+
+function startPinWatchers() {
+  ensurePinStyles();
+  pinAccessibilityButton();
+
+  if (!window.__jtIndBtnObserver) {
+    window.__jtIndBtnObserver = new MutationObserver(() => {
+      pinAccessibilityButton();
+    });
+    window.__jtIndBtnObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+  }
+
+  if (!window.__jtIndPinInterval) {
+    window.__jtIndPinInterval = setInterval(pinAccessibilityButton, 500);
+  }
+
+  let frames = 0;
+  const rafPin = () => {
+    pinAccessibilityButton();
+    frames += 1;
+    if (frames < 240) {
+      window.__jtIndRafId = requestAnimationFrame(rafPin);
     }
-  }
-
-  function startWatchers() {
-    apply();
-    var ticks = 0;
-    var rafId = function tick() {
-      apply();
-      ticks += 1;
-      if (ticks < 180) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-    if (!window.__jtIndPinInterval) {
-      window.__jtIndPinInterval = setInterval(apply, 400);
-    }
-  }
-
-  startWatchers();
-  window.addEventListener("resize", apply);
-  document.addEventListener("DOMContentLoaded", startWatchers);
-  new MutationObserver(apply).observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ["style", "class"],
-  });
-})();
-
-(function loadEqualWeb() {
-  var doc = document;
-  var head = doc.head;
-  var body = doc.body;
-  var coreCall = doc.createElement("script");
-  coreCall.src = interdeal.domains.js + "core/5.2.8/accessibility.js";
-  coreCall.defer = true;
-  coreCall.integrity =
-    "sha512-ka0NgF7zDksnhoZ5ZCKlm+t0F7KTih5lCfXwuzQDnrwu/EdKZSsJotoJvQPd0cuVmV63s0q2cgoUjeki688PuQ==";
-  coreCall.crossOrigin = "anonymous";
-  coreCall.setAttribute("data-cfasync", "true");
-  coreCall.onload = function () {
-    setTimeout(function () {
-      document.dispatchEvent(new Event("jt-ind-loaded"));
-    }, 50);
   };
-  body ? body.appendChild(coreCall) : head.appendChild(coreCall);
-  document.addEventListener("jt-ind-loaded", function () {
-    var el = document.getElementById("jt-ind-pin-style");
-    if (el) document.head.appendChild(el);
+  if (window.__jtIndRafId) cancelAnimationFrame(window.__jtIndRafId);
+  window.__jtIndRafId = requestAnimationFrame(rafPin);
+}
+
+function loadEqualWebScript(onReady: () => void) {
+  const existing = document.querySelector<HTMLScriptElement>(
+    'script[data-jt-equalweb="true"]',
+  );
+  if (existing) {
+    if (existing.dataset.loaded === "true") onReady();
+    else existing.addEventListener("load", onReady, { once: true });
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.src = SCRIPT_URL;
+  script.defer = true;
+  script.crossOrigin = "anonymous";
+  script.integrity = SCRIPT_INTEGRITY;
+  script.setAttribute("data-cfasync", "true");
+  script.dataset.jtEqualweb = "true";
+  script.onload = () => {
+    script.dataset.loaded = "true";
+    onReady();
+  };
+  script.onerror = () => {
+    const fallback = document.createElement("script");
+    fallback.src = SCRIPT_URL;
+    fallback.defer = true;
+    fallback.crossOrigin = "anonymous";
+    fallback.dataset.jtEqualweb = "true";
+    fallback.onload = () => {
+      fallback.dataset.loaded = "true";
+      onReady();
+    };
+    document.body.appendChild(fallback);
+  };
+  document.body.appendChild(script);
+}
+
+function initEqualWeb() {
+  if (window.__jtEqualWebInit) return;
+  window.__jtEqualWebInit = true;
+
+  window.interdeal = {
+    get sitekey() {
+      return SITE_KEY;
+    },
+    get domains() {
+      return {
+        js: "https://cdn.equalweb.com/",
+        acc: "https://access.equalweb.com/",
+      };
+    },
+    Position: "right",
+    Menulang: "HE",
+    draggable: false,
+    btnStyle: {
+      vPosition: ["100%", "1.25rem"],
+      margin: ["0", "0"],
+      scale: [0.5, 0.55],
+      color: {
+        main: "#0a51f2",
+        second: "#ffffff",
+      },
+      icon: {
+        outline: false,
+        outlineColor: "#ffffff",
+        type: 11,
+        shape: "circle",
+      },
+    },
+  };
+
+  startPinWatchers();
+
+  loadEqualWebScript(() => {
+    [0, 100, 300, 700, 1500, 3000, 5000].forEach((ms) => {
+      setTimeout(startPinWatchers, ms);
+    });
   });
-})(document, document.head, document.body);
-`.trim();
+}
 
 export default function EqualWeb() {
-  return (
-    <Script
-      id="equalweb-accessibility"
-      strategy="afterInteractive"
-      dangerouslySetInnerHTML={{ __html: equalWebBootstrap }}
-    />
-  );
+  useEffect(() => {
+    initEqualWeb();
+    const onResize = () => pinAccessibilityButton();
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (window.__jtIndPinInterval) {
+        clearInterval(window.__jtIndPinInterval);
+        window.__jtIndPinInterval = undefined;
+      }
+      if (window.__jtIndBtnObserver) {
+        window.__jtIndBtnObserver.disconnect();
+        window.__jtIndBtnObserver = undefined;
+      }
+      if (window.__jtIndRafId) {
+        cancelAnimationFrame(window.__jtIndRafId);
+        window.__jtIndRafId = undefined;
+      }
+    };
+  }, []);
+
+  return null;
 }
