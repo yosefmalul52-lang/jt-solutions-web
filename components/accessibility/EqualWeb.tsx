@@ -25,8 +25,11 @@ const PIN_CSS = `
 }
 @media (max-width:768px){
   #INDmenu-btn,#INDmenu-btn.INDmenu-btn{
+    top:50%!important;
+    bottom:auto!important;
     --indscale:0.55!important;
-    transform:scale(0.55)!important;
+    transform:translateY(-50%) scale(0.55)!important;
+    transform-origin:center right!important;
   }
 }
 @media (min-width:769px){
@@ -74,25 +77,33 @@ function pinAccessibilityButton() {
   const bottom = "max(1.25rem, env(safe-area-inset-bottom, 0px))";
   const right = "max(0.75rem, env(safe-area-inset-right, 0px))";
 
-  btn.style.removeProperty("top");
   btn.style.setProperty("position", "fixed", "important");
   btn.style.setProperty("display", "flex", "important");
   btn.style.setProperty("visibility", "visible", "important");
   btn.style.setProperty("opacity", "1", "important");
   btn.style.setProperty("pointer-events", "auto", "important");
-  btn.style.setProperty("bottom", bottom, "important");
   btn.style.setProperty("left", "auto", "important");
   btn.style.setProperty("right", right, "important");
-  btn.style.setProperty("transform-origin", "bottom right", "important");
   btn.style.setProperty("z-index", "2147483647", "important");
   btn.style.setProperty("--indscale", scale, "important");
-  btn.style.setProperty("transform", `scale(${scale})`, "important");
+
+  if (isMobile) {
+    btn.style.removeProperty("bottom");
+    btn.style.setProperty("top", "50%", "important");
+    btn.style.setProperty("bottom", "auto", "important");
+    btn.style.setProperty("transform-origin", "center right", "important");
+    btn.style.setProperty("transform", `translateY(-50%) scale(${scale})`, "important");
+  } else {
+    btn.style.removeProperty("top");
+    btn.style.setProperty("top", "auto", "important");
+    btn.style.setProperty("bottom", bottom, "important");
+    btn.style.setProperty("transform-origin", "bottom right", "important");
+    btn.style.setProperty("transform", `scale(${scale})`, "important");
+  }
 
   const wrap = document.getElementById("INDWrap");
   if (wrap) {
     wrap.style.setProperty("position", "fixed", "important");
-    wrap.style.setProperty("top", "auto", "important");
-    wrap.style.setProperty("bottom", "0", "important");
     wrap.style.setProperty("left", "auto", "important");
     wrap.style.setProperty("right", "0", "important");
     wrap.style.setProperty("width", "auto", "important");
@@ -100,6 +111,15 @@ function pinAccessibilityButton() {
     wrap.style.setProperty("overflow", "visible", "important");
     wrap.style.setProperty("pointer-events", "none", "important");
     wrap.style.setProperty("z-index", "2147483646", "important");
+    if (isMobile) {
+      wrap.style.setProperty("top", "50%", "important");
+      wrap.style.setProperty("bottom", "auto", "important");
+      wrap.style.setProperty("transform", "translateY(-50%)", "important");
+    } else {
+      wrap.style.removeProperty("transform");
+      wrap.style.setProperty("top", "auto", "important");
+      wrap.style.setProperty("bottom", "0", "important");
+    }
   }
 
   return true;
@@ -191,7 +211,7 @@ function initEqualWeb() {
     Menulang: "HE",
     draggable: false,
     btnStyle: {
-      vPosition: ["100%", "1.25rem"],
+      vPosition: ["100%", "50%"],
       margin: ["0", "0"],
       scale: [0.5, 0.55],
       color: {

@@ -282,7 +282,7 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
 
-/* EqualWeb — כפתור נגישות: גלוי + צמוד לתחתית בכל המסכים (משלים ל-#jt-ind-pin-style) */
+/* EqualWeb — דסקטופ: תחתית | מובייל: אמצע המסך (משלים ל-#jt-ind-pin-style) */
 #INDmenu-btn,
 #INDmenu-btn.INDmenu-btn,
 #INDWrap #INDmenu-btn,
@@ -325,10 +325,20 @@ html { scroll-behavior: smooth; }
 @media (max-width: 768px) {
   #INDmenu-btn,
   #INDmenu-btn.INDmenu-btn,
+  #INDWrap #INDmenu-btn,
   [data-indmobile] #INDmenu-btn,
   .INDMobile #INDmenu-btn {
+    top: 50% !important;
+    bottom: auto !important;
     --indscale: 0.55 !important;
-    transform: scale(0.55) !important;
+    transform: translateY(-50%) scale(0.55) !important;
+    transform-origin: center right !important;
+  }
+
+  #INDWrap {
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
   }
 }
 
