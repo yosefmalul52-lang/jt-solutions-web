@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import { Check, Megaphone, Server, Share2 } from "lucide-react";
+import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import Reveal from "@/components/motion/Reveal";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 
@@ -96,16 +97,21 @@ export default function Pricing() {
       style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F2F5FB 50%, #F9FAFB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center mb-14" viewportKey="sectionLoose" y={20} duration={0.6}>
-          <h2 className="premium-title mb-4">
-            בוחרים את המסלול
-            {" "}
-            <span className="gradient-text">שמתאים לשלב העסק</span>
-          </h2>
+        <div className="text-center mb-14">
+          <MaskedHeadline
+            as="h2"
+            className="premium-title mb-4"
+            viewportKey="sectionLoose"
+            lines={[
+              <>
+                בוחרים את המסלול <span className="gradient-text">שמתאים לשלב העסק</span>
+              </>,
+            ]}
+          />
           <p className="premium-subtitle max-w-3xl mx-auto">
             שלוש רמות שירות ברורות עם תוצאה עסקית צפויה, זמן עליה לאוויר והתאמה לשלב שבו העסק נמצא עכשיו.
           </p>
-        </Reveal>
+        </div>
 
         <motion.div
           variants={tiersStagger}

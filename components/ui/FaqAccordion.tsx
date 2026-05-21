@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { accordionPanelTransition } from "@/lib/motion";
 
 export interface FaqItem {
   question: string;
@@ -11,6 +12,8 @@ export interface FaqItem {
 
 export default function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(null);
+  const reduce = useReducedMotion();
+  const panelTransition = accordionPanelTransition(reduce);
 
   return (
     <div className="divide-y divide-slate-100">
@@ -42,7 +45,7 @@ export default function FaqAccordion({ items }: { items: FaqItem[] }) {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.22, ease: "easeInOut" }}
+                transition={panelTransition}
                 className="overflow-hidden"
               >
                 <p className="pb-5 text-[0.9375rem] leading-[1.8] text-slate-500">{item.answer}</p>

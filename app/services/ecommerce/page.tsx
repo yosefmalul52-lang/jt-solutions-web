@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
 import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceDisplayExtras } from "@/lib/seo/service-display";
 import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { CreditCard, PackageCheck, Repeat, ShoppingCart, Warehouse } from "lucide-react";
 
@@ -20,6 +21,7 @@ const faq = mergeServiceFaq(
   ],
   slug,
 );
+const extras = getServiceDisplayExtras(slug);
 
 export default function EcommerceServicePage() {
   return (
@@ -45,6 +47,11 @@ export default function EcommerceServicePage() {
             { icon: Repeat, text: "שחזור עגלות נטושות לשיפור שיעור ההמרה" },
           ]}
           faq={faq}
+          seoIntro={extras.seoIntro}
+          whyUs={extras.whyUs}
+          relatedProjectIds={extras.relatedProjectIds}
+          relatedBlogSlugs={extras.relatedBlogSlugs}
+          ctaLocation={slug}
         />
       </main>
       <Footer />

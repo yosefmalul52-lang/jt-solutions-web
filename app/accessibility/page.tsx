@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageEnter from "@/components/motion/PageEnter";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "הצהרת נגישות | JT Solutions",
+export const metadata: Metadata = createPageMetadata({
+  title: "הצהרת נגישות",
   description: "הצהרת הנגישות של JT Solutions — מחויבותנו לנגישות דיגיטלית לכלל המשתמשים.",
-};
+  path: "/accessibility",
+});
 
 const sections = [
   {

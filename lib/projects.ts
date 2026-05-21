@@ -9,6 +9,9 @@ export type ProjectItem = {
   problem: string;
   processPoints: [string, string, string];
   businessValue: string;
+  results: string[];
+  clientQuote?: string;
+  metrics?: { label: string; value: string }[];
   technologies: string[];
   relatedServiceSlug: ServiceSlug;
   image: {
@@ -35,10 +38,20 @@ export const projects: ProjectItem[] = [
     ],
     businessValue:
       "יותר הזמנות נסגרות בלי תקיעות, זמן הטיפול יורד משמעותית, והעסק יכול לצמוח בלי להגדיל עומס תפעולי.",
+    results: [
+      "תהליך הזמנות מרוכז בדשבורד אחד במקום מספר כלים מפוזרים",
+      "פחות טעויות ידניות בעדכון סטטוסים להזמנות",
+      "חוויית קנייה מהירה יותר במובייל",
+    ],
+    clientQuote: "סוף סוף רואים את כל ההזמנות במקום אחד — הצוות עובד הרבה יותר רגוע.",
+    metrics: [
+      { label: "זמן טיפול בהזמנה", value: "ירידה משמעותית" },
+      { label: "סדר תפעולי", value: "מערכת אחת" },
+    ],
     technologies: ["E-commerce", "Vercel Hosting", "Dashboard", "Automation"],
     relatedServiceSlug: "ecommerce",
     image: {
-      src: "/opengraph-image.png",
+      src: "/projects/magadim.png",
       alt: "תצוגת חנות איקומרס Magadim — דשבורד הזמנות וניהול",
     },
   },
@@ -59,10 +72,20 @@ export const projects: ProjectItem[] = [
     ],
     businessValue:
       "העסק נראה יוקרתי ומדויק יותר, איכות הפניות עלתה, ונוצרה תחושת אמון שמקצרת את הדרך מסקרנות לקביעת תור.",
+    results: [
+      "שפה מותגית אחידה בכל נקודות המגע",
+      "דף נחיתה עם זרימה ברורה לקביעת תור",
+      "מראה יוקרתי שמחזק אמון לפני שיחה",
+    ],
+    clientQuote: "הלקוחות מרגישות שהמותג ברמה אחרת — יותר פניות איכותיות.",
+    metrics: [
+      { label: "איכות פניות", value: "שיפור מורגש" },
+      { label: "זמן הקמה", value: "לוח זמנים מסודר" },
+    ],
     technologies: ["Branding", "UX/UI", "Landing Page", "Lead Generation"],
     relatedServiceSlug: "landing-pages",
     image: {
-      src: "/opengraph-image.png",
+      src: "/projects/eb-hair.png",
       alt: "דף נחיתה יוקרתי EB Hair — מיתוג וממשק ממיר",
     },
   },
@@ -83,10 +106,20 @@ export const projects: ProjectItem[] = [
     ],
     businessValue:
       "פחות לידים הולכים לאיבוד, זמן התגובה מתקצר, ותהליך המכירה נהיה צפוי, מדיד ויעיל הרבה יותר.",
+    results: [
+      "לידים מכל המקורות נכנסים אוטומטית ל-CRM",
+      "התראות בזמן אמת לצוות המכירות",
+      "פחות העתקות ידניות בין מערכות",
+    ],
+    clientQuote: "לא מפספסים יותר פניות — הכל מגיע מסודר ומוכן למעקב.",
+    metrics: [
+      { label: "זמן תגובה לליד", value: "מהיר משמעותית" },
+      { label: "לידים אבודים", value: "ירידה חדה" },
+    ],
     technologies: ["n8n", "CRM Integration", "Real-time Data", "Automation Flows"],
     relatedServiceSlug: "ai-automation",
     image: {
-      src: "/opengraph-image.png",
+      src: "/projects/ai-automation.png",
       alt: "תהליך אוטומציה עסקית — חיבור לידים ו-CRM",
     },
   },

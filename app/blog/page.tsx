@@ -6,7 +6,7 @@ import { getAllBlogPosts } from "@/lib/blog/posts";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "מדריכים דיגיטל לעסקים בישראל | JT Solutions",
+  title: "מדריכים דיגיטל לעסקים בישראל",
   description:
     "מאמרים מעשיים על אתרים, דפי נחיתה, איקומרס, מיתוג, פרסום ואוטומציה — כדי לקבל החלטות חכמות ולהגדיל מכירות.",
   path: "/blog",

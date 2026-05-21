@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import {
+  FLOATING_BOTTOM,
+  FLOATING_INSET_END,
+} from "@/lib/floating-buttons";
 
 const SITE_KEY = "925c8c9ec3014adac0359dd896ccd5f5";
 const SCRIPT_URL = "https://cdn.equalweb.com/core/5.2.8/accessibility.js";
@@ -10,26 +14,29 @@ const PIN_STYLE_ID = "jt-ind-pin-style";
 
 const PIN_CSS = `
 #INDmenu-btn,
-#INDmenu-btn.INDmenu-btn{
+#INDmenu-btn.INDmenu-btn,
+#INDWrap #INDmenu-btn{
   position:fixed!important;
   display:flex!important;
   visibility:visible!important;
   opacity:1!important;
   pointer-events:auto!important;
+  inset-block-start:auto!important;
   top:auto!important;
-  bottom:max(1.25rem,env(safe-area-inset-bottom,0px))!important;
+  margin-top:0!important;
+  bottom:var(--jt-fab-bottom)!important;
+  inset-block-end:var(--jt-fab-bottom)!important;
   left:auto!important;
-  right:max(0.75rem,env(safe-area-inset-right,0px))!important;
+  inset-inline-start:auto!important;
+  right:var(--jt-fab-end)!important;
+  inset-inline-end:var(--jt-fab-end)!important;
   transform-origin:bottom right!important;
   z-index:2147483647!important;
 }
 @media (max-width:768px){
   #INDmenu-btn,#INDmenu-btn.INDmenu-btn{
-    top:50%!important;
-    bottom:auto!important;
     --indscale:0.55!important;
-    transform:translateY(-50%) scale(0.55)!important;
-    transform-origin:center right!important;
+    transform:scale(0.55)!important;
   }
 }
 @media (min-width:769px){
@@ -38,11 +45,18 @@ const PIN_CSS = `
     transform:scale(0.5)!important;
   }
 }
-#INDWrap{
+#INDWrap,
+#INDWrap.INDWrap{
   position:fixed!important;
+  top:auto!important;
+  bottom:0!important;
+  left:auto!important;
+  right:0!important;
   inset:auto 0 0 auto!important;
   width:auto!important;
   height:auto!important;
+  max-height:none!important;
+  transform:none!important;
   overflow:visible!important;
   pointer-events:none!important;
   z-index:2147483646!important;
@@ -61,6 +75,10 @@ declare global {
 }
 
 function ensurePinStyles() {
+  const root = document.documentElement;
+  root.style.setProperty("--jt-fab-bottom", FLOATING_BOTTOM);
+  root.style.setProperty("--jt-fab-end", FLOATING_INSET_END);
+
   if (document.getElementById(PIN_STYLE_ID)) return;
   const el = document.createElement("style");
   el.id = PIN_STYLE_ID;
@@ -74,36 +92,29 @@ function pinAccessibilityButton() {
 
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const scale = isMobile ? "0.55" : "0.5";
-  const bottom = "max(1.25rem, env(safe-area-inset-bottom, 0px))";
-  const right = "max(0.75rem, env(safe-area-inset-right, 0px))";
 
   btn.style.setProperty("position", "fixed", "important");
   btn.style.setProperty("display", "flex", "important");
   btn.style.setProperty("visibility", "visible", "important");
   btn.style.setProperty("opacity", "1", "important");
   btn.style.setProperty("pointer-events", "auto", "important");
+  btn.style.setProperty("margin-top", "0", "important");
+  btn.style.setProperty("top", "auto", "important");
+  btn.style.setProperty("bottom", FLOATING_BOTTOM, "important");
   btn.style.setProperty("left", "auto", "important");
-  btn.style.setProperty("right", right, "important");
+  btn.style.setProperty("right", FLOATING_INSET_END, "important");
+  btn.style.setProperty("transform-origin", "bottom right", "important");
   btn.style.setProperty("z-index", "2147483647", "important");
   btn.style.setProperty("--indscale", scale, "important");
-
-  if (isMobile) {
-    btn.style.removeProperty("bottom");
-    btn.style.setProperty("top", "50%", "important");
-    btn.style.setProperty("bottom", "auto", "important");
-    btn.style.setProperty("transform-origin", "center right", "important");
-    btn.style.setProperty("transform", `translateY(-50%) scale(${scale})`, "important");
-  } else {
-    btn.style.removeProperty("top");
-    btn.style.setProperty("top", "auto", "important");
-    btn.style.setProperty("bottom", bottom, "important");
-    btn.style.setProperty("transform-origin", "bottom right", "important");
-    btn.style.setProperty("transform", `scale(${scale})`, "important");
-  }
+  btn.style.setProperty("transform", `scale(${scale})`, "important");
 
   const wrap = document.getElementById("INDWrap");
   if (wrap) {
+    wrap.style.setProperty("transform", "none", "important");
     wrap.style.setProperty("position", "fixed", "important");
+    wrap.style.setProperty("top", "auto", "important");
+    wrap.style.setProperty("margin-top", "0", "important");
+    wrap.style.setProperty("bottom", "0", "important");
     wrap.style.setProperty("left", "auto", "important");
     wrap.style.setProperty("right", "0", "important");
     wrap.style.setProperty("width", "auto", "important");
@@ -111,15 +122,6 @@ function pinAccessibilityButton() {
     wrap.style.setProperty("overflow", "visible", "important");
     wrap.style.setProperty("pointer-events", "none", "important");
     wrap.style.setProperty("z-index", "2147483646", "important");
-    if (isMobile) {
-      wrap.style.setProperty("top", "50%", "important");
-      wrap.style.setProperty("bottom", "auto", "important");
-      wrap.style.setProperty("transform", "translateY(-50%)", "important");
-    } else {
-      wrap.style.removeProperty("transform");
-      wrap.style.setProperty("top", "auto", "important");
-      wrap.style.setProperty("bottom", "0", "important");
-    }
   }
 
   return true;
@@ -211,7 +213,8 @@ function initEqualWeb() {
     Menulang: "HE",
     draggable: false,
     btnStyle: {
-      vPosition: ["100%", "50%"],
+      // [desktop, mobile] — ערך ראשון = מלמעלה בדסקטופ; שני = מלמטה במובייל. 100% = תחתית בדסקטופ.
+      vPosition: ["100%", "1.5rem"],
       margin: ["0", "0"],
       scale: [0.5, 0.55],
       color: {
@@ -240,9 +243,12 @@ export default function EqualWeb() {
   useEffect(() => {
     initEqualWeb();
     const onResize = () => pinAccessibilityButton();
+    const onScroll = () => pinAccessibilityButton();
     window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScroll);
       if (window.__jtIndPinInterval) {
         clearInterval(window.__jtIndPinInterval);
         window.__jtIndPinInterval = undefined;

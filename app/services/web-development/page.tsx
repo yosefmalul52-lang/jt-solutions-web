@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
 import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceDisplayExtras } from "@/lib/seo/service-display";
 import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { Code2, Gauge, LayoutTemplate, Rocket, ShieldCheck } from "lucide-react";
 
@@ -21,6 +22,7 @@ const faq = mergeServiceFaq(
   ],
   slug,
 );
+const extras = getServiceDisplayExtras(slug);
 
 export default function WebDevelopmentPage() {
   return (
@@ -46,6 +48,11 @@ export default function WebDevelopmentPage() {
             { icon: Rocket, text: "השקה מסודרת ותמיכה ראשונית לאחר עלייה לאוויר" },
           ]}
           faq={faq}
+          seoIntro={extras.seoIntro}
+          whyUs={extras.whyUs}
+          relatedProjectIds={extras.relatedProjectIds}
+          relatedBlogSlugs={extras.relatedBlogSlugs}
+          ctaLocation={slug}
         />
       </main>
       <Footer />

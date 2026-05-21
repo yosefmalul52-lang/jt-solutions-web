@@ -68,7 +68,6 @@ export default function ServicePage({
   fit,
   timeframe,
   ctaText,
-  heroAccent,
   features,
   process,
   faqs,

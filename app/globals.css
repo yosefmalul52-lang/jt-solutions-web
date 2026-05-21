@@ -282,7 +282,70 @@ html { scroll-behavior: smooth; }
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
 
-/* EqualWeb — דסקטופ: תחתית | מובייל: אמצע המסך (משלים ל-#jt-ind-pin-style) */
+/* כפתורים צפים — ערכים משותפים עם lib/floating-buttons.ts */
+:root {
+  --jt-fab-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+  --jt-fab-end: max(1.5rem, env(safe-area-inset-right, 0px));
+  --jt-fab-start: max(1.5rem, env(safe-area-inset-left, 0px));
+}
+
+@keyframes jt-fab-whatsapp-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.jt-floating-whatsapp {
+  position: fixed;
+  z-index: 9990;
+  bottom: var(--jt-fab-bottom);
+  left: var(--jt-fab-start);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background-color: #10b981;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  animation: jt-fab-whatsapp-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+.jt-floating-whatsapp:hover {
+  background-color: #34d399;
+  transform: scale(1.06);
+}
+
+.jt-floating-whatsapp:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .jt-floating-whatsapp {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jt-floating-whatsapp {
+    animation: none;
+  }
+
+  .jt-floating-whatsapp:hover,
+  .jt-floating-whatsapp:active {
+    transform: none;
+  }
+}
+
+/* EqualWeb — כפתור נגישות בתחתית-ימין (משלים ל-#jt-ind-pin-style) */
 #INDmenu-btn,
 #INDmenu-btn.INDmenu-btn,
 #INDWrap #INDmenu-btn,
@@ -298,21 +361,26 @@ html { scroll-behavior: smooth; }
   opacity: 1 !important;
   pointer-events: auto !important;
   top: auto !important;
+  margin-top: 0 !important;
   left: auto !important;
-  right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
-  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px)) !important;
+  right: var(--jt-fab-end) !important;
+  bottom: var(--jt-fab-bottom) !important;
   transform-origin: bottom right !important;
   z-index: 2147483647 !important;
 }
 
-#INDWrap {
+#INDWrap,
+#INDWrap.INDWrap {
   position: fixed !important;
   top: auto !important;
+  margin-top: 0 !important;
   bottom: 0 !important;
   left: auto !important;
   right: 0 !important;
   width: auto !important;
   height: auto !important;
+  max-height: none !important;
+  transform: none !important;
   overflow: visible !important;
   pointer-events: none !important;
   z-index: 2147483646 !important;
@@ -328,17 +396,8 @@ html { scroll-behavior: smooth; }
   #INDWrap #INDmenu-btn,
   [data-indmobile] #INDmenu-btn,
   .INDMobile #INDmenu-btn {
-    top: 50% !important;
-    bottom: auto !important;
     --indscale: 0.55 !important;
-    transform: translateY(-50%) scale(0.55) !important;
-    transform-origin: center right !important;
-  }
-
-  #INDWrap {
-    top: 50% !important;
-    bottom: auto !important;
-    transform: translateY(-50%) !important;
+    transform: scale(0.55) !important;
   }
 }
 

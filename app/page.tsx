@@ -8,7 +8,10 @@ import Projects from "@/components/sections/Projects";
 import Pricing from "@/components/sections/Pricing";
 import Contact from "@/components/sections/Contact";
 import SectionDivider from "@/components/ui/SectionDivider";
+import HomeFaq from "@/components/sections/HomeFaq";
+import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { getHomeFaqJsonLd } from "@/lib/seo/home-faq";
 
 export const metadata: Metadata = createPageMetadata({
   title: "סוכנות דיגיטל בישראל | אתרים, דפי נחיתה ומעטפת צמיחה",
@@ -28,6 +31,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function Home() {
   return (
     <>
+      <JsonLd data={getHomeFaqJsonLd()} />
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -39,6 +43,8 @@ export default function Home() {
         <Proof />
         <SectionDivider />
         <Pricing />
+        <SectionDivider />
+        <HomeFaq />
         <SectionDivider />
         <Contact />
       </main>

@@ -2,6 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, MoveLeft } from "lucide-react";
+import MaskedHeadline from "@/components/motion/MaskedHeadline";
+import ParallaxLayer from "@/components/motion/ParallaxLayer";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 import CtaButton from "@/components/ui/CtaButton";
 import { trackCtaClick } from "@/lib/analytics/track";
@@ -34,19 +36,23 @@ export default function Hero() {
       />
 
       <div aria-hidden className="section-blob-layer overflow-hidden">
-        <div
+        <ParallaxLayer
+          speed={0.12}
           className="absolute top-[8%] right-[4%] w-[22rem] h-[22rem] max-w-[50vw] rounded-full"
           style={{ background: "rgba(91,33,182,0.34)", filter: "blur(42px)" }}
         />
-        <div
+        <ParallaxLayer
+          speed={0.08}
           className="absolute bottom-[10%] left-[2%] w-[28rem] h-[28rem] max-w-[55vw] rounded-full"
           style={{ background: "rgba(16,179,231,0.3)", filter: "blur(46px)" }}
         />
-        <div
+        <ParallaxLayer
+          speed={0.1}
           className="absolute top-[32%] left-[-4%] w-[18rem] h-[18rem] max-w-[42vw] rounded-full"
           style={{ background: "rgba(79,70,229,0.28)", filter: "blur(38px)" }}
         />
-        <div
+        <ParallaxLayer
+          speed={0.14}
           className="absolute bottom-[36%] right-[2%] w-80 h-80 max-w-[44vw] rounded-full"
           style={{ background: "rgba(129,140,248,0.28)", filter: "blur(40px)" }}
         />
@@ -61,21 +67,36 @@ export default function Hero() {
           className="flex flex-col items-center text-center w-full"
           dir="rtl"
         >
-          <motion.h1 variants={heroItemUp} className="display-title max-w-4xl mx-auto">
-            סוכנות דיגיטל בישראל:{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b3e7] to-[#7c3aed]">
-              מעטפת אחת מהמיתוג ועד לידים שמגיעים
-            </span>
-          </motion.h1>
+          <motion.div variants={heroItemUp} className="max-w-4xl mx-auto w-full">
+            <MaskedHeadline
+              as="h1"
+              className="display-title max-w-4xl mx-auto"
+              viewportKey="sectionLoose"
+              lines={[
+                "סוכנות דיגיטל שבונה תוצאות:",
+                <span key="grad" className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b3e7] to-[#7c3aed]">
+                  מעטפת מקצה לקצה – ממיתוג פרימיום ועד לתשתית לידים חכמה.
+                </span>,
+              ]}
+            />
+          </motion.div>
 
-          <motion.h2
+          <motion.div
             variants={heroItemUp}
-            className="max-w-3xl mx-auto text-lg sm:text-2xl font-medium leading-relaxed mt-8 sm:mt-10"
+            className="max-w-3xl mx-auto w-full mt-8 sm:mt-10"
             style={{ color: "#6B7280" }}
           >
-            בונים עבורך אתרים ממירים, דפי נחיתה, חנויות איקומרס, מיתוג ואוטומציה — אפיון חכם, עיצוב מקצועי
-            ותהליך ברור שמחבר הכל לפניות אמיתיות.
-          </motion.h2>
+            <MaskedHeadline
+              as="h2"
+              className="text-lg sm:text-2xl font-medium leading-relaxed"
+              viewportKey="sectionLoose"
+              mode="line"
+              lines={[
+                "בונים עבורך אתרים ממירים, דפי נחיתה, חנויות איקומרס, מיתוג ואוטומציה — אפיון חכם, עיצוב מקצועי",
+                "ותהליך ברור שמחבר הכל לפניות אמיתיות.",
+              ]}
+            />
+          </motion.div>
 
           <motion.div
             variants={heroItemUp}

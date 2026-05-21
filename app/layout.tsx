@@ -9,6 +9,7 @@ import MetaPixel from "@/components/analytics/MetaPixel";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
 import EqualWeb from "@/components/accessibility/EqualWeb";
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/organization";
 
@@ -18,8 +19,13 @@ const heebo = Heebo({
   display: "swap",
 });
 
+const googleVerification = (process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "").trim();
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.jt-solutions.org"),
+  ...(googleVerification
+    ? { verification: { google: googleVerification } }
+    : {}),
   title: {
     default: "JT Solutions | סוכנות דיגיטל ופיתוח",
     template: "%s | JT Solutions",
@@ -90,6 +96,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
+        <FloatingWhatsApp />
         <EqualWeb />
         <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />
       </body>

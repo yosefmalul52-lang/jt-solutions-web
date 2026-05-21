@@ -49,14 +49,11 @@ export default function Projects() {
             alt="תצוגת מוקאפ לפרויקט לקוח"
             width={1024}
             height={768}
-            sizes="100vw"
-            quality={100}
-            unoptimized
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={75}
             className="mx-auto h-auto w-full object-cover object-center"
-            priority
           />
         </Reveal>
-
       </div>
     </section>
   );

@@ -2,6 +2,10 @@
 
 רשימת פעולות ליוסף (לא בקוד) להשלמת תוכנית הקידום האורגני.
 
+**צ'ק-ליסט מפורט:** [`docs/SEO-SETUP-CHECKLIST.md`](SEO-SETUP-CHECKLIST.md)  
+**לוח תוכן 6 חודשים:** [`docs/SEO-CONTENT-CALENDAR.md`](SEO-CONTENT-CALENDAR.md)  
+**KPI חודשי:** [`docs/SEO-KPI-MONTHLY.md`](SEO-KPI-MONTHLY.md)
+
 ## Google Search Console
 
 1. היכנס ל-[Google Search Console](https://search.google.com/search-console)

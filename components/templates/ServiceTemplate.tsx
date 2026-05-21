@@ -1,9 +1,12 @@
 import type { ComponentType, SVGProps } from "react";
+import Link from "next/link";
 import { CheckCircle2, Home, LayoutGrid, MessageCircle } from "lucide-react";
 import PageEnter from "@/components/motion/PageEnter";
 import CtaButton from "@/components/ui/CtaButton";
 import OutlineNavLink from "@/components/ui/OutlineNavLink";
 import FaqAccordion from "@/components/ui/FaqAccordion";
+import { getBlogPostBySlug } from "@/lib/blog/posts";
+import { getProjectById } from "@/lib/projects";
 
 export interface ServiceDeliverableItem {
   icon: ComponentType<SVGProps<SVGSVGElement> & { size?: number }>;
@@ -23,6 +26,11 @@ export interface ServiceTemplateProps {
   deliverables: ServiceDeliverableItem[];
   timeframe: string;
   faq?: ServiceFaqItem[];
+  seoIntro?: string[];
+  whyUs?: string[];
+  relatedProjectIds?: string[];
+  relatedBlogSlugs?: string[];
+  ctaLocation?: string;
 }
 
 export default function ServiceTemplate({
@@ -33,6 +41,11 @@ export default function ServiceTemplate({
   deliverables,
   timeframe,
   faq,
+  seoIntro,
+  whyUs,
+  relatedProjectIds = [],
+  relatedBlogSlugs = [],
+  ctaLocation = "service-page",
 }: ServiceTemplateProps) {
   return (
     <div className="bg-[#F9FAFB]">
@@ -62,6 +75,16 @@ export default function ServiceTemplate({
               </h1>
 
               <p className="premium-subtitle max-w-2xl mx-auto mt-6">{description}</p>
+              {seoIntro && seoIntro.length > 0 ? (
+                <div className="max-w-2xl mx-auto mt-8 space-y-3 text-sm sm:text-base leading-relaxed text-slate-600 text-right">
+                  {seoIntro.map((p) => (
+                    <p key={p}>{p}</p>
+                  ))}
+                </div>
+              ) : null}
+              <div className="mt-8 flex justify-center">
+                <CtaButton href="/#contact" ctaLocation={`${ctaLocation}-hero`} />
+              </div>
             </div>
           </div>
         </section>
@@ -164,6 +187,68 @@ export default function ServiceTemplate({
           </div>
         </section>
 
+        {whyUs && whyUs.length > 0 ? (
+          <section className="py-12 md:py-16">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
+              <h2 className="text-xl font-bold text-slate-900 mb-4 text-center">למה JT Solutions</h2>
+              <ul className="space-y-3">
+                {whyUs.map((point) => (
+                  <li key={point} className="flex items-start gap-2.5 text-sm text-slate-600">
+                    <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-indigo-500" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ) : null}
+
+        {(relatedProjectIds.length > 0 || relatedBlogSlugs.length > 0) && (
+          <section className="py-12 border-t border-slate-200/80">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8" dir="rtl">
+              {relatedProjectIds.length > 0 ? (
+                <div>
+                  <h2 className="text-base font-bold text-slate-900 mb-3">פרויקטים קשורים</h2>
+                  <ul className="space-y-2">
+                    {relatedProjectIds.map((id) => {
+                      const project = getProjectById(id);
+                      if (!project) return null;
+                      return (
+                        <li key={id}>
+                          <Link href={`/projects/${id}`} className="text-sm font-semibold text-indigo-600 hover:underline">
+                            {project.title} — {project.shortDescription}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
+              {relatedBlogSlugs.length > 0 ? (
+                <div>
+                  <h2 className="text-base font-bold text-slate-900 mb-3">מדריכים קשורים</h2>
+                  <ul className="space-y-2">
+                    {relatedBlogSlugs.map((slug) => {
+                      const post = getBlogPostBySlug(slug);
+                      if (!post) return null;
+                      return (
+                        <li key={slug}>
+                          <Link href={`/blog/${slug}`} className="text-sm font-semibold text-indigo-600 hover:underline">
+                            {post.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <Link href="/blog" className="inline-block mt-3 text-xs font-semibold text-slate-500 hover:text-slate-800">
+                    כל המדריכים →
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+          </section>
+        )}
+
         {/* ── FAQ ── */}
         {faq && faq.length > 0 && (
           <section
@@ -210,7 +295,9 @@ export default function ServiceTemplate({
                 בשיחה קצרה נמפה את הצרכים ונמליץ על המסלול המדויק לעסק שלך.
               </p>
               <div className="flex justify-center">
-                <CtaButton href="/#contact">אני רוצה אבחון לעסק שלי</CtaButton>
+                <CtaButton href="/#contact" ctaLocation={`${ctaLocation}-footer`}>
+                  אני רוצה אבחון לעסק שלי
+                </CtaButton>
               </div>
             </div>
           </div>

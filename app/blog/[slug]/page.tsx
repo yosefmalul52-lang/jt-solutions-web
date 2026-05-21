@@ -7,6 +7,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog/posts";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { SITE_URL } from "@/lib/seo/constants";
+import { getArticleAuthorJsonLd } from "@/lib/seo/author";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -40,29 +41,39 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.description,
-    datePublished: post.publishedAt,
-    inLanguage: "he-IL",
-    author: {
-      "@type": "Organization",
-      name: "JT Solutions",
-      url: SITE_URL,
+  const jsonLd: Record<string, unknown>[] = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: post.title,
+      description: post.description,
+      datePublished: post.publishedAt,
+      inLanguage: "he-IL",
+      author: getArticleAuthorJsonLd(),
+      publisher: {
+        "@type": "Organization",
+        name: "JT Solutions",
+        url: SITE_URL,
+      },
+      mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
     },
-    publisher: {
-      "@type": "Organization",
-      name: "JT Solutions",
-      url: SITE_URL,
-    },
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
-  };
+  ];
+
+  if (post.faq.length > 0) {
+    jsonLd.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: post.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
 
   return (
     <>
-      <JsonLd data={articleJsonLd} />
+      <JsonLd data={jsonLd} />
       <Navbar />
       <main className="flex-1 py-16 md:py-24 section-shell">
         <div className="px-4 sm:px-6 lg:px-8">

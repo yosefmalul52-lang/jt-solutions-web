@@ -25,10 +25,11 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 
   return createPageMetadata({
-    title: `${project.seoTitle} | JT Solutions`,
+    title: project.seoTitle,
     description: `${project.shortDescription} ${project.businessValue}`,
     path: `/projects/${project.id}`,
-    keywords: [project.title, "פרויקט דיגיטל", "case study"],
+    keywords: [project.title, "פרויקט דיגיטל", "סיפור הצלחה", "תוצאות לפני ואחרי"],
+    noIndex: true,
   });
 }
 
@@ -49,7 +50,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "דף הבית", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "פרויקטים", item: `${SITE_URL}/#projects` },
+        { "@type": "ListItem", position: 2, name: "תיק עבודות", item: `${SITE_URL}/projects` },
         { "@type": "ListItem", position: 3, name: project.title, item: pageUrl },
       ],
     },
@@ -57,9 +58,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       "@context": "https://schema.org",
       "@type": "CreativeWork",
       name: project.seoTitle,
-      description: project.shortDescription,
+      headline: project.seoTitle,
+      description: `${project.shortDescription} ${project.businessValue}`,
       url: pageUrl,
+      inLanguage: "he-IL",
       about: service.serviceName,
+      creator: {
+        "@type": "Organization",
+        name: "JT Solutions",
+        url: SITE_URL,
+      },
+      image: `${SITE_URL}${project.image.src}`,
     },
   ];
 

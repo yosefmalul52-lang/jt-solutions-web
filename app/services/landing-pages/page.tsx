@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
 import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceDisplayExtras } from "@/lib/seo/service-display";
 import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import { FileText, MessageSquare, MonitorSmartphone, Target, Workflow } from "lucide-react";
 
@@ -21,6 +22,7 @@ const baseFaq = [
 ] as const;
 
 const faq = mergeServiceFaq([...baseFaq], slug);
+const extras = getServiceDisplayExtras(slug);
 
 export default function LandingPagesServicePage() {
   return (
@@ -51,6 +53,11 @@ export default function LandingPagesServicePage() {
             { icon: FileText, text: "דף ביקורות ותוכן מחזק אמון" },
           ]}
           faq={faq}
+          seoIntro={extras.seoIntro}
+          whyUs={extras.whyUs}
+          relatedProjectIds={extras.relatedProjectIds}
+          relatedBlogSlugs={extras.relatedBlogSlugs}
+          ctaLocation={slug}
         />
       </main>
       <Footer />

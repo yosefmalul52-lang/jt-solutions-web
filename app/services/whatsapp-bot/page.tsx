@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ServiceTemplate from "@/components/templates/ServiceTemplate";
 import ServiceStructuredData from "@/components/seo/ServiceStructuredData";
+import { getServiceDisplayExtras } from "@/lib/seo/service-display";
 import { getServiceMetadata, mergeServiceFaq, servicePages } from "@/lib/seo/services";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { BotMessageSquare, Clock, ListTree, ShieldCheck, Sparkles } from "lucide-react";
@@ -22,6 +23,7 @@ const faq = mergeServiceFaq(
   ],
   slug,
 );
+const extras = getServiceDisplayExtras(slug);
 
 export default function WhatsAppBotPage() {
   return (
@@ -48,6 +50,11 @@ export default function WhatsAppBotPage() {
             { icon: Sparkles, text: "הדרכה קצרה להפעלה שוטפת ועדכונים לתסריטים" },
           ]}
           faq={faq}
+          seoIntro={extras.seoIntro}
+          whyUs={extras.whyUs}
+          relatedProjectIds={extras.relatedProjectIds}
+          relatedBlogSlugs={extras.relatedBlogSlugs}
+          ctaLocation={slug}
         />
       </main>
       <Footer />

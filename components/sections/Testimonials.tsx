@@ -76,7 +76,7 @@ export default function Testimonials() {
                 <span>★</span>
               </div>
 
-              <p className="mt-3 text-sm leading-relaxed text-slate-600 text-right">"{item.quote}"</p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 text-right">&ldquo;{item.quote}&rdquo;</p>
 
               <div className="mt-4 pt-3 border-t border-white/40 text-right">
                 <p className="text-sm font-semibold text-slate-900">{item.name}</p>

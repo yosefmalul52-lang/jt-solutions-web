@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useHydrated } from "@/hooks/useHydrated";
 import { EASE, motionTransition, viewport, type ViewportKey } from "@/lib/motion";
 
 type RevealProps = {
@@ -27,19 +28,24 @@ export default function Reveal({
   x,
   as = "div",
 }: RevealProps) {
+  const hydrated = useHydrated();
   const reduce = useReducedMotion();
   const vp = viewport[viewportKey];
   const t = motionTransition(reduce, { duration, delay, ease: EASE });
 
+  const StaticTag = as === "article" ? "article" : "div";
+
+  if (!hydrated || reduce) {
+    return (
+      <StaticTag className={className} style={style}>
+        {children}
+      </StaticTag>
+    );
+  }
+
   const initial =
-    reduce === true
-      ? { opacity: 1, y: 0, x: 0 }
-      : x !== undefined
-        ? { opacity: 0, x, y: 0 }
-        : { opacity: 0, y, x: 0 };
-
+    x !== undefined ? { opacity: 0, x, y: 0 } : { opacity: 0, y, x: 0 };
   const animate = { opacity: 1, y: 0, x: 0 };
-
   const MotionTag = as === "article" ? motion.article : motion.div;
 
   return (

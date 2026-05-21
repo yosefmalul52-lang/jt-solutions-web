@@ -6,6 +6,7 @@ import { trackPhoneClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 
 const quickLinks = [
+  { label: "אודות", href: "/about" },
   { label: "שירותים", href: "/#services" },
   { label: "מדריכים", href: "/blog" },
   { label: "הוכחות", href: "/#proof" },

@@ -18,6 +18,7 @@ import {
   ShoppingCart,
   type LucideIcon,
 } from "lucide-react";
+import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import Reveal from "@/components/motion/Reveal";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 
@@ -347,14 +348,21 @@ export default function Services() {
       style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F2F6FC 50%, #F9FAFB 100%)" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center mb-16" viewportKey="sectionLoose" y={24} duration={0.6}>
-          <h2 className="premium-title mb-4">
-            <span className="gradient-text">מסלול צמיחה</span> בשלושה שלבים
-          </h2>
+        <div className="text-center mb-16">
+          <MaskedHeadline
+            as="h2"
+            className="premium-title mb-4"
+            viewportKey="sectionLoose"
+            lines={[
+              <>
+                <span className="gradient-text">מסלול צמיחה</span> בשלושה שלבים
+              </>,
+            ]}
+          />
           <p className="premium-subtitle max-w-2xl mx-auto">
             במקום אוסף שירותים - תהליך ברור שמוביל מהקמה ועד מכירות שוטפות.
           </p>
-        </Reveal>
+        </div>
 
         <Reveal className="relative" viewportKey="sectionLoose" y={20} duration={0.6}>
           <div

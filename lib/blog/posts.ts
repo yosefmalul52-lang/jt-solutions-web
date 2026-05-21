@@ -1,4 +1,12 @@
 import type { ServiceSlug } from "@/lib/seo/services";
+import {
+  howToChooseAgencyExpanded,
+  howToChooseAgencyFaq,
+  landingPageVsWebsiteExpanded,
+  landingPageVsWebsiteFaq,
+  websiteCostIsrael2026Expanded,
+  websiteCostIsrael2026Faq,
+} from "@/lib/blog/expanded-top-posts";
 
 export type BlogSection = {
   heading: string;
@@ -25,33 +33,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-01-15",
     keywords: ["כמה עולה אתר תדמית", "מחיר אתר לעסק", "בניית אתרים ישראל"],
     relatedServices: ["business-websites", "landing-pages"],
-    sections: [
-      {
-        heading: "תשובה קצרה",
-        paragraphs: [
-          "בישראל, אתר תדמית לעסק קטן–בינוני נע בדרך כלל בין כמה אלפי שקלים לעשרות אלפי שקלים, בהתאם להיקף, רמת העיצוב והאינטגרציות. המחיר האמיתי נמדד ביכולת של האתר לייצר פניות — לא רק במספר העמודים.",
-        ],
-      },
-      {
-        heading: "מה משפיע על המחיר",
-        paragraphs: [
-          "מספר העמודים, איכות התוכן, חיבור לטפסים/וואטסאפ, מהירות טעינה, SEO בסיסי, נגישות והדרכה לניהול — כל אלה משנים את ההיקף.",
-          "הצעה זולה מדי לרוב מדלגת על אפיון, מדידה ואופטימיזציה — ואז האתר נראה טוב אבל לא מחזיר את ההשקעה.",
-        ],
-      },
-      {
-        heading: "איך לבחור נכון",
-        paragraphs: [
-          "בקשו לראות פרויקטים דומים לתחום שלכם, שאלו על זמני עלייה לאוויר, וודאו שיש תוכנית המרה: מסר, CTA ומדידה.",
-        ],
-      },
-    ],
-    faq: [
-      {
-        question: "האם אתר זול יכול לעבוד?",
-        answer: "כן, אם הוא ממוקד, מהיר ומדוד. אתר יקר שלא ממיר — עדיין יקר.",
-      },
-    ],
+    sections: websiteCostIsrael2026Expanded,
+    faq: websiteCostIsrael2026Faq,
   },
   {
     slug: "landing-page-vs-full-website",
@@ -61,21 +44,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-01-22",
     keywords: ["דף נחיתה", "אתר תדמית", "landing page"],
     relatedServices: ["landing-pages", "business-websites"],
-    sections: [
-      {
-        heading: "מתי דף נחיתה מספיק",
-        paragraphs: [
-          "כשיש הצעה אחת ברורה, קמפיין ממומן או שירות מוביל — דף נחיתה ממוקד ממיר מהר יותר ועולה פחות.",
-        ],
-      },
-      {
-        heading: "מתי צריך אתר מלא",
-        paragraphs: [
-          "כשיש מספר שירותים, צורך באמון ארוך טווח, תוכן SEO, בלוג או הרחבה עתידית — אתר תדמית הוא הבסיס הנכון.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: landingPageVsWebsiteExpanded,
+    faq: landingPageVsWebsiteFaq,
   },
   {
     slug: "how-to-choose-digital-agency",
@@ -85,16 +55,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-02-01",
     keywords: ["סוכנות דיגיטל", "בחירת סוכנות", "שירותי דיגיטל"],
     relatedServices: ["business-websites", "branding"],
-    sections: [
-      {
-        heading: "מה לבדוק לפני שמתחייבים",
-        paragraphs: [
-          "תיק עבודות אמיתי, תהליך עבודה ברור, בעלים אחד שאחראי, מדידה והמרות — לא רק עיצוב.",
-          "שאלו מי מבצע בפועל: אפיון, פיתוח, תוכן ופרסום. פיזור אחריות בין ספקים יוצר כאב ראש.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: howToChooseAgencyExpanded,
+    faq: howToChooseAgencyFaq,
   },
   {
     slug: "ecommerce-mistakes-small-business",

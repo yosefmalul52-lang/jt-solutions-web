@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { Send, Mail, Phone, Facebook, Instagram } from "lucide-react";
+import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import Reveal from "@/components/motion/Reveal";
-import { trackPhoneClick, trackWhatsAppClick } from "@/lib/analytics/track";
+import { trackPhoneClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
-import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -22,7 +21,6 @@ const inputClass = "rounded-2xl bg-[#F9FAFB] border border-[rgba(0,0,0,0.08)] te
 const labelClass = "block text-xs font-semibold text-gray-600 mb-1.5";
 
 export default function Contact() {
-  const reduce = useReducedMotion();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -83,23 +81,28 @@ export default function Contact() {
     <>
       <section
         id="contact"
-        className="py-16 md:py-24 lg:py-32 relative overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #EEF3FF 45%, #F9FAFB 100%)" }}
+        className="pt-8 md:pt-12 pb-16 md:pb-24 lg:pb-32 relative overflow-hidden bg-[#F9FAFB]"
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Reveal className="text-center mb-16" viewportKey="section" y={24} duration={0.6}>
-            <h2 className="premium-title mb-4">
-              מוכנים למעטפת דיגיטלית אחת שעובדת?
-              <br />
-              <span className="gradient-text">בואו נבנה תהליך שמייצר תוצאות</span>
-            </h2>
+          <div className="text-center mb-16">
+            <MaskedHeadline
+              as="h2"
+              className="premium-title mb-4"
+              viewportKey="section"
+              lines={[
+                "מוכנים למעטפת דיגיטלית אחת שעובדת?",
+                <span key="grad" className="gradient-text">
+                  בואו נבנה תהליך שמייצר תוצאות
+                </span>,
+              ]}
+            />
             <p className="premium-subtitle max-w-2xl mx-auto">
               משאירים פרטים, קובעים שיחה קצרה ומקבלים כיוון ברור לצעד הבא.
             </p>
             <p className="text-sm mt-3" style={{ color: "#64748B" }}>
               חוזרים אליכם עד 24 שעות, ובשיחה תקבלו המלצה ברורה למסלול שמתאים לעסק.
             </p>
-          </Reveal>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <Reveal
@@ -342,27 +345,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
-      <motion.a
-        href="https://wa.me/972528240230?text=שלום%2C%20אני%20מעוניין%20לשמוע%20עוד%20על%20השירותים%20שלכם"
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackWhatsAppClick("contact_fab")}
-        aria-label="שיחה ב-WhatsApp"
-        initial={reduce === true ? false : { scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={
-          reduce === true
-            ? { duration: 0.01 }
-            : { delay: 1.5, type: "spring", stiffness: 200, damping: 15 }
-        }
-        whileHover={reduce ? undefined : { scale: 1.1 }}
-        whileTap={reduce ? undefined : { scale: 0.95 }}
-        className="hidden md:flex fixed bottom-14 left-6 z-50 w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 items-center justify-center transition-colors duration-200"
-        style={{ boxShadow: "0 8px 24px rgba(16,185,129,0.4)" }}
-      >
-        <WhatsAppIcon aria-hidden className="h-7 w-7 text-white" />
-      </motion.a>
     </>
   );
 }
