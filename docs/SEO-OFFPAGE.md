@@ -18,9 +18,52 @@
 - קטגוריה: שיווק דיגיטלי / בניית אתרים
 - אזור שירות: ישראל (קריית אתא + מרחוק לפי הצורך)
 - טלפון: 052-8240230
-- אתר: https://www.jt-solutions.org
-- שעות פעילות ותמונות עדכניות
-- בקש ביקורות מ-3–5 לקוחות מרוצים
+- אתר: https://www.jt-solutions.org/contact
+- שעות פעילות ותמונות עדכניות (10+)
+- **ביקורות:** 2–4 בחודש — שלח ללקוחות מרוצים קישור ישיר ל-GBP
+
+### פוסט GBP שבועי (תבנית)
+
+| שבוע | נושא | קישור באתר |
+|------|------|------------|
+| 1 | דף נחיתה ממיר | `/services/landing-pages` |
+| 2 | מאמר חדש בבלוג | `/blog/{slug}` |
+| 3 | דף עיר/אזור | `/areas/haifa` או `/areas/north` |
+| 4 | case study | `/projects/{id}` |
+
+## דפי עיר/אזור (Tier 1)
+
+10 דפים מקומיים באתר — קשר מפוסט GBP לדף רלוונטי:
+
+- `/areas/haifa`, `/areas/kiryat-ata`, `/areas/tel-aviv`, `/areas/jerusalem`
+- `/areas/beer-sheva`, `/areas/netanya`, `/areas/north`, `/areas/center`
+- `/areas/south`, `/areas/sharon`
+
+## תיק עבודות (מאונדקס)
+
+- Hub: `/projects`
+- Case studies: `/projects/magadim`, `/projects/eb-hair`, `/projects/ai-automation`
+- פרסם בפייסבוק/אינסטגרם עם קישור ישיר
+
+## מדריכי עסקים (NAP citations)
+
+הירשם/עדכן פרופיל עם NAP זהה:
+
+- Google Business Profile (חובה)
+- Facebook Page
+- Instagram Business
+- Zap (אם רלוונטי)
+- AllBiz / דפי זהב מקומיים
+
+## בקשת ביקורת — תבנית הודעה ללקוח
+
+> היי [שם], שמחנו ללוות את [פרויקט]. אם היית מרוצה — ביקורת קצרה ב-Google תעזור לעסקים דומים למצוא אותנו. [קישור GBP]
+
+## לינק מלקוחות
+
+הצע בפוטר האתר שלהם: "נבנה על ידי JT Solutions" → `https://www.jt-solutions.org`
+
+## תוכן — 14 מאמרים (+2 חדשים)
 
 ## NAP עקבי
 
@@ -60,6 +103,8 @@
 10. `before-after-case-studies`
 11. `monthly-growth-retainer`
 12. `website-launch-checklist-14-days`
+13. `digital-agency-north-israel`
+14. `website-cost-haifa-north`
 
 ## קישורים חיצוניים (Off-page)
 

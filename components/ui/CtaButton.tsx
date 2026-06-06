@@ -80,7 +80,7 @@ export default function CtaButton({
   const classNames = `${baseClass} ${variant === "primary" ? primaryClass : secondaryClass} ${className}`.trim();
   const inner = <span className="inline-flex items-center justify-center gap-2">{labelContent}</span>;
 
-  if (!enableMotion) {
+  if (!hydrated) {
     return (
       <button
         type={type}
@@ -98,22 +98,30 @@ export default function CtaButton({
 
   return (
     <motion.button
-      ref={ref}
+      initial={false}
+      ref={enableMotion ? ref : undefined}
       type={type}
       id={id}
       disabled={disabled}
       dir="ltr"
       className={classNames}
-      style={magneticOff ? primaryStyle : { ...(primaryStyle ?? {}), x, y }}
+      style={enableMotion && !magneticOff ? { ...(primaryStyle ?? {}), x, y } : primaryStyle}
       onClick={handleClick}
-      {...handlers}
-      whileHover={
-        variant === "primary"
-          ? { scale: 1.04, filter: "brightness(1.06)", boxShadow: "var(--shadow-glow-active)" }
-          : { scale: 1.02, backgroundColor: "#F8FAFC", boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)" }
-      }
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: "spring", ...SPRING_SNAPPY }}
+      {...(enableMotion ? handlers : {})}
+      {...(enableMotion
+        ? {
+            whileHover:
+              variant === "primary"
+                ? { scale: 1.04, filter: "brightness(1.06)", boxShadow: "var(--shadow-glow-active)" }
+                : {
+                    scale: 1.02,
+                    backgroundColor: "#F8FAFC",
+                    boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)",
+                  },
+            whileTap: { scale: 0.97 },
+            transition: { type: "spring" as const, ...SPRING_SNAPPY },
+          }
+        : {})}
     >
       {inner}
     </motion.button>

@@ -12,10 +12,12 @@ import {
   LayoutGrid,
   Layers,
   Megaphone,
+  MonitorSmartphone,
   Palette,
   Share2,
   ShieldCheck,
   ShoppingCart,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 import MaskedHeadline from "@/components/motion/MaskedHeadline";
@@ -184,6 +186,22 @@ const phases: {
         blurb:
           "בוט בוואטסאפ שמקבל פניות, עונה על שאלות חוזרות ומסדר מידע — כדי שתחסכו זמן ולא תפספסו ליד.",
         iconAccent: ICON_ACCENTS.green,
+      },
+      {
+        id: "ai-automation",
+        title: "אוטומציה לעסקים",
+        href: "/services/ai-automation",
+        icon: Workflow,
+        blurb: "חיבור מערכות, תהליכים אוטומטיים וחיסכון בזמן — פחות עבודה ידנית, יותר פניות שמטופלות.",
+        iconAccent: ICON_ACCENTS.violet,
+      },
+      {
+        id: "web-dev",
+        title: "פיתוח אתרים ומערכות",
+        href: "/services/web-development",
+        icon: MonitorSmartphone,
+        blurb: "פיתוח מותאם ב-Next.js — מהיר, מאובטח ומוכן להרחבה לפי צמיחת העסק.",
+        iconAccent: ICON_ACCENTS.sky,
       },
     ],
   },

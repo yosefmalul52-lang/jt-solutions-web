@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/seo/JsonLd";
 import { getAllBlogPosts } from "@/lib/blog/posts";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { getBlogCollectionJsonLd } from "@/lib/seo/organization";
 
 export const metadata: Metadata = createPageMetadata({
   title: "מדריכים דיגיטל לעסקים בישראל",
@@ -18,6 +20,7 @@ export default function BlogIndexPage() {
 
   return (
     <>
+      <JsonLd data={getBlogCollectionJsonLd(posts.length)} />
       <Navbar />
       <main className="flex-1 py-16 md:py-24 section-shell">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">

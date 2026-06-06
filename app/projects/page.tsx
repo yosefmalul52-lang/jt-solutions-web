@@ -16,7 +16,6 @@ export const metadata: Metadata = createPageMetadata({
     "פרויקטים נבחרים של JT Solutions: חנות איקומרס, מיתוג ודפי נחיתה, ואוטומציה עסקית — תוצאות אמיתיות לפני ואחרי.",
   path: "/projects",
   keywords: ["תיק עבודות", "פרויקטים דיגיטל", "case study", "בניית אתרים"],
-  noIndex: true,
 });
 
 const glassCardStyle = {

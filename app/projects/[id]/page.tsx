@@ -29,7 +29,6 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     description: `${project.shortDescription} ${project.businessValue}`,
     path: `/projects/${project.id}`,
     keywords: [project.title, "פרויקט דיגיטל", "סיפור הצלחה", "תוצאות לפני ואחרי"],
-    noIndex: true,
   });
 }
 

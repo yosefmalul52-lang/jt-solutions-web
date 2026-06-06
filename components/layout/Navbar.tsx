@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useHydrated } from "@/hooks/useHydrated";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -9,7 +9,17 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { trackPhoneClick } from "@/lib/analytics/track";
-import { HOME_SECTION_HASHES, MAIN_NAV_LINKS } from "@/lib/navigation";
+import {
+  HOME_NAV_HASHES,
+  HOME_SECTION_ORDER,
+  MAIN_NAV_LINKS,
+} from "@/lib/navigation";
+import {
+  getActiveSectionHash,
+  isSectionReached,
+  mapSectionToNavHash,
+  scrollToHash,
+} from "@/lib/scroll";
 import { contactLinks } from "@/lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -35,6 +45,29 @@ export default function Navbar() {
   const pathname = usePathname();
   const navScrollLockTargetRef = useRef<string | null>(null);
   const navScrollLockTimerRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const syncActiveSection = useCallback(() => {
+    const lockedTarget = navScrollLockTargetRef.current;
+    if (lockedTarget) {
+      setActiveHash(lockedTarget);
+      if (isSectionReached(lockedTarget)) {
+        navScrollLockTargetRef.current = null;
+      }
+      return;
+    }
+
+    const rawSection = getActiveSectionHash(HOME_SECTION_ORDER);
+    setActiveHash(mapSectionToNavHash(rawSection, HOME_NAV_HASHES));
+  }, []);
+
+  const scheduleSync = useCallback(() => {
+    if (rafRef.current !== null) return;
+    rafRef.current = window.requestAnimationFrame(() => {
+      rafRef.current = null;
+      syncActiveSection();
+    });
+  }, [syncActiveSection]);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -46,91 +79,59 @@ export default function Navbar() {
   useEffect(() => {
     if (!hydrated || pathname !== "/") return;
 
-    const sections = HOME_SECTION_HASHES.map((id) => document.querySelector<HTMLElement>(id)).filter(
-      (el): el is HTMLElement => Boolean(el),
-    );
+    syncActiveSection();
 
-    const pickClosestSectionToViewportCenter = () => {
-      if (sections.length === 0) return;
-
-      const lockedTarget = navScrollLockTargetRef.current;
-      if (lockedTarget) {
-        const targetSection = document.querySelector<HTMLElement>(lockedTarget);
-        if (targetSection) {
-          const reachedTarget = Math.abs(targetSection.getBoundingClientRect().top) <= 140;
-          if (!reachedTarget) {
-            setActiveHash(lockedTarget);
-            return;
-          }
-        }
-        navScrollLockTargetRef.current = null;
-      }
-
-      const centerY = window.innerHeight / 2;
-      let closestId = "#hero";
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      for (const section of sections) {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top - centerY);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestId = `#${section.id}`;
-        }
-      }
-
-      setActiveHash(closestId);
-    };
-
-    const observer = new IntersectionObserver(pickClosestSectionToViewportCenter, {
-      rootMargin: "-45% 0px -45% 0px",
-      threshold: [0, 0.1, 0.25, 0.4, 0.6, 0.8, 1],
-    });
-    sections.forEach((section) => observer.observe(section));
-
-    window.addEventListener("scroll", pickClosestSectionToViewportCenter, { passive: true });
-    window.addEventListener("resize", pickClosestSectionToViewportCenter);
-    window.addEventListener("hashchange", pickClosestSectionToViewportCenter);
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("resize", scheduleSync);
+    window.addEventListener("hashchange", scheduleSync);
 
     requestAnimationFrame(() => {
-      if (window.location.hash) {
-        setActiveHash(window.location.hash);
+      const hash = window.location.hash;
+      if (hash && HOME_NAV_HASHES.includes(hash)) {
+        setActiveHash(mapSectionToNavHash(hash, HOME_NAV_HASHES));
+      } else if (hash && HOME_SECTION_ORDER.includes(hash as (typeof HOME_SECTION_ORDER)[number])) {
+        setActiveHash(mapSectionToNavHash(hash, HOME_NAV_HASHES));
       } else {
-        pickClosestSectionToViewportCenter();
+        syncActiveSection();
       }
     });
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", pickClosestSectionToViewportCenter);
-      window.removeEventListener("resize", pickClosestSectionToViewportCenter);
-      window.removeEventListener("hashchange", pickClosestSectionToViewportCenter);
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("resize", scheduleSync);
+      window.removeEventListener("hashchange", scheduleSync);
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
       if (navScrollLockTimerRef.current !== null) {
         window.clearTimeout(navScrollLockTimerRef.current);
         navScrollLockTimerRef.current = null;
       }
       navScrollLockTargetRef.current = null;
     };
-  }, [hydrated, pathname]);
+  }, [hydrated, pathname, scheduleSync, syncActiveSection]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     if (href.startsWith("/#")) {
       const targetHash = href.slice(1);
-      setActiveHash(targetHash);
+      const navHash = mapSectionToNavHash(targetHash, HOME_NAV_HASHES);
+      setActiveHash(navHash);
       navScrollLockTargetRef.current = targetHash;
+
       if (navScrollLockTimerRef.current !== null) {
         window.clearTimeout(navScrollLockTimerRef.current);
       }
       navScrollLockTimerRef.current = window.setTimeout(() => {
         navScrollLockTargetRef.current = null;
         navScrollLockTimerRef.current = null;
-      }, 1800);
+        syncActiveSection();
+      }, 2000);
     }
+
     if (pathname === "/" && href.startsWith("/#")) {
-      const id = href.slice(1);
-      const el = document.querySelector(id);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      scrollToHash(href.slice(1));
     }
   };
 

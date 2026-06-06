@@ -4,7 +4,9 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Phone } from "lucide-react";
 import { trackPhoneClick } from "@/lib/analytics/track";
+import { useHydrated } from "@/hooks/useHydrated";
 import { isHashNavLink, isNavLinkActive, MAIN_NAV_LINKS } from "@/lib/navigation";
+import { SPRING_SNAPPY } from "@/lib/motion";
 import { contactLinks } from "@/lib/site";
 
 type NavbarMenuProps = {
@@ -22,25 +24,40 @@ export default function NavbarMenu({
   onNavClick,
   onCloseMobile,
 }: NavbarMenuProps) {
+  const hydrated = useHydrated();
+
   return (
     <>
       <ul className="hidden md:flex items-center gap-1">
         {MAIN_NAV_LINKS.map((link) => {
           const active = isNavLinkActive(link.href, pathname, activeHash);
+
           return (
             <li key={link.href}>
               <Link
                 href={link.href}
-                onClick={() => isHashNavLink(link.href) && onNavClick(link.href)}
+                onClick={(event) => {
+                  if (isHashNavLink(link.href) && pathname === "/") {
+                    event.preventDefault();
+                    onNavClick(link.href);
+                  } else if (isHashNavLink(link.href)) {
+                    onNavClick(link.href);
+                  }
+                }}
                 className={`relative block px-4 py-2 text-sm font-semibold rounded-2xl transition-colors duration-200 ${
-                  active ? "text-slate-900" : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                  active ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
-                {active ? (
+                {active && hydrated ? (
                   <motion.span
                     layoutId="navActivePill"
-                    className="absolute inset-0 rounded-2xl bg-white/80 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
-                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
+                    transition={{ type: "spring", ...SPRING_SNAPPY }}
+                    aria-hidden
+                  />
+                ) : active && !hydrated ? (
+                  <span
+                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
                     aria-hidden
                   />
                 ) : null}
@@ -68,39 +85,52 @@ export default function NavbarMenu({
             }}
           >
             <ul className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
-            {MAIN_NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
+              {MAIN_NAV_LINKS.map((link) => {
+                const active = isNavLinkActive(link.href, pathname, activeHash);
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={(event) => {
+                        if (isHashNavLink(link.href) && pathname === "/") {
+                          event.preventDefault();
+                          onNavClick(link.href);
+                        } else if (isHashNavLink(link.href)) {
+                          onNavClick(link.href);
+                        } else {
+                          onCloseMobile();
+                        }
+                      }}
+                      className={`w-full block text-right px-4 py-3 text-sm font-medium rounded-2xl transition-colors duration-200 ${
+                        active
+                          ? "text-slate-900 bg-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
+              <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                <a
+                  href={`tel:${contactLinks.phone}`}
                   onClick={() => {
-                    if (isHashNavLink(link.href)) onNavClick(link.href);
-                    else onCloseMobile();
+                    trackPhoneClick("navbar_mobile");
+                    onCloseMobile();
                   }}
-                  className="w-full block text-right px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-2xl hover:bg-black/5 transition-all duration-200"
+                  aria-label="התקשרו אל JT Solutions"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
+                  style={{
+                    background: "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
+                    borderColor: "rgba(124,58,237,0.22)",
+                  }}
                 >
-                  {link.label}
-                </Link>
+                  <Phone size={18} stroke="url(#brandPhoneGradient)" />
+                  <span className="gradient-text">052-8240230</span>
+                </a>
               </li>
-            ))}
-            <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-              <a
-                href={`tel:${contactLinks.phone}`}
-                onClick={() => {
-                  trackPhoneClick("navbar_mobile");
-                  onCloseMobile();
-                }}
-                aria-label="התקשרו אל JT Solutions"
-                className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
-                style={{
-                  background: "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
-                  borderColor: "rgba(124,58,237,0.22)",
-                }}
-              >
-                <Phone size={18} stroke="url(#brandPhoneGradient)" />
-                <span className="gradient-text">052-8240230</span>
-              </a>
-            </li>
-          </ul>
+            </ul>
           </motion.div>
         ) : null}
       </AnimatePresence>

@@ -65,10 +65,25 @@ export default function MaskedHeadline({
 
   const lines = linesProp ?? splitChildrenIntoLines(children);
 
-  if (!hydrated || reduce) {
+  if (!hydrated) {
     const StaticTag = as;
     return (
       <StaticTag className={className} suppressHydrationWarning>
+        {linesProp
+          ? lines.map((line, i) => (
+              <span key={i} className="block">
+                {line}
+              </span>
+            ))
+          : children}
+      </StaticTag>
+    );
+  }
+
+  if (reduce) {
+    const StaticTag = as;
+    return (
+      <StaticTag className={className}>
         {linesProp
           ? lines.map((line, i) => (
               <span key={i} className="block">

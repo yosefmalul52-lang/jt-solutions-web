@@ -2,6 +2,7 @@
 
 import { useRef, type CSSProperties, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useHydrated } from "@/hooks/useHydrated";
 
 type ParallaxLayerProps = {
   children?: ReactNode;
@@ -11,13 +12,12 @@ type ParallaxLayerProps = {
   speed?: number;
 };
 
-export default function ParallaxLayer({
+function ParallaxLayerMotion({
   children,
   className = "",
   style,
   speed = 0.1,
 }: ParallaxLayerProps) {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -25,7 +25,19 @@ export default function ParallaxLayer({
   });
   const y = useTransform(scrollYProgress, [0, 1], [`-${speed * 50}%`, `${speed * 50}%`]);
 
-  if (reduce) {
+  return (
+    <motion.div ref={ref} className={className} style={{ ...style, y }}>
+      {children}
+    </motion.div>
+  );
+}
+
+export default function ParallaxLayer(props: ParallaxLayerProps) {
+  const hydrated = useHydrated();
+  const reduce = useReducedMotion();
+  const { className = "", style, children } = props;
+
+  if (!hydrated || reduce) {
     return (
       <div className={className} style={style}>
         {children}
@@ -33,9 +45,5 @@ export default function ParallaxLayer({
     );
   }
 
-  return (
-    <motion.div ref={ref} className={className} style={{ ...style, y }}>
-      {children}
-    </motion.div>
-  );
+  return <ParallaxLayerMotion {...props} />;
 }

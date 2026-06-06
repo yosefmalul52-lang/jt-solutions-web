@@ -11,6 +11,17 @@
 | CTR ממוצע | | | |
 | מיקום ממוצע | | | |
 | עמודים באינדקס | | | |
+| `/projects` + case studies | | | |
+| `/areas/*` (10 דפים) | | | |
+| `/contact`, `/services` | | | |
+
+**דפי עיר — Impressions (GSC):**
+
+| דף | Impressions | מיקום |
+|----|-------------|--------|
+| /areas/haifa | | |
+| /areas/kiryat-ata | | |
+| /areas/north | | |
 
 **10 מילות מפתח יעד:**
 

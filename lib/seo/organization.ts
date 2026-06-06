@@ -1,30 +1,59 @@
 import { contactLinks } from "@/lib/site";
 import { SITE_NAME, SITE_URL } from "@/lib/seo/constants";
 
+export const NAP = {
+  name: SITE_NAME,
+  phone: "052-8240230",
+  phoneE164: `+972-${contactLinks.phone.replace(/^0/, "")}`,
+  email: contactLinks.email,
+  url: SITE_URL,
+  streetAddress: "רחוב הרצל 45",
+  addressLocality: "קריית אתא",
+  addressLocalityEn: "Kiryat Ata",
+  addressRegion: "מחוז חיפה",
+  addressRegionEn: "Haifa District",
+  postalCode: "2800000",
+  addressCountry: "IL",
+} as const;
+
+const israelDistricts = [
+  "מחוז צפון",
+  "מחוז חיפה",
+  "מחוז מרכז",
+  "מחוז תל אביב",
+  "מחוז ירושלים",
+  "מחוז דרום",
+  "יהודה ושומרון",
+] as const;
+
 const localBusinessBase = {
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
   image: `${SITE_URL}/opengraph-image.png`,
-  telephone: `+972-${contactLinks.phone.replace(/^0/, "")}`,
-  email: contactLinks.email,
+  telephone: NAP.phoneE164,
+  email: NAP.email,
   priceRange: "₪₪",
   address: {
     "@type": "PostalAddress" as const,
-    streetAddress: "קריית אתא",
-    addressLocality: "Kiryat Ata",
-    addressRegion: "Haifa District",
-    postalCode: "2800000",
-    addressCountry: "IL",
+    streetAddress: NAP.streetAddress,
+    addressLocality: NAP.addressLocality,
+    addressRegion: NAP.addressRegion,
+    postalCode: NAP.postalCode,
+    addressCountry: NAP.addressCountry,
   },
   geo: {
     "@type": "GeoCoordinates" as const,
     latitude: 32.8094,
     longitude: 35.0882,
   },
+  hasMap: "https://maps.google.com/?q=Kiryat+Ata,Israel",
   areaServed: [
     { "@type": "Country" as const, name: "Israel" },
-    { "@type": "AdministrativeArea" as const, name: "Northern District" },
+    ...israelDistricts.map((name) => ({
+      "@type": "AdministrativeArea" as const,
+      name,
+    })),
   ],
   sameAs: [contactLinks.facebook, contactLinks.instagram],
   knowsAbout: [
@@ -34,6 +63,7 @@ const localBusinessBase = {
     "מיתוג דיגיטלי",
     "שיווק דיגיטלי",
     "אוטומציה לעסקים",
+    "קידום אורגני",
   ],
 };
 
@@ -81,6 +111,60 @@ export function getAboutPageJsonLd() {
       },
       description:
         "מלווה עסקים מקצה לקצה: מאפיון UX ומיתוג, דרך פיתוח אתרים ואוטומציה, ועד לידים ומדידה.",
+    },
+  };
+}
+
+export function getContactPageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: `יצירת קשר — ${SITE_NAME}`,
+    url: `${SITE_URL}/contact`,
+    inLanguage: "he-IL",
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: SITE_NAME,
+      telephone: NAP.phoneE164,
+      email: NAP.email,
+      url: SITE_URL,
+      address: localBusinessBase.address,
+    },
+  };
+}
+
+export function getBlogCollectionJsonLd(postCount: number) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "מדריכים דיגיטל לעסקים בישראל",
+    url: `${SITE_URL}/blog`,
+    inLanguage: "he-IL",
+    description:
+      "מאמרים מעשיים על אתרים, דפי נחיתה, איקומרס, מיתוג, פרסום ואוטומציה לעסקים בישראל.",
+    numberOfItems: postCount,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
+    },
+  };
+}
+
+export function getServicesHubJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "שירותי סוכנות דיגיטל — JT Solutions",
+    url: `${SITE_URL}/services`,
+    inLanguage: "he-IL",
+    description:
+      "מעטפת שירותים דיגיטליים: דפי נחיתה, אתרי תדמית, איקומרס, מיתוג, פרסום, וואטסאפ ואוטומציה.",
+    provider: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
     },
   };
 }

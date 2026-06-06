@@ -48,14 +48,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       headline: post.title,
       description: post.description,
       datePublished: post.publishedAt,
+      dateModified: post.publishedAt,
       inLanguage: "he-IL",
+      image: `${SITE_URL}/opengraph-image.png`,
       author: getArticleAuthorJsonLd(),
       publisher: {
         "@type": "Organization",
         name: "JT Solutions",
         url: SITE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/logo.png`,
+        },
       },
-      mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/blog/${post.slug}`,
+      },
     },
   ];
 

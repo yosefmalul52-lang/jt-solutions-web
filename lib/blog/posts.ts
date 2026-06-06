@@ -7,6 +7,19 @@ import {
   websiteCostIsrael2026Expanded,
   websiteCostIsrael2026Faq,
 } from "@/lib/blog/expanded-top-posts";
+import {
+  adsInfrastructureExpanded,
+  beforeAfterCaseStudiesExpanded,
+  digitalAgencyNorthExpanded,
+  digitalBrandingExpanded,
+  ecommerceMistakesExpanded,
+  measureLandingPageExpanded,
+  monthlyRetainerExpanded,
+  websiteCostHaifaNorthExpanded,
+  websiteLaunchChecklistExpanded,
+  websiteSpecExpanded,
+  whatsappAutomationExpanded,
+} from "@/lib/blog/expanded-thin-posts";
 
 export type BlogSection = {
   heading: string;
@@ -66,16 +79,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-02-08",
     keywords: ["חנות אינטרנט", "איקומרס", "טעויות חנות"],
     relatedServices: ["ecommerce"],
-    sections: [
-      {
-        heading: "הטעויות המובילות",
-        paragraphs: [
-          "תהליך קנייה מסורבל במובייל, חוסר מדידה, קטלוג לא מסודר, ואוטומציה חלקית של הזמנות.",
-          "חנות יפה שלא מחוברת לניהול הזמנות יוצרת עומס ידני וטעויות.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: ecommerceMistakesExpanded.sections,
+    faq: ecommerceMistakesExpanded.faq,
   },
   {
     slug: "website-spec-before-development",
@@ -85,15 +90,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-02-15",
     keywords: ["אפיון אתר", "תכנון אתר", "UX"],
     relatedServices: ["business-websites", "web-development"],
-    sections: [
-      {
-        heading: "רכיבי אפיון חובה",
-        paragraphs: [
-          "מטרה עסקית אחת, מפת עמודים, תוכן לכל עמוד, זרימת ליד, אינטגרציות ו-KPI למדידה.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: websiteSpecExpanded.sections,
+    faq: websiteSpecExpanded.faq,
   },
   {
     slug: "whatsapp-automation-worth-it",
@@ -103,15 +101,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-02-22",
     keywords: ["בוט וואטסאפ", "אוטומציה וואטסאפ"],
     relatedServices: ["whatsapp-bot", "ai-automation"],
-    sections: [
-      {
-        heading: "מתי כן",
-        paragraphs: [
-          "כשמגיעות פניות חוזרות, יש שעות שיא, והצוות מאבד לידים בגלל עיכוב במענה.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: whatsappAutomationExpanded.sections,
+    faq: whatsappAutomationExpanded.faq,
   },
   {
     slug: "digital-branding-small-business",
@@ -121,15 +112,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-03-01",
     keywords: ["מיתוג לעסק", "זהות מותגית"],
     relatedServices: ["branding", "landing-pages"],
-    sections: [
-      {
-        heading: "סדר עבודה מומלץ",
-        paragraphs: [
-          "מיתוג לפני אתר, אתר לפני קמפיינים גדולים. עקביות בכל נקודת מגע מגדילה המרה.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: digitalBrandingExpanded.sections,
+    faq: digitalBrandingExpanded.faq,
   },
   {
     slug: "measure-landing-page-success",
@@ -139,15 +123,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-03-08",
     keywords: ["מדידת המרות", "GA4", "פיקסל"],
     relatedServices: ["landing-pages", "ad-infrastructure"],
-    sections: [
-      {
-        heading: "מה למדוד",
-        paragraphs: [
-          "צפיות, זמן בעמוד, שליחות טופס, לחיצות וואטסאפ/טלפון, ועלות לפנייה בקמפיין.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: measureLandingPageExpanded.sections,
+    faq: measureLandingPageExpanded.faq,
   },
   {
     slug: "ads-infrastructure-before-campaigns",
@@ -157,15 +134,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-03-15",
     keywords: ["תשתית פרסום", "קמפיינים", "שיווק ממומן"],
     relatedServices: ["ad-infrastructure", "landing-pages"],
-    sections: [
-      {
-        heading: "לפני שמדליקים תקציב",
-        paragraphs: [
-          "בלי דף ממיר ומדידה — כל קליק הוא הוצאה בלי למידה. תשתית נכונה מקצרת זמן ל-ROI.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: adsInfrastructureExpanded.sections,
+    faq: adsInfrastructureExpanded.faq,
   },
   {
     slug: "before-after-case-studies",
@@ -175,15 +145,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-03-22",
     keywords: ["case study", "פרויקטים דיגיטל"],
     relatedServices: ["ecommerce", "landing-pages"],
-    sections: [
-      {
-        heading: "מה להסתכל בפרויקט",
-        paragraphs: [
-          "לא רק עיצוב — זמן טיפול, אחוז סגירה, עלות לפנייה ושקט תפעולי לצוות.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: beforeAfterCaseStudiesExpanded.sections,
+    faq: beforeAfterCaseStudiesExpanded.faq,
   },
   {
     slug: "monthly-growth-retainer",
@@ -193,15 +156,8 @@ const posts: BlogPost[] = [
     publishedAt: "2026-03-29",
     keywords: ["ריטיינר שיווק", "צמיחה דיגיטלית"],
     relatedServices: ["ad-infrastructure", "ai-automation"],
-    sections: [
-      {
-        heading: "למי מתאים",
-        paragraphs: [
-          "לעסק שכבר עלה לאוויר ורוצה שיפור מתמשך בפרסום, תוכן, אוטומציה וניתוח נתונים.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: monthlyRetainerExpanded.sections,
+    faq: monthlyRetainerExpanded.faq,
   },
   {
     slug: "website-launch-checklist-14-days",
@@ -211,15 +167,30 @@ const posts: BlogPost[] = [
     publishedAt: "2026-04-05",
     keywords: ["השקת אתר", "צ'ק ליסט אתר"],
     relatedServices: ["business-websites", "web-development"],
-    sections: [
-      {
-        heading: "14 ימים מומלצים",
-        paragraphs: [
-          "ימים 1–5: אפיון ותוכן. 6–10: עיצוב ופיתוח. 11–12: QA ומדידה. 13–14: השקה ומעקב.",
-        ],
-      },
-    ],
-    faq: [],
+    sections: websiteLaunchChecklistExpanded.sections,
+    faq: websiteLaunchChecklistExpanded.faq,
+  },
+  {
+    slug: "digital-agency-north-israel",
+    title: "סוכנות דיגיטל בצפון — איך בוחרים נכון",
+    description:
+      "מדריך לבחירת סוכנות דיגיטל בצפון ובחיפה: שאלות לשאול, דגלים אדומים, ומה לצפות מתהליך מקצועי.",
+    publishedAt: "2026-04-12",
+    keywords: ["סוכנות דיגיטל צפון", "סוכנות דיגיטל חיפה", "בחירת סוכנות"],
+    relatedServices: ["business-websites", "branding"],
+    sections: digitalAgencyNorthExpanded.sections,
+    faq: digitalAgencyNorthExpanded.faq,
+  },
+  {
+    slug: "website-cost-haifa-north",
+    title: "כמה עולה אתר בחיפה ובצפון? טווחי מחיר 2026",
+    description:
+      "טווחי מחיר לבניית אתר בחיפה, קריות והצפון — מה משפיע על העלות ואיך לקבל הצעה מדויקת.",
+    publishedAt: "2026-04-19",
+    keywords: ["כמה עולה אתר בחיפה", "מחיר אתר צפון", "בניית אתרים חיפה"],
+    relatedServices: ["business-websites", "landing-pages"],
+    sections: websiteCostHaifaNorthExpanded.sections,
+    faq: websiteCostHaifaNorthExpanded.faq,
   },
 ];
 

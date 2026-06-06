@@ -1,9 +1,9 @@
 export const MAIN_NAV_LINKS = [
-  { label: "שירותים", href: "/#services" },
-  { label: "פרויקטים", href: "/#projects" },
+  { label: "שירותים", href: "/services" },
+  { label: "פרויקטים", href: "/projects" },
+  { label: "מדריכים", href: "/blog" },
   { label: "הוכחות", href: "/#proof" },
-  { label: "אחרי ההשקה", href: "/#tech-stack" },
-  { label: "צור קשר", href: "/#contact" },
+  { label: "צור קשר", href: "/contact" },
 ] as const;
 
 export type MainNavLink = (typeof MAIN_NAV_LINKS)[number];
@@ -19,7 +19,21 @@ export function isNavLinkActive(href: string, pathname: string, activeHash: stri
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export const HOME_SECTION_HASHES = [
+/** Full homepage scroll order — includes sections not shown in the nav. */
+export const HOME_SECTION_ORDER = [
   "#hero",
-  ...MAIN_NAV_LINKS.filter((link) => isHashNavLink(link.href)).map((link) => link.href.slice(1)),
+  "#services",
+  "#projects",
+  "#proof",
+  "#pricing",
+  "#tech-stack",
+  "#faq",
+  "#contact",
 ] as const;
+
+export const HOME_NAV_HASHES = MAIN_NAV_LINKS.filter((link) =>
+  isHashNavLink(link.href),
+).map((link) => link.href.slice(1));
+
+/** @deprecated Use HOME_SECTION_ORDER */
+export const HOME_SECTION_HASHES = HOME_SECTION_ORDER;

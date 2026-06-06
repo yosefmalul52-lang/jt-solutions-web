@@ -41,6 +41,29 @@ body {
   line-height: 1.55;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(74px + 0.75rem + 20px);
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: calc(84px + 1rem + 20px);
+  }
+}
+
+section[id],
+main [id] {
+  scroll-margin-top: calc(74px + 0.75rem + 20px);
+}
+
+@media (min-width: 640px) {
+  section[id],
+  main [id] {
+    scroll-margin-top: calc(84px + 1rem + 20px);
+  }
+}
+
 [dir="rtl"] .text-left {
   text-align: right;
 }

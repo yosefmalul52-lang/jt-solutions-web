@@ -2,10 +2,9 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, MoveLeft } from "lucide-react";
-import MaskedHeadline from "@/components/motion/MaskedHeadline";
-import ParallaxLayer from "@/components/motion/ParallaxLayer";
-import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
+import { staggerVariants } from "@/lib/motion";
 import CtaButton from "@/components/ui/CtaButton";
+import { useHydrated } from "@/hooks/useHydrated";
 import { trackCtaClick } from "@/lib/analytics/track";
 
 const trustItems = [
@@ -14,9 +13,39 @@ const trustItems = [
   { text: "תהליך ברור מהיום הראשון" },
 ];
 
+const heroBlobs = [
+  {
+    className: "absolute top-[8%] right-[4%] w-[22rem] h-[22rem] max-w-[50vw] rounded-full",
+    style: { backgroundColor: "rgba(91,33,182,0.34)", filter: "blur(42px)" },
+  },
+  {
+    className: "absolute bottom-[10%] left-[2%] w-[28rem] h-[28rem] max-w-[55vw] rounded-full",
+    style: { backgroundColor: "rgba(16,179,231,0.3)", filter: "blur(46px)" },
+  },
+  {
+    className: "absolute top-[32%] left-[-4%] w-[18rem] h-[18rem] max-w-[42vw] rounded-full",
+    style: { backgroundColor: "rgba(79,70,229,0.28)", filter: "blur(38px)" },
+  },
+  {
+    className: "absolute bottom-[36%] right-[2%] w-80 h-80 max-w-[44vw] rounded-full",
+    style: { backgroundColor: "rgba(129,140,248,0.28)", filter: "blur(40px)" },
+  },
+] as const;
+
 export default function Hero() {
+  const hydrated = useHydrated();
   const reduce = useReducedMotion();
-  const { container: heroStagger, item: heroItemUp } = staggerVariants(reduce);
+  const useMotion = hydrated && reduce !== true;
+  const { container: heroStagger, item: heroItemUp } = staggerVariants(useMotion ? reduce : null);
+
+  const Wrap = useMotion ? motion.div : "div";
+  const Item = useMotion ? motion.div : "div";
+  const Text = useMotion ? motion.p : "p";
+
+  const wrapProps = useMotion
+    ? { variants: heroStagger, initial: false as const, animate: "show" as const }
+    : {};
+  const itemProps = useMotion ? { variants: heroItemUp } : {};
 
   const scrollTo = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
@@ -36,71 +65,37 @@ export default function Hero() {
       />
 
       <div aria-hidden className="section-blob-layer overflow-hidden">
-        <ParallaxLayer
-          speed={0.12}
-          className="absolute top-[8%] right-[4%] w-[22rem] h-[22rem] max-w-[50vw] rounded-full"
-          style={{ background: "rgba(91,33,182,0.34)", filter: "blur(42px)" }}
-        />
-        <ParallaxLayer
-          speed={0.08}
-          className="absolute bottom-[10%] left-[2%] w-[28rem] h-[28rem] max-w-[55vw] rounded-full"
-          style={{ background: "rgba(16,179,231,0.3)", filter: "blur(46px)" }}
-        />
-        <ParallaxLayer
-          speed={0.1}
-          className="absolute top-[32%] left-[-4%] w-[18rem] h-[18rem] max-w-[42vw] rounded-full"
-          style={{ background: "rgba(79,70,229,0.28)", filter: "blur(38px)" }}
-        />
-        <ParallaxLayer
-          speed={0.14}
-          className="absolute bottom-[36%] right-[2%] w-80 h-80 max-w-[44vw] rounded-full"
-          style={{ background: "rgba(129,140,248,0.28)", filter: "blur(40px)" }}
-        />
+        {heroBlobs.map((blob) => (
+          <div key={blob.className} className={blob.className} style={blob.style} />
+        ))}
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pb-[min(10vh,5rem)]">
-        <motion.div
-          variants={heroStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={motionViewport.sectionLoose}
+        <Wrap
           className="flex flex-col items-center text-center w-full"
           dir="rtl"
+          {...wrapProps}
         >
-          <motion.div variants={heroItemUp} className="max-w-4xl mx-auto w-full">
-            <MaskedHeadline
-              as="h1"
-              className="display-title max-w-4xl mx-auto"
-              viewportKey="sectionLoose"
-              lines={[
-                "סוכנות דיגיטל שבונה תוצאות:",
-                <span key="grad" className="text-transparent bg-clip-text bg-gradient-to-r from-[#10b3e7] to-[#7c3aed]">
-                  מעטפת מקצה לקצה – ממיתוג פרימיום ועד לתשתית לידים חכמה.
-                </span>,
-              ]}
-            />
-          </motion.div>
+          <Item className="max-w-4xl mx-auto w-full" {...itemProps}>
+            <h1 className="display-title max-w-4xl mx-auto">
+              <span className="block text-slate-900">מעטפת מקצה לקצה –</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#10b3e7] to-[#7c3aed]">
+                ממיתוג פרימיום ועד לתשתית לידים חכמה.
+              </span>
+            </h1>
+          </Item>
 
-          <motion.div
-            variants={heroItemUp}
-            className="max-w-3xl mx-auto w-full mt-8 sm:mt-10"
-            style={{ color: "#6B7280" }}
+          <Text
+            className="max-w-3xl mx-auto w-full mt-8 sm:mt-10 text-lg sm:text-2xl font-medium leading-relaxed text-slate-500"
+            {...itemProps}
           >
-            <MaskedHeadline
-              as="h2"
-              className="text-lg sm:text-2xl font-medium leading-relaxed"
-              viewportKey="sectionLoose"
-              mode="line"
-              lines={[
-                "בונים עבורך אתרים ממירים, דפי נחיתה, חנויות איקומרס, מיתוג ואוטומציה — אפיון חכם, עיצוב מקצועי",
-                "ותהליך ברור שמחבר הכל לפניות אמיתיות.",
-              ]}
-            />
-          </motion.div>
+            בונים עבורך אתרים ממירים, דפי נחיתה, חנויות איקומרס, מיתוג ואוטומציה — אפיון חכם, עיצוב מקצועי
+            ותהליך ברור שמחבר הכל לפניות אמיתיות.
+          </Text>
 
-          <motion.div
-            variants={heroItemUp}
+          <Item
             className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10 sm:mt-12"
+            {...itemProps}
           >
             <CtaButton
               id="hero-main-cta"
@@ -111,18 +106,9 @@ export default function Hero() {
               icon={MoveLeft}
               label="אני רוצה אבחון לעסק שלי"
             />
-            <CtaButton
-              onClick={() => {
-                trackCtaClick("hero", "איך זה עובד");
-                scrollTo("#services");
-              }}
-              icon={MoveLeft}
-              variant="secondary"
-              label="איך זה עובד?"
-            />
-          </motion.div>
+          </Item>
 
-          <motion.div variants={heroItemUp} className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2.5">
+          <Item className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2.5" {...itemProps}>
             {trustItems.map((item) => (
               <span
                 key={item.text}
@@ -133,12 +119,12 @@ export default function Hero() {
                 {item.text}
               </span>
             ))}
-          </motion.div>
+          </Item>
 
-          <motion.p variants={heroItemUp} className="text-sm mt-5 sm:mt-6 max-w-xl mx-auto" style={{ color: "#64748B" }}>
+          <Text className="text-sm mt-5 sm:mt-6 max-w-xl mx-auto" style={{ color: "#64748B" }} {...itemProps}>
             בשיחת התאמה של כ-15 דקות תקבלו החלטה ברורה מה הצעד הבא לעסק שלכם.
-          </motion.p>
-        </motion.div>
+          </Text>
+        </Wrap>
       </div>
     </section>
   );

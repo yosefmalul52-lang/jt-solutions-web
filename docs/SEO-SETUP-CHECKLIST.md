@@ -14,7 +14,7 @@
     ```
     ואז deploy (האתר קורא את המשתנה ב-[`app/layout.tsx`](../app/layout.tsx))
 - [ ] שלח Sitemap: `https://www.jt-solutions.org/sitemap.xml`
-- [ ] בקשת אינדוקס לדפים: `/`, `/about`, `/blog`, 8 דפי `/services/*`
+- [ ] בקשת אינדוקס לדפים: `/`, `/about`, `/blog`, `/contact`, `/services`, `/projects`, 8 דפי `/services/*`, 10 דפי `/areas/*`
 
 ## Google Business Profile
 

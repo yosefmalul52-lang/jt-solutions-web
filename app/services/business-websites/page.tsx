@@ -31,7 +31,7 @@ export default function BusinessWebsitesServicePage() {
       <main className="flex-1">
         <ServiceTemplate
           badge="שלב הגדילה: הנכסים הדיגיטליים"
-          title="אתר תדמית מקצועי שמייצר אמון ופניות קבועות"
+          title="בניית אתרים לעסקים — אתר תדמית מקצועי שמייצר פניות"
           description="אנחנו בונים אתר תדמית מדויק לעסק שלך - כזה שמציג סמכות, מסביר ערך בצורה ברורה ומכוון את המבקר לפנייה."
           targetAudience={[
             "עסקים שרוצים נוכחות דיגיטלית ברמה גבוהה",
