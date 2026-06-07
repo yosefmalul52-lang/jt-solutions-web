@@ -26,7 +26,7 @@ function ParallaxLayerMotion({
   const y = useTransform(scrollYProgress, [0, 1], [`-${speed * 50}%`, `${speed * 50}%`]);
 
   return (
-    <motion.div ref={ref} className={className} style={{ ...style, y }}>
+    <motion.div ref={ref} className={`relative ${className}`.trim()} style={{ ...style, y }}>
       {children}
     </motion.div>
   );
@@ -39,7 +39,7 @@ export default function ParallaxLayer(props: ParallaxLayerProps) {
 
   if (!hydrated || reduce) {
     return (
-      <div className={className} style={style}>
+      <div className={`relative ${className}`.trim()} style={style}>
         {children}
       </div>
     );

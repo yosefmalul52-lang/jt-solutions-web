@@ -1,9 +1,9 @@
 export const MAIN_NAV_LINKS = [
   { label: "שירותים", href: "/services" },
-  { label: "פרויקטים", href: "/projects" },
+  { label: "פרויקטים", href: "/#projects" },
+  { label: "אודות", href: "/#about" },
   { label: "מדריכים", href: "/blog" },
-  { label: "הוכחות", href: "/#proof" },
-  { label: "צור קשר", href: "/contact" },
+  { label: "צור קשר", href: "/#contact" },
 ] as const;
 
 export type MainNavLink = (typeof MAIN_NAV_LINKS)[number];
@@ -19,15 +19,12 @@ export function isNavLinkActive(href: string, pathname: string, activeHash: stri
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-/** Full homepage scroll order — includes sections not shown in the nav. */
+/** Homepage scroll order — matches Phase 8 five-section layout. */
 export const HOME_SECTION_ORDER = [
   "#hero",
+  "#about",
   "#services",
   "#projects",
-  "#proof",
-  "#pricing",
-  "#tech-stack",
-  "#faq",
   "#contact",
 ] as const;
 

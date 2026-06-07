@@ -8,7 +8,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { projects } from "@/lib/projects";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getProjectsCollectionPageJsonLd } from "@/lib/seo/projects-collection";
-import { servicePages } from "@/lib/seo/services";
+import { getPillarBySlug } from "@/lib/pillars";
 
 export const metadata: Metadata = createPageMetadata({
   title: "תיק עבודות - פרויקטים נבחרים",
@@ -83,7 +83,7 @@ export default function ProjectsHubPage() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
             <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
               {projects.map((project) => {
-                const service = servicePages[project.relatedServiceSlug];
+                const pillar = getPillarBySlug(project.relatedPillarSlug);
                 const caseStudyHref = `/projects/${project.id}`;
 
                 return (
@@ -110,7 +110,7 @@ export default function ProjectsHubPage() {
                             border: "1px solid rgba(255,255,255,0.5)",
                           }}
                         >
-                          {service.serviceName}
+                          {pillar.title}
                         </span>
                       </div>
 

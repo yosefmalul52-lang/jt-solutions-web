@@ -40,7 +40,11 @@ export default function CtaButton({
   const hydrated = useHydrated();
   const reduce = useReducedMotion();
   const enableMotion = hydrated && reduce !== true;
-  const { ref, x, y, handlers, disabled: magneticOff } = useMagnetic({
+  const { ref, x, y, handlers, disabled: magneticOff } = useMagnetic<HTMLButtonElement>({
+    strength: 0.58,
+    radius: 120,
+    maxOffset: 16,
+    falloff: 2.1,
     disabled: disabled || !enableMotion,
   });
 
@@ -55,7 +59,7 @@ export default function CtaButton({
     "inline-flex items-center justify-center gap-2 rounded-[var(--radius-soft)] px-7 py-3 md:px-8 md:py-3 text-sm md:text-base font-semibold transition-shadow transition-colors duration-200";
 
   const primaryClass = "text-white shadow-glow";
-  const secondaryClass = "bg-white text-slate-900 border border-slate-200 shadow-premium";
+  const secondaryClass = "bg-white/5 text-slate-100 border border-white/10 shadow-premium backdrop-blur-sm";
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     if (ctaLocation) {
@@ -80,13 +84,14 @@ export default function CtaButton({
   const classNames = `${baseClass} ${variant === "primary" ? primaryClass : secondaryClass} ${className}`.trim();
   const inner = <span className="inline-flex items-center justify-center gap-2">{labelContent}</span>;
 
-  if (!hydrated) {
+  if (!enableMotion) {
     return (
       <button
         type={type}
         id={id}
         disabled={disabled}
         dir="ltr"
+        data-cursor-hover
         className={classNames}
         style={primaryStyle}
         onClick={handleClick}
@@ -99,29 +104,27 @@ export default function CtaButton({
   return (
     <motion.button
       initial={false}
-      ref={enableMotion ? ref : undefined}
+      ref={ref}
       type={type}
       id={id}
       disabled={disabled}
       dir="ltr"
+      data-cursor-hover
       className={classNames}
-      style={enableMotion && !magneticOff ? { ...(primaryStyle ?? {}), x, y } : primaryStyle}
+      style={!magneticOff ? { ...(primaryStyle ?? {}), x, y } : primaryStyle}
       onClick={handleClick}
-      {...(enableMotion ? handlers : {})}
-      {...(enableMotion
-        ? {
-            whileHover:
-              variant === "primary"
-                ? { scale: 1.04, filter: "brightness(1.06)", boxShadow: "var(--shadow-glow-active)" }
-                : {
-                    scale: 1.02,
-                    backgroundColor: "#F8FAFC",
-                    boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)",
-                  },
-            whileTap: { scale: 0.97 },
-            transition: { type: "spring" as const, ...SPRING_SNAPPY },
-          }
-        : {})}
+      {...handlers}
+      whileHover={
+        variant === "primary"
+          ? { scale: 1.04, filter: "brightness(1.06)", boxShadow: "var(--shadow-glow-active)" }
+          : {
+              scale: 1.02,
+              backgroundColor: "rgba(255,255,255,0.08)",
+              boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.35)",
+            }
+      }
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring" as const, ...SPRING_SNAPPY }}
     >
       {inner}
     </motion.button>

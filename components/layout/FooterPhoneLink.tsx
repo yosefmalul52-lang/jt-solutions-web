@@ -8,7 +8,7 @@ export default function FooterPhoneLink() {
     <a
       href={`tel:${contactLinks.phone}`}
       onClick={() => trackPhoneClick("footer")}
-      className="text-sm text-[#6B7280] transition-colors duration-200 hover:text-[#22C55E]"
+      className="text-sm text-slate-400 transition-colors duration-200 hover:text-emerald-400"
     >
       052-8240230
     </a>

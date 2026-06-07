@@ -1,4 +1,4 @@
-import type { ServiceSlug } from "@/lib/seo/services";
+import type { PillarSlug } from "@/lib/pillars";
 
 export type LocalPageConfig = {
   slug: string;
@@ -9,7 +9,7 @@ export type LocalPageConfig = {
   keywords: string[];
   intro: string;
   bodyParagraphs: string[];
-  servicesHighlight: ServiceSlug[];
+  servicesHighlight: PillarSlug[];
   faq: { question: string; answer: string }[];
   areaServedName: string;
 };
@@ -30,7 +30,7 @@ export const localPages: LocalPageConfig[] = [
       "אנחנו עובדים עם עסקים בחיפה, קריות והסביבה — בפגישות פרונטליות כשצריך, ומרחוק כשזה יעיל. התהליך ברור מהיום הראשון: אפיון, עיצוב, פיתוח, מדידה.",
       "בין אם אתם צריכים דף נחיתה לקמפיין, אתר תדמית מקצועי או חנות אונליין — המטרה אחת: פניות איכותיות שמגיעות אליכם.",
     ],
-    servicesHighlight: ["landing-pages", "business-websites", "branding"],
+    servicesHighlight: ["websites", "branding", "automations"],
     faq: [
       {
         question: "אתם נפגשים פיזית עם לקוחות מחיפה?",
@@ -58,7 +58,7 @@ export const localPages: LocalPageConfig[] = [
       "אנחנו מלווים אתכם מקצה לקצה: מיתוג, אפיון UX, פיתוח Next.js מהיר, חיבור לוואטסאפ ו-CRM, והטמעת מדידה.",
       "הקשר המקומי חשוב — אבל האיכות היא לאומית. הפרויקטים שלנו משרתים לקוחות בכל הארץ.",
     ],
-    servicesHighlight: ["business-websites", "landing-pages", "whatsapp-bot"],
+    servicesHighlight: ["websites", "automations", "branding"],
     faq: [
       {
         question: "למה לבחור סוכנות מקריית אתא?",
@@ -82,7 +82,7 @@ export const localPages: LocalPageConfig[] = [
       "עובדים עם עסקים בתל אביב, רמת גן, גבעתיים והמרכז — בפגישות או מרחוק. התהליך שקוף ומדיד.",
       "מדף נחיתה לקמפיין ועד חנות איקומרס מלאה — הכל במעטפת אחת עם ליווי מתמשך אחרי ההשקה.",
     ],
-    servicesHighlight: ["landing-pages", "ecommerce", "ad-infrastructure"],
+    servicesHighlight: ["websites", "digital-marketing"],
     faq: [
       {
         question: "האם אתם עובדים עם סטארטאפים בתל אביב?",
@@ -106,7 +106,7 @@ export const localPages: LocalPageConfig[] = [
       "התהליך כולל אפיון, עיצוב, פיתוח, SEO בסיסי והטמעת מדידה — כדי שתדעו מה עובד.",
       "ליווי אישי 1:1 לאורך כל הדרך, עם אפשרות לפגישות בירושלים או עבודה מרחוק.",
     ],
-    servicesHighlight: ["business-websites", "branding", "landing-pages"],
+    servicesHighlight: ["websites", "branding"],
     faq: [
       {
         question: "האתרים שלכם נגישים לפי תקן?",
@@ -130,7 +130,7 @@ export const localPages: LocalPageConfig[] = [
       "מעטפת מלאה: מיתוג, פיתוח, חיבור לוואטסאפ, מדידה וליווי אחרי ההשקה.",
       "עובדים מרחוק ביעילות, עם פגישות פרונטליות כשצריך.",
     ],
-    servicesHighlight: ["business-websites", "whatsapp-bot", "landing-pages"],
+    servicesHighlight: ["websites", "automations"],
     faq: [
       {
         question: "אתם משרתים את כל הדרום?",
@@ -154,7 +154,7 @@ export const localPages: LocalPageConfig[] = [
       "מדף נחיתה לקמפיין ועד אתר תדמית מלא — הכל עם ליווי אישי ותהליך ברור.",
       "חיבור לפרסום, וואטסאפ ו-CRM — כדי שלא תאבדו לידים.",
     ],
-    servicesHighlight: ["landing-pages", "business-websites", "ad-infrastructure"],
+    servicesHighlight: ["websites", "digital-marketing"],
     faq: [
       {
         question: "כמה עולה אתר לעסק בנתניה?",
@@ -178,7 +178,7 @@ export const localPages: LocalPageConfig[] = [
       "מעטפת מלאה: מיתוג, אתרים, דפי נחיתה, חנויות, בוט וואטסאפ ותשתית פרסום.",
       "ליווי ישיר 1:1 — בלי מתווכים, בלי כאב ראש.",
     ],
-    servicesHighlight: ["business-websites", "branding", "ai-automation"],
+    servicesHighlight: ["websites", "branding", "automations"],
     faq: [
       {
         question: "למה לבחור סוכנות מהצפון?",
@@ -202,7 +202,7 @@ export const localPages: LocalPageConfig[] = [
       "תהליך שקוף: אפיון → עיצוב → פיתוח → השקה → מדידה. בלי הפתעות.",
       "אפשרות לפגישות במרכז או עבודה מרחוק מלאה.",
     ],
-    servicesHighlight: ["landing-pages", "ecommerce", "web-development"],
+    servicesHighlight: ["websites", "automations"],
     faq: [
       {
         question: "האם אתם מתחרים במחירים של סוכנויות במרכז?",
@@ -226,7 +226,7 @@ export const localPages: LocalPageConfig[] = [
       "מעטפת מלאה: אתרים, דפי נחיתה, חנויות, מיתוג, וואטסאפ ואוטומציה.",
       "ליווי אישי לאורך כל הדרך — גם אחרי ההשקה.",
     ],
-    servicesHighlight: ["business-websites", "whatsapp-bot", "landing-pages"],
+    servicesHighlight: ["websites", "automations"],
     faq: [
       {
         question: "איך עובדים מרחוק עם לקוחות מהדרום?",
@@ -250,7 +250,7 @@ export const localPages: LocalPageConfig[] = [
       "מיקוד בהמרות: מסר ברור, עיצוב מקצועי, מהירות ומדידה מלאה.",
       "מעטפת אחת — מיתוג, פיתוח, פרסום ואוטומציה.",
     ],
-    servicesHighlight: ["landing-pages", "business-websites", "branding"],
+    servicesHighlight: ["websites", "branding"],
     faq: [
       {
         question: "האם יש לכם לקוחות מהשרון?",

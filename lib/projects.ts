@@ -1,4 +1,4 @@
-import type { ServiceSlug } from "@/lib/seo/services";
+import type { PillarSlug } from "@/lib/pillars";
 
 export type ProjectItem = {
   id: string;
@@ -13,7 +13,7 @@ export type ProjectItem = {
   clientQuote?: string;
   metrics?: { label: string; value: string }[];
   technologies: string[];
-  relatedServiceSlug: ServiceSlug;
+  relatedPillarSlug: PillarSlug;
   image: {
     src: string;
     alt: string;
@@ -49,7 +49,7 @@ export const projects: ProjectItem[] = [
       { label: "סדר תפעולי", value: "מערכת אחת" },
     ],
     technologies: ["E-commerce", "Vercel Hosting", "Dashboard", "Automation"],
-    relatedServiceSlug: "ecommerce",
+    relatedPillarSlug: "websites",
     image: {
       src: "/projects/magadim.png",
       alt: "תצוגת חנות איקומרס Magadim — דשבורד הזמנות וניהול",
@@ -83,7 +83,7 @@ export const projects: ProjectItem[] = [
       { label: "זמן הקמה", value: "לוח זמנים מסודר" },
     ],
     technologies: ["Branding", "UX/UI", "Landing Page", "Lead Generation"],
-    relatedServiceSlug: "landing-pages",
+    relatedPillarSlug: "websites",
     image: {
       src: "/projects/eb-hair.png",
       alt: "דף נחיתה יוקרתי EB Hair — מיתוג וממשק ממיר",
@@ -117,7 +117,7 @@ export const projects: ProjectItem[] = [
       { label: "לידים אבודים", value: "ירידה חדה" },
     ],
     technologies: ["n8n", "CRM Integration", "Real-time Data", "Automation Flows"],
-    relatedServiceSlug: "ai-automation",
+    relatedPillarSlug: "automations",
     image: {
       src: "/projects/ai-automation.png",
       alt: "תהליך אוטומציה עסקית — חיבור לידים ו-CRM",

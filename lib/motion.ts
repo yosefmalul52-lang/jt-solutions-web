@@ -11,6 +11,7 @@ export const EASE_IN_OUT: [number, number, number, number] = [0.4, 0, 0.2, 1];
 export const SPRING_SNAPPY = { stiffness: 400, damping: 30 } as const;
 export const SPRING_SMOOTH = { stiffness: 180, damping: 24 } as const;
 export const SPRING_GENTLE = { stiffness: 120, damping: 20 } as const;
+export const SPRING_MAGNETIC = { stiffness: 220, damping: 26, mass: 0.65 } as const;
 
 export const DURATION_FAST = 0.15;
 export const DURATION_UI = 0.28;

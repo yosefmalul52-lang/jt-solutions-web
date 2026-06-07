@@ -33,20 +33,19 @@ export default function Reveal({
   const vp = viewport[viewportKey];
   const t = motionTransition(reduce, { duration, delay, ease: EASE });
 
-  const StaticTag = as === "article" ? "article" : "div";
+  const initial =
+    x !== undefined ? { opacity: 0, x, y: 0 } : { opacity: 0, y, x: 0 };
+  const animate = { opacity: 1, y: 0, x: 0 };
+  const MotionTag = as === "article" ? motion.article : motion.div;
 
   if (!hydrated || reduce) {
+    const StaticTag = as === "article" ? "article" : "div";
     return (
       <StaticTag className={className} style={style}>
         {children}
       </StaticTag>
     );
   }
-
-  const initial =
-    x !== undefined ? { opacity: 0, x, y: 0 } : { opacity: 0, y, x: 0 };
-  const animate = { opacity: 1, y: 0, x: 0 };
-  const MotionTag = as === "article" ? motion.article : motion.div;
 
   return (
     <MotionTag

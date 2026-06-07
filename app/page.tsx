@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
-import Proof from "@/components/sections/Proof";
-import Projects from "@/components/sections/Projects";
-import Pricing from "@/components/sections/Pricing";
+import SpaceOdyssey from "@/components/sections/SpaceOdyssey";
+import BoldStatementBanner from "@/components/sections/BoldStatementBanner";
+import ClienteleGrid from "@/components/sections/ClienteleGrid";
+import PortfolioBento from "@/components/sections/PortfolioBento";
 import Contact from "@/components/sections/Contact";
-import SectionDivider from "@/components/ui/SectionDivider";
-import HomeFaq from "@/components/sections/HomeFaq";
-import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { getHomeFaqJsonLd } from "@/lib/seo/home-faq";
 
 export const metadata: Metadata = createPageMetadata({
   title: "סוכנות דיגיטל בישראל | אתרים, דפי נחיתה ומעטפת צמיחה",
@@ -31,24 +26,16 @@ export const metadata: Metadata = createPageMetadata({
 export default function Home() {
   return (
     <>
-      <JsonLd data={getHomeFaqJsonLd()} />
       <Navbar />
       <main className="flex-1">
-        <Hero />
-        <SectionDivider />
-        <Services />
-        <SectionDivider />
-        <Projects />
-        <SectionDivider />
-        <Proof />
-        <SectionDivider />
-        <Pricing />
-        <SectionDivider />
-        <HomeFaq />
-        <SectionDivider />
-        <Contact />
+        <SpaceOdyssey>
+          <PortfolioBento />
+          <BoldStatementBanner />
+          <ClienteleGrid />
+          <Contact />
+          <Footer />
+        </SpaceOdyssey>
       </main>
-      <Footer />
     </>
   );
 }

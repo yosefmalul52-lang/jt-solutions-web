@@ -52,19 +52,21 @@ export async function POST(req: Request) {
     await transporter.verify(); 
 
     const { name, phone, email, service, message } = parsed.data;
+    const emailDisplay = email?.trim() || "לא צוין";
+    const serviceDisplay = service?.trim() || "לא צוין";
 
     await transporter.sendMail({
       from: `"JT Solutions Contact" <${smtpUser}>`,
       to: "jtsolutions.officee@gmail.com",
-      replyTo: email,
-      subject: `ליד חדש מהאתר — ${service}`,
+      ...(email?.trim() ? { replyTo: email.trim() } : {}),
+      subject: `ליד חדש מהאתר — ${serviceDisplay}`,
       html: `<div dir="rtl">
                <h3>פנייה חדשה מאתר JT Solutions:</h3>
                <p><strong>שם:</strong> ${name}</p>
                <p><strong>טלפון:</strong> ${phone}</p>
-               <p><strong>אימייל:</strong> ${email}</p>
-               <p><strong>שירות מבוקש:</strong> ${service}</p>
-               <p><strong>הודעה:</strong> ${message || 'לא צורפה הודעה'}</p>
+               <p><strong>אימייל:</strong> ${emailDisplay}</p>
+               <p><strong>שירות מבוקש:</strong> ${serviceDisplay}</p>
+               <p><strong>הודעה:</strong> ${message || "לא צורפה הודעה"}</p>
              </div>`,
     });
 

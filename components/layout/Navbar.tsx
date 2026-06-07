@@ -135,33 +135,14 @@ export default function Navbar() {
     }
   };
 
-  return (
-    <>
-      <svg aria-hidden className="absolute h-0 w-0 overflow-hidden">
-        <defs>
-          <linearGradient id="brandPhoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#10b3e7" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <motion.header
-        initial={hydrated ? { y: -80, opacity: 0 } : false}
-        animate={{ y: 0, opacity: 1 }}
-        transition={hydrated ? { duration: 0.7, ease: EASE } : { duration: 0 }}
-        className="fixed top-3 sm:top-4 inset-x-0 z-50 transition-all duration-500 px-3 sm:px-4 pointer-events-none"
-      >
-        <nav
-          dir="rtl"
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto"
-          style={{
-            background: scrolled ? "rgba(221,227,234,0.74)" : "rgba(221,227,234,0.58)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            border: "1px solid rgba(15,23,42,0.12)",
-            boxShadow: scrolled ? "0 16px 40px rgba(15,23,42,0.14)" : "0 10px 28px rgba(15,23,42,0.09)",
-          }}
-        >
+  const navShellClass = `max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] flex items-center justify-between pointer-events-auto transition-all duration-500 ${
+    scrolled
+      ? "rounded-[var(--radius)] backdrop-blur-md border border-white/10 bg-[rgba(11,15,25,0.82)] shadow-[0_16px_40px_rgba(0,0,0,0.45)]"
+      : "rounded-none border border-transparent bg-transparent shadow-none backdrop-blur-none"
+  }`;
+
+  const headerInner = (
+    <nav dir="rtl" className={navShellClass}>
           <Link
             href="/"
             className="flex shrink-0 items-center py-1"
@@ -192,24 +173,57 @@ export default function Navbar() {
               href={`tel:${contactLinks.phone}`}
               onClick={() => trackPhoneClick("navbar")}
               aria-label="התקשרו אל JT Solutions"
-              className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]"
-              style={{
-                background: "linear-gradient(120deg, rgba(16,179,231,0.14), rgba(124,58,237,0.14))",
-                borderColor: "rgba(124,58,237,0.22)",
-              }}
+              className={`hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 ${
+                scrolled ? "hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]" : "border-transparent hover:border-white/10"
+              }`}
+              style={
+                scrolled
+                  ? {
+                      background: "linear-gradient(120deg, rgba(59,130,246,0.14), rgba(109,40,217,0.14))",
+                      borderColor: "rgba(109,40,217,0.28)",
+                    }
+                  : {
+                      background: "transparent",
+                    }
+              }
             >
               <Phone size={18} stroke="url(#brandPhoneGradient)" />
             </a>
             <button
               onClick={() => setMobileOpen((p) => !p)}
-              className="md:hidden p-2 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-all"
+              className="md:hidden p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-all"
               aria-label="פתח תפריט"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </nav>
-      </motion.header>
+  );
+
+  return (
+    <>
+      <svg aria-hidden className="absolute h-0 w-0 overflow-hidden">
+        <defs>
+          <linearGradient id="brandPhoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3B82F6" />
+            <stop offset="100%" stopColor="#6D28D9" />
+          </linearGradient>
+        </defs>
+      </svg>
+      {hydrated ? (
+        <motion.header
+          initial={{ y: -80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="fixed top-3 sm:top-4 inset-x-0 z-50 transition-all duration-500 px-3 sm:px-4 pointer-events-none"
+        >
+          {headerInner}
+        </motion.header>
+      ) : (
+        <header className="fixed top-3 sm:top-4 inset-x-0 z-50 transition-all duration-500 px-3 sm:px-4 pointer-events-none">
+          {headerInner}
+        </header>
+      )}
     </>
   );
 }

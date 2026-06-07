@@ -6,10 +6,10 @@ import { ArrowRight, CheckCircle2, Home, Sparkles, Target } from "lucide-react";
 import PageEnter from "@/components/motion/PageEnter";
 import OutlineNavLink from "@/components/ui/OutlineNavLink";
 import type { ProjectItem } from "@/lib/projects";
-import { servicePages } from "@/lib/seo/services";
+import { getPillarBySlug } from "@/lib/pillars";
 
 export default function ProjectDetail({ project }: { project: ProjectItem }) {
-  const relatedService = servicePages[project.relatedServiceSlug];
+  const relatedPillar = getPillarBySlug(project.relatedPillarSlug);
 
   return (
     <div
@@ -135,10 +135,10 @@ export default function ProjectDetail({ project }: { project: ProjectItem }) {
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <Link
-                    href={relatedService.path}
+                    href={relatedPillar.path}
                     className="text-sm font-semibold text-indigo-600 hover:underline"
                   >
-                    לשירות {relatedService.serviceName}
+                    לשירות {relatedPillar.title}
                   </Link>
                   <Link href="/#contact" className="text-sm font-semibold text-slate-600 hover:text-slate-900">
                     קובעים שיחת התאמה

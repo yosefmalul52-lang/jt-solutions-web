@@ -11,6 +11,7 @@ import {
   type ContactPayload,
   type ContactPayloadInput,
 } from "@/lib/validation/contact";
+import { getMetaPixelId } from "@/lib/analytics/meta-pixel";
 
 type ContactFormValues = ContactPayload;
 
@@ -80,7 +81,7 @@ export default function ContactForm() {
         window.gtag("event", "generate_lead", { currency: "ILS", value: 100 });
       }
 
-      if (typeof window !== "undefined" && window.fbq) {
+      if (getMetaPixelId() && typeof window !== "undefined" && window.fbq) {
         window.fbq("track", "Lead");
       }
 
@@ -122,7 +123,7 @@ export default function ContactForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="contact-name" className="mb-1.5 block text-xs font-semibold text-slate-600">
-                  שם מלא
+                  שם מלא *
                 </label>
                 <input
                   id="contact-name"
@@ -136,7 +137,7 @@ export default function ContactForm() {
 
               <div>
                 <label htmlFor="contact-phone" className="mb-1.5 block text-xs font-semibold text-slate-600">
-                  טלפון
+                  טלפון *
                 </label>
                 <input
                   id="contact-phone"

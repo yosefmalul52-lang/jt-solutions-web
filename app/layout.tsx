@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Heebo } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+import CustomCursor from "@/components/ui/CustomCursor";
 import TrackingProvider from "@/components/providers/TrackingProvider";
 import JtPixel from "@/components/analytics/JtPixel";
 import MetaPixel from "@/components/analytics/MetaPixel";
@@ -77,18 +78,24 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#F9FAFB" };
+export const viewport: Viewport = { themeColor: "#0B0F19" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const gaId = (process.env.NEXT_PUBLIC_GA_ID ?? "").trim();
   const hasValidGaId = /^G-[A-Z0-9]+$/i.test(gaId);
 
   return (
-    <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
+    <html
+      lang="he-IL"
+      dir="rtl"
+      className={`${heebo.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+    >
       <head>
         <JtPixel />
       </head>
-      <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
+      <body className="min-h-full flex flex-col bg-[#0B0F19] text-slate-100">
+        <CustomCursor />
         <ScrollProgress />
         <TrackingProvider>{children}</TrackingProvider>
         <CookieConsent />

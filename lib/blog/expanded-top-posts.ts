@@ -13,7 +13,7 @@ export const websiteCostIsrael2026Expanded: BlogSection[] = [
     paragraphs: [
       "הטבלה הבאה היא כיוון כללי לשוק הישראלי ב-2026 — לא הצעת מחיר סופית. כל עסק שונה.",
       "• דף נחיתה ממיר (עמוד אחד, קמפיין): בדרך כלל נמוך יותר מאתר מלא — מתאים להצעה ממוקדת.\n• אתר תדמית (3–10 עמודים): טווח בינוני — הבסיס לרוב העסקים.\n• חנות איקומרס: גבוה יותר — תלוי במספר מוצרים, תשלום ואוטומציות.\n• מיתוג + אתר: משולב — חוסך חוסר עקביות בין מותג לנכס דיגיטלי.",
-      "רוצים הצעה מדויקת? ראו את שירות [בניית אתרים לעסקים](/services/business-websites) או [דף נחיתה ממיר](/services/landing-pages) וקבעו שיחת התאמה.",
+      "רוצים הצעה מדויקת? ראו את שירות [בניית אתרים לעסקים](/services/websites#corporate) או [דף נחיתה ממיר](/services/websites#landing) וקבעו שיחת התאמה.",
     ],
   },
   {
@@ -52,8 +52,8 @@ export const websiteCostIsrael2026Expanded: BlogSection[] = [
   {
     heading: "מתי עדיף דף נחיתה ומתי אתר מלא?",
     paragraphs: [
-      "אם יש לכם הצעה אחת וקמפיין ממומן — [דף נחיתה](/services/landing-pages) מספיק וממיר מהר.",
-      "אם יש מספר שירותים, צורך ב-SEO ובלוג, או אמון לטווח ארוך — [בניית אתרים לעסקים](/services/business-websites) הוא הבסיס הנכון.",
+      "אם יש לכם הצעה אחת וקמפיין ממומן — [דף נחיתה](/services/websites#landing) מספיק וממיר מהר.",
+      "אם יש מספר שירותים, צורך ב-SEO ובלוג, או אמון לטווח ארוך — [בניית אתרים לעסקים](/services/websites#corporate) הוא הבסיס הנכון.",
       "קראו את ההשוואה המלאה: [דף נחיתה או אתר מלא](/blog/landing-page-vs-full-website).",
     ],
   },
@@ -87,7 +87,7 @@ export const landingPageVsWebsiteExpanded: BlogSection[] = [
       "רוצים לבדוק ביקוש לפני השקעה באתר מלא.",
       "יש שירות אחד מוביל שצריך להמיר תנועה עכשיו.",
       "התקציב מוגבל והמטרה היא לידים מהירים — לא תוכן רחב.",
-      "ב-JT Solutions בונים [דפי נחיתה ממירים](/services/landing-pages) עם מדידה מלאה.",
+      "ב-JT Solutions בונים [דפי נחיתה ממירים](/services/websites#landing) עם מדידה מלאה.",
     ],
   },
   {
@@ -97,7 +97,7 @@ export const landingPageVsWebsiteExpanded: BlogSection[] = [
       "רוצים להופיע בגוגל על מילות מפתח מגוונות (קידום אורגני).",
       "צריכים עמוד אודות, פרויקטים, בלוג או מדריכים.",
       "הלקוחות מחפשים אתכם בשם או בוחנים מתחרים — צריך אמון.",
-      "ראו [בניית אתרים לעסקים](/services/business-websites) ומדריך [מחיר אתר בישראל](/blog/website-cost-israel-2026).",
+      "ראו [בניית אתרים לעסקים](/services/websites#corporate) ומדריך [מחיר אתר בישראל](/blog/website-cost-israel-2026).",
     ],
   },
   {
@@ -105,7 +105,7 @@ export const landingPageVsWebsiteExpanded: BlogSection[] = [
     paragraphs: [
       "שלב 1: דף נחיתה + מדידה + קמפיין ממוקד — לידים מהירים ולמידה.",
       "שלב 2: אתר תדמית + [מיתוג לעסק](/services/branding) — בסיס ל-SEO ואמון.",
-      "שלב 3: [אוטומציה לעסקים](/services/ai-automation), CRM, פרסום מתמשך — [מעטפת צמיחה](/blog/monthly-growth-retainer).",
+      "שלב 3: [אוטומציה לעסקים](/services/automations), CRM, פרסום מתמשך — [מעטפת צמיחה](/blog/monthly-growth-retainer).",
       "כך לא שורפים תקציב על אתר שלם לפני שיודעים מה ממיר.",
     ],
   },
@@ -184,7 +184,7 @@ export const howToChooseAgencyExpanded: BlogSection[] = [
   {
     heading: "סיכום",
     paragraphs: [
-      "בחירה נכונה של [בניית אתרים לעסקים](/services/business-websites) חוסכת חודשים של תיקונים. בדקו תהליך, מדידה ואחריות.",
+      "בחירה נכונה של [בניית אתרים לעסקים](/services/websites#corporate) חוסכת חודשים של תיקונים. בדקו תהליך, מדידה ואחריות.",
       "מוכנים? [קבעו שיחת התאמה](/#contact) — 15 דקות, בלי התחייבות.",
     ],
   },

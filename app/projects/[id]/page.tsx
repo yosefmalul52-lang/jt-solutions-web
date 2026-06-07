@@ -6,7 +6,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { getProjectById, projects } from "@/lib/projects";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { SITE_URL } from "@/lib/seo/constants";
-import { servicePages } from "@/lib/seo/services";
+import { getPillarBySlug } from "@/lib/pillars";
 
 type ProjectPageProps = {
   params: Promise<{ id: string }>;
@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  const service = servicePages[project.relatedServiceSlug];
+  const pillar = getPillarBySlug(project.relatedPillarSlug);
   const pageUrl = `${SITE_URL}/projects/${project.id}`;
 
   const jsonLd = [
@@ -61,7 +61,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       description: `${project.shortDescription} ${project.businessValue}`,
       url: pageUrl,
       inLanguage: "he-IL",
-      about: service.serviceName,
+      about: pillar.title,
       creator: {
         "@type": "Organization",
         name: "JT Solutions",

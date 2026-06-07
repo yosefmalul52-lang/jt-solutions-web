@@ -12,7 +12,7 @@ import {
   getLocalPageBySlug,
 } from "@/lib/seo/local-pages";
 import { NAP } from "@/lib/seo/organization";
-import { servicePages } from "@/lib/seo/services";
+import { getPillarBySlug } from "@/lib/pillars";
 
 type AreaPageProps = {
   params: Promise<{ slug: string }>;
@@ -117,14 +117,14 @@ export default async function AreaPage({ params }: AreaPageProps) {
             <h2 className="text-xl font-extrabold text-slate-900 mb-6 text-center">שירותים מובילים ב{page.cityName}</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {page.servicesHighlight.map((slug) => {
-                const service = servicePages[slug];
+                const pillar = getPillarBySlug(slug);
                 return (
                   <li key={slug}>
                     <Link
-                      href={service.path}
+                      href={pillar.path}
                       className="premium-card block p-5 h-full hover:border-indigo-200 transition-colors"
                     >
-                      <h3 className="text-sm font-bold text-slate-900">{service.serviceName}</h3>
+                      <h3 className="text-sm font-bold text-slate-900">{pillar.title}</h3>
                       <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-indigo-600">
                         לפרטים
                         <ArrowLeft size={14} aria-hidden />

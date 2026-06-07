@@ -1,5 +1,5 @@
 import { createPageMetadata } from "@/lib/seo/metadata";
-import type { ServiceFaqItem } from "@/components/templates/ServiceTemplate";
+import type { ServiceFaqItem } from "@/lib/types/faq";
 
 export type ServiceSlug =
   | "landing-pages"

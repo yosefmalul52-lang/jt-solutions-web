@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
+import { getMetaPixelId } from "@/lib/analytics/meta-pixel";
 
 export default function MetaPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const pixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+  const pixelId = getMetaPixelId();
 
   useEffect(() => {
     if (!pixelId || typeof window === "undefined" || typeof window.fbq !== "function") return;

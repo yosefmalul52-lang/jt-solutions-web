@@ -30,7 +30,7 @@ export const ecommerceMistakesExpanded: ExpandedPost = {
       heading: "מה לעשות במקום",
       paragraphs: [
         "התחילו מה-MVP: קטלוג מסודר, תשלום, משלוח, מדידה — ואז הרחיבו.",
-        "בנו חנות עם [איקומרס חכם](/services/ecommerce) שמחוברת לניהול הזמנות ומדידה.",
+        "בנו חנות עם [איקומרס חכם](/services/websites#ecommerce) שמחוברת לניהול הזמנות ומדידה.",
         "הגדירו KPI: שיעור המרה, ערך הזמנה ממוצע, עלות רכישת לקוח.",
       ],
     },
@@ -72,7 +72,7 @@ export const websiteSpecExpanded: ExpandedPost = {
       paragraphs: [
         "אל תדלגו על wireframe — גם סקיצה פשוטה חוסכת שבועות.",
         "כתבו תוכן לפני עיצוב סופי — העיצוב משרת את המסר, לא להפך.",
-        "ראו [בניית אתרים לעסקים](/services/business-websites) עם אפיון מובנה בתהליך.",
+        "ראו [בניית אתרים לעסקים](/services/websites#corporate) עם אפיון מובנה בתהליך.",
       ],
     },
   ],
@@ -106,7 +106,7 @@ export const whatsappAutomationExpanded: ExpandedPost = {
         "תסריט ברור: ברכה → 2–3 שאלות → העברה לנציג או קישור לטופס.",
         "חיבור ל-CRM או גיליון — כל ליד נרשם אוטומטית.",
         "מדידה: כמה שיחות, כמה הומרו לפגישה.",
-        "ראו [בוט וואטסאפ לעסק](/services/whatsapp-bot) ו-[אוטומציה לעסקים](/services/ai-automation).",
+        "ראו [בוט וואטסאפ לעסק](/services/automations#whatsapp) ו-[אוטומציה לעסקים](/services/automations).",
       ],
     },
   ],
@@ -177,7 +177,7 @@ export const measureLandingPageExpanded: ExpandedPost = {
       paragraphs: [
         "יום 1–3: האם יש המרות? אם לא — בדקו מהירות, CTA, מסר.",
         "יום 4–7: A/B על כותרת או CTA אחד.",
-        "ראו [דף נחיתה ממיר](/services/landing-pages) ו-[תשתית פרסום](/services/ad-infrastructure).",
+        "ראו [דף נחיתה ממיר](/services/websites#landing) ו-[תשתית פרסום](/services/digital-marketing#full-funnel).",
       ],
     },
   ],
@@ -283,8 +283,8 @@ export const monthlyRetainerExpanded: ExpandedPost = {
       paragraphs: [
         "דוח ביצועים חודשי — מה עבד, מה לשנות.",
         "שעות פיתוח/עדכון מוגדרות.",
-        "ניהול קמפיינים, [אוטומציה לעסקים](/services/ai-automation) או תוכן — לפי הצורך.",
-        "ראו [תשתית פרסום](/services/ad-infrastructure).",
+        "ניהול קמפיינים, [אוטומציה לעסקים](/services/automations) או תוכן — לפי הצורך.",
+        "ראו [תשתית פרסום](/services/digital-marketing#full-funnel).",
       ],
     },
   ],
@@ -321,7 +321,7 @@ export const websiteLaunchChecklistExpanded: ExpandedPost = {
       paragraphs: [
         "בדיקות מובייל, מהירות, טפסים, 404, metadata, sitemap.",
         "הדרכת צוות, השקה, מעקב 48 שעות ראשונות.",
-        "ראו [בניית אתרים לעסקים](/services/business-websites).",
+        "ראו [בניית אתרים לעסקים](/services/websites#corporate).",
       ],
     },
   ],
@@ -388,7 +388,7 @@ export const websiteCostHaifaNorthExpanded: ExpandedPost = {
       heading: "איך לקבל הצעה מדויקת",
       paragraphs: [
         "שיחת התאמה של 15 דקות — נבין מטרה, נציע מסלול, ניתן טווח.",
-        "ראו [בניית אתרים לעסקים](/services/business-websites) או מדריך מלא: [כמה עולה אתר תדמית ב-2026](/blog/website-cost-israel-2026).",
+        "ראו [בניית אתרים לעסקים](/services/websites#corporate) או מדריך מלא: [כמה עולה אתר תדמית ב-2026](/blog/website-cost-israel-2026).",
         "יצירת קשר: [/contact](/contact).",
       ],
     },

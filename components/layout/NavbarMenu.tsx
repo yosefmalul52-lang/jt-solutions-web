@@ -45,19 +45,19 @@ export default function NavbarMenu({
                   }
                 }}
                 className={`relative block px-4 py-2 text-sm font-semibold rounded-2xl transition-colors duration-200 ${
-                  active ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
+                  active ? "text-slate-100" : "text-slate-400 hover:text-slate-100"
                 }`}
               >
                 {active && hydrated ? (
                   <motion.span
                     layoutId="navActivePill"
-                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
+                    className="absolute inset-0 rounded-2xl bg-white/10 border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.35)] -z-10"
                     transition={{ type: "spring", ...SPRING_SNAPPY }}
                     aria-hidden
                   />
                 ) : active && !hydrated ? (
                   <span
-                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
+                    className="absolute inset-0 rounded-2xl bg-white/10 border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.35)] -z-10"
                     aria-hidden
                   />
                 ) : null}
@@ -75,13 +75,10 @@ export default function NavbarMenu({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[88px] sm:top-[100px] left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden"
+            className="fixed top-[88px] sm:top-[100px] left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden glass-panel backdrop-blur-xl"
             style={{
-              background: "rgba(249,250,251,0.95)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(0,0,0,0.08)",
               borderRadius: "var(--radius-soft)",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
+              boxShadow: "var(--shadow-elevated)",
             }}
           >
             <ul className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
@@ -103,8 +100,8 @@ export default function NavbarMenu({
                       }}
                       className={`w-full block text-right px-4 py-3 text-sm font-medium rounded-2xl transition-colors duration-200 ${
                         active
-                          ? "text-slate-900 bg-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
+                          ? "text-slate-100 bg-white/10 border border-white/10 shadow-[0_4px_16px_rgba(0,0,0,0.35)]"
+                          : "text-slate-400 hover:text-slate-100 hover:bg-white/5"
                       }`}
                     >
                       {link.label}
@@ -112,7 +109,7 @@ export default function NavbarMenu({
                   </li>
                 );
               })}
-              <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+              <li className="pt-2 border-t border-white/10">
                 <a
                   href={`tel:${contactLinks.phone}`}
                   onClick={() => {
@@ -122,8 +119,8 @@ export default function NavbarMenu({
                   aria-label="התקשרו אל JT Solutions"
                   className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
                   style={{
-                    background: "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
-                    borderColor: "rgba(124,58,237,0.22)",
+                    background: "linear-gradient(120deg, rgba(59,130,246,0.14), rgba(109,40,217,0.14))",
+                    borderColor: "rgba(109,40,217,0.28)",
                   }}
                 >
                   <Phone size={18} stroke="url(#brandPhoneGradient)" />

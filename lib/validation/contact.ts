@@ -18,13 +18,21 @@ export const contactSchema = z.object({
       .string()
       .regex(/^05\d{8}$/, "מספר טלפון לא תקין"),
   ),
-  email: z.string().trim().email("כתובת אימייל לא תקינה"),
+  email: z
+    .string()
+    .trim()
+    .refine((value) => value === "" || z.string().email().safeParse(value).success, {
+      message: "כתובת אימייל לא תקינה",
+    }),
   service: z
     .string()
     .trim()
-    .refine((value) => contactServiceOptions.includes(value as (typeof contactServiceOptions)[number]), {
-      message: "יש לבחור שירות מהרשימה",
-    }),
+    .refine(
+      (value) =>
+        value === "" ||
+        contactServiceOptions.includes(value as (typeof contactServiceOptions)[number]),
+      { message: "יש לבחור שירות מהרשימה" },
+    ),
   message: z
     .string()
     .trim()
