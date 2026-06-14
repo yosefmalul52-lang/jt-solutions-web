@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Reveal from "@/components/motion/Reveal";
+import LazyViewportImage from "@/components/ui/LazyViewportImage";
 
 export default function Projects() {
   return (
@@ -44,14 +44,15 @@ export default function Projects() {
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.22) 12%, rgba(0,0,0,0.58) 24%, rgba(0,0,0,0.9) 38%, rgba(0,0,0,0.94) 46%, rgba(0,0,0,0.94) 78%, transparent 100%)",
           }}
         >
-          <Image
+          <LazyViewportImage
             src="/projects-hero.png"
             alt="תצוגת מוקאפ לפרויקט לקוח"
             width={1024}
             height={768}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1024px"
             quality={75}
-            className="mx-auto h-auto w-full object-cover object-center"
+            wrapperClassName="mx-auto w-full"
+            className="h-full w-full object-cover object-center"
           />
         </Reveal>
       </div>
