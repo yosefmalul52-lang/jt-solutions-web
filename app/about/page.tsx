@@ -98,7 +98,7 @@ export default function AboutPage() {
               ))}
             </ul>
             <div className="mt-10 flex justify-center">
-              <CtaButton href="/#contact" />
+              <CtaButton href="/#contact" ctaLocation="about" />
             </div>
           </div>
         </section>

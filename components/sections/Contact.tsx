@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Send, Mail, Phone, Facebook, Instagram } from "lucide-react";
 import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import Reveal from "@/components/motion/Reveal";
-import { trackPhoneClick } from "@/lib/analytics/track";
+import { trackPhoneClick, trackCtaClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,6 +44,7 @@ export default function Contact() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
+      trackCtaClick("contact_form", "קובעים שיחת התאמה");
       setSubmitError(null);
       setIsSuccess(false);
 

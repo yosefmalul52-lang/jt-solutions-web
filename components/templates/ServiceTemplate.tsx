@@ -4,6 +4,7 @@ import { CheckCircle2, Home, LayoutGrid, MessageCircle } from "lucide-react";
 import PageEnter from "@/components/motion/PageEnter";
 import CtaButton from "@/components/ui/CtaButton";
 import OutlineNavLink from "@/components/ui/OutlineNavLink";
+import TrackedLink from "@/components/ui/TrackedLink";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import { getBlogPostBySlug } from "@/lib/blog/posts";
 import { getProjectById } from "@/lib/projects";
@@ -57,7 +58,15 @@ export default function ServiceTemplate({
             <div className="flex flex-wrap items-center justify-center gap-3 mb-10" dir="rtl">
               <OutlineNavLink href="/" icon={Home}>חזרה לדף הבית</OutlineNavLink>
               <OutlineNavLink href="/#services" icon={LayoutGrid}>מפת השירותים</OutlineNavLink>
-              <OutlineNavLink href="/#contact" icon={MessageCircle}>צור קשר</OutlineNavLink>
+              <TrackedLink
+                href="/#contact"
+                ctaLocation={`${ctaLocation}-nav`}
+                ctaLabel="צור קשר"
+                className="inline-flex items-center gap-2 rounded-[var(--radius-soft)] border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700"
+              >
+                <MessageCircle size={16} aria-hidden />
+                צור קשר
+              </TrackedLink>
             </div>
 
             <div className="text-center" dir="rtl">

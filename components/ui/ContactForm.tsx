@@ -201,6 +201,7 @@ export default function ContactForm() {
             <CtaButton
               type="submit"
               disabled={isSubmitting || !isValid}
+              ctaLocation="contact_form"
               className="w-full disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "שולח..." : "שליחת פנייה"}

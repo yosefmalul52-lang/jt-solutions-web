@@ -268,3 +268,11 @@ export function getLocalPageBySlug(slug: string): LocalPageConfig | undefined {
 export function getAllLocalPageSlugs(): string[] {
   return localPages.map((page) => page.slug);
 }
+
+/** Footer internal links — anchor text matches each area page title for local SEO */
+export function getLocalAreaFooterLinks(): { href: string; label: string }[] {
+  return localPages.map((page) => ({
+    href: `/areas/${page.slug}`,
+    label: page.title,
+  }));
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -38,6 +38,8 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const reduceMotion = useReducedMotion() ?? false;
+
   return (
     <section
       id="testimonials"
@@ -46,26 +48,29 @@ export default function Testimonials() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-10"
+          className="text-center mb-10 md:mb-12"
           dir="rtl"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight text-slate-900">
-            מה אומרים העסקים שעשו את הקפיצה?
+          <h2 className="premium-title">
+            לקוחות מספרים על העבודה איתנו
           </h2>
+          <p className="premium-subtitle mx-auto mt-3 max-w-2xl">
+            עסקים שבחרו להפוך אתר, מיתוג ואוטומציה למערכת שמייצרת פניות.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5" dir="rtl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5" dir="rtl">
           {testimonials.map((item, index) => (
             <motion.article
               key={`${item.name}-${index}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, delay: index * 0.06, ease: EASE }}
+              transition={{ duration: 0.55, delay: reduceMotion ? 0 : index * 0.06, ease: EASE }}
               className="bg-white/70 backdrop-blur-md border border-white/40 shadow-premium rounded-[var(--radius)] p-5 sm:p-6"
             >
               <div className="flex items-center justify-end gap-1.5 text-yellow-400 text-base" aria-label="5 כוכבים">

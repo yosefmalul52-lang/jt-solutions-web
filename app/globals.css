@@ -156,6 +156,42 @@ main [id] {
   color: #0f172a;
 }
 
+.hero-microcopy {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.hero-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius-soft);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  line-height: 1.35;
+  text-align: right;
+}
+
+.hero-trust-item--on-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+@media (min-width: 640px) {
+  .hero-trust-item {
+    font-size: 0.8125rem;
+    padding: 0.4375rem 0.875rem;
+  }
+}
+
 .premium-card {
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.08);

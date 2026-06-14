@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import TrackedLink from "@/components/ui/TrackedLink";
 import {
   Check, ArrowLeft, ChevronDown, ChevronUp,
   Code2, Globe, Zap, ShieldCheck, BarChart3, Layers, ShoppingCart,
@@ -156,12 +157,14 @@ export default function ServicePage({
                 transition={{ duration: 0.5, delay: 0.3, ease: EASE }}
                 className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
               >
-                <Link
+                <TrackedLink
                   href="/#contact"
+                  ctaLocation="service-page-hero"
+                  ctaLabel={ctaText}
                   className="btn-primary text-base"
                 >
                   {ctaText}
-                </Link>
+                </TrackedLink>
                 <span className="text-sm text-slate-500">שיחה קצרה, כיוון ברור, בלי התחייבות.</span>
               </motion.div>
             </div>
@@ -359,12 +362,14 @@ export default function ServicePage({
               ספר לנו על הפרויקט שלך ונחזור תוך 24 שעות עם כיוון אסטרטגי ברור וצעד ראשון פרקטי.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
+              <TrackedLink
                 href="/#contact"
+                ctaLocation="service-page-footer"
+                ctaLabel={ctaText}
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold text-indigo-700 bg-white hover:bg-indigo-50 shadow-xl shadow-indigo-900/20 transition-all duration-200"
               >
                 {ctaText}
-              </Link>
+              </TrackedLink>
               <Link
                 href="/#services"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold text-white border border-indigo-400 hover:bg-white/10 transition-all duration-200"

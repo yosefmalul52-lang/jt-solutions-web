@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import TrackedLink from "@/components/ui/TrackedLink";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -162,12 +163,14 @@ export default function ProjectsHubPage() {
               <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
                 נבנה יחד מעטפת דיגיטלית שמייצרת פניות — מאפיון ועד השקה ומדידה.
               </p>
-              <Link
+              <TrackedLink
                 href="/#contact"
+                ctaLocation="projects-hub"
+                ctaLabel="קובעים שיחת התאמה"
                 className="mt-6 inline-flex items-center justify-center rounded-[var(--radius-soft)] border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-indigo-200 hover:text-indigo-700"
               >
                 קובעים שיחת התאמה
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </section>

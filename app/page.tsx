@@ -5,12 +5,14 @@ import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Proof from "@/components/sections/Proof";
 import Projects from "@/components/sections/Projects";
+import Testimonials from "@/components/sections/Testimonials";
 import Pricing from "@/components/sections/Pricing";
 import Contact from "@/components/sections/Contact";
 import SectionDivider from "@/components/ui/SectionDivider";
 import HomeFaq from "@/components/sections/HomeFaq";
 import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { getHomeOgImage } from "@/lib/seo/og-images";
 import { getHomeFaqJsonLd } from "@/lib/seo/home-faq";
 
 export const metadata: Metadata = createPageMetadata({
@@ -26,6 +28,7 @@ export const metadata: Metadata = createPageMetadata({
     "מעטפת דיגיטלית",
     "שיווק דיגיטלי",
   ],
+  ogImage: getHomeOgImage(),
 });
 
 export default function Home() {
@@ -39,6 +42,8 @@ export default function Home() {
         <Services />
         <SectionDivider />
         <Projects />
+        <SectionDivider />
+        <Testimonials />
         <SectionDivider />
         <Proof />
         <SectionDivider />

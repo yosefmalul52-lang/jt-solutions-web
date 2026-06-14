@@ -5,6 +5,7 @@ import ProjectDetail from "@/components/projects/ProjectDetail";
 import JsonLd from "@/components/seo/JsonLd";
 import { getProjectById, projects } from "@/lib/projects";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { getProjectOgImage } from "@/lib/seo/og-images";
 import { SITE_URL } from "@/lib/seo/constants";
 import { servicePages } from "@/lib/seo/services";
 
@@ -29,6 +30,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     description: `${project.shortDescription} ${project.businessValue}`,
     path: `/projects/${project.id}`,
     keywords: [project.title, "פרויקט דיגיטל", "סיפור הצלחה", "תוצאות לפני ואחרי"],
+    ogImage: getProjectOgImage(project.image.src, project.image.alt),
   });
 }
 

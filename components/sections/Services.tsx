@@ -150,7 +150,7 @@ const phases: {
       {
         id: "landing",
         title: "דף נחיתה",
-        href: "/services/landing-pages",
+        href: "/services/websites#landing",
         icon: FileText,
         blurb: "דף אחד ממוקד המרה — מהיר, ברור ומותאם להצעה או לקמפיין ספציפי.",
         iconAccent: ICON_ACCENTS.rose,
@@ -165,7 +165,7 @@ const phases: {
       {
         id: "business-web",
         title: "אתר תדמית (עד 10 עמודים)",
-        href: "/services/business-websites",
+        href: "/services/websites#corporate",
         icon: Building2,
         blurb: "אתר מלא שמציג את העסק, השירותים והאמון — מבנה נקי ונוח לניהול.",
         iconAccent: ICON_ACCENTS.sky,
@@ -173,7 +173,7 @@ const phases: {
       {
         id: "ecommerce",
         title: "חנות איקומרס",
-        href: "/services/ecommerce",
+        href: "/services/websites#ecommerce",
         icon: ShoppingCart,
         blurb: "חנות אונליין מוכנה למכירה — קטלוג, עגלה ותהליך רכישה ברור ללקוח.",
         iconAccent: ICON_ACCENTS.emerald,
@@ -181,7 +181,7 @@ const phases: {
       {
         id: "whatsapp-bot",
         title: "בוט וואטסאפ לשיחות עם לקוחות",
-        href: "/services/whatsapp-bot",
+        href: "/services/automations#whatsapp",
         icon: BotMessageSquare,
         blurb:
           "בוט בוואטסאפ שמקבל פניות, עונה על שאלות חוזרות ומסדר מידע — כדי שתחסכו זמן ולא תפספסו ליד.",
@@ -190,7 +190,7 @@ const phases: {
       {
         id: "ai-automation",
         title: "אוטומציה לעסקים",
-        href: "/services/ai-automation",
+        href: "/services/automations#site-integration",
         icon: Workflow,
         blurb: "חיבור מערכות, תהליכים אוטומטיים וחיסכון בזמן — פחות עבודה ידנית, יותר פניות שמטופלות.",
         iconAccent: ICON_ACCENTS.violet,
@@ -198,7 +198,7 @@ const phases: {
       {
         id: "web-dev",
         title: "פיתוח אתרים ומערכות",
-        href: "/services/web-development",
+        href: "/services/automations#site-integration",
         icon: MonitorSmartphone,
         blurb: "פיתוח מותאם ב-Next.js — מהיר, מאובטח ומוכן להרחבה לפי צמיחת העסק.",
         iconAccent: ICON_ACCENTS.sky,
@@ -213,7 +213,7 @@ const phases: {
       {
         id: "ads",
         title: "ניהול קמפיינים",
-        href: "/services/ad-infrastructure",
+        href: "/services/digital-marketing#full-funnel",
         icon: Megaphone,
         blurb: "תשתית שיווקית מדידה — קמפיינים, מעקב והתאמות כדי להביא פניות איכותיות.",
         iconAccent: ICON_ACCENTS.amber,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import TrackedLink from "@/components/ui/TrackedLink";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -85,13 +86,15 @@ export default function ServicesHubPage() {
               <p className="text-sm text-slate-600 mt-3 max-w-xl mx-auto">
                 בשיחת התאמה של כ-15 דקות נבין את המטרה, נציע מסלול וניתן טווח מחיר ברור.
               </p>
-              <Link
+              <TrackedLink
                 href="/contact"
+                ctaLocation="services-hub"
+                ctaLabel="קובעים שיחת התאמה"
                 className="mt-6 inline-flex items-center justify-center rounded-[var(--radius-soft)] px-6 py-3 text-sm font-semibold text-white"
                 style={{ background: "var(--gradient-cta)", boxShadow: "var(--shadow-glow)" }}
               >
                 קובעים שיחת התאמה
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </section>

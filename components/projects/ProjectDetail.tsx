@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import TrackedLink from "@/components/ui/TrackedLink";
 import { ArrowRight, CheckCircle2, Home, Sparkles, Target } from "lucide-react";
 import PageEnter from "@/components/motion/PageEnter";
 import OutlineNavLink from "@/components/ui/OutlineNavLink";
@@ -140,9 +141,14 @@ export default function ProjectDetail({ project }: { project: ProjectItem }) {
                   >
                     לשירות {relatedService.serviceName}
                   </Link>
-                  <Link href="/#contact" className="text-sm font-semibold text-slate-600 hover:text-slate-900">
+                  <TrackedLink
+                    href="/#contact"
+                    ctaLocation="project-detail"
+                    ctaLabel="קובעים שיחת התאמה"
+                    className="text-sm font-semibold text-slate-600 hover:text-slate-900"
+                  >
                     קובעים שיחת התאמה
-                  </Link>
+                  </TrackedLink>
                 </div>
               </div>
             </div>

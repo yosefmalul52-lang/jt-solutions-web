@@ -1,5 +1,5 @@
 import { createPageMetadata } from "@/lib/seo/metadata";
-import type { ServiceFaqItem } from "@/components/templates/ServiceTemplate";
+import type { ServiceFaqItem } from "@/lib/types/faq";
 
 export type ServiceSlug =
   | "landing-pages"
@@ -24,7 +24,7 @@ export type ServiceSeoConfig = {
 export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "landing-pages": {
     slug: "landing-pages",
-    path: "/services/landing-pages",
+    path: "/services/websites#landing",
     title: "בניית דף נחיתה ממיר בישראל | מחיר, זמנים ותוצאות",
     description:
       "דף נחיתה ממיר לעסקים בישראל: אפיון שיווקי, עיצוב רספונסיבי, חיבור לוואטסאפ ומדידה מלאה. מתאים לקמפיינים ב-Meta וב-Google — לידים איכותיים מהיום הראשון.",
@@ -45,7 +45,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   "business-websites": {
     slug: "business-websites",
-    path: "/services/business-websites",
+    path: "/services/websites#corporate",
     title: "בניית אתר תדמית לעסק | עד 10 עמודים, מהיר וממיר",
     description:
       "אתר תדמית מקצועי לעסקים בישראל: מבנה ברור, מהירות Next.js, נגישות והתאמה למובייל. אתר שמייצר אמון, מוכן לקידום אורגני ולקמפיינים.",
@@ -66,7 +66,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   ecommerce: {
     slug: "ecommerce",
-    path: "/services/ecommerce",
+    path: "/services/websites#ecommerce",
     title: "בניית חנות אינטרנט | איקומרס חכם לעסקים בישראל",
     description:
       "חנות איקומרס מותאמת לעסק: קטלוג, עגלה, תשלום וניהול הזמנות. חוויית קנייה מהירה במובייל, מדידה ותשתית לצמיחה במכירות אונליין.",
@@ -106,7 +106,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   "ad-infrastructure": {
     slug: "ad-infrastructure",
-    path: "/services/ad-infrastructure",
+    path: "/services/digital-marketing#full-funnel",
     title: "ניהול קמפיינים ותשתית פרסום | Meta ו-Google",
     description:
       "תשתית פרסום מדידה לעסקים: הגדרת פיקסלים, קמפיינים ב-Meta וב-Google, דפי נחיתה ממירים ואופטימיזציה שמביאה פניות איכותיות.",
@@ -125,7 +125,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   "whatsapp-bot": {
     slug: "whatsapp-bot",
-    path: "/services/whatsapp-bot",
+    path: "/services/automations#whatsapp",
     title: "בוט וואטסאפ לעסק | מענה אוטומטי ולידים מסודרים",
     description:
       "בוט וואטסאפ ללקוחות: מענה מהיר, סינון פניות, איסוף פרטים וחיבור ל-CRM. חוסך זמן לצוות ומונע איבוד לידים בשעות עומס.",
@@ -144,7 +144,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   "ai-automation": {
     slug: "ai-automation",
-    path: "/services/ai-automation",
+    path: "/services/automations#site-integration",
     title: "אוטומציה לעסקים | חיבור מערכות, CRM ו-AI",
     description:
       "אוטומציה עסקית בישראל: חיבור לידים, CRM, תהליכי n8n וסוכני AI. פחות עבודה ידנית, תגובה מהירה יותר ותהליך מכירה צפוי.",
@@ -163,7 +163,7 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   },
   "web-development": {
     slug: "web-development",
-    path: "/services/web-development",
+    path: "/services/automations#site-integration",
     title: "פיתוח אתרים ומערכות | Next.js מהיר ומוכן לצמיחה",
     description:
       "פיתוח אתרים ומערכות מותאמות לעסקים: ארכיטקטורה יציבה, ביצועים גבוהים, אבטחה ותשתית שמגדילה פניות. פתרון מדויק כשצריך מעבר לתבנית סטנדרטית.",

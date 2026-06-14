@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import TrackedLink from "@/components/ui/TrackedLink";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -158,19 +159,23 @@ export default async function AreaPage({ params }: AreaPageProps) {
               שיחת התאמה של כ-15 דקות — בלי התחייבות. נבין את המטרה ונציע מסלול ברור.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
+              <TrackedLink
                 href="/contact"
+                ctaLocation="areas-footer"
+                ctaLabel="יצירת קשר"
                 className="inline-flex items-center justify-center rounded-[var(--radius-soft)] px-6 py-3 text-sm font-semibold text-white"
                 style={{ background: "var(--gradient-cta)", boxShadow: "var(--shadow-glow)" }}
               >
                 יצירת קשר
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href="/projects"
+                ctaLocation="areas-footer"
+                ctaLabel="תיק עבודות"
                 className="inline-flex items-center justify-center rounded-[var(--radius-soft)] px-6 py-3 text-sm font-semibold text-slate-800 border border-slate-200 bg-white"
               >
                 תיק עבודות
-              </Link>
+              </TrackedLink>
             </div>
             <p className="text-xs text-slate-500 mt-8">
               <Link href="/about" className="hover:text-indigo-600">אודות JT Solutions</Link>

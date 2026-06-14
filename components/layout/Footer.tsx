@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Facebook, Instagram } from "lucide-react";
 import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
+import { getLocalAreaFooterLinks } from "@/lib/seo/local-pages";
 import { contactLinks } from "@/lib/site";
 
 const quickLinks = [
@@ -14,14 +15,10 @@ const quickLinks = [
 
 const serviceLinks = [
   { label: "כל השירותים", href: "/services" },
-  { label: "דפי נחיתה ממירים", href: "/services/landing-pages" },
-  { label: "אתרי תדמית מותאמים", href: "/services/business-websites" },
-  { label: "חנויות איקומרס חכמות", href: "/services/ecommerce" },
+  { label: "בניית אתרים", href: "/services/websites" },
   { label: "מיתוג וזהות", href: "/services/branding" },
-  { label: "ניהול קמפיינים ותשתית פרסום", href: "/services/ad-infrastructure" },
-  { label: "בוט וואטסאפ ללקוחות", href: "/services/whatsapp-bot" },
-  { label: "אוטומציה לעסקים", href: "/services/ai-automation" },
-  { label: "פיתוח אתרים ומערכות", href: "/services/web-development" },
+  { label: "אוטומציות", href: "/services/automations" },
+  { label: "שיווק דיגיטלי", href: "/services/digital-marketing" },
 ] as const;
 
 const socialLinks = [
@@ -43,6 +40,11 @@ const socialLinks = [
 
 const footerLinkClass =
   "text-sm text-[#6B7280] transition-colors duration-200 hover:text-[#111827]";
+
+const areaLinks = getLocalAreaFooterLinks();
+
+const areaLinkClass =
+  "text-xs text-[#94A3B8] transition-colors duration-200 hover:text-[#475569] leading-snug";
 
 export default function Footer() {
   return (
@@ -123,6 +125,19 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <nav className="py-8" dir="rtl" aria-label="אזורי שירות" style={{ borderBottom: "1px solid rgba(15,23,42,0.08)" }}>
+          <h4 className="text-sm font-semibold text-gray-900 mb-4">אזורי שירות</h4>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-5">
+            {areaLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={areaLinkClass}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" dir="rtl">
           <p className="text-xs text-[#94A3B8]">&copy; 2025 JT Solutions. כל הזכויות שמורות.</p>
