@@ -104,6 +104,7 @@ function LivePillarIcon({ kind }: { kind: PillarKind }) {
         <motion.circle
           r="2.2"
           fill="currentColor"
+          initial={{ cx: 8, cy: 30 }}
           animate={{ cx: [8, 16, 24, 32, 40], cy: [30, 22, 26, 16, 20] }}
           transition={{ duration: 2.1, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.35, ease: "easeInOut" }}
         />

@@ -1,12 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Suspense } from "react";
 import { Heebo } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
-import JtPixel from "@/components/analytics/JtPixel";
-import MetaPixel from "@/components/analytics/MetaPixel";
-import ScrollProgress from "@/components/layout/ScrollProgress";
+import ConsentGatedTracking from "@/components/analytics/ConsentGatedTracking";
+import DeferredScrollProgress from "@/components/layout/DeferredScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
 import EqualWeb from "@/components/accessibility/EqualWeb";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
@@ -80,22 +77,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#F9FAFB" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const gaId = (process.env.NEXT_PUBLIC_GA_ID ?? "").trim();
-  const hasValidGaId = /^G-[A-Z0-9]+$/i.test(gaId);
-
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
-      <head>
-        <JtPixel />
-      </head>
       <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
-        <ScrollProgress />
+        <DeferredScrollProgress />
         <TrackingProvider>{children}</TrackingProvider>
         <CookieConsent />
-        {hasValidGaId ? <GoogleAnalytics gaId={gaId} /> : null}
-        <Suspense fallback={null}>
-          <MetaPixel />
-        </Suspense>
+        <ConsentGatedTracking />
         <FloatingWhatsApp />
         <EqualWeb />
         <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />

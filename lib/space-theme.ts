@@ -72,7 +72,12 @@ export type SpaceSliceImage = {
   objectPosition: string;
   priority: boolean;
   quality: number;
+  sizes: string;
+  loading: "eager" | "lazy";
 };
+
+const HERO_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 1920px";
+const BELOW_FOLD_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1200px) 90vw, 1200px";
 
 export function getSpaceSliceImage(slice: SpaceSliceId): SpaceSliceImage {
   const config = SPACE_STORY[slice];
@@ -83,6 +88,8 @@ export function getSpaceSliceImage(slice: SpaceSliceId): SpaceSliceImage {
     objectPosition: config.objectPosition,
     priority: isHero,
     quality: isHero ? 80 : 75,
+    sizes: isHero ? HERO_IMAGE_SIZES : BELOW_FOLD_IMAGE_SIZES,
+    loading: isHero ? "eager" : "lazy",
   };
 }
 

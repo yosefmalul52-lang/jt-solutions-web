@@ -235,8 +235,11 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className={labelClass}>שם מלא *</label>
+                    <label htmlFor="home-contact-name" className={labelClass}>
+                      שם מלא *
+                    </label>
                     <input
+                      id="home-contact-name"
                       type="text"
                       placeholder="איך לפנות אליך?"
                       className={`${inputClass} ${errors.name ? "border-red-500" : ""}`}
@@ -249,8 +252,11 @@ export default function Contact() {
                     </div>
                   </div>
                   <div>
-                    <label className={labelClass}>טלפון *</label>
+                    <label htmlFor="home-contact-phone" className={labelClass}>
+                      טלפון *
+                    </label>
                     <input
+                      id="home-contact-phone"
                       type="tel"
                       placeholder="מספר לשיחה קצרה"
                       className={`${inputClass} ${errors.phone ? "border-red-500" : ""}`}
@@ -265,8 +271,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className={labelClass}>אימייל *</label>
+                  <label htmlFor="home-contact-email" className={labelClass}>
+                    אימייל *
+                  </label>
                   <input
+                    id="home-contact-email"
                     type="email"
                     placeholder="לאן לשלוח סיכום מסודר?"
                     className={`${inputClass} ${errors.email ? "border-red-500" : ""}`}
@@ -280,8 +289,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className={labelClass}>סוג שירות *</label>
+                  <label htmlFor="home-contact-service" className={labelClass}>
+                    סוג שירות *
+                  </label>
                   <select
+                    id="home-contact-service"
                     className={`${inputClass} appearance-none cursor-pointer ${errors.service ? "border-red-500" : ""}`}
                     {...register("service")}
                   >
@@ -298,8 +310,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className={labelClass}>הודעה</label>
+                  <label htmlFor="home-contact-message" className={labelClass}>
+                    הודעה
+                  </label>
                   <textarea
+                    id="home-contact-message"
                     rows={4}
                     placeholder="מה המטרה המרכזית שלך בחודשיים הקרובים?"
                     className={`${inputClass} resize-none ${errors.message ? "border-red-500" : ""}`}

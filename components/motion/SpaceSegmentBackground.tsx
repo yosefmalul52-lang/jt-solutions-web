@@ -19,7 +19,7 @@ export default function SpaceSegmentBackground({
   blendTop = true,
   blendBottom = true,
 }: SpaceSegmentBackgroundProps) {
-  const { src, objectPosition, priority, quality } = getSpaceSliceImage(slice);
+  const { src, objectPosition, priority, quality, sizes, loading } = getSpaceSliceImage(slice);
   const { nebulaOpacity, colorGrade } = SPACE_STORY[slice];
 
   return (
@@ -28,8 +28,10 @@ export default function SpaceSegmentBackground({
         src={src}
         alt=""
         fill
-        sizes="100vw"
+        sizes={sizes}
         priority={priority}
+        loading={loading}
+        fetchPriority={priority ? "high" : "auto"}
         quality={quality}
         className="object-cover brightness-[0.82] contrast-[1.06] saturate-[0.9]"
         style={{ objectPosition }}

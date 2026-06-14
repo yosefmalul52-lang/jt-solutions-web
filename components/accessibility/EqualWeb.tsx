@@ -195,6 +195,20 @@ function loadEqualWebScript(onReady: () => void) {
   document.body.appendChild(script);
 }
 
+function scheduleEqualWebInit(callback: () => void) {
+  if (typeof window === "undefined") return;
+
+  const run = () => callback();
+
+  if (typeof window.requestIdleCallback === "function") {
+    window.requestIdleCallback(run, { timeout: 5000 });
+  } else if (document.readyState === "complete") {
+    setTimeout(run, 2500);
+  } else {
+    window.addEventListener("load", () => setTimeout(run, 2000), { once: true });
+  }
+}
+
 function initEqualWeb() {
   if (window.__jtEqualWebInit) return;
   window.__jtEqualWebInit = true;
@@ -241,7 +255,7 @@ function initEqualWeb() {
 
 export default function EqualWeb() {
   useEffect(() => {
-    initEqualWeb();
+    scheduleEqualWebInit(initEqualWeb);
     const onResize = () => pinAccessibilityButton();
     const onScroll = () => pinAccessibilityButton();
     window.addEventListener("resize", onResize);

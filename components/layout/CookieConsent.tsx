@@ -1,41 +1,21 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useHydrated } from "@/hooks/useHydrated";
-
-const STORAGE_KEY = "cookie_consent";
-
-function getConsentSnapshot() {
-  return localStorage.getItem(STORAGE_KEY);
-}
-
-function subscribeToConsent(onStoreChange: () => void) {
-  const handler = () => onStoreChange();
-  window.addEventListener("jt-consent-change", handler);
-  window.addEventListener("storage", handler);
-  return () => {
-    window.removeEventListener("jt-consent-change", handler);
-    window.removeEventListener("storage", handler);
-  };
-}
+import { COOKIE_CONSENT_KEY, useCookieConsent } from "@/hooks/useCookieConsent";
 
 export default function CookieConsent() {
   const hydrated = useHydrated();
-  const consent = useSyncExternalStore(
-    subscribeToConsent,
-    getConsentSnapshot,
-    () => null,
-  );
+  const consent = useCookieConsent();
   const visible = hydrated && !consent;
 
   const accept = () => {
-    localStorage.setItem(STORAGE_KEY, "accepted");
+    localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
     window.dispatchEvent(new Event("jt-consent-change"));
   };
 
   const decline = () => {
-    localStorage.setItem(STORAGE_KEY, "declined");
+    localStorage.setItem(COOKIE_CONSENT_KEY, "declined");
     window.dispatchEvent(new Event("jt-consent-change"));
   };
 
