@@ -3,13 +3,13 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services";
 import SectionDivider from "@/components/ui/SectionDivider";
 import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getHomeOgImage } from "@/lib/seo/og-images";
 import { getHomeFaqJsonLd } from "@/lib/seo/home-faq";
 
+const Services = dynamic(() => import("@/components/sections/Services"));
 const Projects = dynamic(() => import("@/components/sections/Projects"));
 const Testimonials = dynamic(() => import("@/components/sections/Testimonials"));
 const Proof = dynamic(() => import("@/components/sections/Proof"));

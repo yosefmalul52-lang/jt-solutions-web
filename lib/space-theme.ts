@@ -16,6 +16,10 @@ export type SpaceSliceId =
 export type SpaceSliceConfig = {
   /** Local path under /public */
   imageSrc: string;
+  /** Optional mobile-optimized hero art direction asset */
+  mobileImageSrc?: string;
+  mobileImageWidth?: number;
+  mobileImageHeight?: number;
   objectPosition: string;
   nebulaOpacity: number;
   /** Subtle tint to harmonise different source photos */
@@ -25,6 +29,9 @@ export type SpaceSliceConfig = {
 export const SPACE_STORY: Record<SpaceSliceId, SpaceSliceConfig> = {
   hero: {
     imageSrc: "/space/hero.jpg",
+    mobileImageSrc: "/space/hero-mobile.webp",
+    mobileImageWidth: 900,
+    mobileImageHeight: 375,
     objectPosition: "center 38%",
     nebulaOpacity: 0.3,
     colorGrade:
@@ -69,14 +76,19 @@ export const SPACE_STORY: Record<SpaceSliceId, SpaceSliceConfig> = {
 
 export type SpaceSliceImage = {
   src: string;
+  mobileSrc?: string;
+  mobileWidth?: number;
+  mobileHeight?: number;
   objectPosition: string;
   priority: boolean;
   quality: number;
   sizes: string;
+  mobileSizes: string;
   loading: "eager" | "lazy";
 };
 
-const HERO_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 1920px";
+const HERO_IMAGE_SIZES = "(min-width: 768px) 100vw, 1920px";
+const HERO_MOBILE_SIZES = "100vw";
 const BELOW_FOLD_IMAGE_SIZES = "(max-width: 640px) 100vw, (max-width: 1200px) 90vw, 1200px";
 
 export function getSpaceSliceImage(slice: SpaceSliceId): SpaceSliceImage {
@@ -85,10 +97,14 @@ export function getSpaceSliceImage(slice: SpaceSliceId): SpaceSliceImage {
 
   return {
     src: config.imageSrc,
+    mobileSrc: config.mobileImageSrc,
+    mobileWidth: config.mobileImageWidth,
+    mobileHeight: config.mobileImageHeight,
     objectPosition: config.objectPosition,
     priority: isHero,
     quality: isHero ? 80 : 75,
     sizes: isHero ? HERO_IMAGE_SIZES : BELOW_FOLD_IMAGE_SIZES,
+    mobileSizes: isHero ? HERO_MOBILE_SIZES : BELOW_FOLD_IMAGE_SIZES,
     loading: isHero ? "eager" : "lazy",
   };
 }
