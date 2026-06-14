@@ -27,9 +27,17 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 
   return createPageMetadata({
     title: project.seoTitle,
-    description: `${project.shortDescription} ${project.businessValue}`,
+    description: project.projectGoal
+      ? `${project.shortDescription} ${project.projectGoal}`
+      : `${project.shortDescription} ${project.businessValue}`,
     path: `/projects/${project.id}`,
-    keywords: [project.title, "פרויקט דיגיטל", "סיפור הצלחה", "תוצאות לפני ואחרי"],
+    keywords: [
+      project.title,
+      project.industry,
+      "פרויקט דיגיטל",
+      "סיפור הצלחה",
+      "תוצאות לפני ואחרי",
+    ].filter((k): k is string => Boolean(k)),
     ogImage: getProjectOgImage(project.image.src, project.image.alt),
   });
 }
@@ -60,7 +68,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       "@type": "CreativeWork",
       name: project.seoTitle,
       headline: project.seoTitle,
-      description: `${project.shortDescription} ${project.businessValue}`,
+      description: project.projectGoal
+        ? `${project.shortDescription} ${project.projectGoal}`
+        : `${project.shortDescription} ${project.businessValue}`,
       url: pageUrl,
       inLanguage: "he-IL",
       about: service.serviceName,
