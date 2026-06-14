@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -10,30 +12,35 @@ const testimonials = [
       "השירות האישי הורגש מהשיחה הראשונה. קיבלנו זמינות גבוהה, פתרונות מהירים וביצוע מדויק בלי לרדוף אחרי כמה ספקים במקביל.",
     name: "אורי כהן",
     role: "בעלים, חנות איקומרס",
+    relatedProjectId: "magadim",
   },
   {
     quote:
       "המעבר היה מהיר וחלק - מתהליך ידני למערכת מסודרת. זמן הטיפול ירד משמעותית והלקוחות מרגישים את הרמה המקצועית מיד.",
     name: "מיכל לוי",
     role: "מנכ\"לית, עסק לשירותי מזון",
+    relatedProjectId: "magadim",
   },
   {
     quote:
       "יש כאן שילוב חזק של מומחיות טכנית עם הבנה שיווקית. כל החלטה קודמה עם חשיבה עסקית ותוצאה שמורגשת בשטח.",
     name: "דניאל פרץ",
     role: "מנהל שיווק, חברת שירותים",
+    relatedProjectId: "ai-automation",
   },
   {
     quote:
       "הזמינות והאחריות היו יוצאות דופן. כל שאלה קיבלה מענה מהיר, והפרויקט התקדם בקצב גבוה עם שקיפות מלאה לכל אורך הדרך.",
     name: "נועה אברג'יל",
     role: "בעלים, סטודיו לעיצוב",
+    relatedProjectId: "eb-hair",
   },
   {
     quote:
       "מה שאהבנו במיוחד זה היכולת לקחת מורכבות טכנולוגית ולהפוך אותה למערכת פשוטה לתפעול יומיומי. מקצוענות ברמה גבוהה מאוד.",
     name: "רועי חדד",
     role: "שותף, מותג קמעונאות דיגיטלית",
+    relatedProjectId: "ai-automation",
   },
 ];
 
@@ -86,6 +93,15 @@ export default function Testimonials() {
               <div className="mt-4 pt-3 border-t border-white/40 text-right">
                 <p className="text-sm font-semibold text-slate-900">{item.name}</p>
                 <p className="text-xs mt-1 text-slate-500">{item.role}</p>
+                {item.relatedProjectId ? (
+                  <Link
+                    href={`/projects/${item.relatedProjectId}`}
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-800"
+                  >
+                    <span>ראו פרויקט דומה</span>
+                    <ArrowLeft size={14} aria-hidden />
+                  </Link>
+                ) : null}
               </div>
             </motion.article>
           ))}

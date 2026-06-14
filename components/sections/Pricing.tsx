@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import { Check, Megaphone, Server, Share2 } from "lucide-react";
 import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import Reveal from "@/components/motion/Reveal";
+import CtaButton from "@/components/ui/CtaButton";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
 
 const retainers: { title: string; text: string; icon: LucideIcon }[] = [
@@ -62,6 +63,8 @@ const tiers = [
     tagline: "נכס דיגיטלי אחד — מהר להשקה",
     description: "מתאים לעסק שרוצה לצאת לדרך מהר עם נכס דיגיטלי ברור וממיר.",
     items: ["מיתוג בסיסי", "דף נחיתה ממיר", "חיבור לטפסים/וואטסאפ", "השקה מהירה"],
+    ctaLabel: "מתאים לי — בואו נדבר",
+    ctaLocation: "pricing-fast-start",
   },
   {
     id: "growing-business",
@@ -70,6 +73,8 @@ const tiers = [
     description: "מעטפת מלאה לעסק שרוצה נוכחות מקצועית וצמיחה עקבית לאורך זמן.",
     items: ["מיתוג מלא", "אתר תדמית עד 10 עמודים", "אוטומציות ותשתית מדידה", "ליווי חודשי ממוקד תוצאות"],
     popular: true,
+    ctaLabel: "רוצה מעטפת מלאה",
+    ctaLocation: "pricing-growth",
   },
   {
     id: "enterprise-smb",
@@ -83,6 +88,8 @@ const tiers = [
       "תשתית אוטומציה מלאה לתהליכים",
       "ניהול שיווק ותפעול שוטף",
     ],
+    ctaLabel: "יש לי מערכת מורכבת",
+    ctaLocation: "pricing-deep-system",
   },
 ];
 
@@ -189,6 +196,16 @@ export default function Pricing() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-6">
+                <CtaButton
+                  href="#contact"
+                  label={tier.ctaLabel}
+                  ctaLocation={tier.ctaLocation}
+                  variant={tier.popular ? "primary" : "secondary"}
+                  className="w-full"
+                />
+              </div>
             </motion.article>
           ))}
         </motion.div>

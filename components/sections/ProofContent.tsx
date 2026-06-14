@@ -6,6 +6,7 @@ import { Phone } from "lucide-react";
 import MaskedHeadline from "@/components/motion/MaskedHeadline";
 import ParallaxLayer from "@/components/motion/ParallaxLayer";
 import TiltSurface from "@/components/motion/TiltSurface";
+import CtaButton from "@/components/ui/CtaButton";
 import { proofBentoStagger, TILT_PERSPECTIVE, viewport as motionViewport } from "@/lib/motion";
 
 type PillarKind = "metrics" | "availability" | "responsibility";
@@ -350,6 +351,18 @@ export default function ProofContent() {
             ))}
           </div>
         </motion.div>
+
+        <div className="mx-auto mt-14 max-w-2xl text-center" dir="rtl">
+          <h3 className="text-xl font-extrabold leading-snug text-slate-900 sm:text-2xl">
+            רוצים שגם האתר שלכם יהפוך למערכת שמייצרת פניות?
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+            בשיחת התאמה קצרה נמפה מה חסר היום באתר, במדידה ובתהליך הלידים — ונבין מה הצעד הכי נכון לעסק שלכם.
+          </p>
+          <div className="mt-6 flex justify-center">
+            <CtaButton href="#contact" label="קבעו שיחת התאמה" ctaLocation="proof-after" />
+          </div>
+        </div>
       </div>
     </section>
   );
