@@ -467,3 +467,308 @@ html { scroll-behavior: smooth; }
     transform: scale(0.5) !important;
   }
 }
+
+.section-shell > .hero-flow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-shell > .hero-flow-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-flow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-flow__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 76% 50% at 50% 90%, black 16%, transparent 76%);
+}
+
+.hero-flow__glow {
+  position: absolute;
+  width: min(200px, 26vw);
+  height: min(200px, 26vw);
+  border-radius: 999px;
+  filter: blur(52px);
+  opacity: 0.16;
+  animation: heroFlowFloat 14s ease-in-out infinite;
+}
+
+.hero-flow__glow--cyan {
+  right: 24%;
+  bottom: 14%;
+  background: rgba(16, 179, 231, 0.5);
+}
+
+.hero-flow__glow--violet {
+  left: 24%;
+  bottom: 14%;
+  background: rgba(91, 33, 182, 0.45);
+  animation-delay: -5s;
+}
+
+.hero-flow__steps {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding-bottom: clamp(5rem, 14vh, 8.5rem);
+}
+
+.hero-flow__lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero-flow__path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero-flow__path--base {
+  stroke: rgba(16, 179, 231, 0.28);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(16, 179, 231, 0.35));
+}
+
+.hero-flow__path--active {
+  stroke: url(#heroFlowActiveStroke);
+  stroke-width: 2.5;
+  stroke-dasharray: 10 90;
+  stroke-dashoffset: 100;
+  animation: heroFlowStrokeTravel 5s linear infinite;
+}
+
+.hero-flow__node {
+  fill: #f9fafb;
+  stroke: #10b3e7;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(16, 179, 231, 0.65));
+}
+
+.hero-flow__cards {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  max-width: 96rem;
+  margin: 0 auto;
+  padding: 0 clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.hero-flow__step-wrap {
+  flex: 0 1 220px;
+  width: 220px;
+  max-width: 220px;
+  transform: scale(var(--card-scale, 1));
+  transform-origin: center center;
+  animation: heroFlowCardFloat var(--float-duration, 5.2s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+}
+
+.hero-flow__step {
+  width: 100%;
+  padding: 18px 18px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(12px);
+  color: #0f172a;
+  text-align: right;
+}
+
+.hero-flow__step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 9px;
+  border-radius: 10px;
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+}
+
+.hero-flow__step-num {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #4f46e5;
+}
+
+.hero-flow__step-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #5b21b6;
+}
+
+.hero-flow__step strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.hero-flow__step small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #64748b;
+}
+
+@keyframes heroFlowStrokeTravel {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes heroFlowFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(6px, -5px, 0);
+  }
+}
+
+@keyframes heroFlowCardFloat {
+  0%,
+  100% {
+    transform: scale(var(--card-scale, 1)) translateY(0);
+  }
+
+  50% {
+    transform: scale(var(--card-scale, 1)) translateY(-6px);
+  }
+}
+
+@keyframes heroTypewriterCharIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.2em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-typewriter-char {
+  display: inline-block;
+  animation: heroTypewriterCharIn 0.34s ease forwards;
+}
+
+.hero-typewriter-cursor {
+  display: inline-block;
+  margin-inline-start: 0.08em;
+  font-weight: 400;
+  color: #4f46e5;
+  animation: heroTypewriterBlink 0.9s step-end infinite;
+}
+
+@keyframes heroTypewriterBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter-char {
+    animation: none;
+  }
+
+  .hero-typewriter-cursor {
+    display: none;
+  }
+
+  .hero-flow__glow,
+  .hero-flow__step-wrap,
+  .hero-flow__path--active {
+    animation: none;
+  }
+
+  .hero-flow__step-wrap {
+    transform: scale(var(--card-scale, 1));
+  }
+
+  .hero-flow__path--active {
+    stroke-dashoffset: 0;
+    stroke-dasharray: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-flow__cards,
+  .hero-flow__lines {
+    display: none;
+  }
+
+  .hero-flow__grid {
+    opacity: 0.1;
+  }
+
+  .hero-flow__glow {
+    opacity: 0.1;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .hero-flow__step-wrap {
+    flex-basis: 188px;
+    width: 188px;
+    max-width: 188px;
+  }
+
+  .hero-flow__step {
+    padding: 15px 16px 14px;
+  }
+
+  .hero-flow__cards {
+    gap: clamp(0.85rem, 2.4vw, 1.5rem);
+  }
+}

@@ -172,9 +172,8 @@ export default function Navbar() {
               alt="JT Solutions Logo"
               width={490}
               height={430}
-              className="h-11 w-auto max-h-[52px] object-contain sm:h-12 sm:max-h-[58px]"
-              style={{ width: "auto", height: "auto" }}
-              sizes="(min-width: 640px) 160px, 140px"
+              className="h-8 w-auto max-h-8 object-contain sm:h-9 sm:max-h-9"
+              sizes="(min-width: 640px) 108px, 96px"
               priority
             />
           </Link>

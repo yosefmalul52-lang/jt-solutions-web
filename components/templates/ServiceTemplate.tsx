@@ -305,7 +305,7 @@ export default function ServiceTemplate({
               </p>
               <div className="flex justify-center">
                 <CtaButton href="/#contact" ctaLocation={`${ctaLocation}-footer`}>
-                  אני רוצה אבחון לעסק שלי
+                  קבלו אבחון דיגיטלי חינם
                 </CtaButton>
               </div>
             </div>

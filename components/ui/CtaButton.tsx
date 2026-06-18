@@ -25,7 +25,7 @@ interface CtaButtonProps {
 }
 
 export default function CtaButton({
-  label = "אני רוצה אבחון לעסק שלי",
+  label = "קבלו אבחון דיגיטלי חינם",
   children,
   icon: Icon = MoveLeft,
   variant = "primary",

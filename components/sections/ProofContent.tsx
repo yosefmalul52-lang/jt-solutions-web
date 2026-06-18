@@ -245,17 +245,17 @@ export default function ProofContent() {
           />
           <div className="grid grid-cols-1 items-center gap-8 md:gap-10 lg:grid-cols-[0.6fr_0.4fr]" dir="ltr">
             <div className="order-2 lg:order-1" ref={leadVideoWrapRef}>
-              <div className="aspect-square overflow-hidden rounded-3xl border border-white/60 bg-gradient-to-br from-slate-100 to-slate-200 shadow-premium">
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/60 bg-gradient-to-br from-slate-100 to-slate-200 shadow-premium">
                 <video
                   ref={leadVideoRef}
-                  className="h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover"
                   src="/jt-site-lead-animation.mov"
                   autoPlay
                   loop
                   muted
                   playsInline
                   preload="none"
-                  poster="/opengraph-image.png"
+                  poster="/logo.png"
                   aria-label="אנימציית הדגמה של מערכת לידים"
                 />
               </div>

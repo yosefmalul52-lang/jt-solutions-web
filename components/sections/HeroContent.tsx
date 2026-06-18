@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, LayoutGrid, MoveLeft } from "lucide-react";
 import { staggerVariants } from "@/lib/motion";
 import CtaButton from "@/components/ui/CtaButton";
+import { HeroFlowVisual } from "@/components/hero/HeroFlowVisual";
+import HeroTypewriterHeadline from "@/components/hero/HeroTypewriterHeadline";
 import { useHydrated } from "@/hooks/useHydrated";
 import { heroCopy, heroTrustPillars } from "@/lib/hero-content";
 
@@ -32,15 +34,14 @@ export default function HeroContent() {
         className="shrink-0 h-[calc(0.75rem+74px+2.5rem)] sm:h-[calc(1rem+84px+3rem)]"
       />
 
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pb-[min(10vh,5rem)]">
+      <div aria-hidden className="hero-flow-layer">
+        <HeroFlowVisual />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center justify-start w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-1 sm:pt-3 pb-8">
         <Wrap className="flex flex-col items-center text-center w-full" dir="rtl" {...wrapProps}>
           <Item className="max-w-4xl mx-auto w-full" {...itemProps}>
-            <h1 className="display-title max-w-4xl mx-auto">
-              <span className="block text-white/95">{heroCopy.h1Line1}</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] to-[#c084fc]">
-                {heroCopy.h1Line2}
-              </span>
-            </h1>
+            <HeroTypewriterHeadline reduceMotion={reduce} />
           </Item>
 
           <Text
