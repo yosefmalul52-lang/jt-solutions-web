@@ -52,12 +52,16 @@ export function mapSectionToNavHash(
 
   const sectionToNav: Record<string, string> = {
     "#hero": "#hero",
+    "#problem": "#hero",
+    "#solution": "#services",
     "#services": "#services",
     "#projects": "#projects",
-    "#proof": "#proof",
-    "#pricing": "#tech-stack",
-    "#tech-stack": "#tech-stack",
-    "#faq": "#tech-stack",
+    "#proof": "#projects",
+    "#process": "#services",
+    "#testimonials": "#projects",
+    "#pricing": "#pricing",
+    "#tech-stack": "#pricing",
+    "#faq": "#faq",
     "#contact": "#contact",
   };
 

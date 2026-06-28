@@ -41,7 +41,7 @@ export default function AccessibilityPage() {
   return (
     <>
       <Navbar />
-      <main className="flex-1 bg-[#F9FAFB]">
+      <main className="flex-1 bg-[#F8FAFC]">
         <PageEnter>
           <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24" dir="rtl">
             <div className="mb-10">
@@ -49,40 +49,40 @@ export default function AccessibilityPage() {
                 className="inline-flex p-[1px] rounded-full mb-4"
                 style={{ background: "var(--gradient-cta)" }}
               >
-                <span className="inline-flex px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/90 text-slate-700">
+                <span className="inline-flex px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#F8FAFC]/90 text-slate-600">
                   נגישות דיגיטלית
                 </span>
               </span>
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
                 הצהרת נגישות
               </h1>
-              <p className="text-sm text-slate-500">עדכון אחרון: אפריל 2025</p>
+              <p className="text-sm text-slate-900/50">עדכון אחרון: אפריל 2025</p>
             </div>
 
             <div
-              className="rounded-[var(--radius)] bg-white border border-slate-200 shadow-premium divide-y divide-slate-100"
+              className="rounded-[var(--radius)] bg-[#F8FAFC] border border-slate-200 shadow-premium divide-y divide-slate-200"
             >
               {sections.map((s) => (
                 <div key={s.title} className="px-7 py-6">
                   <h2 className="text-base font-bold text-slate-900 mb-2">{s.title}</h2>
-                  <p className="text-sm leading-[1.8] text-slate-600">{s.content}</p>
+                  <p className="text-sm leading-[1.8] text-slate-900/65">{s.content}</p>
                 </div>
               ))}
             </div>
 
             <div
-              className="mt-6 rounded-[var(--radius)] p-5 border text-sm leading-relaxed text-slate-600"
+              className="mt-6 rounded-[var(--radius)] p-5 border text-sm leading-relaxed text-slate-900/65"
               style={{ borderColor: "rgba(79,70,229,0.14)", background: "rgba(79,70,229,0.04)" }}
             >
               לפניות בנושא נגישות:{" "}
               <a
                 href="mailto:jtsolutions.officee@gmail.com"
-                className="font-semibold text-indigo-600 hover:underline"
+                className="font-semibold text-cyan-300 hover:underline"
               >
                 jtsolutions.officee@gmail.com
               </a>{" "}
               |{" "}
-              <a href="tel:0528240230" className="font-semibold text-indigo-600 hover:underline">
+              <a href="tel:0528240230" className="font-semibold text-cyan-300 hover:underline">
                 052-8240230
               </a>
             </div>

@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import type { ComponentProps } from "react";
+import { getButtonClasses, type ButtonVariant, type ButtonSize } from "@/lib/button-variants";
 import { trackCtaClick } from "@/lib/analytics/track";
 
 type TrackedLinkProps = ComponentProps<typeof Link> & {
   ctaLocation: string;
   ctaLabel?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
 };
 
 export default function TrackedLink({
@@ -14,11 +17,19 @@ export default function TrackedLink({
   ctaLabel,
   onClick,
   children,
+  variant,
+  size = "md",
+  className = "",
   ...props
 }: TrackedLinkProps) {
+  const mergedClassName = variant
+    ? getButtonClasses({ variant, size, className })
+    : className;
+
   return (
     <Link
       {...props}
+      className={mergedClassName}
       onClick={(event) => {
         trackCtaClick(
           ctaLocation,
@@ -27,7 +38,7 @@ export default function TrackedLink({
         onClick?.(event);
       }}
     >
-      {children}
+      {variant ? <span className="btn__content">{children}</span> : children}
     </Link>
   );
 }

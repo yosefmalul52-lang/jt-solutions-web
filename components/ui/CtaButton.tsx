@@ -1,129 +1,188 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { MoveLeft, type LucideIcon } from "lucide-react";
-import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
-import { useMagnetic } from "@/hooks/useMagnetic";
-import { useHydrated } from "@/hooks/useHydrated";
-import { SPRING_SNAPPY } from "@/lib/motion";
+import Link from "next/link";
+import { Loader2, MoveLeft, type LucideIcon } from "lucide-react";
+import type { MouseEventHandler, ReactNode } from "react";
+import {
+  getButtonClasses,
+  type ButtonShine,
+  type ButtonSize,
+  type ButtonVariant,
+} from "@/lib/button-variants";
 import { trackCtaClick } from "@/lib/analytics/track";
 
-type CtaButtonVariant = "primary" | "secondary";
-
-interface CtaButtonProps {
+export type CtaButtonProps = {
   label?: string;
   children?: ReactNode;
-  icon?: LucideIcon;
-  variant?: CtaButtonVariant;
+  icon?: LucideIcon | null;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   href?: string;
   className?: string;
   id?: string;
   disabled?: boolean;
+  loading?: boolean;
   type?: "button" | "submit" | "reset";
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  fullWidth?: boolean;
+  shine?: ButtonShine;
+  hideIcon?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
   ctaLocation?: string;
+};
+
+function isExternalHref(href: string): boolean {
+  return /^(https?:)?\/\//.test(href) || href.startsWith("mailto:") || href.startsWith("tel:");
+}
+
+function isInternalPath(href: string): boolean {
+  return href.startsWith("/") && !isExternalHref(href);
+}
+
+function ButtonSpinner() {
+  return <Loader2 className="btn__spinner" size={16} aria-hidden />;
+}
+
+function ButtonInner({
+  label,
+  icon: Icon,
+  loading,
+  hideIcon,
+  variant,
+  children,
+}: {
+  label?: string;
+  icon?: LucideIcon | null;
+  loading?: boolean;
+  hideIcon?: boolean;
+  variant: ButtonVariant;
+  children?: ReactNode;
+}) {
+  const showIcon = !hideIcon && Icon !== null && !loading;
+  const ResolvedIcon = Icon ?? MoveLeft;
+  const showAccent = variant === "primary" && !loading;
+
+  return (
+    <span className="btn__content">
+      {loading ? <ButtonSpinner /> : null}
+      {showIcon ? <ResolvedIcon size={17} strokeWidth={2.25} className="btn__icon" aria-hidden /> : null}
+      <span dir="rtl" className="btn__label">
+        {showAccent ? <span className="btn__accent" aria-hidden /> : null}
+        {children ?? label}
+      </span>
+    </span>
+  );
 }
 
 export default function CtaButton({
-  label = "קבלו אבחון דיגיטלי חינם",
+  label = "קבל אבחון דיגיטלי חינם",
   children,
-  icon: Icon = MoveLeft,
-  variant = "primary",
+  icon,
+  variant = "gradient",
+  size = "md",
   href,
   className = "",
   onClick,
   type = "button",
   id,
   disabled,
+  loading = false,
+  fullWidth,
+  shine = "auto",
+  hideIcon = false,
   ctaLocation,
 }: CtaButtonProps) {
-  const hydrated = useHydrated();
-  const reduce = useReducedMotion();
-  const enableMotion = hydrated && reduce !== true;
-  const { ref, x, y, handlers, disabled: magneticOff } = useMagnetic({
-    disabled: disabled || !enableMotion,
+  const isDisabled = Boolean(disabled || loading);
+  const isLink = Boolean(href) && type !== "submit" && type !== "reset";
+  const classNames = getButtonClasses({
+    variant,
+    size,
+    fullWidth,
+    loading,
+    disabled: isDisabled,
+    shine,
+    className,
   });
 
-  const labelContent = (
-    <>
-      <Icon size={18} strokeWidth={2.2} style={{ color: variant === "primary" ? "#ffffff" : "#475569" }} />
-      <span dir="rtl">{children ?? label}</span>
-    </>
-  );
-
-  const baseClass =
-    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-soft)] px-7 py-3 md:px-8 md:py-3 text-sm md:text-base font-semibold transition-shadow transition-colors duration-200";
-
-  const primaryClass = "text-white shadow-glow";
-  const secondaryClass = "bg-white text-slate-900 border border-slate-200 shadow-premium";
-
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const trackClick = () => {
     if (ctaLocation) {
       trackCtaClick(ctaLocation, typeof children === "string" ? children : label);
     }
-    if (onClick) onClick(event);
-    if (event.defaultPrevented || !href) return;
-
-    if (href.startsWith("#")) {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-      return;
-    }
-
-    window.location.href = href;
   };
 
-  const primaryStyle: CSSProperties | undefined =
-    variant === "primary"
-      ? { background: "var(--gradient-cta)", boxShadow: "var(--shadow-glow)" }
-      : undefined;
+  const inner = (
+    <ButtonInner
+      label={label}
+      icon={icon}
+      loading={loading}
+      hideIcon={hideIcon}
+      variant={variant}
+    >
+      {children}
+    </ButtonInner>
+  );
 
-  const classNames = `${baseClass} ${variant === "primary" ? primaryClass : secondaryClass} ${className}`.trim();
-  const inner = <span className="inline-flex items-center justify-center gap-2">{labelContent}</span>;
+  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    if (isDisabled) return;
+    trackClick();
+    onClick?.(event);
+  };
 
-  if (!hydrated) {
+  const handleLinkClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
+    if (isDisabled) {
+      event.preventDefault();
+      return;
+    }
+    trackClick();
+    onClick?.(event);
+  };
+
+  if (!isLink) {
     return (
       <button
         type={type}
         id={id}
-        disabled={disabled}
+        disabled={isDisabled}
         dir="ltr"
         className={classNames}
-        style={primaryStyle}
-        onClick={handleClick}
+        onClick={handleButtonClick}
+        aria-busy={loading || undefined}
       >
         {inner}
       </button>
     );
   }
 
+  const linkHref = href!;
+  const external = isExternalHref(linkHref);
+
+  if (isInternalPath(linkHref)) {
+    return (
+      <Link
+        href={linkHref}
+        id={id}
+        dir="ltr"
+        className={classNames}
+        onClick={handleLinkClick}
+        aria-disabled={isDisabled || undefined}
+        tabIndex={isDisabled ? -1 : undefined}
+      >
+        {inner}
+      </Link>
+    );
+  }
+
   return (
-    <motion.button
-      initial={false}
-      ref={enableMotion ? ref : undefined}
-      type={type}
+    <a
+      href={isDisabled ? undefined : linkHref}
       id={id}
-      disabled={disabled}
       dir="ltr"
       className={classNames}
-      style={enableMotion && !magneticOff ? { ...(primaryStyle ?? {}), x, y } : primaryStyle}
-      onClick={handleClick}
-      {...(enableMotion ? handlers : {})}
-      {...(enableMotion
-        ? {
-            whileHover:
-              variant === "primary"
-                ? { scale: 1.04, filter: "brightness(1.06)", boxShadow: "var(--shadow-glow-active)" }
-                : {
-                    scale: 1.02,
-                    backgroundColor: "#F8FAFC",
-                    boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.08)",
-                  },
-            whileTap: { scale: 0.97 },
-            transition: { type: "spring" as const, ...SPRING_SNAPPY },
-          }
-        : {})}
+      onClick={handleLinkClick}
+      aria-disabled={isDisabled || undefined}
+      tabIndex={isDisabled ? -1 : undefined}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {inner}
-    </motion.button>
+    </a>
   );
 }

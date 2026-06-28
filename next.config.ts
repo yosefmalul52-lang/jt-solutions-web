@@ -1,13 +1,16 @@
 import type { NextConfig } from "next";
 import { getLegacyServiceRedirects } from "@/lib/seo/legacy-redirects";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://cdn.equalweb.com",
+  // React dev tooling (Fast Refresh, cross-environment stack traces) needs eval locally only.
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://cdn.equalweb.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://cdn.equalweb.com https://access.equalweb.com",
   "font-src 'self' data:",

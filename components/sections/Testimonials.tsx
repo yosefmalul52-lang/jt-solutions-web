@@ -1,32 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { ArrowLeft, Quote } from "lucide-react";
+import PremiumGlassCard from "@/components/motion/PremiumGlassCard";
+import PremiumReveal from "@/components/motion/PremiumReveal";
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const testimonials = [
+const featuredTestimonials = [
   {
     quote:
       "השירות האישי הורגש מהשיחה הראשונה. קיבלנו זמינות גבוהה, פתרונות מהירים וביצוע מדויק בלי לרדוף אחרי כמה ספקים במקביל.",
     name: "אורי כהן",
     role: "בעלים, חנות איקומרס",
     relatedProjectId: "magadim",
-  },
-  {
-    quote:
-      "המעבר היה מהיר וחלק - מתהליך ידני למערכת מסודרת. זמן הטיפול ירד משמעותית והלקוחות מרגישים את הרמה המקצועית מיד.",
-    name: "מיכל לוי",
-    role: "מנכ\"לית, עסק לשירותי מזון",
-    relatedProjectId: "magadim",
-  },
-  {
-    quote:
-      "יש כאן שילוב חזק של מומחיות טכנית עם הבנה שיווקית. כל החלטה קודמה עם חשיבה עסקית ותוצאה שמורגשת בשטח.",
-    name: "דניאל פרץ",
-    role: "מנהל שיווק, חברת שירותים",
-    relatedProjectId: "ai-automation",
+    featured: true,
   },
   {
     quote:
@@ -34,6 +20,7 @@ const testimonials = [
     name: "נועה אברג'יל",
     role: "בעלים, סטודיו לעיצוב",
     relatedProjectId: "eb-hair",
+    featured: false,
   },
   {
     quote:
@@ -41,69 +28,61 @@ const testimonials = [
     name: "רועי חדד",
     role: "שותף, מותג קמעונאות דיגיטלית",
     relatedProjectId: "ai-automation",
+    featured: false,
   },
-];
+] as const;
 
 export default function Testimonials() {
-  const reduceMotion = useReducedMotion() ?? false;
+  const [featured, ...secondary] = featuredTestimonials;
 
   return (
-    <section
-      id="testimonials"
-      className="py-16 md:py-24 lg:py-32 section-shell"
-      style={{ background: "linear-gradient(180deg, #F6F8FF 0%, #F9FAFB 60%, #F7F9FF 100%)" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-center mb-10 md:mb-12"
-          dir="rtl"
-        >
-          <h2 className="premium-title">
-            לקוחות מספרים על העבודה איתנו
-          </h2>
-          <p className="premium-subtitle mx-auto mt-3 max-w-2xl">
-            עסקים שבחרו להפוך אתר, מיתוג ואוטומציה למערכת שמייצרת פניות.
-          </p>
-        </motion.div>
+    <section id="testimonials" className="homepage-story-section section-shell" dir="rtl">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <PremiumReveal className="mx-auto mb-10 max-w-2xl text-center md:mb-14" variant="rise">
+          <p className="premium-eyebrow-dark">מה הלקוחות אומרים</p>
+          <h2 className="premium-headline-dark mt-4">אמון שנבנה בתוצאות</h2>
+        </PremiumReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5" dir="rtl">
-          {testimonials.map((item, index) => (
-            <motion.article
-              key={`${item.name}-${index}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-70px" }}
-              transition={{ duration: 0.55, delay: reduceMotion ? 0 : index * 0.06, ease: EASE }}
-              className="bg-white/70 backdrop-blur-md border border-white/40 shadow-premium rounded-[var(--radius)] p-5 sm:p-6"
-            >
-              <div className="flex items-center justify-end gap-1.5 text-yellow-400 text-base" aria-label="5 כוכבים">
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-              </div>
+        <PremiumReveal variant="rise" delay={0.04}>
+          <PremiumGlassCard className="mb-6 p-7 sm:p-9 md:mb-8" tilt={false}>
+            <Quote size={32} className="text-violet-400/30" aria-hidden />
+            <p className="mt-5 text-lg leading-relaxed text-slate-100 sm:text-xl">
+              &ldquo;{featured.quote}&rdquo;
+            </p>
+            <div className="mt-8 border-t border-white/10 pt-5">
+              <p className="text-base font-bold text-white">{featured.name}</p>
+              <p className="mt-1 text-sm text-slate-400">{featured.role}</p>
+              <Link
+                href={`/projects/${featured.relatedProjectId}`}
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-300 transition-colors hover:text-white"
+              >
+                <span>ראו פרויקט דומה</span>
+                <ArrowLeft size={14} aria-hidden />
+              </Link>
+            </div>
+          </PremiumGlassCard>
+        </PremiumReveal>
 
-              <p className="mt-3 text-sm leading-relaxed text-slate-600 text-right">&ldquo;{item.quote}&rdquo;</p>
-
-              <div className="mt-4 pt-3 border-t border-white/40 text-right">
-                <p className="text-sm font-semibold text-slate-900">{item.name}</p>
-                <p className="text-xs mt-1 text-slate-500">{item.role}</p>
-                {item.relatedProjectId ? (
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {secondary.map((item, index) => (
+            <PremiumReveal key={item.name} variant="rise" delay={0.08 + index * 0.05}>
+              <PremiumGlassCard className="flex h-full flex-col p-6" tilt={false}>
+                <p className="flex-1 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  &ldquo;{item.quote}&rdquo;
+                </p>
+                <div className="mt-5 border-t border-white/10 pt-4">
+                  <p className="text-sm font-bold text-slate-100">{item.name}</p>
+                  <p className="mt-1 text-xs text-slate-400">{item.role}</p>
                   <Link
                     href={`/projects/${item.relatedProjectId}`}
-                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-800"
+                    className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300/90 transition-colors hover:text-cyan-200"
                   >
                     <span>ראו פרויקט דומה</span>
-                    <ArrowLeft size={14} aria-hidden />
+                    <ArrowLeft size={12} aria-hidden />
                   </Link>
-                ) : null}
-              </div>
-            </motion.article>
+                </div>
+              </PremiumGlassCard>
+            </PremiumReveal>
           ))}
         </div>
       </div>

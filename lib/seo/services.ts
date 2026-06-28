@@ -25,9 +25,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "landing-pages": {
     slug: "landing-pages",
     path: "/services/websites#landing",
-    title: "בניית דף נחיתה ממיר בישראל | מחיר, זמנים ותוצאות",
+    title: "דף נחיתה שמוביל לפנייה ומוכן לפרסום",
     description:
-      "דף נחיתה ממיר לעסקים בישראל: אפיון שיווקי, עיצוב רספונסיבי, חיבור לוואטסאפ ומדידה מלאה. מתאים לקמפיינים ב-Meta וב-Google — לידים איכותיים מהיום הראשון.",
+      "לעסקים עם הצעה ממוקדת או קמפיין קרוב — דף נחיתה עם מסר ברור, פעולה אחת ומדידה שמראה מאיפה הגיעו הפניות.",
     serviceName: "בניית דף נחיתה ממיר",
     keywords: ["דף נחיתה", "בניית דף נחיתה", "דף נחיתה ממיר", "landing page"],
     extraFaq: [
@@ -46,9 +46,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "business-websites": {
     slug: "business-websites",
     path: "/services/websites#corporate",
-    title: "בניית אתר תדמית לעסק | עד 10 עמודים, מהיר וממיר",
+    title: "אתר תדמית שמציג את העסק ומוביל לפנייה",
     description:
-      "אתר תדמית מקצועי לעסקים בישראל: מבנה ברור, מהירות Next.js, נגישות והתאמה למובייל. אתר שמייצר אמון, מוכן לקידום אורגני ולקמפיינים.",
+      "לעסקים שרוצים נוכחות מקצועית ברורה — אתר תדמית מותאם מובייל, עם מסר, פנייה ומדידה שמראה מה עובד.",
     serviceName: "בניית אתר תדמית לעסק",
     keywords: ["אתר תדמית", "בניית אתר לעסק", "אתר עסקי", "בניית אתרים"],
     extraFaq: [
@@ -67,9 +67,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   ecommerce: {
     slug: "ecommerce",
     path: "/services/websites#ecommerce",
-    title: "בניית חנות אינטרנט | איקומרס חכם לעסקים בישראל",
+    title: "חנות אונליין עם סדר בהזמנות וניהול",
     description:
-      "חנות איקומרס מותאמת לעסק: קטלוג, עגלה, תשלום וניהול הזמנות. חוויית קנייה מהירה במובייל, מדידה ותשתית לצמיחה במכירות אונליין.",
+      "לעסקים שמוכרים מוצרים אונליין — חנות עם זרימת קנייה ברורה, ניהול הזמנות במקום אחד ותשתית למדידה.",
     serviceName: "בניית חנות אינטרנט",
     keywords: ["חנות אינטרנט", "איקומרס", "בניית חנות אונליין", "חנות איקומרס"],
     extraFaq: [
@@ -88,9 +88,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   branding: {
     slug: "branding",
     path: "/services/branding",
-    title: "מיתוג לעסק | זהות ויזואלית ושפה מותגית אחידה",
+    title: "מיתוג שמחזק אמון לפני כל פנייה",
     description:
-      "מיתוג דיגיטלי לעסקים: לוגו, צבעים, טיפוגרפיה ושפה ויזואלית עקבית. בסיס מקצועי שמחזק אמון לפני בניית אתר, דף נחיתה או קמפיינים.",
+      "לעסקים שרוצים נראות מקצועית אחידה — לוגו, צבעים ושפה ויזואלית שמכינים את הקרקע לאתר, לדף נחיתה ולפרסום.",
     serviceName: "מיתוג וזהות לעסק",
     keywords: ["מיתוג לעסק", "זהות מותגית", "עיצוב לוגו", "מיתוג דיגיטלי"],
     extraFaq: [
@@ -107,9 +107,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "ad-infrastructure": {
     slug: "ad-infrastructure",
     path: "/services/digital-marketing#full-funnel",
-    title: "ניהול קמפיינים ותשתית פרסום | Meta ו-Google",
+    title: "פרסום מדיד שמחובר לפניות",
     description:
-      "תשתית פרסום מדידה לעסקים: הגדרת פיקסלים, קמפיינים ב-Meta וב-Google, דפי נחיתה ממירים ואופטימיזציה שמביאה פניות איכותיות.",
+      "לעסקים שרוצים לפרסם בביטחון — תשתית מדידה, דף ממוקד ומעקב אחרי פניות לפני הגדלת תקציב.",
     serviceName: "ניהול קמפיינים ותשתית פרסום",
     keywords: ["ניהול קמפיינים", "פרסום בפייסבוק", "גוגל אדס", "שיווק ממומן"],
     extraFaq: [
@@ -126,9 +126,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "whatsapp-bot": {
     slug: "whatsapp-bot",
     path: "/services/automations#whatsapp",
-    title: "בוט וואטסאפ לעסק | מענה אוטומטי ולידים מסודרים",
+    title: "וואטסאפ שמסנן פניות ולא מאבד הודעות",
     description:
-      "בוט וואטסאפ ללקוחות: מענה מהיר, סינון פניות, איסוף פרטים וחיבור ל-CRM. חוסך זמן לצוות ומונע איבוד לידים בשעות עומס.",
+      "לעסקים שמקבלים הרבה פניות בוואטסאפ — מענה ראשוני, איסוף פרטים והעברה למעקב מסודר בלי שהכול יתפזר בצ'אטים.",
     serviceName: "בוט וואטסאפ לעסק",
     keywords: ["בוט וואטסאפ", "וואטסאפ לעסק", "אוטומציה וואטסאפ", "צ'אטבוט"],
     extraFaq: [
@@ -145,9 +145,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "ai-automation": {
     slug: "ai-automation",
     path: "/services/automations#site-integration",
-    title: "אוטומציה לעסקים | חיבור מערכות, CRM ו-AI",
+    title: "סדר בלידים — מכל מקור פנייה למעקב אחד",
     description:
-      "אוטומציה עסקית בישראל: חיבור לידים, CRM, תהליכי n8n וסוכני AI. פחות עבודה ידנית, תגובה מהירה יותר ותהליך מכירה צפוי.",
+      "לעסקים עם פניות מטפסים, וואטסאפ וקמפיינים — חיבור מקורות הפנייה למעקב מרכזי, התראות ותזכורות לחזרה.",
     serviceName: "אוטומציה עסקית",
     keywords: ["אוטומציה לעסקים", "אוטומציה עסקית", "חיבור CRM", "AI לעסקים"],
     extraFaq: [
@@ -164,9 +164,9 @@ export const servicePages: Record<ServiceSlug, ServiceSeoConfig> = {
   "web-development": {
     slug: "web-development",
     path: "/services/automations#site-integration",
-    title: "פיתוח אתרים ומערכות | Next.js מהיר ומוכן לצמיחה",
+    title: "תשתית דיגיטלית מותאמת לתהליך העסק",
     description:
-      "פיתוח אתרים ומערכות מותאמות לעסקים: ארכיטקטורה יציבה, ביצועים גבוהים, אבטחה ותשתית שמגדילה פניות. פתרון מדויק כשצריך מעבר לתבנית סטנדרטית.",
+      "לעסקים עם לוגיקה או תהליכים ייחודיים — פתרון מותאם שמחבר נוכחות דיגיטלית, פניות ומעקב לפי הצורך האמיתי.",
     serviceName: "פיתוח אתרים ומערכות",
     keywords: ["פיתוח אתרים", "פיתוח מערכות", "Next.js", "בניית אתרים מותאם"],
     extraFaq: [

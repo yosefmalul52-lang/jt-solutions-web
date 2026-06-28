@@ -49,19 +49,17 @@ type CardMotion = {
   floatDuration: string;
 };
 
-function createCardMotion(index: number): CardMotion {
-  return {
-    scale: 0.96 + Math.random() * 0.08,
-    floatDelay: `${(index * 0.55 + Math.random() * 0.8).toFixed(2)}s`,
-    floatDuration: `${(4.6 + Math.random() * 2.2).toFixed(2)}s`,
-  };
-}
+/** Deterministic per-step motion — avoids SSR/client Math.random hydration mismatch. */
+const CARD_MOTION_PRESETS: CardMotion[] = flowSteps.map((_, index) => ({
+  scale: 0.96 + ((index * 17 + 11) % 80) / 1000,
+  floatDelay: `${(index * 0.55 + (index % 3) * 0.27).toFixed(2)}s`,
+  floatDuration: `${(4.6 + (index % 5) * 0.44).toFixed(2)}s`,
+}));
 
 export function HeroFlowVisual() {
   const trackRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [geometry, setGeometry] = useState<FlowGeometry | null>(null);
-  const [cardMotion] = useState<CardMotion[]>(() => flowSteps.map((_, index) => createCardMotion(index)));
 
   const updateGeometry = useCallback(() => {
     const track = trackRef.current;
@@ -183,7 +181,7 @@ export function HeroFlowVisual() {
         <div className="hero-flow__cards" dir="rtl">
           {flowSteps.map((step, index) => {
             const Icon = step.icon;
-            const motion = cardMotion[index];
+            const motion = CARD_MOTION_PRESETS[index];
             return (
               <div
                 className="hero-flow__step-wrap"

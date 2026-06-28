@@ -3,23 +3,27 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import LightPageShell from "@/components/layout/LightPageShell";
+import PremiumReveal from "@/components/motion/PremiumReveal";
+import ScribbleUnderline from "@/components/motion/ScribbleUnderline";
 import Contact from "@/components/sections/Contact";
 import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getContactPageJsonLd, NAP } from "@/lib/seo/organization";
 import { contactLinks } from "@/lib/site";
+import { contactPageCopy } from "@/lib/contact-form-copy";
 import { homeFaqItems } from "@/lib/seo/home-faq";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "יצירת קשר | סוכנות דיגיטל JT Solutions",
+  title: "אבחון דיגיטלי חינם",
   description:
-    "צרו קשר עם JT Solutions — סוכנות דיגיטל בישראל. טלפון, וואטסאפ, אימייל וטופס פנייה. שיחת התאמה של כ-15 דקות ללא התחייבות.",
+    "בואו נבין מה חסר בתשתית הדיגיטלית של העסק — טופס קצר, שיחת התאמה ללא התחייבות. טלפון, וואטסאפ ואימייל.",
   path: "/contact",
   keywords: [
-    "יצירת קשר סוכנות דיגיטל",
+    "אבחון דיגיטלי",
     "JT Solutions",
-    "בניית אתרים ישראל",
-    "שיחת ייעוץ דיגיטל",
+    "יצירת קשר",
+    "תשתית דיגיטלית לעסק",
   ],
 });
 
@@ -30,76 +34,81 @@ export default function ContactPage() {
     <>
       <JsonLd data={getContactPageJsonLd()} />
       <Navbar />
-      <main className="flex-1">
-        <section
-          className="relative overflow-hidden section-shell pt-28 pb-10 md:pt-36 md:pb-14"
-          style={{ background: "linear-gradient(180deg, #F9FAFB 0%, #F3F6FF 100%)" }}
-        >
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
-            <div className="text-center max-w-3xl mx-auto mb-10">
-              <h1 className="premium-title mb-4">יצירת קשר עם JT Solutions</h1>
-              <p className="premium-subtitle">
-                סוכנות דיגיטל בישראל — מיתוג, אתרים, דפי נחיתה, איקומרס ואוטומציה. נשמח לשמוע על העסק שלכם.
-              </p>
-            </div>
+      <LightPageShell>
+        <main className="flex-1">
+          <section className="studio-service-hero-zone relative section-shell pt-28 pb-10 md:pt-36 md:pb-14">
+            <div className="studio-service-hero-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden />
+            <div className="page-hero-mesh" aria-hidden />
+            <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" dir="rtl">
+              <PremiumReveal as="div" className="mx-auto mb-10 max-w-3xl text-center" variant="rise">
+                <span className="home-badge mb-6 inline-flex">יצירת קשר</span>
+                <h1 className="home-headline mb-4">{contactPageCopy.title}</h1>
+                <ScribbleUnderline color="#10B981" className="scribble-underline--inline mb-4" />
+                <p className="home-subline">{contactPageCopy.subtitle}</p>
+              </PremiumReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-              <a
-                href={`tel:${contactLinks.phone}`}
-                className="premium-card p-5 flex items-start gap-3 hover:border-indigo-200 transition-colors"
-              >
-                <Phone className="h-5 w-5 text-indigo-600 shrink-0 mt-0.5" aria-hidden />
-                <div>
-                  <p className="text-sm font-bold text-slate-900">טלפון</p>
-                  <p className="text-sm text-slate-600 mt-1">{NAP.phone}</p>
-                </div>
-              </a>
-              <a
-                href={`mailto:${contactLinks.email}`}
-                className="premium-card p-5 flex items-start gap-3 hover:border-indigo-200 transition-colors"
-              >
-                <Mail className="h-5 w-5 text-indigo-600 shrink-0 mt-0.5" aria-hidden />
-                <div>
-                  <p className="text-sm font-bold text-slate-900">אימייל</p>
-                  <p className="text-sm text-slate-600 mt-1">{NAP.email}</p>
-                </div>
-              </a>
-              <div className="premium-card p-5 flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-indigo-600 shrink-0 mt-0.5" aria-hidden />
-                <div>
-                  <p className="text-sm font-bold text-slate-900">אזור שירות</p>
-                  <p className="text-sm text-slate-600 mt-1">
-                    {NAP.addressLocality} · שירות בכל ישראל
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">{NAP.streetAddress}, {NAP.addressLocality}</p>
+              <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+                <a
+                  href={`tel:${contactLinks.phone}`}
+                  className="home-card home-card--interactive flex items-start gap-3 p-5"
+                >
+                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" aria-hidden />
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">טלפון</p>
+                    <p className="mt-1 text-sm text-slate-600">{NAP.phone}</p>
+                  </div>
+                </a>
+                <a
+                  href={`mailto:${contactLinks.email}`}
+                  className="home-card home-card--interactive flex items-start gap-3 p-5"
+                >
+                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" aria-hidden />
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">אימייל</p>
+                    <p className="mt-1 text-sm text-slate-600">{NAP.email}</p>
+                  </div>
+                </a>
+                <div className="home-card flex items-start gap-3 p-5">
+                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" aria-hidden />
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">אזור שירות</p>
+                    <p className="mt-1 text-sm text-slate-600">
+                      {NAP.addressLocality} · שירות בכל ישראל
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500">
+                      {NAP.streetAddress}, {NAP.addressLocality}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <Contact />
+          <Contact surface="standalone" />
 
-        <section className="py-14 md:py-20 bg-[#F9FAFB]">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" dir="rtl">
-            <h2 className="text-xl font-extrabold text-slate-900 mb-6 text-center">שאלות נפוצות</h2>
-            <ul className="space-y-4">
-              {contactFaq.map((item) => (
-                <li key={item.question} className="premium-card p-5">
-                  <h3 className="text-sm font-bold text-slate-900">{item.question}</h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">{item.answer}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="text-center text-sm text-slate-500 mt-8">
-              רוצים לראות את כל השירותים?{" "}
-              <Link href="/services" className="font-semibold text-indigo-600 hover:underline">
-                מעבר לעמוד השירותים
-              </Link>
-            </p>
-          </div>
-        </section>
-      </main>
+          <section className="home-section home-section--alt pb-20">
+            <div className="mx-auto max-w-3xl px-4 sm:px-6" dir="rtl">
+              <h2 className="home-headline mb-6 text-center">שאלות נפוצות</h2>
+              <ul className="space-y-4">
+                {contactFaq.map((item, index) => (
+                  <li key={item.question}>
+                    <PremiumReveal as="div" className="home-card home-card--interactive p-5" variant="rise" delay={0.03 + index * 0.05}>
+                      <h3 className="text-sm font-bold text-slate-900">{item.question}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.answer}</p>
+                    </PremiumReveal>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-8 text-center text-sm text-slate-500">
+                רוצים לראות את כל השירותים?{" "}
+                <Link href="/services" className="font-semibold text-sky-700 hover:text-sky-900">
+                  מעבר לעמוד השירותים
+                </Link>
+              </p>
+            </div>
+          </section>
+        </main>
+      </LightPageShell>
       <Footer />
     </>
   );

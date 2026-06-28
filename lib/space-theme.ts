@@ -126,5 +126,18 @@ export const SPACE_SEAM_GRADIENT_TOP =
 export const SPACE_SEAM_GRADIENT_BOTTOM =
   "linear-gradient(to top, rgb(6,6,10) 0%, rgba(6,6,10,0.92) 12%, rgba(6,6,10,0.55) 38%, rgba(6,6,10,0.18) 62%, transparent 100%)";
 
+/** Dark section exiting into illuminated canvas zone */
+export const SPACE_SEAM_GRADIENT_BOTTOM_LIGHT =
+  "linear-gradient(to top, #e2e8f2 0%, rgba(226,232,242,0.75) 18%, rgba(6,6,10,0.22) 52%, transparent 100%)";
+
 /** @deprecated use SPACE_STORY */
 export const SPACE_SLICES = SPACE_STORY;
+
+/** Mobile hero LCP preload — inject via homepage Metadata API (not a manual <head> tag). */
+export const HERO_MOBILE_PRELOAD = {
+  rel: "preload" as const,
+  url: "/space/hero-mobile.webp",
+  type: "image/webp",
+  media: "(max-width: 767px)",
+  fetchPriority: "high" as const,
+};

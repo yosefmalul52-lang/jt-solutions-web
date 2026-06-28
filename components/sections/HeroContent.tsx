@@ -1,13 +1,15 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { CheckCircle, LayoutGrid, MoveLeft } from "lucide-react";
-import { staggerVariants } from "@/lib/motion";
+import { MoveLeft } from "lucide-react";
+import HomeCtaButton from "@/components/home/HomeCtaButton";
 import CtaButton from "@/components/ui/CtaButton";
-import { HeroFlowVisual } from "@/components/hero/HeroFlowVisual";
-import HeroTypewriterHeadline from "@/components/hero/HeroTypewriterHeadline";
+import LeadOrbitVisual from "@/components/home/LeadOrbitVisual";
+import HomeHeroHeadline from "@/components/home/HomeHeroHeadline";
+import PremiumTypewriter from "@/components/home/PremiumTypewriter";
 import { useHydrated } from "@/hooks/useHydrated";
-import { heroCopy, heroTrustPillars } from "@/lib/hero-content";
+import { heroCopy } from "@/lib/hero-content";
+import { staggerVariants } from "@/lib/motion";
 
 export default function HeroContent() {
   const hydrated = useHydrated();
@@ -25,37 +27,44 @@ export default function HeroContent() {
   const itemProps = useMotion ? { variants: heroItemUp } : {};
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100svh] grid grid-rows-[auto_1fr] overflow-hidden"
-    >
+    <section id="hero" className="relative py-6 sm:py-10 md:py-12 lg:py-14" dir="rtl">
       <div
         aria-hidden
-        className="shrink-0 h-[calc(0.75rem+74px+2.5rem)] sm:h-[calc(1rem+84px+3rem)]"
+        className="shrink-0 h-[calc(0.25rem+64px+0.75rem)] sm:h-[calc(0.5rem+74px+1.5rem)]"
       />
 
-      <div aria-hidden className="hero-flow-layer">
-        <HeroFlowVisual />
-      </div>
-
-      <div className="relative z-10 flex flex-col items-center justify-start w-full max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-1 sm:pt-3 pb-8">
-        <Wrap className="flex flex-col items-center text-center w-full" dir="rtl" {...wrapProps}>
-          <Item className="max-w-4xl mx-auto w-full" {...itemProps}>
-            <HeroTypewriterHeadline reduceMotion={reduce} />
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12">
+        <Wrap className="flex flex-col text-center lg:text-right" {...wrapProps}>
+          <Item {...itemProps}>
+            <p className="home-hero-badge mx-auto lg:mx-0">{heroCopy.badge}</p>
+            <div className="mt-4">
+              <HomeHeroHeadline />
+            </div>
+            <div className="mt-4 flex justify-center lg:justify-start">
+              <PremiumTypewriter
+                words={[
+                  "קמפיין שמביא תנועה",
+                  "דף נחיתה שממיר לפנייה",
+                  "ליד שנכנס ל-CRM",
+                  "וואטסאפ שלא מאבד לקוחות",
+                  "מדידה שמראה מה עובד",
+                ]}
+              />
+            </div>
           </Item>
 
-          <Text
-            className="max-w-3xl mx-auto w-full mt-8 sm:mt-10 text-lg sm:text-2xl font-medium leading-relaxed text-slate-300"
-            {...itemProps}
-          >
+          <Text className="home-subline home-hero-subline mt-5 max-w-xl md:hidden" {...itemProps}>
+            {heroCopy.sublineMobile}
+          </Text>
+          <Text className="home-subline home-hero-subline mt-5 hidden max-w-xl md:block" {...itemProps}>
             {heroCopy.subline}
           </Text>
 
           <Item
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mt-10 sm:mt-12 w-full sm:w-auto"
+            className="mt-7 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:justify-start"
             {...itemProps}
           >
-            <CtaButton
+            <HomeCtaButton
               id="hero-main-cta"
               href="#contact"
               ctaLocation="hero"
@@ -64,31 +73,21 @@ export default function HeroContent() {
               className="w-full sm:w-auto"
             />
             <CtaButton
-              href="/projects"
-              ctaLocation="hero"
-              variant="secondary"
-              icon={LayoutGrid}
+              href="#projects"
+              ctaLocation="hero-secondary"
               label={heroCopy.secondaryCtaLabel}
               className="w-full sm:w-auto"
             />
           </Item>
 
-          <Item
-            className="hero-trust-row mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-3xl mx-auto w-full"
-            {...itemProps}
-          >
-            {heroTrustPillars.map((text) => (
-              <span key={text} className="hero-trust-item hero-trust-item--on-dark">
-                <CheckCircle className="h-3.5 w-3.5 shrink-0 text-indigo-400" aria-hidden />
-                {text}
-              </span>
-            ))}
+          <Item {...itemProps}>
+            <p className="home-hero-micro mt-4 text-center lg:text-right">{heroCopy.microcopy}</p>
           </Item>
-
-          <Text className="hero-microcopy text-sm mt-5 sm:mt-6 max-w-xl mx-auto text-slate-400" {...itemProps}>
-            {heroCopy.microcopy}
-          </Text>
         </Wrap>
+
+        <Item className="relative w-full lg:max-w-md lg:justify-self-end" {...itemProps}>
+          <LeadOrbitVisual />
+        </Item>
       </div>
     </section>
   );

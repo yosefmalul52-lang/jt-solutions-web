@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useHydrated } from "@/hooks/useHydrated";
 import { COOKIE_CONSENT_KEY, useCookieConsent } from "@/hooks/useCookieConsent";
+import CtaButton from "@/components/ui/CtaButton";
 
 export default function CookieConsent() {
   const hydrated = useHydrated();
@@ -23,9 +24,9 @@ export default function CookieConsent() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 24, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 24, opacity: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           role="dialog"
           aria-label="הסכמה לעוגיות"
@@ -41,22 +42,12 @@ export default function CookieConsent() {
         >
           <div className="p-5" dir="rtl">
             <p className="text-sm font-semibold text-gray-900 mb-1">שימוש בעוגיות</p>
-            <p className="text-sm text-gray-500 leading-relaxed mb-4">
+            <p className="text-sm text-gray-600 leading-relaxed mb-4">
               האתר משתמש בעוגיות לצורך אנליטיקה ושיפור חוויית המשתמש.
             </p>
             <div className="flex items-center gap-2 justify-end">
-              <button
-                onClick={decline}
-                className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors"
-              >
-                דחה
-              </button>
-              <button
-                onClick={accept}
-                className="px-4 py-2 text-sm font-semibold bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                אישור
-              </button>
+              <CtaButton variant="ghost" size="sm" onClick={decline} label="דחה" hideIcon shine={false} />
+              <CtaButton size="sm" onClick={accept} label="אישור" hideIcon />
             </div>
           </div>
         </motion.div>

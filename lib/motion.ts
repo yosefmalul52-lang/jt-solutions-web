@@ -175,3 +175,74 @@ export function canUsePointerEffects(): boolean {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
+
+/** Premium reveal — depth entrance with optional blur (Problem, Testimonials, Contact). */
+export function premiumRevealVariants(
+  prefersReducedMotion: boolean | null,
+  options: { y?: number; scale?: number; blur?: number } = {},
+): { hidden: Record<string, number | string>; visible: Record<string, number | string> } {
+  const y = options.y ?? DISTANCE_REVEAL_Y;
+  const scale = options.scale ?? 0.97;
+  const blur = options.blur ?? 4;
+
+  if (prefersReducedMotion) {
+    return {
+      hidden: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+      visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    };
+  }
+
+  return {
+    hidden: { opacity: 0, y, scale, filter: `blur(${blur}px)` },
+    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  };
+}
+
+/** Connector line draw — Solution system cards (pathLength 0 → 1). */
+export function connectorDrawTransition(prefersReducedMotion: boolean | null): Transition {
+  return motionTransition(prefersReducedMotion, {
+    duration: prefersReducedMotion ? DURATION_UI_REDUCED : 1.1,
+    ease: EASE_OUT,
+  });
+}
+
+/** Timeline progress — Process section scroll-linked track. */
+export function timelineNodeVariants(prefersReducedMotion: boolean | null): Variants {
+  if (prefersReducedMotion) {
+    return {
+      hidden: { opacity: 1, scale: 1 },
+      visible: { opacity: 1, scale: 1 },
+    };
+  }
+
+  return {
+    hidden: { opacity: 0, scale: 0.88 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.55, ease: EASE_OUT },
+    },
+  };
+}
+
+/** Tier card gentle rise — Pricing section. */
+export function tierRiseVariants(prefersReducedMotion: boolean | null): Variants {
+  if (prefersReducedMotion) {
+    return {
+      hidden: { opacity: 1, y: 0 },
+      visible: { opacity: 1, y: 0 },
+    };
+  }
+
+  return {
+    hidden: { opacity: 0, y: 28 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.65, ease: EASE_OUT },
+    },
+  };
+}
+
+/** Count-up duration for proof moments (ms). */
+export const COUNT_UP_DURATION_MS = 1400;

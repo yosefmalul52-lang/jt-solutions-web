@@ -1,0 +1,214 @@
+/* Homepage design polish v2 — editorial rhythm, refined surfaces */
+
+.homepage-light-shell .homepage-hero-wrap {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 38%, #f8fafc 100%);
+}
+
+.home-hero-grid {
+  opacity: 0.22;
+}
+
+/* Hero */
+.home-hero-badge {
+  display: inline-flex;
+  max-width: 28rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #475569;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.home-hero-subline {
+  color: #64748b;
+}
+
+.home-hero-micro {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #94a3b8;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-title {
+    font-size: clamp(2.25rem, 4vw, 3.125rem);
+  }
+}
+
+/* Trust strip */
+.home-trust-strip {
+  border-top: 1px solid #e8edf3;
+  padding-block: 1.15rem;
+}
+
+.home-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9999px;
+  border: 1px solid #e8edf3;
+  background: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.home-trust-pill__dot {
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: #cbd5e1;
+}
+
+/* Typewriter */
+.tw-line {
+  font-size: clamp(0.875rem, 1.3vw, 0.9375rem);
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Section rhythm */
+.home-section + .home-section--alt,
+.home-section--alt + .home-section,
+.portfolio-curve-section + .home-section,
+.home-section + .portfolio-curve-section {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.home-section--cta {
+  background: linear-gradient(180deg, #f6f9ff 0%, #f8fafc 55%, #ffffff 100%);
+}
+
+/* Identification */
+.diag-central {
+  border-color: color-mix(in srgb, #7c3aed 28%, #e2e8f0);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 16px 40px rgba(124, 58, 237, 0.07);
+}
+
+.diag-note {
+  padding: 1rem 1.25rem;
+  border-radius: 0.875rem;
+  border: 1px solid #e8edf3;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.diag-note p {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #64748b;
+}
+
+/* Journey */
+.stjourney-leader-shell__eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.stjourney-leader-shell__meta {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.stjourney-leader__closing {
+  max-width: 32rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0.875rem;
+  border: 1px solid #d1fae5;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.stjourney-leader__closing-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.stjourney-leader__closing-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  color: #059669;
+  border-color: #d1fae5;
+  box-shadow: none;
+}
+
+/* Solution */
+.solution-system__bridge-head {
+  margin-top: 1.75rem;
+}
+
+.solution-system__flow .home-headline {
+  max-width: 36rem;
+  margin-inline: auto;
+}
+
+/* Pricing */
+.home-pricing-tier-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.home-pricing-popular-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 1rem;
+  border-radius: 9999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #1d4ed8;
+  background: color-mix(in srgb, var(--tier, #2563eb) 10%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--tier, #2563eb) 22%, #e2e8f0);
+}
+
+.home-pricing-card h3 {
+  letter-spacing: -0.02em;
+}
+
+/* FAQ */
+.home-faq-item {
+  border-radius: 0.875rem;
+  border-color: #e8edf3;
+}
+
+.home-faq-item.is-open {
+  border-color: color-mix(in srgb, #2563eb 28%, #e2e8f0);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.06);
+}
+
+.home-faq-item.is-open .faq-plus {
+  color: #2563eb;
+}
+
+/* Final CTA */
+.home-final-cta__grid-bg {
+  opacity: 0.2;
+}
+
+.home-final-cta__form-center {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.home-final-cta__trust-item {
+  border-color: #e8edf3;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Portfolio */
+.portfolio-header {
+  margin-bottom: 2.25rem;
+}

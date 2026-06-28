@@ -3,12 +3,13 @@
 import { useRef, type CSSProperties, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useHydrated } from "@/hooks/useHydrated";
+import { canUsePointerEffects } from "@/lib/motion";
 
 type ParallaxLayerProps = {
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
-  /** Scroll travel as % of element shift — keep low (0.06–0.14). */
+  /** Scroll travel as % of element shift — keep low (0.06–0.14). Desktop only. */
   speed?: number;
 };
 
@@ -36,8 +37,9 @@ export default function ParallaxLayer(props: ParallaxLayerProps) {
   const hydrated = useHydrated();
   const reduce = useReducedMotion();
   const { className = "", style, children } = props;
+  const useParallax = hydrated && !reduce && canUsePointerEffects();
 
-  if (!hydrated || reduce) {
+  if (!useParallax) {
     return (
       <div className={className} style={style}>
         {children}

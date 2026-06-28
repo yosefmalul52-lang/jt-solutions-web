@@ -73,7 +73,7 @@ export function getOrganizationJsonLd() {
     "@type": ["ProfessionalService", "LocalBusiness"],
     ...localBusinessBase,
     description:
-      "סוכנות דיגיטל בישראל: מיתוג, אתרים, דפי נחיתה, איקומרס, פרסום ואוטומציה — מעטפת אחת שמייצרת פניות.",
+      "שותף דיגיטלי לעסקים בישראל: אתר, דף נחיתה, מדידה, וואטסאפ ומעקב פניות — מעטפת אחת שמכניסה סדר ללידים.",
   };
 }
 
@@ -119,7 +119,7 @@ export function getContactPageJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: `יצירת קשר — ${SITE_NAME}`,
+    name: `אבחון דיגיטלי — ${SITE_NAME}`,
     url: `${SITE_URL}/contact`,
     inLanguage: "he-IL",
     mainEntity: {
@@ -141,7 +141,7 @@ export function getBlogCollectionJsonLd(postCount: number) {
     url: `${SITE_URL}/blog`,
     inLanguage: "he-IL",
     description:
-      "מאמרים מעשיים על אתרים, דפי נחיתה, איקומרס, מיתוג, פרסום ואוטומציה לעסקים בישראל.",
+      "מאמרים מעשיים על אתרים, דפי נחיתה, מדידה, מיתוג וסדר בלידים לעסקים בישראל.",
     numberOfItems: postCount,
     publisher: {
       "@type": "Organization",
@@ -156,11 +156,11 @@ export function getServicesHubJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "שירותי סוכנות דיגיטל — JT Solutions",
+    name: "שירותים לפי הבעיה של העסק — JT Solutions",
     url: `${SITE_URL}/services`,
     inLanguage: "he-IL",
     description:
-      "מעטפת שירותים דיגיטליים: דפי נחיתה, אתרי תדמית, איקומרס, מיתוג, פרסום, וואטסאפ ואוטומציה.",
+      "אתר, דף נחיתה, מדידה, סדר בלידים ופרסום מדיד — JT Solutions עוזרת לעסקים להפוך נראות דיגיטלית לפניות מסודרות.",
     provider: {
       "@type": "Organization",
       name: SITE_NAME,

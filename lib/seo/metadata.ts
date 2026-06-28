@@ -26,10 +26,26 @@ type PageMetadataInput = {
   ogImage?: OgImageInput;
 };
 
+/** Canonical URLs must not include hash fragments. */
+export function toCanonicalPath(path: string): string {
+  const [pathname] = path.split("#");
+  if (!pathname || pathname === "") return "/";
+  return pathname.startsWith("/") ? pathname : `/${pathname}`;
+}
+
+function normalizeTitleSegment(title: string): string {
+  const trimmed = title.trim();
+  if (trimmed.endsWith(TITLE_SUFFIX)) {
+    return trimmed.slice(0, -TITLE_SUFFIX.length).trim();
+  }
+  return trimmed;
+}
+
 function resolveOgImage(ogImage?: OgImageInput) {
   const image = ogImage ?? DEFAULT_OG_IMAGE;
+  const imageUrl = image.url.startsWith("http") ? image.url : `${SITE_URL}${image.url}`;
   return {
-    url: image.url,
+    url: imageUrl,
     width: image.width ?? DEFAULT_OG_IMAGE.width,
     height: image.height ?? DEFAULT_OG_IMAGE.height,
     alt: image.alt ?? DEFAULT_OG_IMAGE.alt,
@@ -46,12 +62,14 @@ export function createPageMetadata({
   includeCanonical = true,
   ogImage,
 }: PageMetadataInput): Metadata {
-  const url = `${SITE_URL}${path}`;
-  const displayTitle = absoluteTitle ? title : `${title}${TITLE_SUFFIX}`;
+  const canonicalPath = toCanonicalPath(path);
+  const url = `${SITE_URL}${canonicalPath}`;
+  const titleSegment = normalizeTitleSegment(title);
+  const displayTitle = absoluteTitle ? titleSegment : `${titleSegment}${TITLE_SUFFIX}`;
   const image = resolveOgImage(ogImage);
 
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: absoluteTitle ? { absolute: displayTitle } : titleSegment,
     description,
     keywords,
     ...(includeCanonical
@@ -64,7 +82,7 @@ export function createPageMetadata({
     openGraph: {
       type: "website",
       locale: "he_IL",
-      url: path,
+      url,
       title: displayTitle,
       description,
       siteName: SITE_NAME,

@@ -3,6 +3,7 @@ import {
   getSpaceSliceImage,
   SPACE_NEBULA_BACKGROUND,
   SPACE_SEAM_GRADIENT_BOTTOM,
+  SPACE_SEAM_GRADIENT_BOTTOM_LIGHT,
   SPACE_SEAM_GRADIENT_TOP,
   SPACE_STORY,
   type SpaceSliceId,
@@ -15,6 +16,8 @@ type SpaceSegmentBackgroundProps = {
   slice: SpaceSliceId;
   blendTop?: boolean;
   blendBottom?: boolean;
+  /** Fade bottom into illuminated canvas instead of void */
+  seamBottomTone?: "void" | "light";
 };
 
 function HeroResponsiveImage({
@@ -54,6 +57,7 @@ export default function SpaceSegmentBackground({
   slice,
   blendTop = true,
   blendBottom = true,
+  seamBottomTone = "void",
 }: SpaceSegmentBackgroundProps) {
   const {
     src,
@@ -72,7 +76,7 @@ export default function SpaceSegmentBackground({
     isHero && mobileSrc && mobileWidth && mobileHeight;
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[#06060a]" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-transparent" aria-hidden>
       {hasMobileHero ? (
         <HeroResponsiveImage
           src={src}
@@ -110,15 +114,20 @@ export default function SpaceSegmentBackground({
 
       {blendTop ? (
         <div
-          className="absolute inset-x-0 top-0 h-28 sm:h-36"
+          className="absolute inset-x-0 top-0 h-[100px] sm:h-[120px]"
           style={{ background: SPACE_SEAM_GRADIENT_TOP }}
         />
       ) : null}
 
       {blendBottom ? (
         <div
-          className="absolute inset-x-0 bottom-0 h-28 sm:h-36"
-          style={{ background: SPACE_SEAM_GRADIENT_BOTTOM }}
+          className="absolute inset-x-0 bottom-0 h-[100px] sm:h-[120px]"
+          style={{
+            background:
+              seamBottomTone === "light"
+                ? SPACE_SEAM_GRADIENT_BOTTOM_LIGHT
+                : SPACE_SEAM_GRADIENT_BOTTOM,
+          }}
         />
       ) : null}
     </div>

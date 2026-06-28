@@ -38,7 +38,7 @@ export default function PillarSectionNav({ sections }: PillarSectionNavProps) {
   return (
     <nav
       aria-label="ניווט בין שירותי העמוד"
-      className="sticky top-[calc(74px+0.75rem)] sm:top-[calc(84px+1rem)] z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 backdrop-blur-md border-y border-white/10 bg-[#0B0F19]/85"
+      className="sticky top-[calc(74px+0.75rem)] sm:top-[calc(84px+1rem)] z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 backdrop-blur-md border-y border-slate-200 bg-white/90"
     >
       <div className="max-w-6xl mx-auto overflow-x-auto" dir="rtl">
         <ul className="flex items-center gap-2 min-w-max">
@@ -50,8 +50,8 @@ export default function PillarSectionNav({ sections }: PillarSectionNavProps) {
                   href={`#${id}`}
                   className={`inline-flex items-center rounded-[var(--radius-soft)] px-3.5 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors duration-200 ${
                     active
-                      ? "bg-white/10 text-slate-100 border border-white/15"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-transparent"
+                      ? "bg-sky-50 text-slate-900 border border-sky-200"
+                      : "text-slate-500 hover:text-slate-900 hover:bg-slate-50 border border-transparent"
                   }`}
                 >
                   {title}

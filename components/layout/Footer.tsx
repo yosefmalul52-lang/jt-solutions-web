@@ -1,24 +1,28 @@
 import Link from "next/link";
-import { Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
-import { getLocalAreaFooterLinks } from "@/lib/seo/local-pages";
+import TrackedLink from "@/components/ui/TrackedLink";
 import { contactLinks } from "@/lib/site";
 
-const quickLinks = [
-  { label: "אודות", href: "/about" },
-  { label: "שירותים", href: "/services" },
-  { label: "מדריכים", href: "/blog" },
-  { label: "פרויקטים", href: "/projects" },
-  { label: "הוכחות", href: "/#proof" },
-  { label: "צור קשר", href: "/contact" },
+const projectLinks = [
+  { label: "תיק עבודות", href: "/projects" },
+  { label: "Magadim", href: "/projects/magadim" },
+  { label: "EB Hair", href: "/projects/eb-hair" },
+  { label: "אוטומציה עסקית", href: "/projects/ai-automation" },
 ] as const;
 
 const serviceLinks = [
-  { label: "כל השירותים", href: "/services" },
+  { label: "מפת השירותים", href: "/services" },
   { label: "בניית אתרים", href: "/services/websites" },
   { label: "מיתוג וזהות", href: "/services/branding" },
   { label: "אוטומציות", href: "/services/automations" },
   { label: "שיווק דיגיטלי", href: "/services/digital-marketing" },
+] as const;
+
+const contentLinks = [
+  { label: "מדריכים", href: "/blog" },
+  { label: "אודות", href: "/about" },
+  { label: "הוכחות", href: "/#projects" },
 ] as const;
 
 const socialLinks = [
@@ -26,67 +30,39 @@ const socialLinks = [
     icon: Facebook,
     href: contactLinks.facebook,
     label: "JT Solutions בפייסבוק",
-    className:
-      "border-[rgba(24,119,242,0.28)] bg-[rgba(24,119,242,0.12)] text-[#1877F2] hover:bg-[rgba(24,119,242,0.2)]",
+    className: "border-[rgba(24,119,242,0.35)] bg-[rgba(24,119,242,0.12)] text-[#60a5fa]",
   },
   {
     icon: Instagram,
     href: contactLinks.instagram,
     label: "@jt.solutions.il באינסטגרם",
     className:
-      "border-[rgba(225,48,108,0.3)] bg-gradient-to-br from-[rgba(225,48,108,0.14)] to-[rgba(131,58,180,0.14)] text-[#E1306C] hover:from-[rgba(225,48,108,0.22)] hover:to-[rgba(131,58,180,0.22)]",
+      "border-[rgba(225,48,108,0.35)] bg-gradient-to-br from-[rgba(225,48,108,0.12)] to-[rgba(131,58,180,0.12)] text-[#f472b6]",
   },
 ] as const;
 
-const footerLinkClass =
-  "text-sm text-[#6B7280] transition-colors duration-200 hover:text-[#111827]";
-
-const areaLinks = getLocalAreaFooterLinks();
-
-const areaLinkClass =
-  "text-xs text-[#94A3B8] transition-colors duration-200 hover:text-[#475569] leading-snug";
-
 export default function Footer() {
   return (
-    <footer
-      className="section-shell"
-      style={{
-        background: "linear-gradient(180deg, #F7F9FF 0%, #F9FAFB 70%, #F4F7FF 100%)",
-        borderTop: "1px solid rgba(15,23,42,0.08)",
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div
-          className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10"
-          style={{ borderBottom: "1px solid rgba(15,23,42,0.08)" }}
-        >
-          <div className="md:col-span-1">
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">JT Solutions</h4>
-            <p className="max-w-xs text-sm leading-relaxed text-[#6B7280]">
-              מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים.
+    <footer className="studio-footer section-shell">
+      <div className="h-[3px] w-full bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600" aria-hidden />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
+        <div className="grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-8 border-b border-slate-200">
+          <div className="lg:col-span-2" dir="rtl">
+            <h4 className="studio-footer-heading text-base">JT Solutions</h4>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+              מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים מסודר.
             </p>
-            <p className="text-xs font-semibold text-gray-900 mt-6 mb-3">יצירת קשר</p>
-            <ul className="space-y-2.5">
-              <li>
-                <a
-                  href={`mailto:${contactLinks.email}`}
-                  className={`${footerLinkClass} hover:text-[#10b3e7]`}
-                >
-                  {contactLinks.email}
-                </a>
-              </li>
-              <li>
-                <FooterPhoneLink />
-              </li>
-            </ul>
+            <p className="mt-4 text-sm font-medium text-slate-700">
+              בלי לרדוף אחרי ספקים. בלי כאב ראש טכני.
+            </p>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">ניווט</h4>
+          <div dir="rtl">
+            <h4 className="studio-footer-heading mb-4">שירותים</h4>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className={footerLinkClass}>
+                  <Link href={link.href} className="studio-footer-link">
                     {link.label}
                   </Link>
                 </li>
@@ -94,22 +70,55 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">שירותים</h4>
+          <div dir="rtl">
+            <h4 className="studio-footer-heading mb-4">פרויקטים</h4>
             <ul className="space-y-2.5">
-              {serviceLinks.map((service) => (
-                <li key={service.href}>
-                  <Link href={service.href} className={footerLinkClass}>
-                    {service.label}
+              {projectLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="studio-footer-link">
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">עקבו אחרינו</h4>
-            <div className="flex items-center gap-3">
+          <div dir="rtl">
+            <h4 className="studio-footer-heading mb-4">תוכן ויצירת קשר</h4>
+            <ul className="space-y-2.5 mb-5">
+              {contentLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="studio-footer-link">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/contact" className="studio-footer-link">
+                  צור קשר
+                </Link>
+              </li>
+            </ul>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href={`mailto:${contactLinks.email}`} className="studio-footer-link hover:text-sky-600">
+                  {contactLinks.email}
+                </a>
+              </li>
+              <li>
+                <FooterPhoneLink className="studio-footer-link hover:text-emerald-600" />
+              </li>
+            </ul>
+            <TrackedLink
+              href={`https://wa.me/972${contactLinks.phone.replace(/^0/, "")}`}
+              ctaLocation="footer-whatsapp"
+              ctaLabel="שיחה ב-WhatsApp"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition-colors hover:text-emerald-800"
+            >
+              <MessageCircle size={16} aria-hidden />
+              שיחה ב-WhatsApp
+            </TrackedLink>
+            <div className="mt-5 flex items-center gap-3">
               {socialLinks.map(({ icon: Icon, href, label, className }) => (
                 <a
                   key={href}
@@ -117,36 +126,23 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className={`flex h-10 w-10 items-center justify-center rounded-[var(--radius-soft)] border shadow-[0_8px_20px_rgba(15,23,42,0.06)] transition-all duration-200 ${className}`}
+                  className={`flex h-9 w-9 items-center justify-center rounded-[var(--radius-soft)] border transition-all duration-200 hover:opacity-90 ${className}`}
                 >
-                  <Icon size={16} aria-hidden />
+                  <Icon size={15} aria-hidden />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <nav className="py-8" dir="rtl" aria-label="אזורי שירות" style={{ borderBottom: "1px solid rgba(15,23,42,0.08)" }}>
-          <h4 className="text-sm font-semibold text-gray-900 mb-4">אזורי שירות</h4>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-5">
-            {areaLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={areaLinkClass}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" dir="rtl">
-          <p className="text-xs text-[#94A3B8]">&copy; 2025 JT Solutions. כל הזכויות שמורות.</p>
+        <div className="flex flex-col items-center justify-between gap-3 pt-6 sm:flex-row" dir="rtl">
+          <p className="studio-footer-quiet">&copy; 2026 JT Solutions. כל הזכויות שמורות.</p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy-policy" className="text-xs text-[#94A3B8] transition-colors hover:text-slate-700">
+            <Link href="/privacy-policy" className="studio-footer-quiet hover:text-sky-600">
               מדיניות פרטיות
             </Link>
-            <span className="text-[#CBD5E1]">|</span>
-            <Link href="/accessibility" className="text-xs text-[#94A3B8] transition-colors hover:text-slate-700">
+            <span className="text-slate-300">|</span>
+            <Link href="/accessibility" className="studio-footer-quiet hover:text-sky-600">
               הצהרת נגישות
             </Link>
           </div>

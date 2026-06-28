@@ -8,6 +8,7 @@ type SpaceSectionBackdropProps = {
   className?: string;
   blendTop?: boolean;
   blendBottom?: boolean;
+  seamBottomTone?: "void" | "light";
 };
 
 /** Section wrapper with a matched space slice background */
@@ -17,6 +18,7 @@ export default function SpaceSectionBackdrop({
   className = "",
   blendTop,
   blendBottom,
+  seamBottomTone,
 }: SpaceSectionBackdropProps) {
   const isHero = slice === "hero";
   const isFooter = slice === "footer";
@@ -27,6 +29,7 @@ export default function SpaceSectionBackdrop({
         slice={slice}
         blendTop={blendTop ?? !isHero}
         blendBottom={blendBottom ?? !isFooter}
+        seamBottomTone={seamBottomTone}
       />
       <div className="relative z-[1]">{children}</div>
     </div>

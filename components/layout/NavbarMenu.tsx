@@ -7,12 +7,15 @@ import { trackPhoneClick } from "@/lib/analytics/track";
 import { useHydrated } from "@/hooks/useHydrated";
 import { isHashNavLink, isNavLinkActive, MAIN_NAV_LINKS } from "@/lib/navigation";
 import { SPRING_SNAPPY } from "@/lib/motion";
+import type { NavShellTheme } from "@/lib/studio-shell";
 import { contactLinks } from "@/lib/site";
+import CtaButton from "@/components/ui/CtaButton";
 
 type NavbarMenuProps = {
   pathname: string;
   activeHash: string;
   mobileOpen: boolean;
+  navTheme: NavShellTheme;
   onNavClick: (href: string) => void;
   onCloseMobile: () => void;
 };
@@ -21,16 +24,24 @@ export default function NavbarMenu({
   pathname,
   activeHash,
   mobileOpen,
+  navTheme,
   onNavClick,
   onCloseMobile,
 }: NavbarMenuProps) {
   const hydrated = useHydrated();
+  const isDark = navTheme === "dark";
 
   return (
     <>
       <ul className="hidden md:flex items-center gap-1">
         {MAIN_NAV_LINKS.map((link) => {
           const active = isNavLinkActive(link.href, pathname, activeHash);
+          const linkClass = isDark ? "nav-link--dark" : "nav-link--light";
+          const activeClass = active
+            ? isDark
+              ? "nav-link--dark-active"
+              : "nav-link--light-active"
+            : "";
 
           return (
             <li key={link.href}>
@@ -44,20 +55,22 @@ export default function NavbarMenu({
                     onNavClick(link.href);
                   }
                 }}
-                className={`relative block px-4 py-2 text-sm font-semibold rounded-2xl transition-colors duration-200 ${
-                  active ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
-                }`}
+                className={`relative block px-4 py-2 text-sm font-semibold rounded-2xl transition-colors duration-200 ${linkClass} ${activeClass}`}
               >
                 {active && hydrated ? (
                   <motion.span
                     layoutId="navActivePill"
-                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
+                    className={`absolute inset-0 rounded-2xl -z-10 ${
+                      isDark ? "nav-active-pill--dark" : "nav-active-pill--light"
+                    }`}
                     transition={{ type: "spring", ...SPRING_SNAPPY }}
                     aria-hidden
                   />
                 ) : active && !hydrated ? (
                   <span
-                    className="absolute inset-0 rounded-2xl bg-white/85 shadow-[0_8px_24px_rgba(15,23,42,0.08)] -z-10"
+                    className={`absolute inset-0 rounded-2xl -z-10 ${
+                      isDark ? "nav-active-pill--dark" : "nav-active-pill--light"
+                    }`}
                     aria-hidden
                   />
                 ) : null}
@@ -75,14 +88,11 @@ export default function NavbarMenu({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[88px] sm:top-[100px] left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden"
-            style={{
-              background: "rgba(249,250,251,0.95)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(0,0,0,0.08)",
-              borderRadius: "var(--radius-soft)",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
-            }}
+            className={`fixed top-[88px] sm:top-[100px] left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden rounded-[var(--radius)] border backdrop-blur-[18px] ${
+              isDark
+                ? "border-white/12 bg-[rgba(8,10,18,0.94)] shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+                : "border-slate-200/80 bg-[rgba(255,255,255,0.96)] shadow-[0_12px_32px_rgba(15,23,42,0.1)]"
+            }`}
           >
             <ul className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
               {MAIN_NAV_LINKS.map((link) => {
@@ -103,8 +113,12 @@ export default function NavbarMenu({
                       }}
                       className={`w-full block text-right px-4 py-3 text-sm font-medium rounded-2xl transition-colors duration-200 ${
                         active
-                          ? "text-slate-900 bg-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
-                          : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
+                          ? isDark
+                            ? "text-white bg-white/10"
+                            : "text-slate-900 bg-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                          : isDark
+                            ? "text-slate-300 hover:text-slate-100 hover:bg-white/5"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
                       }`}
                     >
                       {link.label}
@@ -112,23 +126,41 @@ export default function NavbarMenu({
                   </li>
                 );
               })}
-              <li className="pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                <a
-                  href={`tel:${contactLinks.phone}`}
-                  onClick={() => {
-                    trackPhoneClick("navbar_mobile");
-                    onCloseMobile();
-                  }}
-                  aria-label="התקשרו אל JT Solutions"
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200"
-                  style={{
-                    background: "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
-                    borderColor: "rgba(124,58,237,0.22)",
-                  }}
-                >
-                  <Phone size={18} stroke="url(#brandPhoneGradient)" />
-                  <span className="gradient-text">052-8240230</span>
-                </a>
+              <li className={`pt-3 ${isDark ? "border-t border-white/10" : "border-t border-slate-200/80"}`}>
+                <div className="flex flex-col gap-2">
+                  <CtaButton
+                    href="/#contact"
+                    ctaLocation="navbar-mobile"
+                    label="קבל אבחון דיגיטלי חינם"
+                    fullWidth
+                    shine="auto"
+                    className="text-sm"
+                  />
+                  <a
+                    href={`tel:${contactLinks.phone}`}
+                    onClick={() => {
+                      trackPhoneClick("navbar_mobile");
+                      onCloseMobile();
+                    }}
+                    aria-label="התקשרו אל JT Solutions"
+                    className={`flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                      isDark
+                        ? "border-white/15 bg-white/5 text-slate-200"
+                        : "border-violet-200/40"
+                    }`}
+                    style={
+                      isDark
+                        ? undefined
+                        : {
+                            background:
+                              "linear-gradient(120deg, rgba(16,179,231,0.12), rgba(124,58,237,0.12))",
+                          }
+                    }
+                  >
+                    <Phone size={18} stroke="url(#brandPhoneGradient)" />
+                    <span className={isDark ? "text-slate-100" : "gradient-text"}>052-8240230</span>
+                  </a>
+                </div>
               </li>
             </ul>
           </motion.div>

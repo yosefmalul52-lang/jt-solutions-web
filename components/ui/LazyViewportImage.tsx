@@ -14,6 +14,7 @@ export default function LazyViewportImage({
   width,
   height,
   className,
+  alt = "",
   ...imageProps
 }: LazyViewportImageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -49,6 +50,7 @@ export default function LazyViewportImage({
       {isVisible ? (
         <Image
           {...imageProps}
+          alt={alt}
           width={width}
           height={height}
           className={className}

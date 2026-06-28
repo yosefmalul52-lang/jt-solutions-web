@@ -4,7 +4,7 @@ export const DEFAULT_OG_IMAGE = {
   url: "/opengraph-image.png",
   width: 1200,
   height: 630,
-  alt: "JT Solutions — סוכנות דיגיטל בישראל",
+  alt: "JT Solutions — תשתית דיגיטלית לפניות מסודרות",
 } as const;
 
 const PILLAR_OG_IMAGES: Record<PillarSlug, string> = {
@@ -14,12 +14,19 @@ const PILLAR_OG_IMAGES: Record<PillarSlug, string> = {
   "digital-marketing": "/services/digital-marketing.png",
 };
 
+const PILLAR_OG_ALT: Record<PillarSlug, string> = {
+  websites: "בניית אתרים ודפי נחיתה שמובילים לפניות — JT Solutions",
+  branding: "מיתוג שמחזק אמון לפני כל פנייה — JT Solutions",
+  automations: "סדר בלידים ומעקב אחרי פניות — JT Solutions",
+  "digital-marketing": "פרסום מדיד שמחובר לפניות — JT Solutions",
+};
+
 export function getPillarOgImage(slug: PillarSlug) {
   return {
     url: PILLAR_OG_IMAGES[slug],
     width: 1200,
     height: 630,
-    alt: `JT Solutions — ${slug}`,
+    alt: PILLAR_OG_ALT[slug],
   };
 }
 

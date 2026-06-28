@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";
+import "@/components/ui/button-system.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
 import ConsentGatedTracking from "@/components/analytics/ConsentGatedTracking";
 import DeferredScrollProgress from "@/components/layout/DeferredScrollProgress";
@@ -14,6 +15,8 @@ const heebo = Heebo({
   variable: "--font-heebo",
   subsets: ["hebrew", "latin"],
   display: "swap",
+  adjustFontFallback: true,
+  preload: true,
 });
 
 const googleVerification = (process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "").trim();
@@ -24,20 +27,18 @@ export const metadata: Metadata = {
     ? { verification: { google: googleVerification } }
     : {}),
   title: {
-    default: "JT Solutions | סוכנות דיגיטל ופיתוח",
+    default: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
     template: "%s | JT Solutions",
   },
   description:
-    "פתרונות דיגיטל מקצה לקצה לעסקים: מאפיון ומיתוג, דרך פיתוח אתרי תדמית וחנויות איקומרס, ועד אוטומציות וניהול קמפיינים.",
+    "JT Solutions בונה לעסקים בישראל אתר או דף נחיתה, מדידה, וואטסאפ ומעקב פניות — כדי שתדע מאיפה כל ליד הגיע ומה כדאי לשפר.",
   keywords: [
-    "סוכנות דיגיטל",
-    "פיתוח אתרים",
-    "מיתוג",
-    "שיווק דיגיטלי",
-    "דפי נחיתה",
-    "אתרי תדמית",
-    "בוט וואטסאפ",
-    "אוטומציה לעסקים",
+    "תשתית דיגיטלית לעסק",
+    "דף נחיתה ממיר",
+    "בניית אתרים לעסקים",
+    "מדידת פניות",
+    "סדר בלידים",
+    "JT Solutions",
   ],
   icons: {
     icon: [
@@ -54,32 +55,35 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "he_IL",
-    url: "/",
+    url: "https://www.jt-solutions.org/",
     siteName: "JT Solutions",
+    title: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
+    description:
+      "אתר, דף נחיתה, מדידה ומעקב פניות — מעטפת אחת לעסקים בישראל שרוצים סדר בלידים.",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "JT Solutions - השותף הטכנולוגי שלך בדיגיטל",
+        alt: "JT Solutions — תשתית דיגיטלית לפניות מסודרות",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JT Solutions | סוכנות דיגיטל ופיתוח",
+    title: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
     description:
-      "פתרונות דיגיטל מקצה לקצה לעסקים: מאפיון ומיתוג, דרך פיתוח אתרי תדמית וחנויות איקומרס, ועד אוטומציות וניהול קמפיינים.",
+      "אתר, דף נחיתה, מדידה ומעקב פניות — מעטפת אחת לעסקים בישראל שרוצים סדר בלידים.",
     images: ["/opengraph-image.png"],
   },
 };
 
-export const viewport: Viewport = { themeColor: "#F9FAFB" };
+export const viewport: Viewport = { themeColor: "#F8FAFC" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#F9FAFB] text-gray-900">
+      <body className="min-h-full flex flex-col bg-[#F8FAFC] text-slate-950">
         <DeferredScrollProgress />
         <TrackingProvider>{children}</TrackingProvider>
         <CookieConsent />

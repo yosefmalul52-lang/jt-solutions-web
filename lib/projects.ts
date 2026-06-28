@@ -5,11 +5,20 @@ export type RelatedServiceLink = {
   href: string;
 };
 
+export type ProjectCardSummary = {
+  businessType: string;
+  problemBefore: string;
+  whatBuilt: string;
+  whatChangedAfter: string;
+  operationalResult: string;
+};
+
 export type ProjectSectionTitles = {
   clientAndIndustry?: string;
   before?: string;
   goal?: string;
   built?: string;
+  after?: string;
   strategy?: string;
   howItHelps?: string;
   uxMessage?: string;
@@ -54,13 +63,15 @@ export type ProjectItem = {
   serviceSpecificCtaLabel?: string;
   serviceSpecificCtaHref?: string;
   sectionTitles?: ProjectSectionTitles;
+  cardSummary?: ProjectCardSummary;
+  lessonsLearned?: string[];
 };
 
 export const projects: ProjectItem[] = [
   {
     id: "magadim",
     title: "Magadim",
-    seoTitle: "פרויקט חנות איקומרס Magadim",
+    seoTitle: "פרויקט Magadim — חנות עם סדר בהזמנות וניהול",
     shortDescription:
       "חנות איקומרס ותשתית ניהול שמרכזת הזמנות, מוצרים ותהליכים במקום אחד.",
     simpleTerms:
@@ -78,11 +89,6 @@ export const projects: ProjectItem[] = [
       "תהליך הזמנות מרוכז בדשבורד אחד במקום מספר כלים מפוזרים",
       "פחות טעויות ידניות בעדכון סטטוסים להזמנות",
       "חוויית קנייה מהירה יותר במובייל",
-    ],
-    clientQuote: "סוף סוף רואים את כל ההזמנות במקום אחד — הצוות עובד הרבה יותר רגוע.",
-    metrics: [
-      { label: "זמן טיפול בהזמנה", value: "ירידה משמעותית" },
-      { label: "סדר תפעולי", value: "מערכת אחת" },
     ],
     technologies: ["E-commerce", "Vercel Hosting", "Dashboard", "Automation"],
     relatedServiceSlug: "ecommerce",
@@ -133,21 +139,35 @@ export const projects: ProjectItem[] = [
       { label: "אוטומציות לעסק", href: "/services/automations" },
     ],
     serviceSpecificCtaLabel: "רוצים חנות אונליין עם תשתית ניהול מסודרת?",
-    serviceSpecificCtaHref: "/#contact",
+    serviceSpecificCtaHref: "/?service=ecommerce#contact",
+    cardSummary: {
+      businessType: "חנות איקומרס",
+      problemBefore:
+        "הזמנות, מוצרים וסטטוסים פוזרו בין כמה כלים. הצוות עבד הרבה ידנית, ולא תמיד היה ברור מה דחוף ומה כבר טופל.",
+      whatBuilt: "חנות אונליין מותאמת מובייל ודשבורד ניהול שמרכז הזמנות, מוצרים ותהליכים.",
+      whatChangedAfter:
+        "הלקוח עובר זרימת קנייה ברורה, והצוות רואה את כל ההזמנות והסטטוסים במקום אחד — עם פחות עבודה ידנית.",
+      operationalResult: "תהליך הזמנה ברור יותר, פחות עבודה ידנית ותשתית מוכנה למדידה ולצמיחה.",
+    },
+    lessonsLearned: [
+      "כשמאפיינים לפי תהליך עבודה אמיתי — החנות והניהול נבנים כמערכת אחת, לא שני פרויקטים נפרדים.",
+      "ממשק ברור לצוות חוסך זמן יותר מכל «פיצ'ר» טכני.",
+      "תשתית מדידה נבנית יחד עם המכירה — לא אחרי שהכול כבר באוויר.",
+    ],
     sectionTitles: {
-      clientAndIndustry: "הלקוח והתעשייה",
-      before: "המצב לפני",
-      goal: "המטרה העסקית",
+      clientAndIndustry: "סוג העסק",
+      before: "מצב לפני",
+      goal: "המטרה",
       built: "מה בנינו",
-      howItHelps: "איך התשתית עוזרת לעסק",
-      results: "תוצאות והשפעה",
-      success: "מה הפך את הפרויקט למוצלח",
+      after: "מה השתנה אחרי",
+      results: "תוצאה תפעולית",
+      success: "מה אפשר ללמוד מהפרויקט",
     },
   },
   {
     id: "eb-hair",
     title: "EB Hair",
-    seoTitle: "פרויקט מיתוג ודף נחיתה EB Hair",
+    seoTitle: "פרויקט EB Hair — מיתוג ודף נחיתה שמובילים לפנייה",
     shortDescription:
       "מיתוג יוקרתי ודף נחיתה שמייצרים תחושת פרימיום ופניות איכותיות יותר.",
     simpleTerms:
@@ -165,11 +185,6 @@ export const projects: ProjectItem[] = [
       "שפה מותגית אחידה בכל נקודות המגע",
       "דף נחיתה עם זרימה ברורה לקביעת תור",
       "מראה יוקרתי שמחזק אמון לפני שיחה",
-    ],
-    clientQuote: "הלקוחות מרגישות שהמותג ברמה אחרת — יותר פניות איכותיות.",
-    metrics: [
-      { label: "איכות פניות", value: "שיפור מורגש" },
-      { label: "זמן הקמה", value: "לוח זמנים מסודר" },
     ],
     technologies: ["Branding", "UX/UI", "Landing Page", "Lead Generation"],
     relatedServiceSlug: "landing-pages",
@@ -220,21 +235,36 @@ export const projects: ProjectItem[] = [
       { label: "בניית דף נחיתה ממיר", href: "/services/websites#landing" },
     ],
     serviceSpecificCtaLabel: "רוצים דף נחיתה שמרגיש פרימיום ומייצר פניות?",
-    serviceSpecificCtaHref: "/#contact",
+    serviceSpecificCtaHref: "/?service=landing#contact",
+    cardSummary: {
+      businessType: "סלון שירותים יוקרתי",
+      problemBefore:
+        "הנוכחות הדיגיטלית לא שיקפה את רמת השירות בשטח. המסר לא היה חד מספיק, והדף לא בנה אמון מהר מספיק להשארת פרטים.",
+      whatBuilt: "שפה מותגית אחידה ודף נחיתה עם זרימה ברורה — מסר, אמון ופעולה אחת.",
+      whatChangedAfter:
+        "העסק מציג זהות פרימיום אחידה, והמבקר מגיע מהכניסה ועד השארת פרטים בלי חיכוך מיותר.",
+      operationalResult: "תהליך פנייה ברור יותר, מסר אחיד בכל נקודות המגע ותשתית מוכנה לפרסום.",
+    },
+    lessonsLearned: [
+      "מיתוג ודף נחיתה צריכים להיבנות יחד — לא כשני פרויקטים נפרדים.",
+      "קהל שמחפש יוקרה צריך אמון לפני לחיצה — לא עוד אפקטים.",
+      "CTA אחד פשוט עובד טוב יותר מכמה כפתורים שמתחרים זה בזה.",
+    ],
     sectionTitles: {
-      clientAndIndustry: "הלקוח והתעשייה",
-      before: "האתגר לפני הפרויקט",
+      clientAndIndustry: "סוג העסק",
+      before: "מצב לפני",
       goal: "המטרה",
       built: "מה בנינו",
-      uxMessage: "חוויית משתמש ומסר שיווקי",
-      results: "תוצאות והשפעה",
-      success: "למה הפרויקט עובד",
+      after: "מה השתנה אחרי",
+      uxMessage: "חוויית משתמש ומסר",
+      results: "תוצאה תפעולית",
+      success: "מה אפשר ללמוד מהפרויקט",
     },
   },
   {
     id: "ai-automation",
     title: "אוטומציה עסקית",
-    seoTitle: "פרויקט אוטומציה וחיבור CRM",
+    seoTitle: "פרויקט אוטומציה — סדר בלידים ומעקב פניות",
     shortDescription:
       "אוטומציית לידים שמחברת טפסים, התראות ו־CRM כדי לצמצם לידים אבודים.",
     simpleTerms:
@@ -242,9 +272,9 @@ export const projects: ProjectItem[] = [
     problem:
       "לידים הגיעו מכמה מקורות שונים בלי סדר, תגובות התעכבו, והצוות איבד הזדמנויות כי המידע לא זרם בזמן.",
     processPoints: [
-      "חיברנו את מקורות הלידים למערכת מרכזית אחת, כדי שכל פנייה תתועד מיד.",
-      "בנינו תהליכי n8n שמעבירים את הנתונים אוטומטית ל-CRM בלי עבודה ידנית.",
-      "יצרנו תצוגת מצב בזמן אמת שמאפשרת להגיב מהר ולנהל המשך מעקב מסודר.",
+      "חיברנו את מקורות הפניות למעקב מרכזי אחד, כדי שכל ליד יתועד מיד.",
+      "בנינו תהליכים אוטומטיים שמעבירים את הנתונים לרשימת המעקב — בלי העתקות ידניות.",
+      "הוספנו התראות ותזכורות שמאפשרות להגיב מהר ולנהל המשך טיפול מסודר.",
     ],
     businessValue:
       "פחות לידים הולכים לאיבוד, זמן התגובה מתקצר, ותהליך המכירה נהיה צפוי, מדיד ויעיל הרבה יותר.",
@@ -253,12 +283,7 @@ export const projects: ProjectItem[] = [
       "התראות בזמן אמת לצוות המכירות",
       "פחות העתקות ידניות בין מערכות",
     ],
-    clientQuote: "לא מפספסים יותר פניות — הכל מגיע מסודר ומוכן למעקב.",
-    metrics: [
-      { label: "זמן תגובה לליד", value: "מהיר משמעותית" },
-      { label: "לידים אבודים", value: "ירידה מורגשת" },
-    ],
-    technologies: ["n8n", "CRM Integration", "Real-time Data", "Automation Flows"],
+    technologies: ["Lead Routing", "CRM Integration", "Alerts", "Automation"],
     relatedServiceSlug: "ai-automation",
     image: {
       src: "/projects/ai-automation.png",
@@ -275,18 +300,18 @@ export const projects: ProjectItem[] = [
     afterState:
       "כל ליד שנכנס מקבל מסלול אוטומטי: נרשם, מתועד, מגיע ל-CRM ומפעיל התראה לצוות — מוכן לטיפול מיידי.",
     whatWeBuilt: [
-      "חיבור מקורות לידים (טפסים, אתר, ערוצים נוספים) למערכת מרכזית",
-      "תהליכי אוטומציה (n8n) להעברת נתונים ל-CRM",
-      "התראות מיידיות לצוות המכירות",
-      "מבנה סטטוסים ומעקב שמאפשר המשך טיפול מסודר",
+      "חיבור מקורות פניות — טפסים, אתר וערוצים נוספים — למעקב מרכזי",
+      "תהליכים אוטומטיים שרושמים כל ליד ברשימה או ב-CRM",
+      "התראות מיידיות לצוות כשנכנסת פנייה חדשה",
+      "מבנה סטטוסים ותזכורות שמאפשר המשך טיפול מסודר",
     ],
     strategy:
       "מיפינו את מסלול הליד מהרגע שהוא נכנס ועד שהוא מטופל — וזיהינו איפה נוצרות נקודות כשל. משם בנינו אוטומציה שמחברת את כל השלבים, במקום לסמוך על זיכרון או העתקה ידנית.",
     techSetup: [
-      "אוטומציות n8n לזרימת נתונים בין מערכות",
-      "חיבור CRM לרישום אוטומטי של לידים",
-      "התראות מייל / ערוצים נוספים לפי צורך הצוות",
-      "תשתית שניתן להרחיב לפי מקורות לידים חדשים",
+      "חיבור בין מקורות הפניות לרשימת מעקב או CRM",
+      "רישום אוטומטי של כל ליד עם מקור הפנייה",
+      "התראות לצוות לפי ערוצים שהעסק כבר משתמש בהם",
+      "תשתית שניתן להרחיב כשמוסיפים ערוצי פנייה חדשים",
     ],
     measurableResults: [
       "כל ליד נכנס למסלול טיפול ברור",
@@ -310,16 +335,31 @@ export const projects: ProjectItem[] = [
       { label: "אוטומציה לעסקים", href: "/services/automations" },
       { label: "שיווק דיגיטלי ותשתית פרסום", href: "/services/digital-marketing" },
     ],
-    serviceSpecificCtaLabel: "רוצים שכל ליד ייכנס למערכת אוטומטית?",
-    serviceSpecificCtaHref: "/#contact",
+    serviceSpecificCtaLabel: "רוצים שכל פנייה תיכנס למעקב מסודר?",
+    serviceSpecificCtaHref: "/?service=automation#contact",
+    cardSummary: {
+      businessType: "עסק עם פניות מטפסים, וואטסאפ וקמפיינים",
+      problemBefore:
+        "פניות הגיעו מכמה מקורות בלי מסלול ברור. חלק התעכבו, חלק אבדו, והצוות בזבז זמן על העתקות ידניות.",
+      whatBuilt: "חיבור מקורות הפניות למעקב מרכזי — עם התראות, רישום אוטומטי ותזכורות לחזרה.",
+      whatChangedAfter:
+        "כל פנייה נרשמת, מתועדת ומגיעה לצוות בזמן — מוכנה לטיפול, בלי לסמוך על זיכרון או העתקה.",
+      operationalResult: "פניות מרוכזות במקום אחד, פחות עבודה ידנית ומעקב אחרי לידים מסודר יותר.",
+    },
+    lessonsLearned: [
+      "לפני אוטומציה — ממפים את מסלול הפנייה מהכניסה ועד הטיפול, ומזהים איפה נוצרות נקודות כשל.",
+      "חיבור בין מערכות חוסך יותר מכלי נפרד לכל דבר.",
+      "התראות בזמן אמת שוות יותר מעוד ערוץ פרסום בלי מעקב.",
+    ],
     sectionTitles: {
-      clientAndIndustry: "הלקוח / סוג העסק",
-      before: "הבעיה לפני האוטומציה",
+      clientAndIndustry: "סוג העסק",
+      before: "מצב לפני",
       goal: "המטרה",
       built: "מה בנינו",
-      leadFlow: "זרימת הליד החדשה",
-      results: "תוצאות והשפעה",
-      success: "מה הופך את התהליך לחכם",
+      after: "מה השתנה אחרי",
+      leadFlow: "איך נראה מסלול פנייה חדש",
+      results: "תוצאה תפעולית",
+      success: "מה אפשר ללמוד מהפרויקט",
     },
   },
 ];

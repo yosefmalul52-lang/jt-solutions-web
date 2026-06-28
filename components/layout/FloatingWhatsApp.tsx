@@ -14,7 +14,7 @@ export default function FloatingWhatsApp() {
       aria-label="שיחה ב-WhatsApp"
       className="jt-floating-whatsapp"
     >
-      <WhatsAppIcon aria-hidden className="h-7 w-7 text-white" />
+      <WhatsAppIcon aria-hidden className="relative z-[2] h-7 w-7 text-white" />
     </a>
   );
 }

@@ -1,32 +1,21 @@
 "use client";
 
 import HomeFaqAccordion from "@/components/sections/HomeFaqAccordion";
-import MaskedHeadline from "@/components/motion/MaskedHeadline";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function HomeFaq() {
   return (
-    <section
-      id="faq"
-      className="py-16 md:py-24 pb-12 md:pb-16 section-shell bg-[#F9FAFB]"
-    >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 md:mb-12" dir="rtl">
-          <MaskedHeadline
-            as="h2"
-            className="premium-title"
-            viewportKey="section"
-            lines={[
-              <>
-                שאלות <span className="gradient-text">נפוצות</span>
-              </>,
-            ]}
-          />
-          <p className="premium-subtitle mt-3">תשובות קצרות לפני שמתחילים</p>
-        </div>
+    <section id="faq" className="home-section home-section--alt section-shell" dir="rtl">
+      <div className="relative z-10 mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          className="mb-8 md:mb-10"
+          before="שאלות "
+          accent="שחוזרות"
+          after=" לפני שמתחילים"
+          accentColor="#2563EB"
+        />
 
-        <div dir="rtl">
-          <HomeFaqAccordion />
-        </div>
+        <HomeFaqAccordion />
       </div>
     </section>
   );

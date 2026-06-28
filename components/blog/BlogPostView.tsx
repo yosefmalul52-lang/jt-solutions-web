@@ -1,5 +1,5 @@
 import Link from "next/link";
-import TrackedLink from "@/components/ui/TrackedLink";
+import CtaButton from "@/components/ui/CtaButton";
 import type { BlogPost } from "@/lib/blog/posts";
 import RichParagraph from "@/components/blog/RichParagraph";
 import { SITE_AUTHOR } from "@/lib/seo/author";
@@ -90,9 +90,7 @@ export default function BlogPostView({ post }: BlogPostViewProps) {
       </aside>
 
       <div className="mt-10 flex flex-wrap gap-3">
-        <TrackedLink href="/#contact" ctaLocation="blog-post" ctaLabel="קובעים שיחת התאמה" className="btn-primary text-sm">
-          קובעים שיחת התאמה
-        </TrackedLink>
+        <CtaButton href="/#contact" ctaLocation="blog-post" shine="auto" />
         <Link href="/blog" className="text-sm font-semibold text-slate-600 hover:text-slate-900">
           חזרה למדריכים
         </Link>

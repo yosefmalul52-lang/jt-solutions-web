@@ -2,7 +2,7 @@ export const MAIN_NAV_LINKS = [
   { label: "שירותים", href: "/services" },
   { label: "פרויקטים", href: "/projects" },
   { label: "מדריכים", href: "/blog" },
-  { label: "הוכחות", href: "/#proof" },
+  { label: "הוכחות", href: "/#projects" },
   { label: "צור קשר", href: "/contact" },
 ] as const;
 
@@ -22,11 +22,13 @@ export function isNavLinkActive(href: string, pathname: string, activeHash: stri
 /** Full homepage scroll order — includes sections not shown in the nav. */
 export const HOME_SECTION_ORDER = [
   "#hero",
-  "#services",
+  "#problem",
+  "#solution",
   "#projects",
-  "#proof",
+  "#process",
+  "#services",
+  "#testimonials",
   "#pricing",
-  "#tech-stack",
   "#faq",
   "#contact",
 ] as const;

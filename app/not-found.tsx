@@ -25,7 +25,7 @@ export default function NotFound() {
   return (
     <>
       <Navbar />
-      <main className="flex-1 bg-[#F9FAFB]">
+      <main className="flex-1 bg-[#F8FAFC]">
         <section className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-24 text-center" dir="rtl">
           <p className="text-6xl font-extrabold tracking-tight text-slate-200 sm:text-7xl" aria-hidden>
             404
@@ -45,7 +45,7 @@ export default function NotFound() {
             </Link>
             <Link
               href="/#services"
-              className="inline-flex items-center gap-2 rounded-[var(--radius-soft)] border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-indigo-200 hover:text-indigo-700"
+              className="inline-flex items-center gap-2 rounded-[var(--radius-soft)] border border-slate-200 bg-[#F8FAFC] px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:text-sky-700"
             >
               <LayoutGrid size={16} aria-hidden />
               השירותים
@@ -59,7 +59,7 @@ export default function NotFound() {
                 <li key={service.slug}>
                   <Link
                     href={service.path}
-                    className="block rounded-[var(--radius-soft)] border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:border-indigo-200 hover:text-indigo-700"
+                    className="block rounded-[var(--radius-soft)] border border-slate-200 bg-[#F8FAFC] px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:text-sky-700"
                   >
                     {service.serviceName}
                   </Link>

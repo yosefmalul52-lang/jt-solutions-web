@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useHydrated } from "@/hooks/useHydrated";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import {
   mapSectionToNavHash,
   scrollToHash,
 } from "@/lib/scroll";
+import { getNavShellTheme } from "@/lib/studio-shell";
 import { contactLinks } from "@/lib/site";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -47,6 +48,12 @@ export default function Navbar() {
   const navScrollLockTimerRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
 
+  const navTheme = useMemo(
+    () => getNavShellTheme(pathname, activeHash),
+    [pathname, activeHash],
+  );
+  const isDark = navTheme === "dark";
+
   const syncActiveSection = useCallback(() => {
     const lockedTarget = navScrollLockTargetRef.current;
     if (lockedTarget) {
@@ -70,7 +77,9 @@ export default function Navbar() {
   }, [syncActiveSection]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -153,14 +162,9 @@ export default function Navbar() {
       >
         <nav
           dir="rtl"
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto"
-          style={{
-            background: scrolled ? "rgba(221,227,234,0.74)" : "rgba(221,227,234,0.58)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            border: "1px solid rgba(15,23,42,0.12)",
-            boxShadow: scrolled ? "0 16px 40px rgba(15,23,42,0.14)" : "0 10px 28px rgba(15,23,42,0.09)",
-          }}
+          className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto border backdrop-blur-[14px] transition-all duration-300 ${
+            isDark ? "nav-shell--dark" : "nav-shell--light"
+          } ${scrolled ? "backdrop-blur-[18px] nav-shell--scrolled" : ""}`}
         >
           <Link
             href="/"
@@ -172,7 +176,10 @@ export default function Navbar() {
               alt="JT Solutions Logo"
               width={490}
               height={430}
-              className="h-8 w-auto max-h-8 object-contain sm:h-9 sm:max-h-9"
+              className={`h-8 w-auto max-h-8 object-contain sm:h-9 sm:max-h-9 transition-[filter] duration-300 ${
+                isDark ? "brightness-110" : ""
+              }`}
+              style={{ width: "auto", height: "auto" }}
               sizes="(min-width: 640px) 108px, 96px"
               priority
             />
@@ -182,6 +189,7 @@ export default function Navbar() {
             pathname={pathname}
             activeHash={activeHash}
             mobileOpen={mobileOpen}
+            navTheme={navTheme}
             onNavClick={handleNavClick}
             onCloseMobile={() => setMobileOpen(false)}
           />
@@ -191,17 +199,29 @@ export default function Navbar() {
               href={`tel:${contactLinks.phone}`}
               onClick={() => trackPhoneClick("navbar")}
               aria-label="התקשרו אל JT Solutions"
-              className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]"
-              style={{
-                background: "linear-gradient(120deg, rgba(16,179,231,0.14), rgba(124,58,237,0.14))",
-                borderColor: "rgba(124,58,237,0.22)",
-              }}
+              className={`hidden md:inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-200 ${
+                isDark
+                  ? "border-white/15 bg-white/5 hover:border-cyan-400/30 hover:shadow-[0_8px_20px_rgba(16,179,231,0.15)]"
+                  : "hover:shadow-[0_8px_20px_rgba(124,58,237,0.18)]"
+              }`}
+              style={
+                isDark
+                  ? undefined
+                  : {
+                      background: "linear-gradient(120deg, rgba(16,179,231,0.14), rgba(124,58,237,0.14))",
+                      borderColor: "rgba(124,58,237,0.22)",
+                    }
+              }
             >
               <Phone size={18} stroke="url(#brandPhoneGradient)" />
             </a>
             <button
               onClick={() => setMobileOpen((p) => !p)}
-              className="md:hidden p-2 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/5 transition-all"
+              className={`md:hidden p-2 rounded-xl transition-all ${
+                isDark
+                  ? "text-slate-300 hover:text-white hover:bg-white/10"
+                  : "text-gray-500 hover:text-gray-900 hover:bg-black/5"
+              }`}
               aria-label="פתח תפריט"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
