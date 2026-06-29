@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { MoveLeft } from "lucide-react";
 import HomeCtaButton from "@/components/home/HomeCtaButton";
-import CtaButton from "@/components/ui/CtaButton";
 import LeadOrbitVisual from "@/components/home/LeadOrbitVisual";
 import HomeHeroHeadline from "@/components/home/HomeHeroHeadline";
 import PremiumTypewriter from "@/components/home/PremiumTypewriter";
@@ -27,19 +26,11 @@ export default function HeroContent() {
   const itemProps = useMotion ? { variants: heroItemUp } : {};
 
   return (
-    <section id="hero" className="relative py-6 sm:py-10 md:py-12 lg:py-14" dir="rtl">
-      <div
-        aria-hidden
-        className="shrink-0 h-[calc(0.25rem+64px+0.75rem)] sm:h-[calc(0.5rem+74px+1.5rem)]"
-      />
-
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12">
+    <section id="hero" className="homepage-hero-section relative z-10 flex flex-1 items-center" dir="rtl">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-5 py-4 sm:gap-10 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12">
         <Wrap className="flex flex-col text-center lg:text-right" {...wrapProps}>
           <Item {...itemProps}>
-            <p className="home-hero-badge mx-auto lg:mx-0">{heroCopy.badge}</p>
-            <div className="mt-4">
-              <HomeHeroHeadline />
-            </div>
+            <HomeHeroHeadline />
             <div className="mt-4 flex justify-center lg:justify-start">
               <PremiumTypewriter
                 words={[
@@ -53,10 +44,10 @@ export default function HeroContent() {
             </div>
           </Item>
 
-          <Text className="home-subline home-hero-subline mt-5 max-w-xl md:hidden" {...itemProps}>
+          <Text className="home-subline home-hero-subline mx-auto mt-5 max-w-xl md:hidden lg:mx-0" {...itemProps}>
             {heroCopy.sublineMobile}
           </Text>
-          <Text className="home-subline home-hero-subline mt-5 hidden max-w-xl md:block" {...itemProps}>
+          <Text className="home-subline home-hero-subline mx-auto mt-5 hidden max-w-xl md:block lg:mx-0" {...itemProps}>
             {heroCopy.subline}
           </Text>
 
@@ -72,20 +63,10 @@ export default function HeroContent() {
               label={heroCopy.ctaLabel}
               className="w-full sm:w-auto"
             />
-            <CtaButton
-              href="#projects"
-              ctaLocation="hero-secondary"
-              label={heroCopy.secondaryCtaLabel}
-              className="w-full sm:w-auto"
-            />
-          </Item>
-
-          <Item {...itemProps}>
-            <p className="home-hero-micro mt-4 text-center lg:text-right">{heroCopy.microcopy}</p>
           </Item>
         </Wrap>
 
-        <Item className="relative w-full lg:max-w-md lg:justify-self-end" {...itemProps}>
+        <Item className="relative hidden w-full lg:block lg:max-w-md lg:justify-self-end" {...itemProps}>
           <LeadOrbitVisual />
         </Item>
       </div>

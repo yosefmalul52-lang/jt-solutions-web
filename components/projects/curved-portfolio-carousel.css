@@ -99,112 +99,58 @@
   width: var(--screen-w);
   height: var(--screen-h);
   overflow: hidden;
-  border-radius: 32px;
+  border-radius: 12px;
   transform-origin: center center;
   transform-style: preserve-3d;
   cursor: pointer;
-  background: #0c1018;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow:
-    0 40px 90px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+  background: transparent;
+  border: none;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35);
   transition:
     transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 600ms ease,
     filter 600ms ease,
-    box-shadow 600ms ease,
-    border-color 600ms ease;
+    box-shadow 600ms ease;
   will-change: transform, opacity, filter;
 }
 
 .portfolio-screen.is-active {
   cursor: default;
-  border-color: rgba(120, 170, 230, 0.22);
   box-shadow:
-    0 50px 110px rgba(0, 0, 0, 0.65),
-    0 0 60px rgba(60, 130, 220, 0.12),
-    0 0 0 1px rgba(140, 190, 255, 0.12) inset;
+    0 50px 110px rgba(0, 0, 0, 0.42),
+    0 0 48px rgba(60, 130, 220, 0.1);
 }
 
-.portfolio-screen:not(.is-active) .screen-preview {
-  filter: brightness(0.78) saturate(0.88);
+.portfolio-screen:not(.is-active) .screen-preview--image .screen-preview__shot {
+  filter: brightness(0.88) saturate(0.94);
 }
 
-.portfolio-screen:not(.is-active) .screen-chrome {
-  opacity: 0.82;
-}
-
-/* Browser chrome */
-
-.screen-chrome {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 34px;
-  padding: 0 14px;
-  background: linear-gradient(180deg, #161c28 0%, #111620 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.screen-dots {
-  display: flex;
-  gap: 5px;
-  flex-shrink: 0;
-}
-
-.screen-dots span {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.screen-dots span:nth-child(1) {
-  background: rgba(255, 120, 100, 0.55);
-}
-
-.screen-dots span:nth-child(2) {
-  background: rgba(255, 200, 80, 0.45);
-}
-
-.screen-dots span:nth-child(3) {
-  background: rgba(100, 200, 120, 0.45);
-}
-
-.screen-url {
-  flex: 1;
-  height: 18px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-/* Preview area */
+/* Preview area — full-bleed screenshots */
 
 .screen-preview {
   position: relative;
-  height: calc(var(--screen-h) - 34px);
+  height: 100%;
   overflow: hidden;
-  background: #0e1420;
+  background: transparent;
+}
+
+.screen-preview--image {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.screen-preview--image.mockup--catering,
+.screen-preview--image.mockup--glass,
+.screen-preview--image.mockup--landing,
+.screen-preview--image.mockup--ecommerce,
+.screen-preview--image.mockup--dashboard {
+  background: transparent;
 }
 
 .screen-preview--image .screen-preview__shot {
   object-fit: cover;
   object-position: top center;
-}
-
-.screen-preview__sheen {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    transparent 42%,
-    transparent 100%
-  );
-  pointer-events: none;
 }
 
 /* Bottom overlay on screen */

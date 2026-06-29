@@ -1,7 +1,27 @@
 /* Homepage design polish v2 — editorial rhythm, refined surfaces */
 
+.homepage-light-shell {
+  --home-nav-offset: calc(0.75rem + 74px + 1rem);
+}
+
+@media (min-width: 640px) {
+  .homepage-light-shell {
+    --home-nav-offset: calc(1rem + 84px + 1rem);
+  }
+}
+
 .homepage-light-shell .homepage-hero-wrap {
+  min-height: 100svh;
+  min-height: 100dvh;
   background: linear-gradient(180deg, #f8fafc 0%, #ffffff 38%, #f8fafc 100%);
+}
+
+.homepage-hero-section {
+  padding-top: var(--home-nav-offset);
+}
+
+.homepage-hero-trust {
+  margin-top: auto;
 }
 
 .home-hero-grid {
@@ -100,9 +120,16 @@
 }
 
 .diag-note p {
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: #64748b;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #0f172a;
+}
+
+@media (min-width: 640px) {
+  .diag-note p {
+    font-size: 1.125rem;
+  }
 }
 
 /* Journey */

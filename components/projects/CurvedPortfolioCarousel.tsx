@@ -94,12 +94,13 @@ function ScreenPreview({ project }: { project: CurvedPortfolioProject }) {
       <div className={`screen-preview ${project.mockupClass} screen-preview--image`}>
         <Image
           src={project.imageSrc}
-          alt=""
+          alt={`צילום מסך — ${project.title}`}
           fill
-          sizes="(max-width: 760px) 92vw, 620px"
+          unoptimized
+          sizes="(max-width: 760px) 92vw, 1240px"
           className="screen-preview__shot"
+          priority={project.id === "magadim"}
         />
-        <span className="screen-preview__sheen" aria-hidden />
       </div>
     );
   }
@@ -137,14 +138,6 @@ function PortfolioScreen({
       aria-hidden={!active && Number(style.opacity) < 0.5}
       aria-label={`${project.title} — ${project.type}`}
     >
-      <div className="screen-chrome">
-        <div className="screen-dots" aria-hidden>
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="screen-url" aria-hidden />
-      </div>
       <ScreenPreview project={project} />
       <div className="screen-overlay">
         <span className="screen-overlay__type">{project.type}</span>
@@ -247,7 +240,6 @@ export default function CurvedPortfolioCarousel() {
       <div className="portfolio-header">
         <SectionHeader
           titleId="portfolio-title"
-          eyebrow="תיק עבודות"
           title="פרויקטים שבנויים להיראות טוב וגם להביא פניות"
           subline="הצצה לעבודות שבנינו לעסקים. אתרים, דפי נחיתה, חנויות ואוטומציות עם מבנה ברור ומטרה עסקית."
         />

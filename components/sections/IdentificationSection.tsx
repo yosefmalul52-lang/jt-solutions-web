@@ -12,12 +12,12 @@ const CENTRAL_INDEX = 3;
 
 const CARD_ORDER = [0, 1, 2, 3, 4] as const;
 
-const CARD_VISUALS: Record<number, { accent: string; tag: string; index: string }> = {
-  0: { accent: "#2563EB", tag: "תדמית דיגיטלית", index: "01" },
-  1: { accent: "#EF4444", tag: "מעקב פניות", index: "02" },
-  2: { accent: "#06B6D4", tag: "תשתית פרסום", index: "03" },
-  3: { accent: "#7C3AED", tag: "מדידה והמרה", index: "04" },
-  4: { accent: "#10B981", tag: "ליווי מרכזי", index: "05" },
+const CARD_ACCENTS: Record<number, string> = {
+  0: "#2563EB",
+  1: "#EF4444",
+  2: "#06B6D4",
+  3: "#7C3AED",
+  4: "#10B981",
 };
 
 const PLACEMENT: Record<number, string> = {
@@ -105,22 +105,10 @@ function useDesktopSpread() {
 
 function DiagCardContent({ index }: { index: number }) {
   const card = identificationSection.cards[index];
-  const visual = CARD_VISUALS[index];
   const isCentral = index === CENTRAL_INDEX;
 
   return (
     <>
-      <div className="diag-card__meta">
-        {isCentral ? (
-          <span className="accent-chip">בעיה אחת חוזרת</span>
-        ) : (
-          <span className="diag-card__tag">{visual.tag}</span>
-        )}
-        <span className="diag-card__index" aria-hidden>
-          {visual.index}
-        </span>
-      </div>
-
       <p
         className={
           isCentral
@@ -130,15 +118,6 @@ function DiagCardContent({ index }: { index: number }) {
       >
         {card.pain}
       </p>
-
-      {isCentral ? (
-        <div className="diag-central__insight mt-4">
-          <p className="text-sm leading-relaxed text-slate-700 sm:text-[0.95rem]">
-            <span className="font-semibold text-slate-800">בעיה אחת חוזרת: </span>
-            יש תנועה, יש פניות — אבל אין מערכת שמחברת ביניהן!
-          </p>
-        </div>
-      ) : null}
 
       <div
         className={`diag-card__solution${isCentral ? " diag-central__solution" : ""} ${isCentral ? "mt-5" : "mt-4"}`}
@@ -187,10 +166,9 @@ export default function IdentificationSection() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="זיהוי"
           before="אם זה נשמע "
-          accent="מוכר"
-          after="? — האתר שלך צריך לעבוד אחרת!"
+          accent="מוּכָּר"
+          after=".. — האתר שלך צריך לעבוד אחרת!"
           accentColor={ACCENT}
         />
 
@@ -247,7 +225,7 @@ export default function IdentificationSection() {
               variants={listVariants}
             >
               {CARD_ORDER.map((index) => {
-                const visual = CARD_VISUALS[index];
+                const accent = CARD_ACCENTS[index];
                 const isCentral = index === CENTRAL_INDEX;
                 const custom: CardMotionCustom = { isCentral, spread, cardIndex: index };
 
@@ -257,7 +235,7 @@ export default function IdentificationSection() {
                     custom={custom}
                     variants={cardVariants}
                     className={cardClass(index)}
-                    style={{ ["--accent" as string]: visual.accent }}
+                    style={{ ["--accent" as string]: accent }}
                   >
                     <DiagCardContent index={index} />
                   </motion.li>
@@ -267,12 +245,12 @@ export default function IdentificationSection() {
           ) : (
             <ul className="relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 lg:gap-5 xl:gap-6">
               {CARD_ORDER.map((index) => {
-                const visual = CARD_VISUALS[index];
+                const accent = CARD_ACCENTS[index];
                 return (
                   <li
                     key={index}
                     className={cardClass(index)}
-                    style={{ ["--accent" as string]: visual.accent }}
+                    style={{ ["--accent" as string]: accent }}
                   >
                     <DiagCardContent index={index} />
                   </li>
@@ -292,14 +270,14 @@ export default function IdentificationSection() {
                 ease: EASE_OUT,
               })}
             >
-              <p className="text-sm leading-relaxed text-slate-600">
-                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם.
+              <p className="text-base font-bold leading-snug text-slate-900 sm:text-lg">
+                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם!!
               </p>
             </motion.div>
           ) : (
             <div className="diag-note mx-auto mt-8 max-w-2xl lg:mt-10">
-              <p className="text-sm leading-relaxed text-slate-600">
-                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם.
+              <p className="text-base font-bold leading-snug text-slate-900 sm:text-lg">
+                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם!!
               </p>
             </div>
           )}

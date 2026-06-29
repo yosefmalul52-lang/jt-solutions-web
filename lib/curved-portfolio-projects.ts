@@ -30,6 +30,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     tags: ["זכוכית", "לידים", "מיתוג"],
     href: "/projects",
     mockupClass: "mockup--glass",
+    imageSrc: "/projects/tsameret-glass.png",
   },
   {
     id: "financial-advisory",
@@ -39,6 +40,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     tags: ["דף נחיתה", "קמפיין", "לידים"],
     href: "/projects",
     mockupClass: "mockup--landing",
+    imageSrc: "/projects/md-finance.png",
   },
   {
     id: "fashion-store",
@@ -48,7 +50,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     tags: ["Ecommerce", "אופנה", "מכירות"],
     href: "/projects/eb-hair",
     mockupClass: "mockup--ecommerce",
-    imageSrc: "/projects/eb-hair.png",
+    imageSrc: "/projects/fashion-store.png",
   },
   {
     id: "lead-management",

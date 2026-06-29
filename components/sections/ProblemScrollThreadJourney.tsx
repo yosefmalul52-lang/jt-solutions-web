@@ -10,18 +10,7 @@ import {
   type RefObject,
 } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  BarChart3,
-  CheckCircle2,
-  Globe,
-  Megaphone,
-  MessageCircle,
-  RefreshCw,
-  Route,
-  TriangleAlert,
-  UserPlus,
-  type LucideIcon,
-} from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { useHydrated } from "@/hooks/useHydrated";
 import { problemSection } from "@/lib/home-funnel";
 import { EASE_OUT, motionTransition } from "@/lib/motion";
@@ -31,32 +20,6 @@ const STEPS = problemSection.journeySteps;
 const STEP_COUNT = STEPS.length;
 const LINE_DRAW_MS = 1100;
 const SCROLL_IO = { root: null, rootMargin: "-6% 0px -28% 0px", threshold: 0.08 } as const;
-
-const REPAIR_BG: Record<string, string> = {
-  crm: "#ecfdf5",
-  track: "#ecfeff",
-  measure: "#f5f3ff",
-};
-
-const ICONS: Record<string, LucideIcon> = {
-  campaign: Megaphone,
-  site: Globe,
-  lead: UserPlus,
-  break: TriangleAlert,
-  crm: MessageCircle,
-  track: RefreshCw,
-  measure: BarChart3,
-};
-
-const STEP_TAGS: Record<string, string> = {
-  campaign: "תנועה",
-  site: "הגעה",
-  lead: "פנייה",
-  break: "חסימה",
-  crm: "החיבור",
-  track: "החיבור",
-  measure: "החיבור",
-};
 
 type JourneyStep = (typeof STEPS)[number];
 type Point = { x: number; y: number };
@@ -125,31 +88,6 @@ function lineColor(from: JourneyStep, to: JourneyStep) {
   return from.color;
 }
 
-function JourneyBar() {
-  return (
-    <>
-      <div className="stjourney-leader-shell__bar">
-        <div className="stjourney-leader-shell__bar-start">
-          <span className="stjourney-leader-shell__bar-icon" aria-hidden>
-            <Route size={15} strokeWidth={2.2} />
-          </span>
-          <div className="stjourney-leader-shell__bar-copy">
-            <span className="stjourney-leader-shell__eyebrow">מסלול פנייה אמיתי</span>
-            <span className="stjourney-leader-shell__bar-hint">
-              כך נראית פנייה כשהמערכת לא מחוברת
-            </span>
-          </div>
-        </div>
-        <span className="stjourney-leader-shell__meta">
-          <span className="stjourney-leader-shell__meta-dot" aria-hidden />
-          7 שלבים
-        </span>
-      </div>
-      <p className="stjourney-insight">{problemSection.insight}</p>
-    </>
-  );
-}
-
 function JourneyStepCard({
   step,
   stepId,
@@ -159,36 +97,29 @@ function JourneyStepCard({
   stepId: string;
   visible: boolean;
 }) {
-  const Icon = ICONS[step.id] ?? Megaphone;
   const reduce = useReducedMotion();
   const isBreak = "isBreak" in step && step.isBreak;
   const isRepair = "repair" in step && step.repair;
-  const repairBg = REPAIR_BG[step.id];
   const slideX = step.side === "right" ? 20 : -20;
 
   const card = (
     <div
       className={`stjourney-leader__card stjourney-leader__card--${step.side}${isBreak ? " stjourney-leader__card--break" : ""}${isRepair ? " stjourney-leader__card--repair" : ""}`}
-      style={{
-        ["--step-color" as string]: step.color,
-        ...(repairBg ? { ["--repair-bg" as string]: repairBg } : {}),
-      }}
+      style={{ ["--step-color" as string]: step.color }}
     >
-      <span className="stjourney-leader__card-accent" aria-hidden />
-      <div className="stjourney-leader__card-head">
-        <div className="stjourney-leader__card-meta">
-          <span className="stjourney-leader__card-icon" aria-hidden>
-            <Icon size={17} strokeWidth={2.1} />
-          </span>
-          <span className="stjourney-leader__card-tag">{STEP_TAGS[step.id] ?? "שלב"}</span>
+      <span className="stjourney-leader__card-rail" aria-hidden />
+      <span className="stjourney-leader__card-node" aria-hidden />
+      <div className="stjourney-leader__card-body">
+        <div className="stjourney-leader__card-headline">
+          <h3 className="stjourney-leader__card-label">{step.label}</h3>
         </div>
-        <span className="stjourney-leader__card-index">{step.index}</span>
+        <p className="stjourney-leader__card-desc">{step.description}</p>
+        {"micro" in step && typeof step.micro === "string" ? (
+          <div className="stjourney-leader__card-note">
+            <p className="stjourney-leader__card-micro">{step.micro}</p>
+          </div>
+        ) : null}
       </div>
-      <h3 className="stjourney-leader__card-label">{step.label}</h3>
-      <p className="stjourney-leader__card-desc">{step.description}</p>
-      {"micro" in step && typeof step.micro === "string" ? (
-        <p className="stjourney-leader__card-micro">{step.micro}</p>
-      ) : null}
     </div>
   );
 
@@ -515,8 +446,6 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
 
   return (
     <div className="stjourney-leader-wrap">
-      <JourneyBar />
-
       <div className={`stjourney-leader${stacked ? " stjourney-leader--stacked" : ""}`} ref={rootRef}>
         {hydrated ? <LeaderLineCanvas lines={lines} stacked={stacked} linesShown={linesShown} /> : null}
         <ol className="stjourney-leader__steps">
@@ -555,32 +484,25 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
 function StaticTimeline() {
   return (
     <div className="stjourney-leader-wrap stjourney-leader-wrap--static">
-      <JourneyBar />
       <ol className="stjourney-static" aria-label="מסלול הפנייה">
         {STEPS.map((step) => {
-          const Icon = ICONS[step.id] ?? Megaphone;
           const isBreak = "isBreak" in step && step.isBreak;
           const isRepair = "repair" in step && step.repair;
-          const repairBg = REPAIR_BG[step.id];
           return (
             <li
               key={step.id}
               className={`stjourney-static__item${isBreak ? " stjourney-static__item--break" : ""}${isRepair ? " stjourney-static__item--repair" : ""}`}
-              style={{
-                ["--step-color" as string]: step.color,
-                ...(repairBg ? { ["--repair-bg" as string]: repairBg } : {}),
-              }}
+              style={{ ["--step-color" as string]: step.color }}
             >
-              <span className="stjourney-static__node" aria-hidden>
-                <Icon size={14} strokeWidth={2.1} />
-              </span>
               <div className="stjourney-static__body">
-                <span className="stjourney-static__tag">{STEP_TAGS[step.id] ?? "שלב"}</span>
-                <span className="stjourney-static__index">{step.index}</span>
-                <h3 className="stjourney-static__label">{step.label}</h3>
+                <div className="stjourney-static__headline">
+                  <h3 className="stjourney-static__label">{step.label}</h3>
+                </div>
                 <p className="stjourney-static__desc">{step.description}</p>
                 {"micro" in step && typeof step.micro === "string" ? (
-                  <p className="stjourney-static__micro">{step.micro}</p>
+                  <div className="stjourney-static__note">
+                    <p className="stjourney-static__micro">{step.micro}</p>
+                  </div>
                 ) : null}
               </div>
             </li>

@@ -2492,8 +2492,47 @@ html { scroll-behavior: smooth; }
 }
 
 .diag-solution__label {
-  color: #94a3b8;
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.diag-card__solution {
+  margin-top: 0.85rem;
+  padding: 1rem 1.15rem;
+  border-radius: 0.85rem;
+  color: var(--accent, #2563eb);
   font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: color-mix(in srgb, var(--accent, #2563eb) 7%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 16%, transparent);
+}
+
+@media (min-width: 640px) {
+  .diag-solution__label {
+    font-size: 0.9375rem;
+  }
+
+  .diag-card__solution {
+    padding: 1.15rem 1.35rem;
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+}
+
+.diag-central__solution {
+  padding: 1.1rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .diag-central__solution {
+    padding: 1.25rem 1.45rem;
+    font-size: 1.1875rem;
+  }
 }
 
 .diag-central {
@@ -2557,22 +2596,6 @@ html { scroll-behavior: smooth; }
   border-radius: 0.85rem;
   background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
   border: 1px solid #dbeafe;
-}
-
-.diag-card__solution {
-  margin-top: 0.85rem;
-  padding: 0.85rem 1rem;
-  border-radius: 0.85rem;
-  color: var(--accent, #2563eb);
-  font-weight: 600;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  background: color-mix(in srgb, var(--accent, #2563eb) 7%, #ffffff);
-  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 16%, transparent);
-}
-
-.diag-central__solution {
-  font-size: 0.875rem;
 }
 
 .diag-lines {

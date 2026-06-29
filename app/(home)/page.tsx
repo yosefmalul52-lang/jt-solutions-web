@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import HomeScrollProgress from "@/components/home/HomeScrollProgress";
 import JsonLd from "@/components/seo/JsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getHomeOgImage } from "@/lib/seo/og-images";
@@ -45,7 +44,6 @@ export default function Home() {
     <>
       <JsonLd data={getHomeFaqJsonLd()} />
       <Navbar />
-      <HomeScrollProgress />
       <main className="homepage-light-shell flex-1">
         <div className="homepage-light-content">
           <Hero />

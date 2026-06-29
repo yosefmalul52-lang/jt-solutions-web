@@ -94,7 +94,7 @@ export const projects: ProjectItem[] = [
     relatedServiceSlug: "ecommerce",
     image: {
       src: "/projects/magadim.png",
-      alt: "תצוגת חנות איקומרס Magadim — דשבורד הזמנות וניהול",
+      alt: "צילום מסך אתר מגדים קייטרינג — דף הבית",
     },
     industry: "חנות איקומרס",
     clientType: "עסק שמוכר מוצרים ורוצה סדר בתפעול",

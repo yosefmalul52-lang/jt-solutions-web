@@ -13,34 +13,17 @@ import {
   Megaphone,
   Globe,
   MessageCircle,
-  Inbox,
-  BellRing,
-  CheckCircle2,
   Database,
   Workflow,
   LineChart,
+  BellRing,
   Building2,
   type LucideIcon,
 } from "lucide-react";
 import PremiumReveal from "@/components/motion/PremiumReveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import {
-  solutionFlow,
-  solutionFlowToServiceIndex,
-  systemMapSection,
-} from "@/lib/home-funnel";
+import { systemMapSection } from "@/lib/home-funnel";
 import "./solution-system-section.css";
-
-const FLOW_ICONS: LucideIcon[] = [
-  Megaphone,
-  Globe,
-  MessageCircle,
-  Inbox,
-  BellRing,
-  CheckCircle2,
-];
-
-const FLOW_COLORS = ["#2563EB", "#06B6D4", "#10B981", "#7C3AED", "#0EA5E9", "#10B981"];
 
 const SERVICE_ICONS: LucideIcon[] = [
   Globe,
@@ -337,7 +320,7 @@ function SolutionHubDesktop({
         >
           <span className="solution-hub__center-kicker">מרכז המערכת</span>
           <span className="solution-hub__center-icon" aria-hidden>
-            <Building2 size={22} strokeWidth={1.75} />
+            <Building2 size={24} strokeWidth={1.75} />
           </span>
           <span className="solution-hub__center-title">{systemMapSection.centerTitle}</span>
           <span className="solution-hub__center-status">{systemMapSection.centerStatus}</span>
@@ -407,7 +390,7 @@ function HubNode({
         ref={(el) => registerNode(index, el)}
       >
         <span className="solution-hub__node-icon">
-          <Icon size={16} strokeWidth={2} aria-hidden />
+          <Icon size={18} strokeWidth={2} aria-hidden />
         </span>
         <span className="solution-hub__node-text">
           <span className="solution-hub__node-label">{service.label}</span>
@@ -420,25 +403,13 @@ function HubNode({
 
 export default function SolutionSection() {
   const uid = useId().replace(/:/g, "");
-  const [activeFlow, setActiveFlow] = useState<number | null>(null);
   const [activeService, setActiveService] = useState<number | null>(null);
 
-  const highlightedService =
-    activeService ??
-    (activeFlow !== null ? solutionFlowToServiceIndex[activeFlow] : null);
-
-  const highlightedFlow =
-    activeFlow ??
-    (activeService !== null
-      ? solutionFlowToServiceIndex.findIndex((idx) => idx === activeService)
-      : null);
-
-  const closingStepIndex = solutionFlow.steps.length - 1;
-  const hasFocus = activeFlow !== null || activeService !== null;
-  const isCenterActive = !hasFocus || activeFlow === closingStepIndex;
+  const highlightedService = activeService;
+  const hasFocus = activeService !== null;
+  const isCenterActive = !hasFocus;
 
   const clearHover = () => {
-    setActiveFlow(null);
     setActiveService(null);
   };
 
@@ -450,70 +421,27 @@ export default function SolutionSection() {
 
   return (
     <section id="solution" className="solution-system home-section section-shell" dir="rtl">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
-          className="solution-system__content"
+          className="solution-system__content solution-system__content--hub-only"
           onMouseLeave={clearHover}
           onBlur={handlePanelBlur}
         >
-          <div className="solution-system__flow">
-            <SectionHeader
-              eyebrow="הפתרון"
-              accent="מערכת"
-              after=" אחת — מהתנועה ועד הסגירה"
-              accentColor="#7C3AED"
-            />
+          <SectionHeader
+            accent="מערכת"
+            after=" אחת — מהתנועה ועד הסגירה"
+            accentColor="#7C3AED"
+          />
 
-            <div className="solution-system__bridge-head">
-              <h3 className="solution-system__map-title">
-                {systemMapSection.headlineBefore}
-                <span className="solution-system__map-title-accent">
-                  {systemMapSection.headlineAccent}
-                </span>
-                {systemMapSection.headlineAfter}
-              </h3>
-              <p className="solution-system__map-subline">{systemMapSection.subline}</p>
-            </div>
-
-            <PremiumReveal className="solution-rail-wrap" variant="fade" delay={0.05}>
-              <div className="solution-rail" role="list" aria-label="מסלול הפנייה">
-                <span className="solution-rail__line" aria-hidden />
-                {solutionFlow.steps.map((step, index) => {
-                  const Icon = FLOW_ICONS[index];
-                  const color = FLOW_COLORS[index];
-                  const mappedService = solutionFlowToServiceIndex[index];
-                  const isLinked =
-                    highlightedFlow === index ||
-                    (highlightedService !== null && mappedService === highlightedService) ||
-                    (index === closingStepIndex &&
-                      activeFlow === closingStepIndex &&
-                      highlightedService === null);
-                  const isDimmed = hasFocus && !isLinked;
-
-                  return (
-                    <button
-                      key={step.label}
-                      type="button"
-                      role="listitem"
-                      className={`solution-rail__step${isLinked ? " is-linked" : ""}${isDimmed ? " is-dimmed" : ""}`}
-                      style={{ ["--step-color" as string]: color } as CSSProperties}
-                      onMouseEnter={() => setActiveFlow(index)}
-                      onFocus={() => setActiveFlow(index)}
-                      aria-label={`${step.label}: ${step.hint}`}
-                    >
-                      <span className="solution-rail__node">
-                        <span className="solution-rail__icon">
-                          <Icon size={14} strokeWidth={2.2} aria-hidden />
-                        </span>
-                      </span>
-                      <span className="solution-rail__index">{String(index + 1).padStart(2, "0")}</span>
-                      <span className="solution-rail__label">{step.label}</span>
-                      <span className="solution-rail__hint">{step.hint}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </PremiumReveal>
+          <div className="solution-system__bridge-head">
+            <h3 className="solution-system__map-title">
+              {systemMapSection.headlineBefore}
+              <span className="solution-system__map-title-accent">
+                {systemMapSection.headlineAccent}
+              </span>
+              {systemMapSection.headlineAfter}
+            </h3>
+            <p className="solution-system__map-subline">{systemMapSection.subline}</p>
           </div>
 
           <div className="solution-system__map">
@@ -540,7 +468,7 @@ export default function SolutionSection() {
                 >
                   <span className="solution-hub__center-kicker">מרכז המערכת</span>
                   <span className="solution-hub__center-icon" aria-hidden>
-                    <Building2 size={20} strokeWidth={1.75} />
+                    <Building2 size={22} strokeWidth={1.75} />
                   </span>
                   <span className="solution-hub__center-title">{systemMapSection.centerTitle}</span>
                   <span className="solution-hub__center-status">{systemMapSection.centerStatus}</span>
@@ -562,7 +490,7 @@ export default function SolutionSection() {
                       >
                         <span className="solution-hub-mobile__rail" aria-hidden />
                         <span className="solution-hub-mobile__icon">
-                          <Icon size={15} strokeWidth={2} aria-hidden />
+                          <Icon size={17} strokeWidth={2} aria-hidden />
                         </span>
                         <span className="solution-hub-mobile__copy">
                           <span className="solution-hub-mobile__label">{service.label}</span>
