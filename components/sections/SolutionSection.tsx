@@ -429,8 +429,8 @@ export default function SolutionSection() {
         >
           <SectionHeader
             accent="מערכת"
-            after=" אחת — מהתנועה ועד הסגירה"
-            accentColor="#7C3AED"
+            after=" אחת — מהתנועה ועד הסגירה!"
+            accentColor="#2563EB"
           />
 
           <div className="solution-system__bridge-head">

@@ -261,7 +261,7 @@ export default function ContactForm({ variant = "section" }: ContactFormProps) {
               disabled={isSubmitting}
               loading={isSubmitting}
               fullWidth
-              shine="auto"
+              shine
               ctaLocation="contact_form"
               label={contactFormCopy.submitLabel}
             >

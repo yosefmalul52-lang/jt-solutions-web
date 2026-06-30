@@ -1,10 +1,11 @@
 import CtaButton, { type CtaButtonProps } from "@/components/ui/CtaButton";
 
-/** Homepage hero CTA — gradient variant with auto shine. */
+/** Homepage hero CTA — enterprise primary + restrained stripe. */
 export default function HomeCtaButton({
-  variant = "gradient",
+  variant = "primary",
   shine = "auto",
+  hideIcon = false,
   ...props
 }: CtaButtonProps) {
-  return <CtaButton variant={variant} shine={shine} {...props} />;
+  return <CtaButton variant={variant} shine={shine} hideIcon={hideIcon} {...props} />;
 }

@@ -14,21 +14,27 @@ const TIER_ACCENT: Record<string, string> = {
   "leads-system": "home-pricing-card--violet",
 };
 
+const PATHWAY_TAGS: Record<string, string> = {
+  "digital-start": "התחלה דיגיטלית",
+  "ready-to-advertise": "מוכן לפרסום",
+  "leads-system": "עסק בצמיחה",
+};
+
 export default function Pricing() {
   const reduce = useReducedMotion();
   const { container: tiersStagger, item: tierItem } = staggerVariants(reduce);
 
   return (
-    <section id="pathways" className="home-section section-shell" dir="rtl">
+    <section id="pathways" className="home-section home-section--pricing section-shell" dir="rtl">
+      <div className="home-section__atmosphere home-section__atmosphere--pricing" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           className="mb-10 lg:mb-12"
-          eyebrow="מסלולים"
           before="לפי "
           accent="המצב"
-          after=" של העסק — לא לפי תווית כללית"
-          accentColor="#7C3AED"
-          subline="שלוש נקודות התחלה נפוצות. בשיחת האבחון נבין מה באמת מתאים לכם."
+          after=" של העסק — לא לפי תווית כללית!"
+          accentColor="#2563EB"
+          subline="שלוש נקודות התחלה נפוצות. בשיחת האבחון נבין יחד מה באמת מתאים לך."
         />
 
         <motion.div
@@ -53,7 +59,9 @@ export default function Pricing() {
                   <span className="home-pricing-popular-badge" style={{ ["--tier" as string]: "#2563eb" }}>
                     מתאים לפני פרסום
                   </span>
-                ) : null}
+                ) : (
+                  <span className="home-pricing-fit-tag">{PATHWAY_TAGS[pathway.id]}</span>
+                )}
 
                 <h3 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
                   {pathway.name}
@@ -81,6 +89,8 @@ export default function Pricing() {
                   <CtaButton
                     href={pathway.ctaHref}
                     ctaLocation={pathway.ctaLocation}
+                    variant="secondary"
+                    shine
                     className="w-full"
                   />
                 </div>

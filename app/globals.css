@@ -458,7 +458,7 @@ main [id] {
 .homepage-light-shell {
   position: relative;
   isolation: isolate;
-  background-color: #f8fafc;
+  background-color: #ffffff;
   color: #0f172a;
 }
 
@@ -473,15 +473,15 @@ main [id] {
 }
 
 .home-section--alt {
-  background-color: #f1f5f9;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .home-section--cta {
-  background: linear-gradient(180deg, #f6f9ff 0%, #f8fafc 55%, #ffffff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #ffffff 100%);
 }
 
 .homepage-light-shell .homepage-hero-wrap {
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 42%, #f8fafc 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 42%, #ffffff 100%);
 }
 
 .homepage-light-shell .homepage-hero-wrap::after {

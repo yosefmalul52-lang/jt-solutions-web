@@ -20,8 +20,6 @@ export type ButtonClassOptions = {
   className?: string;
 };
 
-const SHINE_VARIANTS: ButtonVariant[] = ["primary", "gradient", "whatsapp"];
-
 export function shouldShowShine(
   variant: ButtonVariant,
   shine: ButtonShine | undefined,
@@ -32,9 +30,6 @@ export function shouldShowShine(
   if (shine === false) return { show: false, auto: false };
   if (shine === "auto") return { show: true, auto: true };
   if (shine === true) return { show: true, auto: false };
-  if (shine === undefined && SHINE_VARIANTS.includes(variant)) {
-    return { show: true, auto: false };
-  }
   return { show: false, auto: false };
 }
 

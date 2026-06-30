@@ -7,7 +7,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { processSteps } from "@/lib/home-funnel";
 import { EASE_OUT, timelineNodeVariants } from "@/lib/motion";
 
-const STEP_COLORS = ["#2563EB", "#06B6D4", "#7C3AED", "#10B981"] as const;
+const STEP_COLORS = ["#1e3a8a", "#2563eb", "#3b82f6", "#0ea5e9"] as const;
 
 export default function ProcessSection() {
   const reduce = useReducedMotion();
@@ -25,14 +25,15 @@ export default function ProcessSection() {
   }));
 
   return (
-    <section id="process" className="home-section home-section--alt section-shell" dir="rtl">
+    <section id="process" className="home-section home-section--process section-shell" dir="rtl">
+      <div className="home-section__atmosphere home-section__atmosphere--process" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="איך עובדים איתנו"
           before="תהליך "
           accent="ברור"
           after=" — ארבעה שלבים"
-          accentColor="#10B981"
+          accentColor="#2563EB"
           subline="אבחון, אפיון, בנייה ומדידה — עם שקיפות מלאה לאורך הדרך."
         />
 
@@ -40,7 +41,7 @@ export default function ProcessSection() {
           <div className="relative mb-10 h-0.5 overflow-hidden rounded-full bg-slate-200">
             <motion.div
               className="absolute inset-y-0 right-0 rounded-full"
-              style={{ background: "linear-gradient(270deg, #2563eb, #06b6d4, #7c3aed, #10b981)" }}
+              style={{ background: "linear-gradient(270deg, #1e3a8a, #2563eb, #3b82f6, #0ea5e9)" }}
               initial={{ width: reduce ? "100%" : 0 }}
               whileInView={{ width: "100%" }}
               viewport={{ once: true, margin: "-80px" }}
@@ -52,7 +53,7 @@ export default function ProcessSection() {
             {processSteps.map((step, index) => (
               <motion.li
                 key={step.title}
-                className="home-process-card"
+                className="home-process-card home-process-card--elevated"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
@@ -61,7 +62,7 @@ export default function ProcessSection() {
               >
                 <div className="flex items-center justify-between">
                   <span
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
+                    className="home-process-card__step"
                     style={{ background: STEP_COLORS[index % STEP_COLORS.length] }}
                   >
                     {step.step}

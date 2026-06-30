@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { MoveLeft } from "lucide-react";
 import HomeCtaButton from "@/components/home/HomeCtaButton";
 import LeadOrbitVisual from "@/components/home/LeadOrbitVisual";
 import HomeHeroHeadline from "@/components/home/HomeHeroHeadline";
@@ -34,11 +33,11 @@ export default function HeroContent() {
             <div className="mt-4 flex justify-center lg:justify-start">
               <PremiumTypewriter
                 words={[
-                  "קמפיין שמביא תנועה",
+                  "קמפיין שמביא תנועה — מוכר?",
                   "דף נחיתה שממיר לפנייה",
-                  "ליד שנכנס ל-CRM",
+                  "ליד שנכנס ל-CRM בלי לאבד אותו",
                   "וואטסאפ שלא מאבד לקוחות",
-                  "מדידה שמראה מה עובד",
+                  "מדידה שמראה לך מה באמת עובד",
                 ]}
               />
             </div>
@@ -59,14 +58,13 @@ export default function HeroContent() {
               id="hero-main-cta"
               href="#contact"
               ctaLocation="hero"
-              icon={MoveLeft}
               label={heroCopy.ctaLabel}
               className="w-full sm:w-auto"
             />
           </Item>
         </Wrap>
 
-        <Item className="relative hidden w-full lg:block lg:max-w-md lg:justify-self-end" {...itemProps}>
+        <Item className="relative w-full lg:max-w-md lg:justify-self-end" {...itemProps}>
           <LeadOrbitVisual />
         </Item>
       </div>

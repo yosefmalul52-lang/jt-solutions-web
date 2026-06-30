@@ -47,26 +47,22 @@ function ButtonInner({
   icon: Icon,
   loading,
   hideIcon,
-  variant,
   children,
 }: {
   label?: string;
   icon?: LucideIcon | null;
   loading?: boolean;
   hideIcon?: boolean;
-  variant: ButtonVariant;
   children?: ReactNode;
 }) {
   const showIcon = !hideIcon && Icon !== null && !loading;
   const ResolvedIcon = Icon ?? MoveLeft;
-  const showAccent = variant === "primary" && !loading;
 
   return (
     <span className="btn__content">
       {loading ? <ButtonSpinner /> : null}
       {showIcon ? <ResolvedIcon size={17} strokeWidth={2.25} className="btn__icon" aria-hidden /> : null}
       <span dir="rtl" className="btn__label">
-        {showAccent ? <span className="btn__accent" aria-hidden /> : null}
         {children ?? label}
       </span>
     </span>
@@ -77,7 +73,7 @@ export default function CtaButton({
   label = "קבל אבחון דיגיטלי חינם",
   children,
   icon,
-  variant = "gradient",
+  variant = "primary",
   size = "md",
   href,
   className = "",
@@ -87,7 +83,7 @@ export default function CtaButton({
   disabled,
   loading = false,
   fullWidth,
-  shine = "auto",
+  shine = true,
   hideIcon = false,
   ctaLocation,
 }: CtaButtonProps) {
@@ -115,7 +111,6 @@ export default function CtaButton({
       icon={icon}
       loading={loading}
       hideIcon={hideIcon}
-      variant={variant}
     >
       {children}
     </ButtonInner>

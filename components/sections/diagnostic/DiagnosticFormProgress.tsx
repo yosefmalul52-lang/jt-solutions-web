@@ -4,9 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { EASE_OUT, STAGGER_TIGHT } from "@/lib/motion";
 
 const STEPS = [
-  { num: "1", label: "שולחים פרטים", color: "#2563EB" },
-  { num: "2", label: "בודקים את העסק", color: "#06B6D4" },
-  { num: "3", label: "מקבלים כיוון", color: "#10B981" },
+  { num: "1", label: "אתה שולח פרטים", color: "#2563EB" },
+  { num: "2", label: "בודקים יחד את העסק", color: "#06B6D4" },
+  { num: "3", label: "מקבלים כיוון ברור", color: "#10B981" },
 ] as const;
 
 export default function DiagnosticFormProgress() {

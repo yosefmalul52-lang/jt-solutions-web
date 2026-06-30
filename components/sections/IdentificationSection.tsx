@@ -103,12 +103,25 @@ function useDesktopSpread() {
   );
 }
 
+const CARD_LABELS: Record<number, string> = {
+  0: "01",
+  1: "02",
+  2: "03",
+  3: "מרכז",
+  4: "05",
+};
+
 function DiagCardContent({ index }: { index: number }) {
   const card = identificationSection.cards[index];
   const isCentral = index === CENTRAL_INDEX;
 
   return (
     <>
+      <div className="diag-card__head">
+        <span className={`diag-card__index${isCentral ? " diag-card__index--central" : ""}`}>
+          {CARD_LABELS[index]}
+        </span>
+      </div>
       <p
         className={
           isCentral
@@ -168,7 +181,7 @@ export default function IdentificationSection() {
         <SectionHeader
           before="אם זה נשמע "
           accent="מוּכָּר"
-          after=".. — האתר שלך צריך לעבוד אחרת!"
+          after="? — האתר שלך צריך לעבוד אחרת!"
           accentColor={ACCENT}
         />
 
@@ -271,13 +284,13 @@ export default function IdentificationSection() {
               })}
             >
               <p className="text-base font-bold leading-snug text-slate-900 sm:text-lg">
-                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם!!
+                {identificationSection.closingInsight}
               </p>
             </motion.div>
           ) : (
             <div className="diag-note mx-auto mt-8 max-w-2xl lg:mt-10">
               <p className="text-base font-bold leading-snug text-slate-900 sm:text-lg">
-                הבעיה לרוב לא נמצאת רק באתר או רק בקמפיין — אלא בחיבור ביניהם!!
+                {identificationSection.closingInsight}
               </p>
             </div>
           )}

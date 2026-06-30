@@ -37,7 +37,6 @@ function HomeFinalCta() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow={finalCtaSection.eyebrow}
           before={finalCtaSection.before}
           accent={finalCtaSection.accent}
           after={finalCtaSection.after}
@@ -52,14 +51,6 @@ function HomeFinalCta() {
               <div className="diagnostic-form-card__rule" aria-hidden />
 
               <div className="diagnostic-form-card__body">
-                <div className="diagnostic-form-card__head">
-                  <span className="diagnostic-form-card__badge">
-                    <span className="diagnostic-form-card__badge-dot" aria-hidden />
-                    אבחון דיגיטלי חינם
-                  </span>
-                  <span className="diagnostic-form-card__note">2 שדות חובה + בחירת צורך</span>
-                </div>
-
                 <DiagnosticFormProgress />
 
                 <Suspense fallback={<ContactFormFallback />}>

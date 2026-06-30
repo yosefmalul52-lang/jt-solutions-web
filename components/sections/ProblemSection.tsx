@@ -11,6 +11,7 @@ export default function ProblemSection() {
         <SectionHeader
           before="רוב העסקים לא נופלים בגלל שאין להם אתר — "
           accent="הם נופלים בנקודות החיבור"
+          after="?"
           accentColor="#2563EB"
           subline={problemSection.subline}
         />
