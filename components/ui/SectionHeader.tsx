@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 import PremiumReveal from "@/components/motion/PremiumReveal";
-import ScribbleUnderline from "@/components/motion/ScribbleUnderline";
 
 type SectionHeaderProps = {
   eyebrow?: string;
   /** Plain text before the highlighted word. */
   before?: ReactNode;
-  /** Single word to highlight with an elegant underline. */
+  /** Word highlighted with the marker background. */
   accent?: string;
   /** Plain text after the highlighted word. */
   after?: ReactNode;
+  /** @deprecated Kept for call-site compatibility; marker uses fixed asset. */
   accentColor?: string;
   /** Full title when no accent word is needed. */
   title?: ReactNode;
@@ -28,7 +28,6 @@ export default function SectionHeader({
   before,
   accent,
   after,
-  accentColor = "#2563EB",
   title,
   subline,
   align = "center",
@@ -48,10 +47,7 @@ export default function SectionHeader({
         {accent ? (
           <>
             {before}
-            <span className="accent-word">
-              {accent}
-              <ScribbleUnderline color={accentColor} />
-            </span>
+            <span className="accent-word">{accent}</span>
             {after}
           </>
         ) : (

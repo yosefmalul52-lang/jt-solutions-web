@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type FocusEvent,
 } from "react";
 import {
   Megaphone,
@@ -17,6 +16,7 @@ import {
   Workflow,
   LineChart,
   BellRing,
+  Palette,
   Building2,
   type LucideIcon,
 } from "lucide-react";
@@ -33,9 +33,10 @@ const SERVICE_ICONS: LucideIcon[] = [
   Workflow,
   LineChart,
   BellRing,
+  Palette,
 ];
 
-/** Grid row placement — near (4) + far (3) share 4 rows for aligned connectors */
+/** Grid row placement — near (4) + far (4) share 4 rows for aligned connectors */
 const HUB_NEAR_SLOTS = [
   { index: 0, row: 1 },
   { index: 1, row: 2 },
@@ -46,7 +47,8 @@ const HUB_NEAR_SLOTS = [
 const HUB_FAR_SLOTS = [
   { index: 4, row: 1 },
   { index: 5, row: 2 },
-  { index: 6, row: 4 },
+  { index: 6, row: 3 },
+  { index: 7, row: 4 },
 ] as const;
 
 const HUB_ALL_SLOTS = [
@@ -152,13 +154,9 @@ function measureHubGeometry(
 function HubCurvesOverlay({
   uid,
   metrics,
-  highlightedService,
-  hasFocus,
 }: {
   uid: string;
   metrics: HubMetrics;
-  highlightedService: number | null;
-  hasFocus: boolean;
 }) {
   const { width, height, center, centerRadius, curves } = metrics;
   const outerRing = centerRadius + 28;
@@ -195,13 +193,11 @@ function HubCurvesOverlay({
 
       {curves.map(({ index, start, d }) => {
         const color = systemMapSection.services[index].color;
-        const active = highlightedService === index;
-        const dimmed = hasFocus && !active;
 
         return (
           <g
             key={index}
-            className={`solution-hub__curve-group${active ? " is-active" : ""}${dimmed ? " is-dimmed" : ""}`}
+            className="solution-hub__curve-group is-active"
             style={
               {
                 ["--curve-color" as string]: color,
@@ -221,19 +217,7 @@ function HubCurvesOverlay({
   );
 }
 
-function SolutionHubDesktop({
-  uid,
-  highlightedService,
-  hasFocus,
-  isCenterActive,
-  onServiceEnter,
-}: {
-  uid: string;
-  highlightedService: number | null;
-  hasFocus: boolean;
-  isCenterActive: boolean;
-  onServiceEnter: (index: number) => void;
-}) {
+function SolutionHubDesktop({ uid }: { uid: string }) {
   const hubRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
   const nodeEls = useRef<Record<number, HTMLElement | null>>({});
@@ -268,10 +252,6 @@ function SolutionHubDesktop({
     };
   }, [remeasure]);
 
-  useLayoutEffect(() => {
-    remeasure();
-  }, [highlightedService, hasFocus, remeasure]);
-
   const registerNode = useCallback(
     (index: number, el: HTMLSpanElement | null) => {
       nodeEls.current[index] = el;
@@ -287,14 +267,7 @@ function SolutionHubDesktop({
       role="img"
       aria-label="העסק שלך במרכז, מחובר לכלים דיגיטליים משני הצדדים"
     >
-      {metrics ? (
-        <HubCurvesOverlay
-          uid={uid}
-          metrics={metrics}
-          highlightedService={highlightedService}
-          hasFocus={hasFocus}
-        />
-      ) : null}
+      {metrics ? <HubCurvesOverlay uid={uid} metrics={metrics} /> : null}
 
       <div className="solution-hub__col solution-hub__col--near">
         {HUB_NEAR_SLOTS.map(({ index, row }) => (
@@ -303,10 +276,6 @@ function SolutionHubDesktop({
             index={index}
             side="near"
             row={row}
-            active={highlightedService === index}
-            dimmed={hasFocus && highlightedService !== index}
-            onEnter={() => onServiceEnter(index)}
-            onLeave={() => {}}
             registerNode={registerNode}
           />
         ))}
@@ -314,10 +283,7 @@ function SolutionHubDesktop({
 
       <div className="solution-hub__center-wrap">
         <span className="solution-hub__center-halo" aria-hidden />
-        <div
-          ref={centerRef}
-          className={`solution-hub__center${isCenterActive ? " is-active" : ""}`}
-        >
+        <div ref={centerRef} className="solution-hub__center is-active">
           <span className="solution-hub__center-kicker">מרכז המערכת</span>
           <span className="solution-hub__center-icon" aria-hidden>
             <Building2 size={24} strokeWidth={1.75} />
@@ -334,10 +300,6 @@ function SolutionHubDesktop({
             index={index}
             side="far"
             row={row}
-            active={highlightedService === index}
-            dimmed={hasFocus && highlightedService !== index}
-            onEnter={() => onServiceEnter(index)}
-            onLeave={() => {}}
             registerNode={registerNode}
           />
         ))}
@@ -350,28 +312,19 @@ function HubNode({
   index,
   side,
   row,
-  active,
-  dimmed,
-  onEnter,
-  onLeave,
   registerNode,
 }: {
   index: number;
   side: "near" | "far";
   row: number;
-  active: boolean;
-  dimmed: boolean;
-  onEnter: () => void;
-  onLeave: () => void;
   registerNode: (index: number, el: HTMLSpanElement | null) => void;
 }) {
   const service = systemMapSection.services[index];
   const Icon = SERVICE_ICONS[index];
 
   return (
-    <button
-      type="button"
-      className={`solution-hub__row solution-hub__row--${side}${active ? " is-active" : ""}${dimmed ? " is-dimmed" : ""}`}
+    <div
+      className={`solution-hub__row solution-hub__row--${side} is-active`}
       style={
         {
           ["--node" as string]: service.color,
@@ -379,10 +332,6 @@ function HubNode({
           gridRow: row,
         } as CSSProperties
       }
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocus={onEnter}
-      onBlur={onLeave}
       aria-label={`${service.label} — ${service.hint}`}
     >
       <span
@@ -397,36 +346,17 @@ function HubNode({
           <span className="solution-hub__node-hint">{service.hint}</span>
         </span>
       </span>
-    </button>
+    </div>
   );
 }
 
 export default function SolutionSection() {
   const uid = useId().replace(/:/g, "");
-  const [activeService, setActiveService] = useState<number | null>(null);
-
-  const highlightedService = activeService;
-  const hasFocus = activeService !== null;
-  const isCenterActive = !hasFocus;
-
-  const clearHover = () => {
-    setActiveService(null);
-  };
-
-  const handlePanelBlur = (event: FocusEvent<HTMLElement>) => {
-    const next = event.relatedTarget;
-    if (next instanceof Node && event.currentTarget.contains(next)) return;
-    clearHover();
-  };
 
   return (
     <section id="solution" className="solution-system home-section section-shell" dir="rtl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          className="solution-system__content solution-system__content--hub-only"
-          onMouseLeave={clearHover}
-          onBlur={handlePanelBlur}
-        >
+        <div className="solution-system__content solution-system__content--hub-only">
           <SectionHeader
             accent="מערכת"
             after=" אחת — מהתנועה ועד הסגירה!"
@@ -451,21 +381,13 @@ export default function SolutionSection() {
                 <span className="solution-hub-canvas__grid" aria-hidden />
                 <span className="solution-hub-canvas__vignette" aria-hidden />
 
-                <SolutionHubDesktop
-                  uid={uid}
-                  highlightedService={highlightedService}
-                  hasFocus={hasFocus}
-                  isCenterActive={isCenterActive}
-                  onServiceEnter={setActiveService}
-                />
+                <SolutionHubDesktop uid={uid} />
               </div>
             </PremiumReveal>
 
             <div className="solution-hub-mobile lg:hidden">
               <div className="solution-hub-mobile__stage">
-                <div
-                  className={`solution-hub-mobile__center${isCenterActive ? " is-active" : ""}`}
-                >
+                <div className="solution-hub-mobile__center is-active">
                   <span className="solution-hub__center-kicker">מרכז המערכת</span>
                   <span className="solution-hub__center-icon" aria-hidden>
                     <Building2 size={22} strokeWidth={1.75} />
@@ -478,15 +400,11 @@ export default function SolutionSection() {
               <ul className="solution-hub-mobile__list">
                 {systemMapSection.services.map((service, i) => {
                   const Icon = SERVICE_ICONS[i];
-                  const active = highlightedService === i;
                   return (
                     <PremiumReveal as="li" key={service.label} variant="rise" delay={0.03 + i * 0.03}>
-                      <button
-                        type="button"
-                        className={`solution-hub-mobile__item${active ? " is-active" : ""}${hasFocus && !active ? " is-dimmed" : ""}`}
+                      <div
+                        className="solution-hub-mobile__item is-active"
                         style={{ ["--node" as string]: service.color } as CSSProperties}
-                        onMouseEnter={() => setActiveService(i)}
-                        onFocus={() => setActiveService(i)}
                       >
                         <span className="solution-hub-mobile__rail" aria-hidden />
                         <span className="solution-hub-mobile__icon">
@@ -496,7 +414,7 @@ export default function SolutionSection() {
                           <span className="solution-hub-mobile__label">{service.label}</span>
                           <span className="solution-hub-mobile__hint">{service.hint}</span>
                         </span>
-                      </button>
+                      </div>
                     </PremiumReveal>
                   );
                 })}

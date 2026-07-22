@@ -1,50 +1,33 @@
-export type LegacyServiceRedirect = {
+export type SiteRedirect = {
   source: string;
   destination: string;
-  permanent: true;
+  permanent: boolean;
 };
 
-/** 301 map from deprecated granular service URLs to pillar pages + section anchors. */
-export const LEGACY_SERVICE_REDIRECTS: LegacyServiceRedirect[] = [
-  {
-    source: "/services/business-websites",
-    destination: "/services/websites#corporate",
-    permanent: true,
-  },
-  {
-    source: "/services/landing-pages",
-    destination: "/services/websites#landing",
-    permanent: true,
-  },
-  {
-    source: "/services/ecommerce",
-    destination: "/services/websites#ecommerce",
-    permanent: true,
-  },
-  {
-    source: "/services/whatsapp-bot",
-    destination: "/services/automations#whatsapp",
-    permanent: true,
-  },
-  {
-    source: "/services/ai-automation",
-    destination: "/services/automations#site-integration",
-    permanent: true,
-  },
-  {
-    source: "/services/web-development",
-    destination: "/services/automations#site-integration",
-    permanent: true,
-  },
-  {
-    source: "/services/ad-infrastructure",
-    destination: "/services/digital-marketing#full-funnel",
-    permanent: true,
-  },
+/**
+ * All former marketing/SEO subpages redirect to the homepage landing.
+ * Legal pages (privacy, accessibility) stay live.
+ *
+ * Path params use `([^/.]+)` so static assets under the same folder
+ * (e.g. `/projects/magadim.webp`, `/services/websites.png`) are NOT redirected.
+ */
+export const LANDING_PAGE_REDIRECTS: SiteRedirect[] = [
+  { source: "/about", destination: "/", permanent: true },
+  { source: "/contact", destination: "/#contact", permanent: true },
+  { source: "/blog", destination: "/", permanent: true },
+  { source: "/blog/:slug([^/.]+)", destination: "/", permanent: true },
+  { source: "/projects", destination: "/#projects", permanent: true },
+  { source: "/projects/:id([^/.]+)", destination: "/#projects", permanent: true },
+  { source: "/services", destination: "/#solution", permanent: true },
+  { source: "/services/:slug([^/.]+)", destination: "/#solution", permanent: true },
+  { source: "/areas/:slug([^/.]+)", destination: "/", permanent: true },
 ];
 
+/** @deprecated kept for import compatibility — use LANDING_PAGE_REDIRECTS */
+export const LEGACY_SERVICE_REDIRECTS = LANDING_PAGE_REDIRECTS;
+
 export function getLegacyServiceRedirects() {
-  return LEGACY_SERVICE_REDIRECTS.map(({ source, destination, permanent }) => ({
+  return LANDING_PAGE_REDIRECTS.map(({ source, destination, permanent }) => ({
     source,
     destination,
     permanent,

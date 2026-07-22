@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Phone } from "lucide-react";
 import { trackPhoneClick } from "@/lib/analytics/track";
 import { useHydrated } from "@/hooks/useHydrated";
 import { isHashNavLink, isNavLinkActive, MAIN_NAV_LINKS } from "@/lib/navigation";
-import { SPRING_SNAPPY } from "@/lib/motion";
+import { DURATION_UI, EASE_OUT, SPRING_SNAPPY } from "@/lib/motion";
 import type { NavShellTheme } from "@/lib/studio-shell";
 import { contactLinks } from "@/lib/site";
 import CtaButton from "@/components/ui/CtaButton";
@@ -29,8 +29,14 @@ export default function NavbarMenu({
   onCloseMobile,
 }: NavbarMenuProps) {
   const hydrated = useHydrated();
+  const reduce = useReducedMotion();
   const isDark = navTheme === "dark";
-
+  const pillTransition = reduce
+    ? { duration: 0.01 }
+    : { type: "spring" as const, ...SPRING_SNAPPY };
+  const drawerTransition = reduce
+    ? { duration: 0.01 }
+    : { duration: DURATION_UI, ease: EASE_OUT };
   return (
     <>
       <ul className="hidden md:flex items-center gap-1">
@@ -63,7 +69,7 @@ export default function NavbarMenu({
                     className={`absolute inset-0 rounded-2xl -z-10 ${
                       isDark ? "nav-active-pill--dark" : "nav-active-pill--light"
                     }`}
-                    transition={{ type: "spring", ...SPRING_SNAPPY }}
+                    transition={pillTransition}
                     aria-hidden
                   />
                 ) : active && !hydrated ? (
@@ -84,10 +90,10 @@ export default function NavbarMenu({
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={reduce ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }}
+            transition={drawerTransition}
             className={`fixed top-[88px] sm:top-[100px] left-3 right-3 sm:left-4 sm:right-4 z-40 md:hidden rounded-[var(--radius)] border backdrop-blur-[18px] ${
               isDark
                 ? "border-white/12 bg-[rgba(8,10,18,0.94)] shadow-[0_16px_40px_rgba(0,0,0,0.35)]"

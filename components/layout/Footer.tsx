@@ -4,25 +4,13 @@ import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
 import TrackedLink from "@/components/ui/TrackedLink";
 import { contactLinks } from "@/lib/site";
 
-const projectLinks = [
-  { label: "תיק עבודות", href: "/projects" },
-  { label: "Magadim", href: "/projects/magadim" },
-  { label: "EB Hair", href: "/projects/eb-hair" },
-  { label: "אוטומציה עסקית", href: "/projects/ai-automation" },
-] as const;
-
-const serviceLinks = [
-  { label: "מפת השירותים", href: "/services" },
-  { label: "בניית אתרים", href: "/services/websites" },
-  { label: "מיתוג וזהות", href: "/services/branding" },
-  { label: "אוטומציות", href: "/services/automations" },
-  { label: "שיווק דיגיטלי", href: "/services/digital-marketing" },
-] as const;
-
-const contentLinks = [
-  { label: "מדריכים", href: "/blog" },
-  { label: "אודות", href: "/about" },
-  { label: "הוכחות", href: "/#projects" },
+const pageLinks = [
+  { label: "מה חוסם", href: "/#problem" },
+  { label: "איך זה עובד", href: "/#solution" },
+  { label: "עבודות", href: "/#projects" },
+  { label: "מסלולים", href: "/#pathways" },
+  { label: "שאלות נפוצות", href: "/#faq" },
+  { label: "אבחון", href: "/#contact" },
 ] as const;
 
 const socialLinks = [
@@ -46,8 +34,8 @@ export default function Footer() {
     <footer className="studio-footer section-shell">
       <div className="h-[3px] w-full bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
-        <div className="grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-8 border-b border-slate-200">
-          <div className="lg:col-span-2" dir="rtl">
+        <div className="grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 border-b border-slate-200">
+          <div className="lg:col-span-1" dir="rtl">
             <h4 className="studio-footer-heading text-base">JT Solutions</h4>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
               מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים מסודר.
@@ -58,9 +46,9 @@ export default function Footer() {
           </div>
 
           <div dir="rtl">
-            <h4 className="studio-footer-heading mb-4">שירותים</h4>
+            <h4 className="studio-footer-heading mb-4">ניווט</h4>
             <ul className="space-y-2.5">
-              {serviceLinks.map((link) => (
+              {pageLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="studio-footer-link">
                     {link.label}
@@ -71,34 +59,7 @@ export default function Footer() {
           </div>
 
           <div dir="rtl">
-            <h4 className="studio-footer-heading mb-4">פרויקטים</h4>
-            <ul className="space-y-2.5">
-              {projectLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="studio-footer-link">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div dir="rtl">
-            <h4 className="studio-footer-heading mb-4">תוכן ויצירת קשר</h4>
-            <ul className="space-y-2.5 mb-5">
-              {contentLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="studio-footer-link">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link href="/contact" className="studio-footer-link">
-                  צור קשר
-                </Link>
-              </li>
-            </ul>
+            <h4 className="studio-footer-heading mb-4">יצירת קשר</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href={`mailto:${contactLinks.email}`} className="studio-footer-link hover:text-sky-600">

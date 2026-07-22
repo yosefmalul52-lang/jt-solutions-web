@@ -1,11 +1,13 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Mail, Phone, Facebook, Instagram } from "lucide-react";
 import PremiumReveal from "@/components/motion/PremiumReveal";
 import ContactForm from "@/components/ui/ContactForm";
 import SectionHeader from "@/components/ui/SectionHeader";
-import DiagnosticFormProgress from "@/components/sections/diagnostic/DiagnosticFormProgress";
+import DiagnosticFormProgress, {
+  type DiagnosticFormPhase,
+} from "@/components/sections/diagnostic/DiagnosticFormProgress";
 import { trackPhoneClick } from "@/lib/analytics/track";
 import { contactLinks } from "@/lib/site";
 import { contactPageCopy } from "@/lib/contact-form-copy";
@@ -26,52 +28,54 @@ function ContactFormFallback() {
 }
 
 function HomeFinalCta() {
+  const [formPhase, setFormPhase] = useState<DiagnosticFormPhase>("ready");
+
   return (
     <section
       id="contact"
       className="home-final-cta home-section home-section--cta section-shell"
       dir="rtl"
+      aria-labelledby="contact-title"
     >
       <div className="home-final-cta__mesh" aria-hidden />
       <div className="home-final-cta__grid-bg" aria-hidden />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          before={finalCtaSection.before}
-          accent={finalCtaSection.accent}
-          after={finalCtaSection.after}
-          accentColor={finalCtaSection.accentColor}
-          subline={finalCtaSection.subline}
-          className="home-final-cta__header"
-        />
+      <SectionHeader
+        titleId="contact-title"
+        before={finalCtaSection.before}
+        accent={finalCtaSection.accent}
+        after={finalCtaSection.after}
+        accentColor={finalCtaSection.accentColor}
+        subline={finalCtaSection.subline}
+        className="home-final-cta__header relative z-10 px-4 sm:px-6"
+      />
 
-        <div className="home-final-cta__form-center">
-          <PremiumReveal variant="rise" delay={0.1}>
-            <div className="diagnostic-form-card">
-              <div className="diagnostic-form-card__rule" aria-hidden />
+      <div className="home-final-cta__form-center relative z-10">
+        <PremiumReveal variant="rise" delay={0.1}>
+          <div className="diagnostic-form-card">
+            <div className="diagnostic-form-card__rule" aria-hidden />
 
-              <div className="diagnostic-form-card__body">
-                <DiagnosticFormProgress />
+            <div className="diagnostic-form-card__body">
+              <DiagnosticFormProgress phase={formPhase} />
 
-                <Suspense fallback={<ContactFormFallback />}>
-                  <ContactForm variant="compact" />
-                </Suspense>
-              </div>
+              <Suspense fallback={<ContactFormFallback />}>
+                <ContactForm variant="compact" onPhaseChange={setFormPhase} />
+              </Suspense>
             </div>
-          </PremiumReveal>
-        </div>
-
-        <PremiumReveal className="home-final-cta__footer" variant="rise" delay={0.2}>
-          <div className="home-final-cta__trust">
-            {finalCtaTrust.map((item) => (
-              <span key={item} className="home-final-cta__trust-item">
-                <span className="home-final-cta__trust-dot" aria-hidden />
-                {item}
-              </span>
-            ))}
           </div>
         </PremiumReveal>
       </div>
+
+      <PremiumReveal className="home-final-cta__footer relative z-10 px-4 sm:px-6" variant="rise" delay={0.2}>
+        <div className="home-final-cta__trust" role="list">
+          {finalCtaTrust.map((item) => (
+            <span key={item} className="home-final-cta__trust-item" role="listitem">
+              <span className="home-final-cta__trust-dot" aria-hidden />
+              {item}
+            </span>
+          ))}
+        </div>
+      </PremiumReveal>
     </section>
   );
 }

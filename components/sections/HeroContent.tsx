@@ -26,11 +26,11 @@ export default function HeroContent() {
 
   return (
     <section id="hero" className="homepage-hero-section relative z-10 flex flex-1 items-center" dir="rtl">
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-5 py-4 sm:gap-10 sm:px-8 lg:grid-cols-2 lg:gap-14 lg:px-12">
-        <Wrap className="flex flex-col text-center lg:text-right" {...wrapProps}>
-          <Item {...itemProps}>
+      <div className="relative z-10 mx-auto grid w-full max-w-[90rem] grid-cols-1 items-center gap-10 px-5 py-4 sm:gap-12 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(34rem,40rem)] lg:gap-x-20 lg:gap-y-12 xl:gap-x-24 lg:px-10 xl:px-12">
+        <Wrap className="home-hero-copy flex min-w-0 flex-col text-center lg:max-w-[42rem] lg:justify-self-stretch lg:text-right xl:max-w-[44rem]" {...wrapProps}>
+          <Item className="home-hero-copy__lead" {...itemProps}>
             <HomeHeroHeadline />
-            <div className="mt-4 flex justify-center lg:justify-start">
+            <div className="home-hero-copy__typewriter mt-3 flex justify-center lg:justify-start sm:mt-3.5">
               <PremiumTypewriter
                 words={[
                   "קמפיין שמביא תנועה — מוכר?",
@@ -43,15 +43,15 @@ export default function HeroContent() {
             </div>
           </Item>
 
-          <Text className="home-subline home-hero-subline mx-auto mt-5 max-w-xl md:hidden lg:mx-0" {...itemProps}>
+          <Text className="home-subline home-hero-subline home-hero-copy__subline mx-auto mt-5 max-w-[36ch] md:hidden lg:mx-0 lg:max-w-[42ch]" {...itemProps}>
             {heroCopy.sublineMobile}
           </Text>
-          <Text className="home-subline home-hero-subline mx-auto mt-5 hidden max-w-xl md:block lg:mx-0" {...itemProps}>
+          <Text className="home-subline home-hero-subline home-hero-copy__subline mx-auto mt-5 hidden max-w-[42ch] md:block lg:mx-0 lg:max-w-[46ch]" {...itemProps}>
             {heroCopy.subline}
           </Text>
 
           <Item
-            className="mt-7 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:justify-start"
+            className="home-hero-copy__cta mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:items-center lg:justify-start"
             {...itemProps}
           >
             <HomeCtaButton
@@ -64,7 +64,7 @@ export default function HeroContent() {
           </Item>
         </Wrap>
 
-        <Item className="relative w-full lg:max-w-md lg:justify-self-end" {...itemProps}>
+        <Item className="relative w-full min-w-0 justify-self-center lg:justify-self-end lg:-translate-x-6 xl:-translate-x-12 2xl:-translate-x-16" {...itemProps}>
           <LeadOrbitVisual />
         </Item>
       </div>

@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import { trackPhoneClick } from "@/lib/analytics/track";
 import {
@@ -20,10 +20,9 @@ import {
   mapSectionToNavHash,
   scrollToHash,
 } from "@/lib/scroll";
+import { EASE_OUT } from "@/lib/motion";
 import { getNavShellTheme } from "@/lib/studio-shell";
 import { contactLinks } from "@/lib/site";
-
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const NavbarMenu = dynamic(() => import("@/components/layout/NavbarMenu"), {
   ssr: false,
@@ -40,13 +39,16 @@ const NavbarMenu = dynamic(() => import("@/components/layout/NavbarMenu"), {
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("#hero");
   const hydrated = useHydrated();
+  const reduceMotion = useReducedMotion();
   const pathname = usePathname();
   const navScrollLockTargetRef = useRef<string | null>(null);
   const navScrollLockTimerRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
+  const lastScrollYRef = useRef(0);
 
   const navTheme = useMemo(
     () => getNavShellTheme(pathname, activeHash),
@@ -77,15 +79,35 @@ export default function Navbar() {
   }, [syncActiveSection]);
 
   useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const currentY = window.scrollY;
+      const lastY = lastScrollYRef.current;
+      const delta = currentY - lastY;
+
+      setScrolled(currentY > 40);
+
+      // Keep chrome stable for reduced-motion users
+      if (reduceMotion || mobileOpen || currentY < 80) {
+        setNavHidden(false);
+      } else if (delta > 8) {
+        setNavHidden(true);
+      } else if (delta < -8) {
+        setNavHidden(false);
+      }
+
+      lastScrollYRef.current = currentY;
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mobileOpen, reduceMotion]);
 
   useEffect(() => {
+    if (mobileOpen) setNavHidden(false);
+  }, [mobileOpen]);  useEffect(() => {
     if (!hydrated || pathname !== "/") return;
 
     syncActiveSection();
@@ -155,10 +177,17 @@ export default function Navbar() {
         </defs>
       </svg>
       <motion.header
-        initial={hydrated ? { y: -80, opacity: 0 } : false}
-        animate={{ y: 0, opacity: 1 }}
-        transition={hydrated ? { duration: 0.7, ease: EASE } : { duration: 0 }}
-        className="fixed top-3 sm:top-4 inset-x-0 z-50 transition-all duration-500 px-3 sm:px-4 pointer-events-none"
+        initial={hydrated && !reduceMotion ? { y: -80, opacity: 0 } : false}
+        animate={{
+          y: navHidden && !reduceMotion ? -120 : 0,
+          opacity: navHidden && !reduceMotion ? 0 : 1,
+        }}
+        transition={
+          !hydrated || reduceMotion
+            ? { duration: 0 }
+            : { duration: 0.28, ease: EASE_OUT }
+        }
+        className="pointer-events-none fixed inset-x-0 top-3 z-50 px-3 transition-all duration-500 sm:top-4 sm:px-4"
       >
         <nav
           dir="rtl"
@@ -169,7 +198,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="flex shrink-0 items-center py-1"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })}
           >
             <Image
               src="/logo.png"

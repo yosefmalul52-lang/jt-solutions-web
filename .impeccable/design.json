@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-13T14:45:00.000Z",
+  "title": "Design System: JT Solutions",
+  "extensions": {
+    "colorMeta": {
+      "canvas-white": {
+        "role": "neutral",
+        "displayName": "Canvas White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.02 250)",
+          "oklch(25% 0.02 250)",
+          "oklch(35% 0.02 250)",
+          "oklch(45% 0.015 250)",
+          "oklch(55% 0.012 250)",
+          "oklch(70% 0.008 250)",
+          "oklch(85% 0.005 250)",
+          "oklch(100% 0 0)"
+        ]
+      },
+      "canvas-soft": {
+        "role": "neutral",
+        "displayName": "Canvas Soft",
+        "canonical": "oklch(98.5% 0.008 250)",
+        "tonalRamp": [
+          "oklch(20% 0.03 250)",
+          "oklch(30% 0.025 250)",
+          "oklch(40% 0.02 250)",
+          "oklch(50% 0.018 250)",
+          "oklch(60% 0.015 250)",
+          "oklch(75% 0.012 250)",
+          "oklch(90% 0.01 250)",
+          "oklch(98.5% 0.008 250)"
+        ]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Ink Primary",
+        "canonical": "oklch(20% 0.03 250)",
+        "tonalRamp": [
+          "oklch(12% 0.035 250)",
+          "oklch(16% 0.032 250)",
+          "oklch(20% 0.03 250)",
+          "oklch(28% 0.025 250)",
+          "oklch(38% 0.02 250)",
+          "oklch(50% 0.015 250)",
+          "oklch(65% 0.01 250)",
+          "oklch(80% 0.006 250)"
+        ]
+      },
+      "accent-blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "oklch(55% 0.2 255)",
+        "tonalRamp": [
+          "oklch(22% 0.12 255)",
+          "oklch(30% 0.14 255)",
+          "oklch(38% 0.16 255)",
+          "oklch(45% 0.18 255)",
+          "oklch(55% 0.2 255)",
+          "oklch(65% 0.16 255)",
+          "oklch(78% 0.1 255)",
+          "oklch(92% 0.04 255)"
+        ]
+      },
+      "accent-navy": {
+        "role": "primary",
+        "displayName": "Studio Navy",
+        "canonical": "oklch(32% 0.12 265)",
+        "tonalRamp": [
+          "oklch(15% 0.08 265)",
+          "oklch(22% 0.1 265)",
+          "oklch(28% 0.11 265)",
+          "oklch(32% 0.12 265)",
+          "oklch(40% 0.11 265)",
+          "oklch(52% 0.09 265)",
+          "oklch(68% 0.06 265)",
+          "oklch(85% 0.03 265)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 only — Hebrew RTL, balanced wrap."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2 via SectionHeader."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Sublines, prose, form helper text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, trust pills, compact UI."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hairline",
+        "value": "0 1px 2px rgba(15, 23, 42, 0.03)",
+        "purpose": "Cards and tiles at rest."
+      },
+      {
+        "name": "lift",
+        "value": "0 10px 28px rgba(15, 23, 42, 0.06)",
+        "purpose": "Interactive card hover."
+      },
+      {
+        "name": "cta",
+        "value": "0 10px 28px rgba(15, 23, 42, 0.14)",
+        "purpose": "Primary button default stack."
+      },
+      {
+        "name": "featured",
+        "value": "0 12px 32px rgba(37, 99, 235, 0.08)",
+        "purpose": "Featured pricing tier emphasis."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Buttons, cards, UI state transitions (280ms)."
+      },
+      {
+        "name": "ease-input",
+        "value": "ease",
+        "purpose": "Form focus border/shadow (180ms)."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main conversion CTA — diagnostic call, form submit.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">בוא נבדוק יחד — אבחון חינם</button>",
+      "css": ".ds-btn-primary { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3rem; padding: 0.72rem 1.65rem; font-family: Heebo, system-ui, sans-serif; font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.015em; line-height: 1.2; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; cursor: pointer; background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 38%), linear-gradient(165deg, #1e3a8a 0%, #1d4ed8 48%, #1e3a8a 100%); box-shadow: 0 0 0 1px rgba(15,23,42,0.14), 0 1px 2px rgba(15,23,42,0.06), 0 10px 28px rgba(15,23,42,0.14); transition: transform 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(15,23,42,0.14), 0 4px 12px rgba(15,23,42,0.1), 0 14px 32px rgba(15,23,42,0.16); } .ds-btn-primary:focus-visible { outline: 2px solid rgba(37,99,235,0.55); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Supporting actions on light surfaces.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">צפה בפרויקטים</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0.72rem 1.65rem; font-family: Heebo, system-ui, sans-serif; font-size: 0.9375rem; font-weight: 600; color: #0f172a; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 0 0 1px rgba(255,255,255,0.9) inset, 0 1px 2px rgba(15,23,42,0.04); cursor: pointer; transition: border-color 280ms cubic-bezier(0.22,1,0.36,1), box-shadow 280ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-secondary:hover { border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(15,23,42,0.06); } .ds-btn-secondary:focus-visible { outline: 2px solid rgba(37,99,235,0.55); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Contact form fields — glass variant on light CTA sections.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">שם מלא</span><input class=\"ds-input\" type=\"text\" placeholder=\"איך לפנות אליך?\" /></label>",
+      "css": ".ds-field { display: block; font-family: Heebo, system-ui, sans-serif; } .ds-field-label { display: block; margin-bottom: 0.375rem; font-size: 0.75rem; font-weight: 600; color: #334155; } .ds-input { width: 100%; min-height: 2.75rem; padding: 0.75rem 1rem; font-size: 0.875rem; line-height: 1.5; color: #0f172a; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; transition: border-color 180ms ease, box-shadow 180ms ease; } .ds-input::placeholder { color: #94a3b8; } .ds-input:focus { outline: none; border-color: rgba(14,165,233,0.5); box-shadow: 0 0 0 3px rgba(14,165,233,0.12); }"
+    },
+    {
+      "name": "Home Card",
+      "kind": "card",
+      "refersTo": "button-secondary",
+      "description": "Default content card — pricing, services, FAQ containers.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card-title\">עסק בצמיחה</h3><p class=\"ds-card-body\">נוכחות מקצועית וליווי מתמשך</p></div>",
+      "css": ".ds-card { background: #ffffff; border: 1px solid #e8edf3; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 1px 2px rgba(15,23,42,0.03); transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; } .ds-card-title { margin: 0 0 0.5rem; font-family: Heebo, system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; color: #0f172a; } .ds-card-body { margin: 0; font-size: 0.9375rem; line-height: 1.65; color: #475569; } .ds-card:hover { border-color: #dbe3ec; box-shadow: 0 10px 28px rgba(15,23,42,0.06); transform: translateY(-1px); }"
+    },
+    {
+      "name": "Trust Pill",
+      "kind": "chip",
+      "refersTo": "button-secondary",
+      "description": "Hero trust strip and compact proof chips.",
+      "html": "<span class=\"ds-pill\">מענה תוך 24 שעות</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; padding: 0.35rem 0.7rem; font-family: Heebo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; color: #64748b; background: #ffffff; border: 1px solid #e8edf3; border-radius: 9999px; }"
+    },
+    {
+      "name": "Section Header",
+      "kind": "custom",
+      "refersTo": "button-secondary",
+      "description": "Unified section heading with one accent word.",
+      "html": "<header class=\"ds-section-header\"><h2 class=\"ds-section-title\">רוב העסקים לא נופלים בגלל שאין להם אתר — <span class=\"ds-accent\">הם נופלים בנקודות החיבור</span>?</h2><p class=\"ds-section-sub\">תיאור קצר של הבעיה</p></header>",
+      "css": ".ds-section-header { font-family: Heebo, system-ui, sans-serif; text-align: right; max-width: 48rem; } .ds-section-title { margin: 0; font-size: clamp(1.875rem, 3.2vw, 2.375rem); font-weight: 700; letter-spacing: -0.028em; line-height: 1.18; color: #0f172a; text-wrap: balance; } .ds-accent { color: #2563eb; border-bottom: 2px solid rgba(37,99,235,0.35); } .ds-section-sub { margin: 1rem 0 0; font-size: clamp(0.9375rem, 1.4vw, 1.0625rem); line-height: 1.65; color: #475569; max-width: 42rem; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "Homepage hash navigation — active state tint.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-nav-link--active\" href=\"#contact\">צור קשר</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 0.25rem; font-family: Heebo, system-ui, sans-serif; } .ds-nav-link { display: inline-flex; align-items: center; padding: 0.5rem 0.875rem; font-size: 0.875rem; font-weight: 600; color: #475569; text-decoration: none; border-radius: 1rem; transition: background-color 200ms ease, color 200ms ease; } .ds-nav-link:hover { color: #0f172a; background: rgba(15,23,42,0.04); } .ds-nav-link--active { color: #2563eb; background: rgba(37,99,235,0.08); } .ds-nav-link:focus-visible { outline: 2px solid rgba(37,99,235,0.55); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Digital Studio",
+    "overview": "JT Solutions reads as a premium Israeli B2B digital studio: confident, expert, and direct — never flashy for its own sake. Surfaces are clean white and cool-tinted off-white, typography does the heavy lifting in Hebrew RTL, and conversion paths are visually unmistakable.",
+    "keyCharacteristics": [
+      "Light, cool-tinted canvas — not warm cream/sand",
+      "Single sans family (Heebo) across display, UI, and body",
+      "Navy-to-blue accent with restrained cyan focus rings",
+      "Flat surfaces at rest; hover lift via border + shadow shift",
+      "RTL-first layouts with mobile-real breakpoints",
+      "Primary conversion: diagnostic call / contact form"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Signal Blue and Studio Navy together carry action and authority. They appear on CTAs, one accent word per section heading, and key interactive states — not as ambient page tint.",
+        "section": "colors"
+      },
+      {
+        "name": "The Cool Canvas Rule",
+        "body": "Section backgrounds stay white or cool #f8fbff. Warm cream, sand, and beige tints are prohibited.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single Family Rule",
+        "body": "Heebo carries every role. Do not introduce a second sans or a display serif without explicit system revision.",
+        "section": "typography"
+      },
+      {
+        "name": "The Balance Rule",
+        "body": "Apply text-wrap: balance on H1–H2; text-wrap: pretty on long Hebrew paragraphs.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "No shadow on static body sections. Shadows appear on hover, focus, featured emphasis, or primary CTAs only.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep body backgrounds white or cool #f8fbff — premium Israeli B2B clarity.",
+      "Do use Heebo at 700–800 for headings and 400–600 for UI/body with verified contrast.",
+      "Do make the diagnostic CTA the visually dominant action on every conversion surface.",
+      "Do use flat cards with 1px borders; add lift shadow only on hover or featured state.",
+      "Do provide prefers-reduced-motion alternatives for all scroll and entrance animations.",
+      "Do test Hebrew headlines at mobile/tablet widths — no overflow from large clamp scales."
+    ],
+    "donts": [
+      "Don't use generic SaaS templates — cream backgrounds, hero-metric cards, identical icon-card grids.",
+      "Don't use gradient text outside the hero accent line.",
+      "Don't add tiny uppercase tracked eyebrows above every section.",
+      "Don't use numbered 01/02/03 section markers unless the section is a real ordered sequence.",
+      "Don't use glassmorphism, neon accents, or side-stripe colored borders as decoration.",
+      "Don't gate content visibility on animation.",
+      "Don't animate layout properties — transform and opacity only."
+    ]
+  }
+}

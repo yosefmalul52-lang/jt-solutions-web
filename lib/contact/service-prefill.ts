@@ -4,7 +4,7 @@ export const serviceParamMap: Record<string, (typeof contactUrgencyOptions)[numb
   website: "אין לי אתר / האתר ישן",
   landing: "אני צריך דף נחיתה לקמפיין",
   ecommerce: "אני רוצה חנות אונליין",
-  branding: "אני רוצה יותר פניות",
+  branding: "אני רוצה לבנות את המותג שלי",
   automation: "אני רוצה לסדר לידים בוואטסאפ/CRM",
   marketing: "אני רוצה יותר פניות",
 };
@@ -25,15 +25,17 @@ export const serviceRelatedLinks: Record<
   (typeof contactUrgencyOptions)[number],
   { label: string; href: string }
 > = {
-  "אין לי אתר / האתר ישן": { label: "בניית אתרים ודפי נחיתה", href: "/services/websites" },
-  "אני צריך דף נחיתה לקמפיין": { label: "ראו פרויקט דומה — EB Hair", href: "/projects/eb-hair" },
-  "אני רוצה יותר פניות": { label: "שיווק דיגיטלי ותשתית פרסום", href: "/services/digital-marketing" },
+  "אין לי אתר / האתר ישן": { label: "איך המעטפת עובדת", href: "/#solution" },
+  "אני צריך דף נחיתה לקמפיין": { label: "ראו עבודות לדוגמה", href: "/#projects" },
+  "אני רוצה יותר פניות": { label: "מסלולי צמיחה", href: "/#pathways" },
   "אני רוצה לסדר לידים בוואטסאפ/CRM": {
-    label: "ראו פרויקט דומה — אוטומציה",
-    href: "/projects/ai-automation",
+    label: "ראו עבודות לדוגמה",
+    href: "/#projects",
   },
-  "אני רוצה חנות אונליין": { label: "ראו פרויקט דומה — Magadim", href: "/projects/magadim" },
-  "אני לא בטוח — צריך הכוונה": { label: "כל השירותים", href: "/services" },
+  "אני רוצה חנות אונליין": { label: "ראו עבודות לדוגמה", href: "/#projects" },
+  "אני רוצה לבנות את המותג שלי": { label: "איך המעטפת עובדת", href: "/#solution" },
+  "אני עדיין לא בטוח..": { label: "מסלולים ומחירים", href: "/#pathways" },
+  "אני לא בטוח — צריך הכוונה": { label: "מסלולים ומחירים", href: "/#pathways" },
 };
 
 export const POST_LEAD_WHATSAPP_MESSAGE =

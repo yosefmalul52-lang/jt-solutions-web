@@ -12,7 +12,14 @@ export function scrollToHash(hash: string) {
   if (!el) return;
 
   const top = el.getBoundingClientRect().top + window.scrollY - getNavScrollOffset();
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  window.scrollTo({
+    top: Math.max(0, top),
+    behavior: prefersReduced ? "auto" : "smooth",
+  });
 
   if (window.location.hash !== id) {
     history.replaceState(null, "", id);

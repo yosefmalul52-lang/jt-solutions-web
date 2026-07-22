@@ -33,7 +33,7 @@ export default function ContactFormSuccess({
 
   if (isCompact) {
     return (
-      <div className="home-final-cta-form__success" dir="rtl">
+      <div className="home-final-cta-form__success" dir="rtl" role="status" aria-live="polite">
         <div className="home-final-cta-form__success-icon" aria-hidden>
           <Check size={18} strokeWidth={2.5} />
         </div>
@@ -84,7 +84,7 @@ export default function ContactFormSuccess({
       />
 
       <p className={`mt-5 text-xs sm:text-sm leading-relaxed ${isGlass ? "text-slate-400" : "text-slate-600"}`}>
-        בינתיים אפשר לצפות בפרויקטים דומים או לבדוק את עמודי השירות.
+        בינתיים אפשר לצפות בעבודות או במסלולים בדף הזה.
       </p>
 
       {relatedLink ? (
@@ -99,16 +99,16 @@ export default function ContactFormSuccess({
             |
           </span>
           <Link
-            href="/services"
+            href="/#projects"
             className={`text-sm font-semibold hover:underline ${isGlass ? "text-slate-300 hover:text-slate-100" : "text-slate-600 hover:text-slate-900"}`}
           >
-            כל השירותים
+            עבודות לדוגמה
           </Link>
         </div>
       ) : (
         <div className="mt-4">
           <Link
-            href="/projects"
+            href="/#projects"
             className={`text-sm font-semibold hover:underline ${isGlass ? "text-cyan-300 hover:text-cyan-200" : "text-indigo-700 hover:text-indigo-900"}`}
           >
             לצפייה בפרויקטים

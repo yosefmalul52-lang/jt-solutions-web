@@ -3,6 +3,7 @@ import { Heebo } from "next/font/google";
 import "./globals.css";
 import "@/components/ui/button-system.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
+import SmoothScroll from "@/components/providers/SmoothScroll";
 import ConsentGatedTracking from "@/components/analytics/ConsentGatedTracking";
 import DeferredScrollProgress from "@/components/layout/DeferredScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
@@ -84,13 +85,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#F8FAFC] text-slate-950">
-        <DeferredScrollProgress />
-        <TrackingProvider>{children}</TrackingProvider>
-        <CookieConsent />
-        <ConsentGatedTracking />
-        <FloatingWhatsApp />
-        <EqualWeb />
-        <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />
+        <SmoothScroll>
+          <DeferredScrollProgress />
+          <TrackingProvider>{children}</TrackingProvider>
+          <CookieConsent />
+          <ConsentGatedTracking />
+          <FloatingWhatsApp />
+          <EqualWeb />
+          <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />
+        </SmoothScroll>
       </body>
     </html>
   );

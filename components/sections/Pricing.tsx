@@ -1,23 +1,55 @@
 "use client";
 
-import { type CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check } from "lucide-react";
+import {
+  ArrowUpRight,
+  Check,
+  LayoutTemplate,
+  Workflow,
+  type LucideIcon,
+} from "lucide-react";
 import CtaButton from "@/components/ui/CtaButton";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { homePathways } from "@/lib/home-funnel";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
-const TIER_ACCENT: Record<string, string> = {
-  "digital-start": "home-pricing-card--cyan",
-  "ready-to-advertise": "home-pricing-card--blue",
-  "leads-system": "home-pricing-card--violet",
+type PathwayId = (typeof homePathways)[number]["id"];
+
+type PathwayVisual = {
+  icon: LucideIcon;
+  iconColor: string;
+  gradientColor: string;
+  accentColor: string;
+  featuresTitle: string;
+  badge: string;
 };
 
-const PATHWAY_TAGS: Record<string, string> = {
-  "digital-start": "התחלה דיגיטלית",
-  "ready-to-advertise": "מוכן לפרסום",
-  "leads-system": "עסק בצמיחה",
+const PATHWAY_VISUALS: Record<PathwayId, PathwayVisual> = {
+  "digital-start": {
+    icon: LayoutTemplate,
+    iconColor: "text-blue-600",
+    gradientColor: "from-blue-50/90 via-blue-50/30 to-transparent",
+    accentColor: "text-blue-600",
+    featuresTitle: "מה כלול",
+    badge: "התחלה דיגיטלית",
+  },
+  "ready-to-advertise": {
+    icon: ArrowUpRight,
+    iconColor: "text-lime-700",
+    gradientColor: "from-lime-50/90 via-lime-50/30 to-transparent",
+    accentColor: "text-lime-700",
+    featuresTitle: "מה כלול",
+    badge: "מתאים לפני פרסום",
+  },
+  "leads-system": {
+    icon: Workflow,
+    iconColor: "text-fuchsia-700",
+    gradientColor: "from-fuchsia-50/90 via-fuchsia-50/30 to-transparent",
+    accentColor: "text-fuchsia-700",
+    featuresTitle: "מה כלול",
+    badge: "עסק בצמיחה",
+  },
 };
 
 export default function Pricing() {
@@ -25,11 +57,17 @@ export default function Pricing() {
   const { container: tiersStagger, item: tierItem } = staggerVariants(reduce);
 
   return (
-    <section id="pathways" className="home-section home-section--pricing section-shell" dir="rtl">
+    <section
+      id="pathways"
+      className="home-section home-section--pricing section-shell"
+      dir="rtl"
+      aria-labelledby="pathways-title"
+    >
       <div className="home-section__atmosphere home-section__atmosphere--pricing" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          className="mb-10 lg:mb-12"
+          titleId="pathways-title"
+          className="mb-10 lg:mb-14"
           before="לפי "
           accent="המצב"
           after=" של העסק — לא לפי תווית כללית!"
@@ -42,57 +80,93 @@ export default function Pricing() {
           initial="hidden"
           whileInView="show"
           viewport={motionViewport.sectionLoose}
-          className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 lg:items-stretch"
+          className="home-pricing-grid"
         >
           {homePathways.map((pathway) => {
+            const visual = PATHWAY_VISUALS[pathway.id];
+            const Icon = visual.icon;
             const isPopular = "popular" in pathway && pathway.popular === true;
+
             return (
               <motion.article
-                variants={tierItem}
                 key={pathway.id}
-                className={`home-pricing-card relative flex h-full flex-col p-7 lg:p-8 ${
-                  TIER_ACCENT[pathway.id] ?? ""
-                } ${isPopular ? "home-pricing-card--featured lg:-translate-y-1" : ""}`}
-                style={isPopular ? ({ ["--tier" as string]: "#2563eb" } as CSSProperties) : undefined}
-              >
-                {isPopular ? (
-                  <span className="home-pricing-popular-badge" style={{ ["--tier" as string]: "#2563eb" }}>
-                    מתאים לפני פרסום
-                  </span>
-                ) : (
-                  <span className="home-pricing-fit-tag">{PATHWAY_TAGS[pathway.id]}</span>
+                variants={tierItem}
+                whileHover={
+                  reduce
+                    ? undefined
+                    : { y: -3, transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } }
+                }
+                whileTap={reduce ? undefined : { scale: 0.99 }}
+                className={cn(
+                  "home-pricing-card home-pricing-card--interactive",
+                  isPopular && "home-pricing-card--featured",
                 )}
+                aria-labelledby={`pathway-${pathway.id}-title`}
+              >
+                <div
+                  className={cn(
+                    "home-pricing-card__wash bg-gradient-to-b",
+                    visual.gradientColor,
+                  )}
+                  aria-hidden
+                />
 
-                <h3 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
-                  {pathway.name}
-                </h3>
-                <p className="home-pricing-tier-eyebrow mt-2">
-                  {pathway.forWho}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-slate-600">{pathway.description}</p>
-
-                <ul className="mt-6 flex-1 space-y-2.5 border-t border-slate-200 pt-6">
-                  {pathway.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-600"
-                    >
-                      <span className="cm-check mt-0.5" aria-hidden>
-                        <Check size={12} strokeWidth={3} />
+                <div className="home-pricing-card__body">
+                  {/* Identity — tight cluster */}
+                  <header className="home-pricing-card__identity">
+                    <div className="home-pricing-card__meta">
+                      <span
+                        className={cn(
+                          isPopular ? "home-pricing-popular-badge" : "home-pricing-fit-tag",
+                        )}
+                      >
+                        {visual.badge}
                       </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                      <span className={cn("home-pricing-card__icon", visual.iconColor)} aria-hidden>
+                        <Icon size={22} strokeWidth={1.75} />
+                      </span>
+                    </div>
 
-                <div className="mt-8">
-                  <CtaButton
-                    href={pathway.ctaHref}
-                    ctaLocation={pathway.ctaLocation}
-                    variant="secondary"
-                    shine
-                    className="w-full"
-                  />
+                    <h3 id={`pathway-${pathway.id}-title`} className="home-pricing-card__title">
+                      {pathway.name}
+                    </h3>
+                    <p className="home-pricing-tier-eyebrow">{pathway.forWho}</p>
+                  </header>
+
+                  {/* Value prop */}
+                  <p className="home-pricing-card__desc">{pathway.description}</p>
+
+                  {/* Features — medium density */}
+                  <div className="home-pricing-card__includes">
+                    <p className={cn("home-pricing-card__includes-label", visual.accentColor)}>
+                      {visual.featuresTitle}
+                    </p>
+                    <ul className="home-pricing-card__features">
+                      {pathway.items.map((item) => (
+                        <li key={item}>
+                          <Check
+                            size={15}
+                            strokeWidth={2.5}
+                            className={cn("home-pricing-card__check", visual.accentColor)}
+                            aria-hidden
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action — last, always bottom-aligned */}
+                  <div className="home-pricing-card__cta">
+                    <CtaButton
+                      href={pathway.ctaHref}
+                      ctaLocation={pathway.ctaLocation}
+                      variant={isPopular ? "primary" : "secondary"}
+                      shine={Boolean(isPopular)}
+                      className="w-full"
+                      label="קבל אבחון דיגיטלי חינם"
+                    />
+                  </div>
                 </div>
               </motion.article>
             );

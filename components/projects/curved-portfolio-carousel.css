@@ -2,11 +2,11 @@
 
 .portfolio-curve-section {
   --screen-w: min(52vw, 900px);
-  --screen-aspect: 1024 / 589;
+  --screen-aspect: 16 / 9;
   position: relative;
   overflow-x: clip;
   overflow-y: visible;
-  padding: clamp(3.75rem, 7vw, 5.75rem) 1.25rem clamp(3.25rem, 6vw, 5rem);
+  padding: clamp(5rem, 9vw, 8rem) 1rem clamp(4.5rem, 8vw, 7rem);
   background:
     radial-gradient(ellipse 70% 45% at 50% -5%, rgba(37, 99, 235, 0.035), transparent 55%),
     radial-gradient(ellipse 40% 30% at 78% 40%, rgba(37, 99, 235, 0.025), transparent 50%),
@@ -23,26 +23,95 @@
 }
 
 .portfolio-bg-orb-one {
-  width: 420px;
-  height: 420px;
-  top: 80px;
-  left: 6%;
-  background: rgba(37, 99, 235, 0.08);
+  width: 520px;
+  height: 520px;
+  top: 60px;
+  left: 4%;
+  background: rgba(37, 99, 235, 0.1);
 }
 
 .portfolio-bg-orb-two {
-  width: 300px;
-  height: 300px;
-  right: 10%;
-  bottom: 180px;
-  background: rgba(124, 58, 237, 0.06);
+  width: 380px;
+  height: 380px;
+  right: 8%;
+  bottom: 140px;
+  background: rgba(37, 99, 235, 0.06);
 }
 
 .portfolio-header {
   position: relative;
   z-index: 2;
-  max-width: 42rem;
-  margin: 0 auto 2.5rem;
+  max-width: 52rem;
+  margin: 0 auto 3.5rem;
+  padding-inline: 1.25rem;
+}
+
+.portfolio-header .max-w-3xl {
+  max-width: 52rem;
+}
+
+.portfolio-header .home-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.portfolio-header .home-headline {
+  font-size: clamp(2.25rem, 4.4vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.036em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.portfolio-header .home-subline {
+  margin-top: 1rem;
+  font-size: clamp(1.0625rem, 1.7vw, 1.25rem);
+  font-weight: 500;
+  color: #334155;
+  max-width: 36rem;
+}
+
+.portfolio-embla {
+  position: relative;
+  padding-inline: 0;
+}
+
+.portfolio-embla [data-slot="carousel-content"] {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .portfolio-embla [data-slot="carousel-content"] {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
 }
 
 /* Shell + stage */

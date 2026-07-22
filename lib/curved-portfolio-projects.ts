@@ -7,6 +7,8 @@ export type CurvedPortfolioProject = {
   href: string;
   mockupClass: string;
   imageSrc?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
 export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
@@ -17,9 +19,11 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     description:
       "אתר שמציג תפריטים, אירועים ושירותי קייטרינג בצורה ברורה ומובילה לפנייה.",
     tags: ["אתר תדמית", "קייטרינג", "UX"],
-    href: "/projects/magadim",
+    href: "/#contact",
     mockupClass: "mockup--catering",
-    imageSrc: "/projects/magadim.png",
+    imageSrc: "/projects/magadim.webp",
+    imageWidth: 1024,
+    imageHeight: 589,
   },
   {
     id: "tsameret-glass",
@@ -28,9 +32,11 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     description:
       "אתר פרימיום לעבודות זכוכית עם הצגת שירותים, אמינות ותמונות עבודה.",
     tags: ["זכוכית", "לידים", "מיתוג"],
-    href: "/projects",
+    href: "/#contact",
     mockupClass: "mockup--glass",
-    imageSrc: "/projects/tsameret-glass.png",
+    imageSrc: "/projects/tsameret-glass.webp",
+    imageWidth: 1024,
+    imageHeight: 588,
   },
   {
     id: "financial-advisory",
@@ -38,9 +44,11 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     type: "דף נחיתה",
     description: "דף נחיתה ממוקד שמסביר את הערך מהר ומוביל להשארת פרטים.",
     tags: ["דף נחיתה", "קמפיין", "לידים"],
-    href: "/projects",
+    href: "/#contact",
     mockupClass: "mockup--landing",
-    imageSrc: "/projects/md-finance.png",
+    imageSrc: "/projects/md-finance.webp",
+    imageWidth: 1024,
+    imageHeight: 588,
   },
   {
     id: "fashion-store",
@@ -48,9 +56,11 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     type: "חנות אונליין",
     description: "חנות אינטרנטית נקייה עם חווית קנייה פשוטה וברורה.",
     tags: ["Ecommerce", "אופנה", "מכירות"],
-    href: "/projects/eb-hair",
+    href: "/#contact",
     mockupClass: "mockup--ecommerce",
-    imageSrc: "/projects/fashion-store.png",
+    imageSrc: "/projects/fashion-store.webp",
+    imageWidth: 1024,
+    imageHeight: 589,
   },
   {
     id: "lead-management",
@@ -58,8 +68,10 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     type: "אוטומציה / CRM",
     description: "מערכת שמרכזת פניות, סטטוסים ומשימות כדי שלא יאבדו לידים.",
     tags: ["CRM", "אוטומציה", "ניהול"],
-    href: "/projects/ai-automation",
+    href: "/#contact",
     mockupClass: "mockup--dashboard",
-    imageSrc: "/projects/ai-automation.png",
+    imageSrc: "/projects/ai-automation.webp",
+    imageWidth: 1400,
+    imageHeight: 788,
   },
 ];

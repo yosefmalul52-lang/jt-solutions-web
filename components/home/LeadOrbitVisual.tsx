@@ -34,16 +34,48 @@ const NODES: OrbitNode[] = [
 
 const N = NODES.length;
 
-// Deterministic polar positions (no Math.random → no hydration mismatch).
-const POSITIONS = NODES.map((_, i) => {
-  const angle = (-90 + i * (360 / N)) * (Math.PI / 180);
-  return {
-    nodeX: 50 + 40 * Math.cos(angle),
-    nodeY: 50 + 40 * Math.sin(angle),
-    lineX: 50 + 37 * Math.cos(angle),
-    lineY: 50 + 37 * Math.sin(angle),
-  };
-});
+type OrbitRingConfig = {
+  id: string;
+  duration: number;
+  inset: string;
+  phase: number;
+  direction: "normal" | "reverse";
+  slots: { nodeIndex: number; angle: number; trail?: boolean }[];
+};
+
+const RINGS: OrbitRingConfig[] = [
+  {
+    id: "outer",
+    duration: 30,
+    inset: "3%",
+    phase: 0,
+    direction: "normal",
+    slots: [
+      { nodeIndex: 0, angle: 0, trail: true },
+      { nodeIndex: 2, angle: 90 },
+      { nodeIndex: 4, angle: 180, trail: true }, // WhatsApp
+      { nodeIndex: 6, angle: 270 },
+    ],
+  },
+  {
+    id: "inner",
+    duration: 42,
+    inset: "21%",
+    phase: 45,
+    direction: "reverse",
+    slots: [
+      { nodeIndex: 1, angle: 0, trail: true },
+      { nodeIndex: 3, angle: 90 },
+      { nodeIndex: 5, angle: 180, trail: true }, // CRM
+      { nodeIndex: 7, angle: 270 },
+    ],
+  },
+];
+
+const PATHS = [
+  { inset: "3%" },
+  { inset: "21%" },
+] as const;
 
 export default function LeadOrbitVisual() {
   const hydrated = useHydrated();
@@ -62,60 +94,83 @@ export default function LeadOrbitVisual() {
 
   return (
     <div className="orbit-visual-wrap">
-      {/* Desktop / tablet: orbit */}
       <div
-        className="orbit-visual hidden sm:block"
+        className={`orbit-visual hidden sm:block ${animate ? "is-animated" : "is-static"}`}
         role="img"
         aria-label="מערכת לידים שמחברת קמפיינים, דף נחיתה, אתר, טופס, וואטסאפ, CRM, מעקב ומדידה"
       >
-        <svg className="orbit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
-          {POSITIONS.map((pos, i) => {
-            const isActive = i === active;
-            return (
-              <line
-                key={NODES[i].label}
-                x1="50"
-                y1="50"
-                x2={pos.lineX}
-                y2={pos.lineY}
-                stroke={isActive ? NODES[i].color : "#e2e8f0"}
-                strokeWidth={isActive ? 1.1 : 0.6}
-                strokeLinecap="round"
-                style={{ transition: "stroke 500ms ease, stroke-width 500ms ease" }}
-              />
-            );
-          })}
-        </svg>
-
-        <div className="orbit-center" aria-hidden style={{ color: activeNode.color }}>
-          <ActiveIcon size={22} strokeWidth={1.9} aria-hidden />
-          <span className="orbit-center__service">{activeNode.label}</span>
+        <div className="orbit-paths" aria-hidden>
+          {PATHS.map((path, i) => (
+            <div
+              key={i}
+              className="orbit-path"
+              style={{ inset: path.inset } as CSSProperties}
+            />
+          ))}
         </div>
 
-        {NODES.map((node, i) => {
-          const Icon = node.icon;
-          const pos = POSITIONS[i];
-          return (
-            <div
-              key={node.label}
-              className={`orbit-node ${i === active ? "is-active" : ""}`}
-              style={
-                {
-                  left: `${pos.nodeX}%`,
-                  top: `${pos.nodeY}%`,
-                  ["--node"]: node.color,
-                } as CSSProperties
-              }
-              aria-hidden
-            >
-              <span className="orbit-node__icon">
-                <Icon size={18} strokeWidth={2} aria-hidden />
-              </span>
-            </div>
-          );
-        })}
-      </div>
+        {RINGS.map((ring) => (
+          <div
+            key={ring.id}
+            className="orbit-ring"
+            style={
+              {
+                inset: ring.inset,
+                ["--duration"]: `${ring.duration}s`,
+                ["--phase"]: `${ring.phase}deg`,
+                ["--direction"]: ring.direction,
+              } as CSSProperties
+            }
+            aria-hidden
+          >
+            {ring.slots.map(({ nodeIndex, angle, trail }) => {
+              const node = NODES[nodeIndex];
+              const Icon = node.icon;
+              const isActive = nodeIndex === active;
+              const isTrailLead = Boolean(trail);
 
+              return (
+                <div
+                  key={node.label}
+                  className={`orbit-carrier${isTrailLead ? ` orbit-carrier--trail orbit-carrier--trail-${ring.direction}` : ""}`}
+                  style={
+                    {
+                      ["--angle"]: `${angle}deg`,
+                      ...(isTrailLead ? { ["--trail-color"]: node.color } : {}),
+                    } as CSSProperties
+                  }
+                >
+                  <div
+                    className={`orbit-node ${isActive ? "is-active" : ""}`}
+                    style={{ ["--node"]: node.color } as CSSProperties}
+                  >
+                    <span className="orbit-node__icon">
+                      <span
+                        className="orbit-node__icon-upright"
+                        style={
+                          {
+                            ["--angle"]: `${angle}deg`,
+                            ["--phase"]: `${ring.phase}deg`,
+                            ["--duration"]: `${ring.duration}s`,
+                            ["--direction"]: ring.direction,
+                          } as CSSProperties
+                        }
+                      >
+                        <Icon size={20} strokeWidth={2} aria-hidden />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+
+        <div className="orbit-center" aria-hidden style={{ color: activeNode.color }}>
+          <ActiveIcon size={24} strokeWidth={1.9} aria-hidden />
+          <span className="orbit-center__service">{activeNode.label}</span>
+        </div>
+      </div>
     </div>
   );
 }

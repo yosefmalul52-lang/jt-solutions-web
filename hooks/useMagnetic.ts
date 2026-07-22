@@ -7,7 +7,7 @@ import { SPRING_SMOOTH, canUsePointerEffects } from "@/lib/motion";
 type UseMagneticOptions = {
   /** Multiplier for pull strength (px offset per px from center). */
   strength?: number;
-  /** Activation radius in pixels from button center. */
+  /** Activation radius in pixels from element center. */
   radius?: number;
   disabled?: boolean;
 };
@@ -16,11 +16,11 @@ type UseMagneticOptions = {
  * Subtle cursor-attract offset for CTAs — desktop fine pointer only.
  */
 export function useMagnetic({
-  strength = 0.32,
-  radius = 88,
+  strength = 0.22,
+  radius = 72,
   disabled = false,
 }: UseMagneticOptions = {}) {
-  const ref = useRef<HTMLButtonElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, SPRING_SMOOTH);
@@ -34,7 +34,7 @@ export function useMagnetic({
   }, [x, y]);
 
   const onMouseMove = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (magneticOff) return;
       const el = ref.current;
       if (!el) return;

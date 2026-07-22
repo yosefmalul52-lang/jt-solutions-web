@@ -89,7 +89,7 @@ export default function HomeServices() {
         </div>
 
         <PremiumReveal className="mt-10 flex justify-center" variant="fade" delay={0.1}>
-          <CtaButton href="/services" ctaLocation="home-services" label="לכל השירותים והמסלולים" />
+          <CtaButton href="/#pathways" ctaLocation="home-services" label="לכל המסלולים" />
         </PremiumReveal>
       </div>
     </section>

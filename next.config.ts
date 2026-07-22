@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 import { getLegacyServiceRedirects } from "@/lib/seo/legacy-redirects";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -46,9 +47,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.join(__dirname),
+  },
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 80],
+    qualities: [75, 80, 90, 100],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },

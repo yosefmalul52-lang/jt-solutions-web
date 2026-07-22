@@ -6,8 +6,8 @@ import { useHydrated } from "@/hooks/useHydrated";
 import { scrollToHash } from "@/lib/scroll";
 
 const STEPS = [
-  { id: "problem", label: "הבעיה", color: "#EF4444" },
-  { id: "solution", label: "הפתרון", color: "#2563EB" },
+  { id: "problem", label: "מה חוסם", color: "#EF4444" },
+  { id: "solution", label: "איך זה עובד", color: "#2563EB" },
   { id: "projects", label: "עבודות", color: "#7C3AED" },
   { id: "contact", label: "אבחון", color: "#2563EB" },
 ] as const;
