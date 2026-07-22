@@ -147,14 +147,15 @@
 }
 
 .homepage-light-shell .accent-word {
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-  background-image: url("/marker-highlight.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+  background: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+}
+
+.homepage-light-shell .accent-word::before {
+  opacity: 0.9;
 }
 
 .homepage-light-shell .home-eyebrow {

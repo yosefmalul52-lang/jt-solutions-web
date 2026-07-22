@@ -3335,16 +3335,28 @@ html:not(.lenis):not(.lenis-smooth) {
   position: relative;
   display: inline;
   white-space: nowrap;
-  padding: 0.06em 0.32em 0.1em;
-  margin-inline: 0.04em;
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-  background-image: url("/marker-highlight.png");
+  padding: 0.04em 0.22em 0.08em;
+  margin-inline: 0.02em;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+  background: none;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  z-index: 0;
+}
+
+.accent-word::before {
+  content: "";
+  position: absolute;
+  inset-inline: -0.08em;
+  inset-block: 0.18em -0.02em;
+  z-index: -1;
+  background-image: url("/marker-highlight.png?v=yellow");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .scribble-underline {
