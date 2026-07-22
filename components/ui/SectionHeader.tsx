@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import PremiumReveal from "@/components/motion/PremiumReveal";
 
 type SectionHeaderProps = {
-  eyebrow?: string;
   /** Plain text before the highlighted word. */
   before?: ReactNode;
   /** Word highlighted with the marker background. */
@@ -20,11 +19,9 @@ type SectionHeaderProps = {
 };
 
 /**
- * Unified section heading: eyebrow + H2 (with one optional highlighted word) +
- * short subline. Single source of truth for section typography across the site.
+ * Unified section heading: H2 (with one optional highlighted word) + short subline.
  */
 export default function SectionHeader({
-  eyebrow,
   before,
   accent,
   after,
@@ -41,9 +38,7 @@ export default function SectionHeader({
       className={`max-w-3xl ${isCenter ? "mx-auto text-center" : "text-right"} ${className}`.trim()}
       variant="rise"
     >
-      {eyebrow ? <p className="home-eyebrow">{eyebrow}</p> : null}
-
-      <h2 className="home-headline mt-3" id={titleId}>
+      <h2 className="home-headline" id={titleId}>
         {accent ? (
           <>
             {before}

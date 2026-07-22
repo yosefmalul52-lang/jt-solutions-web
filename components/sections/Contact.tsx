@@ -89,8 +89,7 @@ function ContactStandalone() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <PremiumReveal className="text-center mb-12 md:mb-16" variant="rise">
-          <p className="home-eyebrow">{contactPageCopy.formEyebrow}</p>
-          <h2 className="home-headline mt-4">{contactPageCopy.formHeadline}</h2>
+          <h2 className="home-headline">{contactPageCopy.formHeadline}</h2>
           <p className="home-subline mx-auto mt-5 max-w-xl">{contactPageCopy.formSubline}</p>
         </PremiumReveal>
 

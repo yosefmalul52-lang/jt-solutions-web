@@ -7,7 +7,7 @@
   --home-gradient-soft: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   --home-gradient-hero: linear-gradient(180deg, #ffffff 0%, #f8fbff 38%, #ffffff 100%);
   --home-headline-gradient: linear-gradient(135deg, #1e3a8a 0%, #2563eb 48%, #0f172a 100%);
-  background: var(--home-bg-white);
+  background: transparent;
 }
 
 @media (min-width: 640px) {
@@ -19,7 +19,12 @@
 /* —— Background system —— */
 
 .homepage-light-shell .homepage-light-content {
-  background: var(--home-bg-white);
+  background: transparent;
+}
+
+/* Shared page surface: problem-section alt gradient, continuous under all body sections */
+.homepage-light-shell .homepage-after-hero {
+  background: var(--home-gradient-soft);
 }
 
 .homepage-light-shell .homepage-hero-wrap {
@@ -33,25 +38,18 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(248, 251, 255, 0.18) 45%, rgba(255, 255, 255, 0.42) 100%);
 }
 
+.homepage-light-shell .homepage-after-hero .home-section,
+.homepage-light-shell .homepage-after-hero .home-section--alt,
+.homepage-light-shell .homepage-after-hero .home-section--cta,
+.homepage-light-shell .homepage-after-hero .home-section--pricing,
+.homepage-light-shell .homepage-after-hero .home-section--faq,
+.homepage-light-shell .homepage-after-hero .home-final-cta,
+.homepage-light-shell .homepage-after-hero .portfolio-curve-section {
+  background: transparent;
+}
+
 .homepage-light-shell .home-section {
   padding-block: clamp(4rem, 6.5vw, 6.5rem);
-  background: var(--home-bg-white);
-}
-
-.homepage-light-shell .home-section--alt {
-  background: var(--home-gradient-soft);
-}
-
-.homepage-light-shell .home-section--cta,
-.homepage-light-shell .home-final-cta {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #ffffff 100%);
-}
-
-.homepage-light-shell .portfolio-curve-section {
-  background:
-    radial-gradient(ellipse 70% 45% at 50% -5%, rgba(37, 99, 235, 0.035), transparent 55%),
-    radial-gradient(ellipse 40% 30% at 78% 40%, rgba(37, 99, 235, 0.025), transparent 50%),
-    var(--home-gradient-soft);
 }
 
 /* Remove gray inset dividers between sections */
@@ -139,6 +137,7 @@
 .homepage-light-shell .home-headline {
   letter-spacing: -0.032em;
   line-height: 1.16;
+  color: #0f3266;
 }
 
 .homepage-light-shell .home-subline {
@@ -147,8 +146,8 @@
 }
 
 .homepage-light-shell .accent-word {
-  color: #0f172a;
-  -webkit-text-fill-color: #0f172a;
+  color: #0f3266;
+  -webkit-text-fill-color: #0f3266;
   background: none;
   background-clip: unset;
   -webkit-background-clip: unset;
@@ -317,7 +316,18 @@
   }
 
   .homepage-light-shell .homepage-hero-wrap {
-    min-height: auto;
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+
+  .homepage-hero-section {
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding-bottom: clamp(2.5rem, 8vw, 4rem);
+  }
+
+  .homepage-hero-section > div {
+    padding-block: clamp(1.5rem, 5vw, 2.75rem);
   }
 }
 
@@ -556,8 +566,8 @@
 }
 
 /* Pricing */
-.home-section--pricing {
-  background: var(--home-bg-white);
+.homepage-light-shell .homepage-after-hero .home-section--pricing {
+  background: transparent;
 }
 
 .home-pricing-fit-tag {
@@ -574,8 +584,8 @@
 }
 
 /* FAQ lighter */
-.home-section--faq {
-  background: var(--home-gradient-soft);
+.homepage-light-shell .homepage-after-hero .home-section--faq {
+  background: transparent;
 }
 
 .homepage-light-shell .home-faq-item {

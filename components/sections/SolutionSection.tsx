@@ -217,7 +217,7 @@ function HubCurvesOverlay({
   );
 }
 
-function SolutionHubDesktop({ uid }: { uid: string }) {
+function SolutionHub({ uid }: { uid: string }) {
   const hubRef = useRef<HTMLDivElement>(null);
   const centerRef = useRef<HTMLDivElement>(null);
   const nodeEls = useRef<Record<number, HTMLElement | null>>({});
@@ -359,7 +359,7 @@ export default function SolutionSection() {
         <div className="solution-system__content solution-system__content--hub-only">
           <SectionHeader
             accent="מערכת"
-            after=" אחת — מהתנועה ועד הסגירה!"
+            after=" אחת מהתנועה ועד הסגירה!"
             accentColor="#2563EB"
           />
 
@@ -371,55 +371,18 @@ export default function SolutionSection() {
               </span>
               {systemMapSection.headlineAfter}
             </h3>
-            <p className="solution-system__map-subline">{systemMapSection.subline}</p>
           </div>
 
           <div className="solution-system__map">
-            <PremiumReveal className="solution-hub-wrap hidden lg:block" variant="fade" delay={0.08}>
+            <PremiumReveal className="solution-hub-wrap" variant="fade" delay={0.08}>
               <div className="solution-hub-canvas">
                 <span className="solution-hub-canvas__noise" aria-hidden />
                 <span className="solution-hub-canvas__grid" aria-hidden />
                 <span className="solution-hub-canvas__vignette" aria-hidden />
 
-                <SolutionHubDesktop uid={uid} />
+                <SolutionHub uid={uid} />
               </div>
             </PremiumReveal>
-
-            <div className="solution-hub-mobile lg:hidden">
-              <div className="solution-hub-mobile__stage">
-                <div className="solution-hub-mobile__center is-active">
-                  <span className="solution-hub__center-kicker">מרכז המערכת</span>
-                  <span className="solution-hub__center-icon" aria-hidden>
-                    <Building2 size={22} strokeWidth={1.75} />
-                  </span>
-                  <span className="solution-hub__center-title">{systemMapSection.centerTitle}</span>
-                  <span className="solution-hub__center-status">{systemMapSection.centerStatus}</span>
-                </div>
-                <span className="solution-hub-mobile__beam" aria-hidden />
-              </div>
-              <ul className="solution-hub-mobile__list">
-                {systemMapSection.services.map((service, i) => {
-                  const Icon = SERVICE_ICONS[i];
-                  return (
-                    <PremiumReveal as="li" key={service.label} variant="rise" delay={0.03 + i * 0.03}>
-                      <div
-                        className="solution-hub-mobile__item is-active"
-                        style={{ ["--node" as string]: service.color } as CSSProperties}
-                      >
-                        <span className="solution-hub-mobile__rail" aria-hidden />
-                        <span className="solution-hub-mobile__icon">
-                          <Icon size={17} strokeWidth={2} aria-hidden />
-                        </span>
-                        <span className="solution-hub-mobile__copy">
-                          <span className="solution-hub-mobile__label">{service.label}</span>
-                          <span className="solution-hub-mobile__hint">{service.hint}</span>
-                        </span>
-                      </div>
-                    </PremiumReveal>
-                  );
-                })}
-              </ul>
-            </div>
           </div>
         </div>
       </div>

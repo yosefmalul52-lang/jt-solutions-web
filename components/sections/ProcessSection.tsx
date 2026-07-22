@@ -29,7 +29,6 @@ export default function ProcessSection() {
       <div className="home-section__atmosphere home-section__atmosphere--process" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="איך עובדים איתנו"
           before="תהליך "
           accent="ברור"
           after=" — ארבעה שלבים"

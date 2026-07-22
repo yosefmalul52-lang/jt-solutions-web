@@ -3,7 +3,7 @@
 .home-final-cta {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #ffffff 100%);
+  background: transparent;
 }
 
 .home-final-cta__mesh {

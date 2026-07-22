@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Heebo } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "@/components/ui/button-system.css";
 import TrackingProvider from "@/components/providers/TrackingProvider";
@@ -17,6 +18,20 @@ const heebo = Heebo({
   subsets: ["hebrew", "latin"],
   display: "swap",
   adjustFontFallback: true,
+  preload: true,
+});
+
+/** Tel Aviv Brutalist Bold — section / hero headers */
+const telAvivDisplay = localFont({
+  src: [
+    {
+      path: "./fonts/tel-aviv/telaviv-brutalistbold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-tel-aviv",
+  display: "swap",
   preload: true,
 });
 
@@ -83,7 +98,11 @@ export const viewport: Viewport = { themeColor: "#F8FAFC" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="he-IL" dir="rtl" className={`${heebo.variable} h-full antialiased`}>
+    <html
+      lang="he-IL"
+      dir="rtl"
+      className={`${heebo.variable} ${telAvivDisplay.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-[#F8FAFC] text-slate-950">
         <SmoothScroll>
           <DeferredScrollProgress />

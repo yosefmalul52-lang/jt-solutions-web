@@ -47,7 +47,7 @@ function ProjectSlideImage({
       alt={`צילום מסך — ${project.title}`}
       width={width}
       height={height}
-      sizes="(max-width: 768px) 80vw, (max-width: 1280px) 60vw, 720px"
+      unoptimized
       className="h-auto w-full"
       priority={priority}
       loading={priority ? "eager" : "lazy"}
@@ -254,7 +254,6 @@ export default function CurvedPortfolioCarousel() {
       <div className="portfolio-header">
         <SectionHeader
           titleId="portfolio-title"
-          eyebrow="תיק עבודות"
           before="פרוייקטים שנראים מצויין ויותר חשוב "
           accent="מביאים פניות"
           after="!"

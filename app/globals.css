@@ -63,6 +63,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-heebo);
+  --font-display: var(--font-tel-aviv), var(--font-heebo);
 }
 
 body {
@@ -588,11 +589,12 @@ main [id] {
 }
 
 .home-headline {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: clamp(1.875rem, 3.2vw, 2.375rem);
   font-weight: 700;
   letter-spacing: -0.028em;
   line-height: 1.18;
-  color: #0f172a;
+  color: #0f3266;
   text-wrap: balance;
 }
 
@@ -603,8 +605,9 @@ main [id] {
 }
 
 .home-hero-title {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: clamp(2.25rem, 4.8vw, 3.25rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.038em;
   line-height: 1.08;
   text-wrap: balance;
@@ -996,8 +999,9 @@ main [id] {
 
 /* Hero typewriter */
 .hero-display-title {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: clamp(2.25rem, 5.5vw + 1rem, 5rem);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.05;
   min-height: clamp(7rem, 18vw, 11rem);
@@ -1391,8 +1395,9 @@ main [id] {
 }
 
 .display-title {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: var(--text-display);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.98;
   color: var(--text-primary);
@@ -2038,21 +2043,23 @@ html:not(.lenis):not(.lenis-smooth) {
 }
 
 .text-display {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: var(--text-display);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.08;
   text-wrap: balance;
-  color: var(--text-primary);
+  color: #0f3266;
 }
 
 .text-section {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   font-size: clamp(1.375rem, 3vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.15;
   text-wrap: balance;
-  color: var(--text-primary);
+  color: #0f3266;
 }
 
 .text-lead {
@@ -3337,8 +3344,8 @@ html:not(.lenis):not(.lenis-smooth) {
   white-space: nowrap;
   padding: 0.04em 0.22em 0.08em;
   margin-inline: 0.02em;
-  color: #0f172a;
-  -webkit-text-fill-color: #0f172a;
+  color: #0f3266;
+  -webkit-text-fill-color: #0f3266;
   background: none;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;

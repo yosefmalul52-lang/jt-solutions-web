@@ -27,8 +27,8 @@ export const identificationSection = {
 } as const;
 
 export const problemSection = {
-  headline: "רוב העסקים לא נופלים בגלל שאין להם אתר",
-  headlineSecondary: "הם נופלים בנקודות החיבור",
+  headline: "כל השירותים עובדים יחד, תחת ספק אחד",
+  headlineSecondary: "ספק אחד",
   subline:
     "כשקמפיין, אתר, טופס, וואטסאפ ומעקב לא עובדים יחד — קשה לדעת מאיפה מגיעות פניות ומה באמת צריך לשפר. נשמע מוכר?",
   insight:
@@ -102,7 +102,7 @@ export const problemSection = {
 } as const;
 
 export const solutionFlow = {
-  headline: "מערכת אחת — מהתנועה ועד הסגירה",
+  headline: "מערכת אחת מהתנועה ועד הסגירה",
   steps: [
     { label: "תנועה", hint: "פרסום, המלצות, חיפוש" },
     { label: "אתר / דף נחיתה", hint: "מסר ברור ופעולה" },
@@ -120,8 +120,6 @@ export const systemMapSection = {
   headlineBefore: "מה אנחנו ",
   headlineAccent: "מחברים",
   headlineAfter: " לעסק שלך?",
-  subline:
-    "לא רק אתר — תשתית אחת שמחברת פרסום, נכס דיגיטלי, פנייה, CRM, אוטומציה ומדידה. כדי שהכול יעבוד יחד, בשבילך.",
   centerTitle: "העסק שלך",
   centerStatus: "מערכת אחת",
   bridgeLabel: "כל שלב במסלול מתחבר לכאן",

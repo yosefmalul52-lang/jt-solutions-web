@@ -58,12 +58,14 @@ export default function Home() {
       <main className="homepage-light-shell flex-1">
         <div className="homepage-light-content">
           <Hero />
-          <ProblemSection />
-          <SolutionSection />
-          <Projects />
-          <Pricing />
-          <HomeFaq />
-          <Contact />
+          <div className="homepage-after-hero">
+            <ProblemSection />
+            <SolutionSection />
+            <Projects />
+            <Pricing />
+            <HomeFaq />
+            <Contact />
+          </div>
         </div>
       </main>
       <Footer />

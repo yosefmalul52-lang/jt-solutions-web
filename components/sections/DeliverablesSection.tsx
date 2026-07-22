@@ -51,7 +51,6 @@ export default function DeliverablesSection() {
       <div className="home-section__atmosphere" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="מה בפועל"
           before="מה מקבלים "
           accent="בפועל"
           after="?"
