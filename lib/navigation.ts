@@ -1,9 +1,9 @@
 export const MAIN_NAV_LINKS = [
-  { label: "מה חוסם", href: "/#problem" },
-  { label: "איך זה עובד", href: "/#solution" },
-  { label: "עבודות", href: "/#projects" },
-  { label: "מסלולים", href: "/#pathways" },
-  { label: "אבחון", href: "/#contact" },
+  { label: "מסלול מסודר", href: "/#problem" },
+  { label: "המערכת", href: "/#solution" },
+  { label: "פרויקטים", href: "/#projects" },
+  { label: "נקודות התחלה", href: "/#pathways" },
+  { label: "אבחון חינם", href: "/#contact" },
 ] as const;
 
 export type MainNavLink = (typeof MAIN_NAV_LINKS)[number];

@@ -471,7 +471,6 @@
     width: 3.125rem;
     height: 3.125rem;
     min-height: 3.125rem;
-    bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
   }
 }
 

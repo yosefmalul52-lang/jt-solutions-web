@@ -798,11 +798,16 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
               closingPulse ? " stjourney-leader__closing--pulse" : ""
             }`}
             initial={false}
-            animate={closingConnected ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+            animate={
+              closingConnected || Boolean(reduce)
+                ? { opacity: 1, scale: reduce ? 1 : 1.06 }
+                : { opacity: 0, scale: 0.92 }
+            }
             transition={motionTransition(reduce, { duration: 0.55, ease: EASE_OUT })}
+            style={{ transformOrigin: "center top" }}
             onAnimationEnd={(event) => {
               if (event.target !== event.currentTarget) return;
-              if (event.animationName !== "stjourney-closing-pulse") return;
+              if (event.animationName !== "stjourney-closing-ring") return;
               setClosingPulse(false);
             }}
           >

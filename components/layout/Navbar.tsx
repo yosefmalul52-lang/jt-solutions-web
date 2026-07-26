@@ -191,9 +191,9 @@ export default function Navbar() {
       >
         <nav
           dir="rtl"
-          className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto border backdrop-blur-[14px] transition-all duration-300 ${
+          className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[74px] sm:h-[84px] rounded-[var(--radius)] flex items-center justify-between pointer-events-auto border backdrop-blur-md sm:backdrop-blur-[14px] transition-all duration-300 ${
             isDark ? "nav-shell--dark" : "nav-shell--light"
-          } ${scrolled ? "backdrop-blur-[18px] nav-shell--scrolled" : ""}`}
+          } ${scrolled ? "sm:backdrop-blur-[18px] nav-shell--scrolled" : ""}`}
         >
           <Link
             href="/"

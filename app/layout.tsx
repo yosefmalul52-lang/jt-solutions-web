@@ -8,7 +8,6 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import ConsentGatedTracking from "@/components/analytics/ConsentGatedTracking";
 import DeferredScrollProgress from "@/components/layout/DeferredScrollProgress";
 import CookieConsent from "@/components/layout/CookieConsent";
-import EqualWeb from "@/components/accessibility/EqualWeb";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/organization";
@@ -110,7 +109,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <CookieConsent />
           <ConsentGatedTracking />
           <FloatingWhatsApp />
-          <EqualWeb />
           <JsonLd data={[getOrganizationJsonLd(), getWebSiteJsonLd()]} />
         </SmoothScroll>
       </body>

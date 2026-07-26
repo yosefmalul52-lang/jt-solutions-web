@@ -22,6 +22,32 @@
   opacity: 0.22;
 }
 
+@media (max-width: 760px) {
+  .portfolio-bg-orb {
+    filter: none;
+    opacity: 0.12;
+  }
+
+  .portfolio-curve-section {
+    padding: clamp(3.5rem, 9vw, 5rem) 0.75rem clamp(3.25rem, 8vw, 5rem);
+  }
+
+  .portfolio-header {
+    margin-bottom: 2rem;
+    padding-inline: 1rem;
+  }
+
+  .portfolio-header .home-headline {
+    font-size: clamp(1.75rem, 7.2vw, 2.25rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-bg-orb {
+    filter: none;
+  }
+}
+
 .portfolio-bg-orb-one {
   width: 520px;
   height: 520px;

@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
 import TrackedLink from "@/components/ui/TrackedLink";
 import { contactLinks } from "@/lib/site";
+import { WHATSAPP_URL } from "@/lib/floating-buttons";
 
 const pageLinks = [
   { label: "מה חוסם", href: "/#problem" },
@@ -18,36 +20,40 @@ const socialLinks = [
     icon: Facebook,
     href: contactLinks.facebook,
     label: "JT Solutions בפייסבוק",
-    className: "border-[rgba(24,119,242,0.35)] bg-[rgba(24,119,242,0.12)] text-[#60a5fa]",
   },
   {
     icon: Instagram,
     href: contactLinks.instagram,
     label: "@jt.solutions.il באינסטגרם",
-    className:
-      "border-[rgba(225,48,108,0.35)] bg-gradient-to-br from-[rgba(225,48,108,0.12)] to-[rgba(131,58,180,0.12)] text-[#f472b6]",
   },
 ] as const;
 
 export default function Footer() {
   return (
-    <footer className="studio-footer section-shell">
-      <div className="h-[3px] w-full bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-16">
-        <div className="grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 border-b border-slate-200">
-          <div className="lg:col-span-1" dir="rtl">
-            <h4 className="studio-footer-heading text-base">JT Solutions</h4>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+    <footer className="studio-footer section-shell" dir="rtl">
+      <div className="studio-footer__inner">
+        <div className="studio-footer__main">
+          <div className="studio-footer__brand">
+            <Link href="/" className="studio-footer__logo" aria-label="JT Solutions — דף הבית">
+              <Image
+                src="/logo.png"
+                alt="JT Solutions"
+                width={490}
+                height={430}
+                className="studio-footer__logo-img"
+                sizes="120px"
+              />
+            </Link>
+            <p className="studio-footer__tagline">
               מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים מסודר.
-            </p>
-            <p className="mt-4 text-sm font-medium text-slate-700">
-              בלי לרדוף אחרי ספקים. בלי כאב ראש טכני.
             </p>
           </div>
 
-          <div dir="rtl">
-            <h4 className="studio-footer-heading mb-4">ניווט</h4>
-            <ul className="space-y-2.5">
+          <nav className="studio-footer__nav" aria-labelledby="footer-nav-heading">
+            <h2 id="footer-nav-heading" className="studio-footer-heading">
+              ניווט
+            </h2>
+            <ul className="studio-footer__nav-list">
               {pageLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="studio-footer-link">
@@ -56,54 +62,57 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div dir="rtl">
-            <h4 className="studio-footer-heading mb-4">יצירת קשר</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="studio-footer__contact" aria-labelledby="footer-contact-heading">
+            <h2 id="footer-contact-heading" className="studio-footer-heading">
+              יצירת קשר
+            </h2>
+            <ul className="studio-footer__contact-list">
               <li>
-                <a href={`mailto:${contactLinks.email}`} className="studio-footer-link hover:text-sky-600">
+                <a href={`mailto:${contactLinks.email}`} className="studio-footer-link">
                   {contactLinks.email}
                 </a>
               </li>
               <li>
-                <FooterPhoneLink className="studio-footer-link hover:text-emerald-600" />
+                <FooterPhoneLink className="studio-footer-link" />
               </li>
             </ul>
+
             <TrackedLink
-              href={`https://wa.me/972${contactLinks.phone.replace(/^0/, "")}`}
+              href={WHATSAPP_URL}
               ctaLocation="footer-whatsapp"
               ctaLabel="שיחה ב-WhatsApp"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition-colors hover:text-emerald-800"
+              className="studio-footer__whatsapp"
             >
               <MessageCircle size={16} aria-hidden />
               שיחה ב-WhatsApp
             </TrackedLink>
-            <div className="mt-5 flex items-center gap-3">
-              {socialLinks.map(({ icon: Icon, href, label, className }) => (
+
+            <div className="studio-footer__social">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={href}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className={`flex h-9 w-9 items-center justify-center rounded-[var(--radius-soft)] border transition-all duration-200 hover:opacity-90 ${className}`}
+                  className="studio-footer__social-btn"
                 >
-                  <Icon size={15} aria-hidden />
+                  <Icon size={16} aria-hidden />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-3 pt-6 sm:flex-row" dir="rtl">
+        <div className="studio-footer__legal">
           <p className="studio-footer-quiet">&copy; 2026 JT Solutions. כל הזכויות שמורות.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/privacy-policy" className="studio-footer-quiet hover:text-sky-600">
+          <div className="studio-footer__legal-links">
+            <Link href="/privacy-policy" className="studio-footer-quiet">
               מדיניות פרטיות
             </Link>
-            <span className="text-slate-300">|</span>
-            <Link href="/accessibility" className="studio-footer-quiet hover:text-sky-600">
+            <Link href="/accessibility" className="studio-footer-quiet">
               הצהרת נגישות
             </Link>
           </div>

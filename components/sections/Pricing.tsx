@@ -1,13 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Check,
-  LayoutTemplate,
-  Workflow,
-  type LucideIcon,
-} from "lucide-react";
+import { Check } from "lucide-react";
 import CtaButton from "@/components/ui/CtaButton";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { homePathways } from "@/lib/home-funnel";
@@ -17,8 +11,6 @@ import { cn } from "@/lib/utils";
 type PathwayId = (typeof homePathways)[number]["id"];
 
 type PathwayVisual = {
-  icon: LucideIcon;
-  iconColor: string;
   gradientColor: string;
   accentColor: string;
   featuresTitle: string;
@@ -27,28 +19,22 @@ type PathwayVisual = {
 
 const PATHWAY_VISUALS: Record<PathwayId, PathwayVisual> = {
   "digital-start": {
-    icon: LayoutTemplate,
-    iconColor: "text-blue-600",
-    gradientColor: "from-blue-50/90 via-blue-50/30 to-transparent",
+    gradientColor: "from-blue-100/95 via-blue-50/50 to-transparent",
     accentColor: "text-blue-600",
-    featuresTitle: "מה כלול",
+    featuresTitle: "מה כולל",
     badge: "התחלה דיגיטלית",
   },
   "ready-to-advertise": {
-    icon: ArrowUpRight,
-    iconColor: "text-lime-700",
-    gradientColor: "from-lime-50/90 via-lime-50/30 to-transparent",
-    accentColor: "text-lime-700",
-    featuresTitle: "מה כלול",
-    badge: "מתאים לפני פרסום",
+    gradientColor: "from-fuchsia-100/95 via-fuchsia-50/45 to-transparent",
+    accentColor: "text-fuchsia-700",
+    featuresTitle: "מה כולל",
+    badge: "המערכת המלאה",
   },
   "leads-system": {
-    icon: Workflow,
-    iconColor: "text-fuchsia-700",
-    gradientColor: "from-fuchsia-50/90 via-fuchsia-50/30 to-transparent",
-    accentColor: "text-fuchsia-700",
-    featuresTitle: "מה כלול",
-    badge: "עסק בצמיחה",
+    gradientColor: "from-lime-100/95 via-lime-50/45 to-transparent",
+    accentColor: "text-lime-700",
+    featuresTitle: "מה כולל",
+    badge: "לעסק פעיל",
   },
 };
 
@@ -68,11 +54,11 @@ export default function Pricing() {
         <SectionHeader
           titleId="pathways-title"
           className="mb-10 lg:mb-14"
-          before="לפי "
-          accent="המצב"
-          after=" של העסק — לא לפי תווית כללית!"
+          before="מתחילים מהצורך שלכם, ובונים "
+          accent="מערכת"
+          after=" שיכולה לצמוח עם העסק"
           accentColor="#2563EB"
-          subline="שלוש נקודות התחלה נפוצות. בשיחת האבחון נבין יחד מה באמת מתאים לך."
+          subline="אפשר להתחיל ממיתוג ואתר, מתשתית לפרסום או ממערכת לניהול פניות. כל פתרון נבנה כך שיוכל להתחבר בהמשך למערכת דיגיטלית אחת."
         />
 
         <motion.div
@@ -84,7 +70,6 @@ export default function Pricing() {
         >
           {homePathways.map((pathway) => {
             const visual = PATHWAY_VISUALS[pathway.id];
-            const Icon = visual.icon;
             const isPopular = "popular" in pathway && pathway.popular === true;
 
             return (
@@ -98,7 +83,7 @@ export default function Pricing() {
                 }
                 whileTap={reduce ? undefined : { scale: 0.99 }}
                 className={cn(
-                  "home-pricing-card home-pricing-card--interactive",
+                  "home-pricing-card home-pricing-card--interactive h-full",
                   isPopular && "home-pricing-card--featured",
                 )}
                 aria-labelledby={`pathway-${pathway.id}-title`}
@@ -112,7 +97,6 @@ export default function Pricing() {
                 />
 
                 <div className="home-pricing-card__body">
-                  {/* Identity — tight cluster */}
                   <header className="home-pricing-card__identity">
                     <div className="home-pricing-card__meta">
                       <span
@@ -121,9 +105,6 @@ export default function Pricing() {
                         )}
                       >
                         {visual.badge}
-                      </span>
-                      <span className={cn("home-pricing-card__icon", visual.iconColor)} aria-hidden>
-                        <Icon size={22} strokeWidth={1.75} />
                       </span>
                     </div>
 
@@ -164,7 +145,7 @@ export default function Pricing() {
                       variant={isPopular ? "primary" : "secondary"}
                       shine={Boolean(isPopular)}
                       className="w-full"
-                      label="קבל אבחון דיגיטלי חינם"
+                      label={pathway.ctaLabel}
                     />
                   </div>
                 </div>

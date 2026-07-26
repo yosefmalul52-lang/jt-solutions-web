@@ -4,8 +4,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
 import SectionHeader from "@/components/ui/SectionHeader";
 import {
@@ -22,6 +21,52 @@ import {
 import { cn } from "@/lib/utils";
 
 import "./curved-portfolio-carousel.css";
+
+function isExternalHref(href: string) {
+  return /^https?:\/\//i.test(href);
+}
+
+function ProjectCardLink({
+  project,
+  isActive,
+  className,
+  children,
+  onInactiveClick,
+}: {
+  project: CurvedPortfolioProject;
+  isActive: boolean;
+  className?: string;
+  children: ReactNode;
+  onInactiveClick: () => void;
+}) {
+  const handleClick = (event: MouseEvent) => {
+    if (!isActive) {
+      event.preventDefault();
+      onInactiveClick();
+    }
+  };
+
+  const sharedProps = {
+    className,
+    tabIndex: isActive ? (0 as const) : (-1 as const),
+    "aria-label": `${project.title} — ${project.type}`,
+    onClick: handleClick,
+  };
+
+  if (isExternalHref(project.href)) {
+    return (
+      <a href={project.href} target="_blank" rel="noopener noreferrer" {...sharedProps}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={project.href} {...sharedProps}>
+      {children}
+    </Link>
+  );
+}
 
 function ProjectSlideImage({
   project,
@@ -47,7 +92,8 @@ function ProjectSlideImage({
       alt={`צילום מסך — ${project.title}`}
       width={width}
       height={height}
-      unoptimized
+      sizes="(max-width: 640px) 80vw, (max-width: 1024px) 64vw, 54vw"
+      quality={80}
       className="h-auto w-full"
       priority={priority}
       loading={priority ? "eager" : "lazy"}
@@ -85,6 +131,17 @@ function ProjectsEmblaCarousel({
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const reduceMotion = useReducedMotion();
+  const [allowAutoplay, setAllowAutoplay] = useState(false);
+
+  useEffect(() => {
+    const fineDesktop = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (min-width: 901px)",
+    );
+    const sync = () => setAllowAutoplay(fineDesktop.matches);
+    sync();
+    fineDesktop.addEventListener("change", sync);
+    return () => fineDesktop.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -109,7 +166,7 @@ function ProjectsEmblaCarousel({
         slidesToScroll: 1,
       }}
       plugins={
-        autoplay && reduceMotion !== true
+        autoplay && allowAutoplay && reduceMotion !== true
           ? [
               Autoplay({
                 delay: 3200,
@@ -145,41 +202,31 @@ function ProjectsEmblaCarousel({
                   isActive ? "z-10" : "z-0",
                 )}
               >
-                <Link
-                  href={project.href}
+                <ProjectCardLink
+                  project={project}
+                  isActive={isActive}
+                  onInactiveClick={() => api?.scrollTo(index)}
                   className={cn(
                     "relative block w-full overflow-hidden border bg-white transition-[box-shadow,border-radius] duration-700",
                     isActive
                       ? "rounded-2xl border-slate-200 shadow-[0_28px_64px_rgba(15,23,42,0.18)]"
                       : "rounded-md border-slate-200/80 shadow-[0_8px_24px_rgba(15,23,42,0.06)]",
                   )}
-                  tabIndex={isActive ? 0 : -1}
-                  aria-label={`${project.title} — ${project.type}`}
-                  onClick={(event) => {
-                    if (!isActive) {
-                      event.preventDefault();
-                      api?.scrollTo(index);
-                    }
-                  }}
                 >
                   <ProjectSlideImage project={project} priority={index === 0} />
-                </Link>
+                </ProjectCardLink>
               </motion.div>
 
-              <div className="mt-5 flex h-16 flex-col items-center justify-start px-2 text-center sm:mt-6 sm:h-[4.5rem]">
+              <div className="mt-5 flex min-h-16 flex-col items-center justify-start px-3 text-center sm:mt-6 sm:min-h-[5.5rem] sm:px-6">
                 <AnimatePresence mode="wait">
                   {isActive ? (
                     <motion.div
                       key={project.id}
-                      initial={
-                        reduceMotion
-                          ? { opacity: 1 }
-                          : { opacity: 0, filter: "blur(8px)" }
-                      }
-                      animate={{ opacity: 1, filter: "blur(0px)" }}
-                      exit={reduceMotion ? { opacity: 0 } : { opacity: 0, filter: "blur(6px)" }}
-                      transition={{ duration: 0.55 }}
-                      className="flex flex-col items-center"
+                      initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: reduceMotion ? 0.01 : 0.35 }}
+                      className="flex max-w-xl flex-col items-center"
                     >
                       <span className="text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl">
                         {project.title}
@@ -187,6 +234,21 @@ function ProjectsEmblaCarousel({
                       <span className="mt-1 text-sm font-semibold text-slate-500 sm:text-base">
                         {project.type}
                       </span>
+                      {project.description ? (
+                        <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-[0.9375rem]">
+                          {project.description}
+                        </p>
+                      ) : null}
+                      {isExternalHref(project.href) ? (
+                        <a
+                          href={project.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 text-sm font-semibold text-blue-700 underline-offset-2 transition hover:text-blue-800 hover:underline"
+                        >
+                          לאתר ←
+                        </a>
+                      ) : null}
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
@@ -196,16 +258,7 @@ function ProjectsEmblaCarousel({
         })}
       </CarouselContent>
 
-      <div className="mt-12 flex w-full items-center justify-between gap-4 px-4 sm:mt-14 sm:px-6 lg:px-8">
-        <button
-          type="button"
-          aria-label="הפרויקט הבא"
-          onClick={() => api?.scrollNext()}
-          className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:border-blue-200 hover:text-blue-700"
-        >
-          <ChevronLeft className="h-6 w-6" aria-hidden />
-        </button>
-
+      <div className="mt-12 flex w-full items-center justify-center px-4 sm:mt-14 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center gap-2.5" role="tablist" aria-label="בחירת פרויקט">
           {projects.map((project, index) => (
             <button
@@ -222,15 +275,6 @@ function ProjectsEmblaCarousel({
             />
           ))}
         </div>
-
-        <button
-          type="button"
-          aria-label="הפרויקט הקודם"
-          onClick={() => api?.scrollPrev()}
-          className="inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-sm transition hover:border-blue-200 hover:text-blue-700"
-        >
-          <ChevronRight className="h-6 w-6" aria-hidden />
-        </button>
       </div>
     </Carousel>
   );

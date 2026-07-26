@@ -173,11 +173,13 @@ export default function Grainient({
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
 
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const renderer = new Renderer({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.25),
+      // Cap denser on touch so capable phones stay smooth
+      dpr: Math.min(window.devicePixelRatio || 1, coarsePointer ? 1 : 1.25),
     });
 
     const gl = renderer.gl;

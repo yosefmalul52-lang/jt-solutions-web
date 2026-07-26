@@ -17,11 +17,22 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setEnabled(!mq.matches);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const narrow = window.matchMedia("(max-width: 900px)");
+    const sync = () => {
+      // Native touch scroll feels better and costs less than Lenis on phones/tablets.
+      setEnabled(!reduceMotion.matches && !coarse.matches && !narrow.matches);
+    };
     sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
+    reduceMotion.addEventListener("change", sync);
+    coarse.addEventListener("change", sync);
+    narrow.addEventListener("change", sync);
+    return () => {
+      reduceMotion.removeEventListener("change", sync);
+      coarse.removeEventListener("change", sync);
+      narrow.removeEventListener("change", sync);
+    };
   }, []);
 
   if (!enabled) return children;

@@ -6,6 +6,7 @@ import { Phone } from "lucide-react";
 import { trackPhoneClick } from "@/lib/analytics/track";
 import { useHydrated } from "@/hooks/useHydrated";
 import { isHashNavLink, isNavLinkActive, MAIN_NAV_LINKS } from "@/lib/navigation";
+import { heroCopy } from "@/lib/hero-content";
 import { DURATION_UI, EASE_OUT, SPRING_SNAPPY } from "@/lib/motion";
 import type { NavShellTheme } from "@/lib/studio-shell";
 import { contactLinks } from "@/lib/site";
@@ -100,11 +101,11 @@ export default function NavbarMenu({
                 : "border-slate-200/80 bg-[rgba(255,255,255,0.96)] shadow-[0_12px_32px_rgba(15,23,42,0.1)]"
             }`}
           >
-            <ul className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1">
+            <ul className="mx-auto flex max-w-6xl flex-col items-center gap-1 px-4 py-4">
               {MAIN_NAV_LINKS.map((link) => {
                 const active = isNavLinkActive(link.href, pathname, activeHash);
                 return (
-                  <li key={link.href}>
+                  <li key={link.href} className="w-full">
                     <Link
                       href={link.href}
                       onClick={(event) => {
@@ -117,14 +118,14 @@ export default function NavbarMenu({
                           onCloseMobile();
                         }
                       }}
-                      className={`w-full block text-right px-4 py-3 text-sm font-medium rounded-2xl transition-colors duration-200 ${
+                      className={`block w-full rounded-2xl px-4 py-3 text-center text-sm font-medium transition-colors duration-200 ${
                         active
                           ? isDark
-                            ? "text-white bg-white/10"
-                            : "text-slate-900 bg-white/90 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                            ? "bg-white/10 text-white"
+                            : "bg-white/90 text-slate-900 shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
                           : isDark
-                            ? "text-slate-300 hover:text-slate-100 hover:bg-white/5"
-                            : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
+                            ? "text-slate-300 hover:bg-white/5 hover:text-slate-100"
+                            : "text-gray-600 hover:bg-black/5 hover:text-gray-900"
                       }`}
                     >
                       {link.label}
@@ -132,27 +133,32 @@ export default function NavbarMenu({
                   </li>
                 );
               })}
-              <li className={`pt-3 ${isDark ? "border-t border-white/10" : "border-t border-slate-200/80"}`}>
-                <div className="flex flex-col gap-2">
+              <li
+                className={`w-full pt-3 ${
+                  isDark ? "border-t border-white/10" : "border-t border-slate-200/80"
+                }`}
+              >
+                <div className="flex w-full flex-col items-center gap-2">
                   <CtaButton
                     href="/#contact"
                     ctaLocation="navbar-mobile"
-                    label="קבל אבחון דיגיטלי חינם"
+                    label={heroCopy.ctaLabel}
                     fullWidth
                     shine="auto"
                     className="text-sm"
+                    onClick={onCloseMobile}
                   />
                   <a
                     href={`tel:${contactLinks.phone}`}
+                    aria-label="התקשרו אל JT Solutions"
                     onClick={() => {
                       trackPhoneClick("navbar_mobile");
                       onCloseMobile();
                     }}
-                    aria-label="התקשרו אל JT Solutions"
-                    className={`flex w-full items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
+                    className={`grid min-h-12 w-full place-items-center rounded-2xl border px-4 py-3 text-sm font-semibold transition-all duration-200 ${
                       isDark
                         ? "border-white/15 bg-white/5 text-slate-200"
-                        : "border-violet-200/40"
+                        : "border-violet-200/40 text-slate-800"
                     }`}
                     style={
                       isDark
@@ -163,8 +169,10 @@ export default function NavbarMenu({
                           }
                     }
                   >
-                    <Phone size={18} stroke="url(#brandPhoneGradient)" />
-                    <span className={isDark ? "text-slate-100" : "gradient-text"}>052-8240230</span>
+                    <span className="inline-flex items-center justify-center gap-2 text-[#2563eb]" dir="ltr">
+                      <Phone size={18} strokeWidth={2.25} className="size-[18px] shrink-0" aria-hidden />
+                      <span className="tabular-nums leading-none">052-8240230</span>
+                    </span>
                   </a>
                 </div>
               </li>

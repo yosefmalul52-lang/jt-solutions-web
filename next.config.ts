@@ -11,12 +11,11 @@ const CONTENT_SECURITY_POLICY = [
   "frame-ancestors 'none'",
   "object-src 'none'",
   // React dev tooling (Fast Refresh, cross-environment stack traces) needs eval locally only.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://cdn.equalweb.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://cdn.equalweb.com https://access.equalweb.com",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://cdn.equalweb.com https://access.equalweb.com",
-  "frame-src https://access.equalweb.com",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com",
 ].join("; ");
 
 const securityHeaders = [

@@ -35,4 +35,4 @@ Benefit-driven Hebrew copy. Non-technical language. Speaks as a single accountab
 
 ## Accessibility & Inclusion
 
-WCAG 2.1 AA baseline: sufficient contrast on body and placeholder text, keyboard-navigable forms and menus, semantic headings, reduced-motion alternatives for all animations. EqualWeb widget remains as an additional layer.
+WCAG 2.1 AA baseline: sufficient contrast on body and placeholder text, keyboard-navigable forms and menus, semantic headings, reduced-motion alternatives for all animations.

@@ -176,25 +176,26 @@ export function canUsePointerEffects(): boolean {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
 
-/** Premium reveal — depth entrance with optional blur (Problem, Testimonials, Contact). */
+/** Premium reveal — depth entrance (Problem, Testimonials, Contact). */
 export function premiumRevealVariants(
   prefersReducedMotion: boolean | null,
   options: { y?: number; scale?: number; blur?: number } = {},
 ): { hidden: Record<string, number | string>; visible: Record<string, number | string> } {
   const y = options.y ?? DISTANCE_REVEAL_Y;
   const scale = options.scale ?? 0.97;
-  const blur = options.blur ?? 4;
+  // Prefer transform/opacity only — filter blur is paint-heavy on long mobile scrolls.
+  void options.blur;
 
   if (prefersReducedMotion) {
     return {
-      hidden: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-      visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+      hidden: { opacity: 1, y: 0, scale: 1 },
+      visible: { opacity: 1, y: 0, scale: 1 },
     };
   }
 
   return {
-    hidden: { opacity: 0, y, scale, filter: `blur(${blur}px)` },
-    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    hidden: { opacity: 0, y, scale },
+    visible: { opacity: 1, y: 0, scale: 1 },
   };
 }
 

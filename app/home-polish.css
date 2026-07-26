@@ -223,6 +223,7 @@
   letter-spacing: 0.01em;
   line-height: 1.45;
   color: #64748b;
+  min-height: 1.45em;
 }
 
 .homepage-light-shell .home-pricing-card {
@@ -231,10 +232,10 @@
 }
 
 .homepage-light-shell .home-pricing-card--featured {
-  border-color: color-mix(in srgb, #84cc16 34%, #e2e8f0);
+  border-color: color-mix(in srgb, #c026d3 34%, #e2e8f0);
   box-shadow:
-    0 0 0 1px rgba(132, 204, 22, 0.06),
-    0 16px 40px rgba(101, 163, 13, 0.1);
+    0 0 0 1px rgba(192, 38, 211, 0.06),
+    0 16px 40px rgba(162, 28, 175, 0.1);
 }
 
 .home-pricing-popular-badge,
@@ -253,8 +254,8 @@
 }
 
 .home-pricing-popular-badge {
-  color: #3f6212;
-  background: #d9f99d;
+  color: #86198f;
+  background: #fae8ff;
   border: none;
 }
 
@@ -328,6 +329,19 @@
 
   .homepage-hero-section > div {
     padding-block: clamp(1.5rem, 5vw, 2.75rem);
+  }
+
+  /* Cheaper paint on phones — soft color only, no large soft blurs */
+  .home-hero-aurora {
+    opacity: 0.55;
+    background:
+      radial-gradient(ellipse 55% 40% at 78% 22%, rgba(37, 99, 235, 0.1), transparent 68%),
+      radial-gradient(ellipse 45% 36% at 18% 68%, rgba(30, 58, 138, 0.07), transparent 65%);
+  }
+
+  .home-section__atmosphere::before {
+    background:
+      radial-gradient(ellipse 60% 48% at 50% 0%, rgba(37, 99, 235, 0.035), transparent 70%);
   }
 }
 
@@ -577,10 +591,10 @@
 }
 
 .homepage-light-shell .home-pricing-card--featured {
-  border-color: color-mix(in srgb, #84cc16 34%, #e2e8f0);
+  border-color: color-mix(in srgb, #c026d3 34%, #e2e8f0);
   box-shadow:
-    0 0 0 1px rgba(132, 204, 22, 0.06),
-    0 20px 48px rgba(101, 163, 13, 0.1);
+    0 0 0 1px rgba(192, 38, 211, 0.06),
+    0 20px 48px rgba(162, 28, 175, 0.1);
 }
 
 /* FAQ lighter */
