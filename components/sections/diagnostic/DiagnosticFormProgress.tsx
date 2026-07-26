@@ -8,9 +8,9 @@ import { EASE_OUT, STAGGER_TIGHT } from "@/lib/motion";
 export type DiagnosticFormPhase = "ready" | "sending" | "done";
 
 const STEPS = [
-  { num: "1", label: "אתם שולחים פרטים" },
-  { num: "2", label: "בודקים יחד את העסק" },
-  { num: "3", label: "מקבלים כיוון ברור" },
+  { num: "1", label: "אתם שולחים פרטים", shortLabel: "שולחים פרטים" },
+  { num: "2", label: "בודקים יחד את העסק", shortLabel: "בודקים יחד" },
+  { num: "3", label: "מקבלים כיוון ברור", shortLabel: "מקבלים כיוון" },
 ] as const;
 
 type DiagnosticFormProgressProps = {
@@ -70,7 +70,8 @@ export default function DiagnosticFormProgress({ phase = "ready" }: DiagnosticFo
                 ease: EASE_OUT,
               }}
             >
-              {step.label}
+              <span className="diagnostic-form-progress__label-full">{step.label}</span>
+              <span className="diagnostic-form-progress__label-short">{step.shortLabel}</span>
             </motion.span>
             {index < STEPS.length - 1 ? (
               <span

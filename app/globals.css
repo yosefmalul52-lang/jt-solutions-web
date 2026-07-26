@@ -529,12 +529,23 @@ main [id] {
   contain-intrinsic-size: auto 720px;
 }
 
+/* Keep plans + form junctions continuously painted — avoids hard scroll seams */
+.homepage-after-hero > .portfolio-curve-section,
+.homepage-after-hero > .home-section--pricing,
+.homepage-after-hero > .home-section--faq,
+.homepage-after-hero > .home-final-cta,
+.homepage-after-hero > #pathways,
+.homepage-after-hero > #contact {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+}
+
 .home-section--alt {
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .home-section--cta {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 55%, #ffffff 100%);
+  background: transparent;
 }
 
 .homepage-light-shell .homepage-hero-wrap {

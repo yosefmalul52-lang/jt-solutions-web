@@ -291,7 +291,7 @@
 /* —— Final CTA —— */
 
 .home-final-cta__grid-bg {
-  opacity: 0.16;
+  opacity: 0.2;
 }
 
 .home-final-cta__form-center {
@@ -374,7 +374,8 @@
 
 .home-section__atmosphere--pricing::before {
   background:
-    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(37, 99, 235, 0.04), transparent 62%);
+    radial-gradient(ellipse 80% 55% at 50% -8%, rgba(255, 255, 255, 0.55), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 50% 8%, rgba(37, 99, 235, 0.035), transparent 62%);
 }
 
 /* Hero aurora */
