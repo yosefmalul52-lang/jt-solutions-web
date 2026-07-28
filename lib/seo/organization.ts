@@ -73,7 +73,7 @@ export function getOrganizationJsonLd() {
     "@type": ["ProfessionalService", "LocalBusiness"],
     ...localBusinessBase,
     description:
-      "שותף דיגיטלי לעסקים בישראל: אתר, דף נחיתה, מדידה, וואטסאפ ומעקב פניות — מעטפת אחת שמכניסה סדר ללידים.",
+      "שותף דיגיטלי לעסקים בישראל: בניית אתרים, דפי נחיתה, מדידה, וואטסאפ ומעקב פניות — מעטפת אחת שמכניסה סדר ללידים.",
   };
 }
 
@@ -89,82 +89,6 @@ export function getWebSiteJsonLd() {
       name: SITE_NAME,
       url: SITE_URL,
       logo: `${SITE_URL}/logo.png`,
-    },
-  };
-}
-
-export function getAboutPageJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    name: `אודות ${SITE_NAME}`,
-    url: `${SITE_URL}/about`,
-    inLanguage: "he-IL",
-    mainEntity: {
-      "@type": "Person",
-      name: "יוסף מלול",
-      jobTitle: "שותף טכנולוגי ואסטרטג דיגיטל",
-      worksFor: {
-        "@type": "Organization",
-        name: SITE_NAME,
-        url: SITE_URL,
-      },
-      description:
-        "מלווה עסקים מקצה לקצה: מאפיון UX ומיתוג, דרך פיתוח אתרים ואוטומציה, ועד לידים ומדידה.",
-    },
-  };
-}
-
-export function getContactPageJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    name: `אבחון דיגיטלי — ${SITE_NAME}`,
-    url: `${SITE_URL}/contact`,
-    inLanguage: "he-IL",
-    mainEntity: {
-      "@type": "LocalBusiness",
-      name: SITE_NAME,
-      telephone: NAP.phoneE164,
-      email: NAP.email,
-      url: SITE_URL,
-      address: localBusinessBase.address,
-    },
-  };
-}
-
-export function getBlogCollectionJsonLd(postCount: number) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "מדריכים דיגיטל לעסקים בישראל",
-    url: `${SITE_URL}/blog`,
-    inLanguage: "he-IL",
-    description:
-      "מאמרים מעשיים על אתרים, דפי נחיתה, מדידה, מיתוג וסדר בלידים לעסקים בישראל.",
-    numberOfItems: postCount,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: SITE_URL,
-      logo: `${SITE_URL}/logo.png`,
-    },
-  };
-}
-
-export function getServicesHubJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "שירותים לפי הבעיה של העסק — JT Solutions",
-    url: `${SITE_URL}/services`,
-    inLanguage: "he-IL",
-    description:
-      "אתר, דף נחיתה, מדידה, סדר בלידים ופרסום מדיד — JT Solutions עוזרת לעסקים להפוך נראות דיגיטלית לפניות מסודרות.",
-    provider: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: SITE_URL,
     },
   };
 }

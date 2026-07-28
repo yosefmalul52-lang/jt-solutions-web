@@ -133,7 +133,7 @@ export const SPACE_SEAM_GRADIENT_BOTTOM_LIGHT =
 /** @deprecated use SPACE_STORY */
 export const SPACE_SLICES = SPACE_STORY;
 
-/** Mobile hero LCP preload — inject via homepage Metadata API (not a manual <head> tag). */
+/** @deprecated Use components/seo/HeroMobilePreload — do not put this in metadata.icons. */
 export const HERO_MOBILE_PRELOAD = {
   rel: "preload" as const,
   url: "/space/hero-mobile.webp",

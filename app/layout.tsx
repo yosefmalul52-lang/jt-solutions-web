@@ -42,19 +42,27 @@ export const metadata: Metadata = {
     ? { verification: { google: googleVerification } }
     : {}),
   title: {
-    default: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
+    default: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
     template: "%s | JT Solutions",
   },
   description:
-    "JT Solutions בונה לעסקים בישראל אתר או דף נחיתה, מדידה, וואטסאפ ומעקב פניות — כדי שתדע מאיפה כל ליד הגיע ומה כדאי לשפר.",
+    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל — אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
   keywords: [
-    "תשתית דיגיטלית לעסק",
-    "דף נחיתה ממיר",
     "בניית אתרים לעסקים",
+    "דף נחיתה",
+    "בניית אתרים",
+    "מעקב לידים",
     "מדידת פניות",
-    "סדר בלידים",
+    "אתר לעסק",
     "JT Solutions",
   ],
+  alternates: {
+    canonical: "https://www.jt-solutions.org/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -72,23 +80,23 @@ export const metadata: Metadata = {
     locale: "he_IL",
     url: "https://www.jt-solutions.org/",
     siteName: "JT Solutions",
-    title: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
+    title: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
     description:
-      "אתר, דף נחיתה, מדידה ומעקב פניות — מעטפת אחת לעסקים בישראל שרוצים סדר בלידים.",
+      "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "JT Solutions — תשתית דיגיטלית לפניות מסודרות",
+        alt: "JT Solutions — בניית אתרים ודפי נחיתה לעסקים",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "תשתית דיגיטלית לפניות מסודרות | JT Solutions",
+    title: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
     description:
-      "אתר, דף נחיתה, מדידה ומעקב פניות — מעטפת אחת לעסקים בישראל שרוצים סדר בלידים.",
+      "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: ["/opengraph-image.png"],
   },
 };

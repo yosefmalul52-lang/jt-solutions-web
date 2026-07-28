@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Sitemap: https://www.jt-solutions.org/sitemap.xml

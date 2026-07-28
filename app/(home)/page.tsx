@@ -4,10 +4,9 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import JsonLd from "@/components/seo/JsonLd";
+import HeroMobilePreload from "@/components/seo/HeroMobilePreload";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { getHomeOgImage } from "@/lib/seo/og-images";
 import { getHomeFaqJsonLd } from "@/lib/seo/home-faq";
-import { HERO_MOBILE_PRELOAD } from "@/lib/space-theme";
 import "../home-polish.css";
 
 const ProblemSection = dynamic(() => import("@/components/sections/ProblemSection"), {
@@ -29,30 +28,26 @@ const Contact = dynamic(() => import("@/components/sections/Contact"), {
   loading: () => <section className="home-section min-h-[40vh]" aria-hidden />,
 });
 
-export const metadata: Metadata = {
-  ...createPageMetadata({
-    title: "מערכת דיגיטלית לפניות מסודרות",
-    description:
-      "JT Solutions בונה לעסקים בישראל אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות — כדי שתדע מאיפה כל ליד הגיע ומה באמת עובד.",
-    path: "/",
-    keywords: [
-      "מערכת דיגיטלית לעסק",
-      "דף נחיתה ממיר",
-      "בניית אתרים לעסקים",
-      "מדידה ולידים",
-      "אוטומציה לעסקים",
-      "JT Solutions",
-    ],
-    ogImage: getHomeOgImage(),
-  }),
-  icons: {
-    other: [HERO_MOBILE_PRELOAD],
-  },
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "בניית אתרים ודפי נחיתה לעסקים",
+  description:
+    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל — אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
+  path: "/",
+  keywords: [
+    "בניית אתרים לעסקים",
+    "דף נחיתה",
+    "בניית אתרים",
+    "מעקב לידים",
+    "מדידת פניות",
+    "אתר לעסק",
+    "JT Solutions",
+  ],
+});
 
 export default function Home() {
   return (
     <>
+      <HeroMobilePreload />
       <JsonLd data={getHomeFaqJsonLd()} />
       <Navbar />
       <main className="homepage-light-shell flex-1">

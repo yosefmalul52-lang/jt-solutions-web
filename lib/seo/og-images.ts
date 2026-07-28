@@ -39,11 +39,7 @@ export function getProjectOgImage(imageSrc: string, title: string) {
   };
 }
 
+/** Homepage shares the site-wide 1200×630 OG asset. */
 export function getHomeOgImage() {
-  return {
-    url: "/space/hero.jpg",
-    width: 1920,
-    height: 800,
-    alt: "JT Solutions — מעטפת דיגיטלית חכמה",
-  };
+  return { ...DEFAULT_OG_IMAGE };
 }
