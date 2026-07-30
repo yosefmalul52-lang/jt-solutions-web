@@ -33,10 +33,10 @@ export default function HeroContent() {
             <div className="home-hero-copy__typewriter mt-3 flex justify-center lg:justify-start sm:mt-3.5">
               <PremiumTypewriter
                 words={[
-                  "קמפיין שמביא תנועה — מוכר?",
+                  "קמפיין שמביא תנועה",
                   "דף נחיתה שממיר לפנייה",
                   "ליד שנכנס ל-CRM בלי לאבד אותו",
-                  "וואטסאפ שלא מאבד לקוחות",
+                  "בניית מותג ייחודי",
                   "מדידה שמראה לך מה באמת עובד",
                 ]}
               />
@@ -56,7 +56,7 @@ export default function HeroContent() {
           >
             <HomeCtaButton
               id="hero-main-cta"
-              href="#contact"
+              href="#contact-form"
               ctaLocation="hero"
               label={heroCopy.ctaLabel}
               className="w-full sm:w-auto"

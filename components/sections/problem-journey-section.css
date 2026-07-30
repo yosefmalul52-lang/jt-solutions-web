@@ -474,18 +474,28 @@
 /* —— Mobile stacked —— */
 
 .stjourney-leader--stacked {
-  max-width: 22rem;
-  padding-inline: 0.25rem;
+  max-width: 23rem;
+  padding-inline: 0;
 }
 
-.stjourney-leader--stacked .stjourney-leader__item--right .stjourney-leader__card-wrap,
+.stjourney-leader--stacked .stjourney-leader__item--right .stjourney-leader__card-wrap {
+  width: min(calc(100% - 2.75rem), 17.5rem);
+  margin-right: 0;
+  margin-left: auto;
+}
+
 .stjourney-leader--stacked .stjourney-leader__item--left .stjourney-leader__card-wrap {
-  margin-inline: auto;
-  width: min(100%, 18rem);
+  width: min(calc(100% - 2.75rem), 17.5rem);
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .stjourney-leader--stacked .stjourney-leader__item {
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.9rem;
+}
+
+.stjourney-leader--stacked .stjourney-leader__card-wrap {
+  height: 8.1rem;
 }
 
 .stjourney-leader--stacked .stjourney-leader__closing-wrap {

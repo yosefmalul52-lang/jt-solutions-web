@@ -141,6 +141,7 @@ function connectionPointsClosing(
   toRect: DOMRect,
   container: DOMRect,
   spineX: number,
+  forceVertical = false,
 ): { start: Point; end: Point } {
   const fromCx = fromRect.left - container.left + fromRect.width / 2;
   const endRaw = topAnchor(toRect, container);
@@ -152,10 +153,15 @@ function connectionPointsClosing(
       Math.min(CHAIN_GAP, Math.max(4, (endRaw.y - (fromRect.bottom - container.top)) * 0.2)),
   };
 
-  if (Math.abs(fromCx - spineX) < 28) {
+  if (forceVertical || Math.abs(fromCx - spineX) < 28) {
     const startRaw = bottomAnchor(fromRect, container);
+    // Share the end x so the drop stays a straight line even when the last card is offset
+    const fromLeft = fromRect.left - container.left;
+    const startX = forceVertical
+      ? Math.min(Math.max(end.x, fromLeft + 12), fromLeft + fromRect.width - 12)
+      : startRaw.x;
     return {
-      start: { x: startRaw.x, y: startRaw.y + Math.min(CHAIN_GAP, 10) },
+      start: { x: startX, y: startRaw.y + Math.min(CHAIN_GAP, 10) },
       end,
     };
   }
@@ -340,7 +346,7 @@ function JourneyStepCard({
   );
 }
 
-function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>) {
+function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>, stacked: boolean) {
   const [lines, setLines] = useState<LineGeometry[]>([]);
 
   const measure = useCallback(() => {
@@ -393,8 +399,11 @@ function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>) {
         closingEl.getBoundingClientRect(),
         container,
         spineX,
+        stacked,
       );
-      const d = connectorPathClosing(start, end, spineX);
+      const d = stacked
+        ? connectorPathVertical(start, end)
+        : connectorPathClosing(start, end, spineX);
       const probe = document.createElementNS("http://www.w3.org/2000/svg", "path");
       probe.setAttribute("d", d);
       nextLines.push({
@@ -413,7 +422,7 @@ function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>) {
     }
 
     setLines(nextLines);
-  }, [rootRef]);
+  }, [rootRef, stacked]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(() => measure());
@@ -714,7 +723,7 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const hydrated = useHydrated();
   const reduce = useReducedMotion();
-  const { lines, remeasure } = useLeaderLineGeometry(rootRef);
+  const { lines, remeasure } = useLeaderLineGeometry(rootRef, stacked);
   const { revealedSteps, lineProgress, closingRevealed } = useSequentialJourneyReveal(
     rootRef,
     hydrated,

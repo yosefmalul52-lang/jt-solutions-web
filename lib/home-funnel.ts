@@ -263,7 +263,7 @@ export const finalCtaSteps = [
 ] as const;
 
 export const finalCtaTrust = [
-  "מענה אישי תוך 24 שעות",
+  "מענה תוך 24 שעות",
   "בלי התחייבות ובלי לחץ מכירה",
   "ליווי אחד מקצה לקצה — אתה לא לבד",
 ] as const;

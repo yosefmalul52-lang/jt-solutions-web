@@ -6,7 +6,7 @@ import type { GrainientProps } from "@/components/hero/Grainient";
 
 const Grainient = dynamic(() => import("@/components/hero/Grainient"), {
   ssr: false,
-  loading: () => <div className="grainient-container grainient-fallback" aria-hidden />,
+  loading: () => null,
 });
 
 /**
@@ -43,5 +43,10 @@ export default function DeferredGrainient(props: GrainientProps) {
     return <div className="grainient-container grainient-fallback" aria-hidden />;
   }
 
-  return <Grainient {...props} />;
+  return (
+    <Grainient
+      {...props}
+      className={`${props.className ?? ""} grainient-fallback grainient-live`.trim()}
+    />
+  );
 }

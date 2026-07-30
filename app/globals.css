@@ -90,18 +90,6 @@ html.lenis-smooth {
   }
 }
 
-section[id],
-main [id] {
-  scroll-margin-top: calc(74px + 0.75rem + 20px);
-}
-
-@media (min-width: 640px) {
-  section[id],
-  main [id] {
-    scroll-margin-top: calc(84px + 1rem + 20px);
-  }
-}
-
 [dir="rtl"] .text-left {
   text-align: right;
 }
@@ -3559,11 +3547,17 @@ a.studio-footer-quiet:focus-visible {
   z-index: 0;
 }
 
+.accent-word__text {
+  position: relative;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
 .accent-word::before {
   content: "";
   position: absolute;
   inset-inline: -0.08em;
-  inset-block: -0.02em 0.18em;
+  inset-block: -0.1em 0.04em;
   z-index: -1;
   background-image: url("/marker-highlight.png?v=yellow");
   background-repeat: no-repeat;

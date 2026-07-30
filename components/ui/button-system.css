@@ -413,19 +413,18 @@
   height: 3.375rem;
   min-height: 3.375rem;
   padding: 0;
-  border-radius: 1rem;
+  border-radius: 50%;
   color: #fff;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
-    linear-gradient(165deg, #10b981 0%, #059669 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #25d366;
+  border: 1px solid rgba(6, 78, 59, 0.12);
   box-shadow:
-    0 0 0 1px rgba(5, 150, 105, 0.1),
-    0 8px 20px rgba(5, 150, 105, 0.2);
+    0 0 0 1px rgba(37, 211, 102, 0.08),
+    0 8px 20px rgba(6, 78, 59, 0.22);
   overflow: hidden;
   isolation: isolate;
   animation: jt-fab-whatsapp-in 0.45s var(--btn-ease) 0.8s both;
   transition:
+    background-color 280ms var(--btn-ease),
     box-shadow 280ms var(--btn-ease),
     transform 280ms var(--btn-ease);
 }
@@ -446,10 +445,11 @@
 
 @media (hover: hover) and (pointer: fine) {
   .jt-floating-whatsapp:hover {
+    background: #20bd5a;
     transform: translateY(-1px);
     box-shadow:
-      0 0 0 1px rgba(5, 150, 105, 0.14),
-      0 10px 24px rgba(5, 150, 105, 0.24);
+      0 0 0 1px rgba(37, 211, 102, 0.12),
+      0 10px 24px rgba(6, 78, 59, 0.26);
   }
 
   .jt-floating-whatsapp:hover::before {

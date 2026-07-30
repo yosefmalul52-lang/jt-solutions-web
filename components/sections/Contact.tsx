@@ -50,7 +50,7 @@ function HomeFinalCta() {
         className="home-final-cta__header relative z-10 px-4 sm:px-6"
       />
 
-      <div className="home-final-cta__form-center relative z-10">
+      <div id="contact-form" className="home-final-cta__form-center relative z-10">
         <PremiumReveal variant="rise" delay={0.1}>
           <div className="diagnostic-form-card">
             <div className="diagnostic-form-card__rule" aria-hidden />

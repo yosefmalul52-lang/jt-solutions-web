@@ -98,7 +98,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     description:
       "אתר חווייתי לטיולים בעולם — סקי, מחלקת VIP ושירותי קרקע, עם מסר חזק שמזמין להתחיל את המסע ולהשאיר פנייה.",
     tags: ["תיירות", "אתר תדמית", "לידים"],
-    href: "/#contact",
+    href: "https://savyon-travel.vercel.app/",
     mockupClass: "mockup--landing",
     imageSrc: "/projects/savyon.webp",
     imageWidth: 1600,

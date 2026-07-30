@@ -42,7 +42,9 @@ export default function SectionHeader({
         {accent ? (
           <>
             {before}
-            <span className="accent-word">{accent}</span>
+            <span className="accent-word">
+              <span className="accent-word__text">{accent}</span>
+            </span>
             {after}
           </>
         ) : (
