@@ -11,6 +11,7 @@ import CookieConsent from "@/components/layout/CookieConsent";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import JsonLd from "@/components/seo/JsonLd";
 import { getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/organization";
+import { cn } from "@/lib/utils";
 
 const heebo = Heebo({
   variable: "--font-heebo",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     ? { verification: { google: googleVerification } }
     : {}),
   title: {
-    default: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
+    default: "בניית אתר לעסק | JT Solutions",
     template: "%s | JT Solutions",
   },
   description:
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     locale: "he_IL",
     url: "https://www.jt-solutions.org/",
     siteName: "JT Solutions",
-    title: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
+    title: "בניית אתר לעסק | JT Solutions",
     description:
       "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: [
@@ -88,13 +89,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "JT Solutions — בניית אתרים ודפי נחיתה לעסקים",
+        alt: "JT Solutions — בניית אתר לעסק",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "בניית אתרים ודפי נחיתה לעסקים | JT Solutions",
+    title: "בניית אתר לעסק | JT Solutions",
     description:
       "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: ["/opengraph-image.png"],
@@ -108,7 +109,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="he-IL"
       dir="rtl"
-      className={`${heebo.variable} ${telAvivDisplay.variable} h-full antialiased`}
+      className={cn("h-full antialiased font-sans", heebo.variable, telAvivDisplay.variable)}
     >
       <body className="min-h-full flex flex-col bg-[#F8FAFC] text-slate-950">
         <SmoothScroll>

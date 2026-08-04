@@ -56,7 +56,7 @@ function HomeFinalCta() {
             <div className="diagnostic-form-card__rule" aria-hidden />
 
             <div className="diagnostic-form-card__body">
-              <DiagnosticFormProgress phase={formPhase} />
+              {formPhase !== "done" ? <DiagnosticFormProgress phase={formPhase} /> : null}
 
               <Suspense fallback={<ContactFormFallback />}>
                 <ContactForm variant="compact" onPhaseChange={setFormPhase} />
