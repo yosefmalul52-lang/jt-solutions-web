@@ -10,7 +10,7 @@ export default function WebsitesFitTable() {
           מה מתאים לעסק שלך?
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500">
-          בחרו לפי מצב העסק — לא לפי מונחים טכניים.
+          בחרו לפי מצב העסק - לא לפי מונחים טכניים.
         </p>
 
         <div className="mt-8 hidden md:block">

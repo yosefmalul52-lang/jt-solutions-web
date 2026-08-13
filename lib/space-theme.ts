@@ -1,5 +1,5 @@
 /**
- * Homepage space story — distinct photos, unified purple/blue grade + seam blends.
+ * Homepage space story - distinct photos, unified purple/blue grade + seam blends.
  * Arc: nebula → starfield → galaxy → cosmic dust → aurora signal → deep void
  *
  * Backgrounds are self-hosted under /public/space (1920×800, q≈80) so the hero
@@ -109,17 +109,17 @@ export function getSpaceSliceImage(slice: SpaceSliceId): SpaceSliceImage {
   };
 }
 
-/** @deprecated use getSpaceSliceImage — kept for any stale imports */
+/** @deprecated use getSpaceSliceImage - kept for any stale imports */
 export function getSpaceSliceSrc(slice: SpaceSliceId) {
   const { src } = getSpaceSliceImage(slice);
   return { src, srcSet: "" };
 }
 
-/** Shared nebula wash — ties different photos into one palette */
+/** Shared nebula wash - ties different photos into one palette */
 export const SPACE_NEBULA_BACKGROUND =
   "radial-gradient(ellipse 85% 65% at 50% 40%, rgba(167,139,250,0.22) 0%, rgba(124,58,237,0.14) 35%, rgba(59,130,246,0.1) 58%, transparent 78%), radial-gradient(ellipse 55% 45% at 18% 72%, rgba(34,211,238,0.1) 0%, transparent 62%)";
 
-/** Tall feathered seams — hide cuts between story chapters */
+/** Tall feathered seams - hide cuts between story chapters */
 export const SPACE_SEAM_GRADIENT_TOP =
   "linear-gradient(to bottom, rgb(6,6,10) 0%, rgba(6,6,10,0.92) 12%, rgba(6,6,10,0.55) 38%, rgba(6,6,10,0.18) 62%, transparent 100%)";
 
@@ -133,7 +133,7 @@ export const SPACE_SEAM_GRADIENT_BOTTOM_LIGHT =
 /** @deprecated use SPACE_STORY */
 export const SPACE_SLICES = SPACE_STORY;
 
-/** @deprecated Use components/seo/HeroMobilePreload — do not put this in metadata.icons. */
+/** @deprecated Use components/seo/HeroMobilePreload - do not put this in metadata.icons. */
 export const HERO_MOBILE_PRELOAD = {
   rel: "preload" as const,
   url: "/space/hero-mobile.webp",

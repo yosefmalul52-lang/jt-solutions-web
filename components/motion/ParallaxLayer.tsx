@@ -9,7 +9,7 @@ type ParallaxLayerProps = {
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
-  /** Scroll travel as % of element shift — keep low (0.06–0.14). Desktop only. */
+  /** Scroll travel as % of element shift - keep low (0.06–0.14). Desktop only. */
   speed?: number;
 };
 

@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "הצהרת נגישות",
-  description: "הצהרת הנגישות של JT Solutions — מחויבותנו לנגישות דיגיטלית לכלל המשתמשים.",
+  description: "הצהרת הנגישות של JT Solutions - מחויבותנו לנגישות דיגיטלית לכלל המשתמשים.",
   path: "/accessibility",
 });
 

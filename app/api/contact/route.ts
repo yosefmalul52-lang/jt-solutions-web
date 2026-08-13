@@ -110,22 +110,6 @@ export async function POST(req: Request) {
       }
     }
 
-    const webhookUrl = process.env.N8N_WEBHOOK_URL;
-    if (webhookUrl) {
-      try {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          signal: AbortSignal.timeout(8000),
-        });
-      } catch (webhookError) {
-        console.error("n8n webhook failed:", webhookError);
-      }
-    } else {
-      console.warn("N8N_WEBHOOK_URL is not set — skipping webhook");
-    }
-
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -149,7 +133,7 @@ export async function POST(req: Request) {
       from: `"JT Solutions Contact" <${smtpUser}>`,
       to: "jtsolutions.officee@gmail.com",
       ...(email ? { replyTo: email } : {}),
-      subject: `ליד חדש מהאתר — ${service}`,
+      subject: `ליד חדש מהאתר - ${service}`,
       html: `<div dir="rtl">
                <h3>פנייה חדשה מאתר JT Solutions:</h3>
                <p><strong>שם:</strong> ${escapeHtml(name)}</p>

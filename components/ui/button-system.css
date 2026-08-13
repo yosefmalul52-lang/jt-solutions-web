@@ -1,4 +1,4 @@
-/* Premium CTA Motion System v4 — enterprise polish, restrained shimmer */
+/* Premium CTA Motion System v4 - enterprise polish, restrained shimmer */
 
 .btn {
   --btn-radius: 1rem;
@@ -262,7 +262,7 @@
   }
 }
 
-/* Idle sweep — very subtle, hero only */
+/* Idle sweep - very subtle, hero only */
 @media (prefers-reduced-motion: no-preference) {
   .btn--shine-auto:not(:hover):not(:focus-visible)::before {
     animation: btn-stripe-idle-pro 12s ease-in-out infinite;

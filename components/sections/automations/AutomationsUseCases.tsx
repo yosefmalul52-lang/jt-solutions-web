@@ -9,7 +9,7 @@ export default function AutomationsUseCases() {
           מה זה נותן לעסק בפועל?
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500">
-          דוגמאות שימוש יומיומיות — בלי לדבר על שמות כלים.
+          דוגמאות שימוש יומיומיות - בלי לדבר על שמות כלים.
         </p>
 
         <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

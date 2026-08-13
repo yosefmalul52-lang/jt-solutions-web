@@ -1,4 +1,4 @@
-/* Homepage design polish v3 — top-tier light premium rhythm */
+/* Homepage design polish v3 - top-tier light premium rhythm */
 
 .homepage-light-shell {
   --home-nav-offset: calc(0.75rem + 74px + 1rem);
@@ -16,7 +16,7 @@
   }
 }
 
-/* —— Background system —— */
+/* -- Background system -- */
 
 .homepage-light-shell .homepage-light-content {
   background: transparent;
@@ -60,7 +60,7 @@
   box-shadow: none;
 }
 
-/* —— Hero —— */
+/* -- Hero -- */
 
 .homepage-hero-section {
   padding-top: var(--home-nav-offset);
@@ -101,7 +101,7 @@
   }
 }
 
-/* Hero copy column — typeset / bolder / polish */
+/* Hero copy column - typeset / bolder / polish */
 .home-hero-copy {
   gap: 0;
 }
@@ -132,7 +132,7 @@
   color: #475569;
 }
 
-/* —— Typography —— */
+/* -- Typography -- */
 
 .homepage-light-shell .home-headline {
   letter-spacing: -0.032em;
@@ -161,7 +161,7 @@
   color: #2563eb;
 }
 
-/* —— Identification —— */
+/* -- Identification -- */
 
 .homepage-light-shell .diag-backdrop__grid {
   opacity: 0.22;
@@ -199,7 +199,7 @@
   }
 }
 
-/* —— Solution —— */
+/* -- Solution -- */
 
 .homepage-light-shell .solution-system {
   background: var(--home-bg-white);
@@ -214,7 +214,7 @@
   margin-inline: auto;
 }
 
-/* —— Pricing —— */
+/* -- Pricing -- */
 
 .home-pricing-tier-eyebrow {
   margin: 0;
@@ -255,8 +255,9 @@
 
 .home-pricing-popular-badge {
   color: #86198f;
-  background: #fae8ff;
-  border: none;
+  background: #ffffff;
+  border: 1px solid color-mix(in srgb, #c026d3 24%, #e2e8f0);
+  box-shadow: 0 1px 2px rgba(162, 28, 175, 0.05);
 }
 
 .home-pricing-fit-tag {
@@ -270,7 +271,7 @@
   text-wrap: balance;
 }
 
-/* —— FAQ —— */
+/* -- FAQ -- */
 
 .home-faq-item {
   border-radius: 0.875rem;
@@ -288,7 +289,7 @@
   color: #2563eb;
 }
 
-/* —— Final CTA —— */
+/* -- Final CTA -- */
 
 .home-final-cta__grid-bg {
   opacity: 0.2;
@@ -298,18 +299,13 @@
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-.home-final-cta__trust-item {
-  border-color: #e8edf3;
-  background: rgba(255, 255, 255, 0.95);
-}
-
-/* —— Portfolio —— */
+/* -- Portfolio -- */
 
 .portfolio-header {
   margin-bottom: 2.25rem;
 }
 
-/* —— Mobile rhythm —— */
+/* -- Mobile rhythm -- */
 
 @media (max-width: 760px) {
   .homepage-light-shell .home-section {
@@ -331,7 +327,7 @@
     padding-block: clamp(1.5rem, 5vw, 2.75rem);
   }
 
-  /* Cheaper paint on phones — soft color only, no large soft blurs */
+  /* Cheaper paint on phones - soft color only, no large soft blurs */
   .home-hero-aurora {
     opacity: 0.55;
     background:
@@ -346,7 +342,7 @@
 }
 
 /* =====================================================================
-   Art Direction v4 — section atmosphere, depth, productized blocks
+   Art Direction v4 - section atmosphere, depth, productized blocks
    ===================================================================== */
 
 .home-section__atmosphere {
@@ -583,12 +579,73 @@
 /* Pricing */
 .homepage-light-shell .homepage-after-hero .home-section--pricing {
   background: transparent;
+  overflow-x: clip;
+}
+
+.home-section--pricing .stjourney-path-bg-corner--bottom-left {
+  bottom: clamp(1.5rem, 4vw, 3rem);
+  left: clamp(-5rem, -8vw, -3rem);
+  width: clamp(40rem, 75vw, 56rem);
+  transform: rotate(10deg);
+  transform-origin: center;
 }
 
 .home-pricing-fit-tag {
   border: 1px solid #e2e8f0;
   background: #f8fbff;
   color: #475569;
+}
+
+.home-pricing-card__shape {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: clamp(11rem, 34vw, 15rem);
+  height: clamp(11rem, 34vw, 15rem);
+  opacity: 0.04;
+}
+
+.home-pricing-card__shape--digital-start {
+  color: #2563eb;
+  bottom: -2.5rem;
+  inset-inline-start: -2.75rem;
+  transform: rotate(-8deg);
+}
+
+.home-pricing-card__shape--ready-to-advertise {
+  color: #a21caf;
+  top: -2.25rem;
+  inset-inline-end: -2.5rem;
+  transform: rotate(12deg);
+}
+
+.home-pricing-card__shape--leads-system {
+  color: #4d7c0f;
+  bottom: -3rem;
+  inset-inline-end: -3rem;
+  transform: rotate(-14deg);
+}
+
+@media (max-width: 767px) {
+  .home-pricing-card__shape {
+    width: clamp(14rem, 52vw, 18rem);
+    height: clamp(14rem, 52vw, 18rem);
+  }
+
+  .home-pricing-card__shape--digital-start {
+    bottom: -3rem;
+    inset-inline-start: -3.25rem;
+  }
+
+  .home-pricing-card__shape--ready-to-advertise {
+    top: -2.75rem;
+    inset-inline-end: -3rem;
+  }
+
+  .home-pricing-card__shape--leads-system {
+    bottom: -3.5rem;
+    inset-inline-end: -3.5rem;
+  }
 }
 
 .homepage-light-shell .home-pricing-card--featured {

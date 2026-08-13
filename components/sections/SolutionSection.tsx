@@ -36,7 +36,7 @@ const SERVICE_ICONS: LucideIcon[] = [
   Palette,
 ];
 
-/** Grid row placement — near (4) + far (4) share 4 rows for aligned connectors */
+/** Grid row placement - near (4) + far (4) share 4 rows for aligned connectors */
 const HUB_NEAR_SLOTS = [
   { index: 0, row: 1 },
   { index: 1, row: 2 },
@@ -332,7 +332,7 @@ function HubNode({
           gridRow: row,
         } as CSSProperties
       }
-      aria-label={`${service.label} — ${service.hint}`}
+      aria-label={`${service.label} - ${service.hint}`}
     >
       <span
         className="solution-hub__node"

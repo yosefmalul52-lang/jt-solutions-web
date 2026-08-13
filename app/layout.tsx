@@ -21,7 +21,7 @@ const heebo = Heebo({
   preload: true,
 });
 
-/** Tel Aviv Brutalist Bold — section / hero headers */
+/** Tel Aviv Brutalist Bold - section / hero headers */
 const telAvivDisplay = localFont({
   src: [
     {
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     template: "%s | JT Solutions",
   },
   description:
-    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל — אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
+    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל - אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
   keywords: [
     "בניית אתרים לעסקים",
     "דף נחיתה",
@@ -83,13 +83,13 @@ export const metadata: Metadata = {
     siteName: "JT Solutions",
     title: "בניית אתר לעסק | JT Solutions",
     description:
-      "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
+      "בניית אתרים, דפי נחיתה ומעקב לידים - מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "JT Solutions — בניית אתר לעסק",
+        alt: "JT Solutions - בניית אתר לעסק",
       },
     ],
   },
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "בניית אתר לעסק | JT Solutions",
     description:
-      "בניית אתרים, דפי נחיתה ומעקב לידים — מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
+      "בניית אתרים, דפי נחיתה ומעקב לידים - מעטפת אחת לעסקים בישראל שרוצים סדר בפניות.",
     images: ["/opengraph-image.png"],
   },
 };

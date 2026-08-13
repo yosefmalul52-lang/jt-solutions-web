@@ -1,4 +1,4 @@
-/* Solution system — editorial journey + precision hub */
+/* Solution system - editorial journey + precision hub */
 
 .solution-system {
   --ss-ink: #0b1220;
@@ -23,7 +23,7 @@
   padding: 0;
 }
 
-/* —— Journey rail —— */
+/* -- Journey rail -- */
 
 .solution-rail-wrap {
   margin-top: 2.25rem;
@@ -231,7 +231,7 @@
   }
 }
 
-/* —— Map block —— */
+/* -- Map block -- */
 
 .solution-system__map {
   padding: 2rem 0 0;
@@ -291,7 +291,7 @@
   color: #475569;
 }
 
-/* —— Hub canvas —— */
+/* -- Hub canvas -- */
 
 .solution-hub-wrap {
   margin-top: 1.35rem;
@@ -325,7 +325,7 @@
   display: none;
 }
 
-/* Grid hub — rows align connectors to center spine */
+/* Grid hub - rows align connectors to center spine */
 
 .solution-hub {
   position: relative;
@@ -650,7 +650,7 @@
   border: 1px solid rgba(37, 99, 235, 0.14);
 }
 
-/* Hub — compact on tablet / phone so the same diagram fits */
+/* Hub - compact on tablet / phone so the same diagram fits */
 
 @media (max-width: 1023px) {
   .solution-hub {

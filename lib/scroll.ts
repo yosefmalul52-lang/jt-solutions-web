@@ -1,4 +1,4 @@
-/** Fixed navbar clearance — keep in sync with Navbar height + top inset. */
+/** Fixed navbar clearance - keep in sync with Navbar height + top inset. */
 export function getNavScrollOffset(): number {
   if (typeof window === "undefined") return 96;
   const sm = window.matchMedia("(min-width: 640px)").matches;

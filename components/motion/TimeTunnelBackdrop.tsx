@@ -4,13 +4,13 @@ import type { ReactNode } from "react";
 
 type TimeTunnelBackdropProps = {
   className?: string;
-  /** Intensity 0–1 — keep low for performance. */
+  /** Intensity 0–1 - keep low for performance. */
   intensity?: "subtle" | "medium";
   children?: ReactNode;
 };
 
 /**
- * Lightweight CSS tunnel — radial rings + slow drift. No canvas/video.
+ * Lightweight CSS tunnel - radial rings + slow drift. No canvas/video.
  * Place inside a relative container; pointer-events none.
  */
 export default function TimeTunnelBackdrop({

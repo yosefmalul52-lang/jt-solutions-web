@@ -1,15 +1,15 @@
-/* Premium Diagnostic Closing Section — homepage #contact */
+/* Premium Diagnostic Closing Section - homepage #contact */
 
 .home-final-cta {
   position: relative;
-  overflow: visible;
+  overflow-x: clip;
   background: transparent;
   /* Overlap FAQ by 1px to kill subpixel hairlines between sections */
   margin-top: -1px;
 }
 
 /*
- * Atmosphere only under the form card — never at the FAQ junction.
+ * Atmosphere only under the form card - never at the FAQ junction.
  * A full-bleed mesh/grid at section top reads as a hard color seam.
  */
 .home-final-cta__mesh {
@@ -41,6 +41,27 @@
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 12%, transparent 72%);
   -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 40%, #000 12%, transparent 72%);
+}
+
+.home-final-cta .stjourney-path-bg-corner {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  color: #1e3a8a;
+}
+
+.home-final-cta .stjourney-path-bg-corner path {
+  stroke: #1e3a8a;
+  fill: #1e3a8a;
+}
+
+.home-final-cta .stjourney-path-bg-corner--bottom-right {
+  bottom: clamp(1.5rem, 4vw, 3rem);
+  right: clamp(-5rem, -8vw, -3rem);
+  width: clamp(40rem, 75vw, 56rem);
+  transform: rotate(10deg);
+  transform-origin: center;
 }
 
 .home-final-cta__header {
@@ -418,14 +439,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 9999px;
-  border: 1px solid #e8edf3;
-  background: rgba(255, 255, 255, 0.95);
+  padding: 0;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #475569;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
 }
 
 .home-final-cta__trust-dot {
@@ -436,7 +453,7 @@
   flex-shrink: 0;
 }
 
-/* Mobile — denser form so the card fits a phone viewport */
+/* Mobile - denser form so the card fits a phone viewport */
 @media (max-width: 640px) {
   .diagnostic-form-card__body {
     padding: 1rem 0.95rem 1.15rem;
@@ -520,7 +537,6 @@
   }
 
   .home-final-cta__trust-item {
-    padding: 0.4rem 0.7rem;
     font-size: 0.75rem;
   }
 }

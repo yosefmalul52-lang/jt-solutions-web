@@ -9,7 +9,7 @@ export default function WebsitesSharedDeliverables() {
           מה מקבלים בפועל
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500">
-          בכל מסלול — אתר תדמית, דף נחיתה או חנות — הבסיס דומה. ההבדל הוא במטרה ובמבנה.
+          בכל מסלול - אתר תדמית, דף נחיתה או חנות - הבסיס דומה. ההבדל הוא במטרה ובמבנה.
         </p>
         <ul className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {websitesSharedDeliverables.map((item) => (

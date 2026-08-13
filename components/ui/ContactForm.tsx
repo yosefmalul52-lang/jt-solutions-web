@@ -172,7 +172,6 @@ export default function ContactForm({ variant = "section", onPhaseChange }: Cont
       }
     : undefined;
 
-  const microcopyClass = isGlass ? "text-slate-400" : "text-slate-500";
   const selectedService = watch("service");
 
   return (
@@ -244,17 +243,17 @@ export default function ContactForm({ variant = "section", onPhaseChange }: Cont
               <legend className="home-final-cta-form__intent-label">מה הכי רלוונטי לך כרגע?</legend>
               <div className="home-final-cta-form__chips" role="group">
                 {finalCtaServiceChips.map((chip) => {
-                  const isActive = selectedService === chip.label;
+                  const isActive = selectedService === chip.value;
                   return (
                     <motion.button
-                      key={chip.label}
+                      key={chip.value}
                       type="button"
                       className={`home-final-cta-form__chip${isActive ? " home-final-cta-form__chip--active" : ""}`}
                       aria-pressed={isActive}
                       whileTap={reduce ? undefined : { scale: 0.96 }}
                       transition={{ duration: 0.12, ease: EASE_OUT }}
                       onClick={() =>
-                        setValue("service", chip.label, { shouldValidate: true, shouldDirty: true })
+                        setValue("service", chip.value, { shouldValidate: true, shouldDirty: true })
                       }
                     >
                       <span className="home-final-cta-form__chip-dot" aria-hidden />
@@ -279,8 +278,6 @@ export default function ContactForm({ variant = "section", onPhaseChange }: Cont
             >
               {isSubmitting ? contactFormCopy.submittingLabel : contactFormCopy.submitLabel}
             </CtaButton>
-
-            <p className="home-final-cta-form__micro">{contactFormCopy.microcopy}</p>
           </motion.form>
         ) : (
           <motion.form
@@ -386,10 +383,6 @@ export default function ContactForm({ variant = "section", onPhaseChange }: Cont
             >
               {isSubmitting ? contactFormCopy.submittingLabel : contactFormCopy.submitLabel}
             </CtaButton>
-
-            <p className={`text-xs text-center leading-relaxed ${microcopyClass}`}>
-              {contactFormCopy.microcopy}
-            </p>
           </motion.form>
         )}
       </AnimatePresence>

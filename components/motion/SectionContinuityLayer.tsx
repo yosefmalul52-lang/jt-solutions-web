@@ -6,7 +6,7 @@ type SectionContinuityLayerProps = {
 };
 
 /**
- * Minimal decorative accents — only for Projects and Contact wow moments.
+ * Minimal decorative accents - only for Projects and Contact wow moments.
  */
 export default function SectionContinuityLayer({
   variant,

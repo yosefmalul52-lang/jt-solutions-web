@@ -41,18 +41,11 @@ import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { CreateLeadSheet } from "@/components/admin/create-lead-sheet";
 import { ImportLeadsSheet } from "@/components/admin/import-leads-sheet";
 import { leadSourceLabels, leadStatusLabels } from "@/lib/admin/labels";
+import { leadStatusChip, leadStatusChipClass, leadStatusDot } from "@/lib/admin/status-styles";
 import { telHref, whatsappHref } from "@/lib/admin/phone";
 import type { Lead, LeadStatus } from "@/lib/admin/types";
 import { cn } from "@/lib/utils";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
-
-const statusTone: Record<Lead["status"], string> = {
-  new: "bg-blue-600 text-white border-blue-700",
-  contacted: "bg-sky-600 text-white border-sky-700",
-  qualified: "bg-[#1e3a8a] text-white border-[#1e3a8a]",
-  won: "bg-emerald-600 text-white border-emerald-700",
-  lost: "bg-slate-500 text-white border-slate-600",
-};
 
 type LeadsTableCardProps = {
   title?: string;
@@ -398,10 +391,11 @@ export function LeadsTableCard({
                               size="sm"
                               aria-label={`סטטוס של ${lead.name}`}
                               className={cn(
-                                "mx-auto h-8 min-w-[8.75rem] justify-center gap-1 border px-2 font-medium shadow-none",
-                                statusTone[lead.status],
-                                "hover:opacity-95 focus-visible:ring-2 focus-visible:ring-cyan-400/40",
-                                "[&_svg]:text-white/90 *:data-[slot=select-value]:justify-center",
+                                "mx-auto h-8 min-w-[8.75rem] justify-center gap-1 rounded-md px-2.5",
+                                leadStatusChipClass,
+                                leadStatusChip[lead.status],
+                                "focus-visible:ring-2 focus-visible:ring-cyan-400/40",
+                                "[&_svg]:opacity-70 *:data-[slot=select-value]:justify-center",
                               )}
                             >
                               <SelectValue placeholder="סטטוס" />
@@ -418,7 +412,7 @@ export function LeadsTableCard({
                                     <span
                                       className={cn(
                                         "inline-block size-2 rounded-full",
-                                        statusTone[status].split(" ")[0],
+                                        leadStatusDot[status],
                                       )}
                                     />
                                     {leadStatusLabels[status]}
@@ -430,7 +424,10 @@ export function LeadsTableCard({
                         ) : (
                           <Badge
                             variant="outline"
-                            className={cn("mx-auto rounded-md", statusTone[lead.status])}
+                            className={cn(
+                              "mx-auto rounded-md border font-bold",
+                              leadStatusChip[lead.status],
+                            )}
                           >
                             {leadStatusLabels[lead.status]}
                           </Badge>

@@ -1,4 +1,4 @@
-/* JT Admin — dense product shell, restrained JT brand */
+/* JT Admin - dense product shell, restrained JT brand */
 .jt-admin {
   --background: #f8fbff;
   --foreground: #0f172a;
@@ -23,7 +23,7 @@
   --sidebar-border: #e8edf3;
   --sidebar-ring: #0ea5e9;
   --admin-radius-inner: 0.5rem; /* inset / nested surface */
-  --admin-pad-nested: 0.625rem; /* matches p-2.5 — gap between outer & inner edge */
+  --admin-pad-nested: 0.625rem; /* matches p-2.5 - gap between outer & inner edge */
   --admin-radius: 0.75rem; /* default non-nested cards */
   --admin-radius-nested: calc(var(--admin-radius-inner) + var(--admin-pad-nested)); /* ~18px */
   --admin-radius-sm: 0.5rem;
@@ -43,7 +43,7 @@
   border-color: var(--sidebar-border);
 }
 
-/* Flat at rest — hairline only */
+/* Flat at rest - hairline only */
 .jt-admin .admin-surface {
   border: 1px solid var(--border);
   background: var(--card);
@@ -144,7 +144,7 @@
   }
 }
 
-/* ——— Invoice / quotation document (print-first, photo-matched) ——— */
+/* --- Invoice / quotation document (print-first, photo-matched) --- */
 .jt-admin .invoice-workspace {
   min-height: 0;
   height: 100%;

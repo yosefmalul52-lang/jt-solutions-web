@@ -1,9 +1,9 @@
 import type { Transition, Variants } from "framer-motion";
 
-/** Primary ease-out — scroll reveals, accordions, page enter. */
+/** Primary ease-out - scroll reveals, accordions, page enter. */
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-/** @deprecated Use EASE_OUT — kept for existing imports. */
+/** @deprecated Use EASE_OUT - kept for existing imports. */
 export const EASE = EASE_OUT;
 
 export const EASE_IN_OUT: [number, number, number, number] = [0.4, 0, 0.2, 1];
@@ -29,14 +29,14 @@ export const TILT_MAX_MOBILE = 0;
 export const TILT_PERSPECTIVE = 1200;
 export const TILT_Z_LIFT = 24;
 
-/** Viewport presets for `whileInView` — keep `once` to avoid replay on scroll-back. */
+/** Viewport presets for `whileInView` - keep `once` to avoid replay on scroll-back. */
 export const viewport = {
   section: { once: true as const, margin: "-80px" },
   sectionLoose: { once: true as const, margin: "-50px" },
   sectionTight: { once: true as const, margin: "-60px" },
   sectionProof: { once: true as const, margin: "-90px" },
   sectionPillar: { once: true as const, margin: "-70px" },
-  /** No margin — element may be large (e.g. contact form column). */
+  /** No margin - element may be large (e.g. contact form column). */
   inView: { once: true as const },
 } as const;
 
@@ -95,7 +95,7 @@ export function staggerVariants(prefersReducedMotion: boolean | null): {
   };
 }
 
-/** Proof bento grid — staggered materialize (scale + 90° unfold). For Phase 2+ Proof section. */
+/** Proof bento grid - staggered materialize (scale + 90° unfold). For Phase 2+ Proof section. */
 export function proofBentoStagger(prefersReducedMotion: boolean | null) {
   if (prefersReducedMotion) {
     return {
@@ -161,7 +161,7 @@ export function proofBentoStagger(prefersReducedMotion: boolean | null) {
   };
 }
 
-/** Alias for proof bento card variants — same as `proofBentoStagger().card`. */
+/** Alias for proof bento card variants - same as `proofBentoStagger().card`. */
 export function proofMaterializeCardVariants(prefersReducedMotion: boolean | null): Variants {
   return proofBentoStagger(prefersReducedMotion).card as Variants;
 }
@@ -176,14 +176,14 @@ export function canUsePointerEffects(): boolean {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 }
 
-/** Premium reveal — depth entrance (Problem, Testimonials, Contact). */
+/** Premium reveal - depth entrance (Problem, Testimonials, Contact). */
 export function premiumRevealVariants(
   prefersReducedMotion: boolean | null,
   options: { y?: number; scale?: number; blur?: number } = {},
 ): { hidden: Record<string, number | string>; visible: Record<string, number | string> } {
   const y = options.y ?? DISTANCE_REVEAL_Y;
   const scale = options.scale ?? 0.97;
-  // Prefer transform/opacity only — filter blur is paint-heavy on long mobile scrolls.
+  // Prefer transform/opacity only - filter blur is paint-heavy on long mobile scrolls.
   void options.blur;
 
   if (prefersReducedMotion) {
@@ -199,7 +199,7 @@ export function premiumRevealVariants(
   };
 }
 
-/** Connector line draw — Solution system cards (pathLength 0 → 1). */
+/** Connector line draw - Solution system cards (pathLength 0 → 1). */
 export function connectorDrawTransition(prefersReducedMotion: boolean | null): Transition {
   return motionTransition(prefersReducedMotion, {
     duration: prefersReducedMotion ? DURATION_UI_REDUCED : 1.1,
@@ -207,7 +207,7 @@ export function connectorDrawTransition(prefersReducedMotion: boolean | null): T
   });
 }
 
-/** Timeline progress — Process section scroll-linked track. */
+/** Timeline progress - Process section scroll-linked track. */
 export function timelineNodeVariants(prefersReducedMotion: boolean | null): Variants {
   if (prefersReducedMotion) {
     return {
@@ -226,7 +226,7 @@ export function timelineNodeVariants(prefersReducedMotion: boolean | null): Vari
   };
 }
 
-/** Tier card gentle rise — Pricing section. */
+/** Tier card gentle rise - Pricing section. */
 export function tierRiseVariants(prefersReducedMotion: boolean | null): Variants {
   if (prefersReducedMotion) {
     return {

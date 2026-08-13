@@ -17,7 +17,7 @@ type MotionSectionShellProps = {
 
 /**
  * Section wrapper applying premium tone classes and animated gradient seams.
- * Does not replace SpaceSectionBackdrop — compose both when needed in 6B+.
+ * Does not replace SpaceSectionBackdrop - compose both when needed in 6B+.
  */
 export default function MotionSectionShell({
   children,

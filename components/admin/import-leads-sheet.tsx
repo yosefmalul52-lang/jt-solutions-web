@@ -178,7 +178,7 @@ export function ImportLeadsSheet({ open, onOpenChange }: ImportLeadsSheetProps) 
           {step === "upload" ? (
             <div className="flex flex-col gap-3">
               <p className="text-sm text-slate-600">
-                העלה קובץ CSV עם כותרות. בשלב הבא תמפה עמודות לשדות במערכת — כולל{" "}
+                העלה קובץ CSV עם כותרות. בשלב הבא תמפה עמודות לשדות במערכת - כולל{" "}
                 <span className="font-medium text-slate-800">תאריך יצירה</span> אופציונלי.
               </p>
               <button
@@ -253,7 +253,7 @@ export function ImportLeadsSheet({ open, onOpenChange }: ImportLeadsSheetProps) 
                   <div className="space-y-1.5 rounded-md border border-slate-200 bg-white p-2 text-xs text-slate-700">
                     {previewRows.map((row, i) => (
                       <div key={i} className="border-b border-slate-100 pb-1.5 last:border-0 last:pb-0">
-                        {row.name ?? "—"} · {row.phone ?? "—"}
+                        {row.name ?? "-"} · {row.phone ?? "-"}
                         {row.createdAt ? (
                           <> · {formatImportDatePreview(row.createdAt) ?? row.createdAt}</>
                         ) : null}

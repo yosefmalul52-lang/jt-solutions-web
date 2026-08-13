@@ -82,7 +82,7 @@ export default function FloatingMockup({
     <div className={`floating-mockup-wrap ${className}`.trim()} dir="rtl">
       {showCaption ? (
         <p className="text-center text-sm text-slate-500 mb-6">
-          תצוגה חיה של נכס דיגיטלי — מהיר, מדויק ומוכן לצמיחה
+          תצוגה חיה של נכס דיגיטלי - מהיר, מדויק ומוכן לצמיחה
         </p>
       ) : null}
 

@@ -1,0 +1,50 @@
+type JourneyPathBgCornerProps = {
+  position?: "top-right" | "bottom-left" | "bottom-right";
+};
+
+export default function JourneyPathBgCorner({ position = "top-right" }: JourneyPathBgCornerProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 102 108"
+      fill="currentColor"
+      style={{ color: "#1e3a8a" }}
+      width="240"
+      height="240"
+      preserveAspectRatio="xMidYMid meet"
+      className={`stjourney-path-bg-corner stjourney-path-bg-corner--${position}`}
+      aria-hidden
+    >
+      <path d="M27.7998 86L31.8998 90.2" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M13.5996 71.7998L21.1996 79.4998" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M26.4004 72.7998L55.1004 101.4" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M11.7998 58.2002L17.6998 64.0002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M47 81.3999L72.2 106.6" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M47 81.3999L72.2 106.6" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M9 43.3999L35.9 70.1999" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M9 43.3999L35.9 70.1999" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M30.0996 52.5L74.4996 96.9" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M11.7002 34.1001L21.1002 43.5001" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M66.7998 77.2002L77.3998 87.9002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M1 11.5L55.5 66" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M44.7002 43.2002L98.0002 96.5002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M44.7002 43.2002L98.0002 96.5002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M21.2002 19.7002L33.6002 32.1002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M21.2002 19.7002L33.6002 32.1002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M55.0996 41.6001L89.4996 76.0001" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M20 6.5L45.4 31.9" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M83.4004 58L101.4 76" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M83.4004 58L101.4 76" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M35.5 10.0996L70.4 44.8996" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M35.5 10.0996L70.4 44.8996" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M66 28.5996L90.3 52.8996" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M38.4004 1L56.5004 19.1" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M87.5996 38.2002L96.9996 47.7002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M87.5996 38.2002L96.9996 47.7002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M52.9004 3.5L76.8004 27.5" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M52.9004 3.5L76.8004 27.5" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M82.7002 21.4004L88.5002 27.2004" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+      <path d="M72.5 11.2002L76.5 15.2002" stroke="#000000" strokeWidth="1.1533" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" fill="#000000" />
+    </svg>
+  );
+}

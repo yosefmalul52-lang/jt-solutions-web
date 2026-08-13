@@ -35,7 +35,7 @@ export const serviceRelatedLinks: Record<
   "אני רוצה חנות אונליין": { label: "ראו עבודות לדוגמה", href: "/#projects" },
   "אני רוצה לבנות את המותג שלי": { label: "איך המעטפת עובדת", href: "/#solution" },
   "אני עדיין לא בטוח..": { label: "מסלולים ומחירים", href: "/#pathways" },
-  "אני לא בטוח — צריך הכוונה": { label: "מסלולים ומחירים", href: "/#pathways" },
+  "אני לא בטוח - צריך הכוונה": { label: "מסלולים ומחירים", href: "/#pathways" },
 };
 
 export const POST_LEAD_WHATSAPP_MESSAGE =

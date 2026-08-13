@@ -49,7 +49,7 @@ function ProjectCardLink({
   const sharedProps = {
     className,
     tabIndex: isActive ? (0 as const) : (-1 as const),
-    "aria-label": `${project.title} — ${project.type}`,
+    "aria-label": `${project.title} - ${project.type}`,
     onClick: handleClick,
   };
 
@@ -89,7 +89,7 @@ function ProjectSlideImage({
   return (
     <Image
       src={project.imageSrc}
-      alt={`צילום מסך — ${project.title}`}
+      alt={`צילום מסך - ${project.title}`}
       width={width}
       height={height}
       sizes="(max-width: 640px) 80vw, (max-width: 1024px) 64vw, 54vw"
@@ -302,7 +302,7 @@ export default function CurvedPortfolioCarousel() {
           accent="מביאים פניות"
           after="!"
           accentColor="#2563EB"
-          subline="אתרים, דפי נחיתה ומערכות שעובדים בשביל העסק — לא רק נראים טוב."
+          subline="אתרים, דפי נחיתה ומערכות שעובדים בשביל העסק - לא רק נראים טוב."
         />
       </div>
 

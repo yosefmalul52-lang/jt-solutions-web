@@ -192,7 +192,7 @@ export default function ProjectDetail({ project }: { project: ProjectItem }) {
                   {project.serviceSpecificCtaLabel ?? "רוצים תשתית דומה לעסק שלכם?"}
                 </h2>
                 <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">
-                  באבחון קצר נבין מה מתאים לשלב שבו העסק שלכם נמצא — בלי התחייבות.
+                  באבחון קצר נבין מה מתאים לשלב שבו העסק שלכם נמצא - בלי התחייבות.
                 </p>
                 <div className="mt-6 flex justify-center">
                   <CtaButton href={project.serviceSpecificCtaHref ?? "/#contact"} ctaLocation="project-detail" shine="auto" />

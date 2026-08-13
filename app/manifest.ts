@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "JT Solutions",
     short_name: "JT Solutions",
-    description: "תשתית דיגיטלית לפניות מסודרות — אתר, מדידה ומעקב",
+    description: "תשתית דיגיטלית לפניות מסודרות - אתר, מדידה ומעקב",
     start_url: "/",
     display: "standalone",
     background_color: "#F9FAFB",

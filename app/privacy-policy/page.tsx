@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "מדיניות פרטיות",
-  description: "מדיניות הפרטיות של JT Solutions — כיצד אנו אוספים, משתמשים ומגנים על המידע שלך.",
+  description: "מדיניות הפרטיות של JT Solutions - כיצד אנו אוספים, משתמשים ומגנים על המידע שלך.",
   path: "/privacy-policy",
 });
 

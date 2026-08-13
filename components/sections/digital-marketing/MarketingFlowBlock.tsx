@@ -9,7 +9,7 @@ export default function MarketingFlowBlock() {
           מה קורה אחרי הקליק?
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-500">
-          פרסום שאפשר למדוד ולשפר — מהמודעה ועד השיפור הבא.
+          פרסום שאפשר למדוד ולשפר - מהמודעה ועד השיפור הבא.
         </p>
         <ol className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
           {digitalMarketingFlowSteps.map((step, index) => (

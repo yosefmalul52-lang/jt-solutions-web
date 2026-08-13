@@ -10,7 +10,7 @@ export type CsvLeadField =
   | "notes";
 
 export const csvLeadFieldLabels: Record<CsvLeadField, string> = {
-  skip: "— התעלם —",
+  skip: "- התעלם -",
   name: "שם",
   phone: "טלפון",
   email: "אימייל",

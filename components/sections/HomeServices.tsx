@@ -36,7 +36,7 @@ export default function HomeServices() {
           <p className="premium-eyebrow-dark">מה אנחנו בונים</p>
           <h2 className="premium-headline-dark mt-4">שלוש מערכות. ארבעה מסלולי צמיחה.</h2>
           <p className="premium-subline-dark mx-auto mt-5 max-w-2xl">
-            לא תפריט אינסופי — תוצאות אסטרטגיות שמחוברות למעטפת אחת.
+            לא תפריט אינסופי - תוצאות אסטרטגיות שמחוברות למעטפת אחת.
           </p>
         </PremiumReveal>
 

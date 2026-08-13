@@ -5,7 +5,7 @@ export const SITE_AUTHOR = {
   jobTitle: "שותף טכנולוגי ואסטרטג דיגיטל",
   aboutPath: "/about",
   aboutUrl: `${SITE_URL}/about`,
-  bio: "מלווה עסקים במעטפת דיגיטלית אחת — מאפיון, פיתוח ועד לידים שמגיעים.",
+  bio: "מלווה עסקים במעטפת דיגיטלית אחת - מאפיון, פיתוח ועד לידים שמגיעים.",
 } as const;
 
 export function getArticleAuthorJsonLd() {

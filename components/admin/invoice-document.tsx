@@ -32,7 +32,7 @@ export function InvoiceDocument({ doc, className }: InvoiceDocumentProps) {
       <header className="invoice-doc__header">
         <div>
           <p className="invoice-doc__label">מספר הזמנה:</p>
-          <p className="invoice-doc__order">#{doc.orderNumber || "—"}</p>
+          <p className="invoice-doc__order">#{doc.orderNumber || "-"}</p>
         </div>
         <h1 className="invoice-doc__title">{kindLabels[doc.kind]}</h1>
       </header>
@@ -67,7 +67,7 @@ export function InvoiceDocument({ doc, className }: InvoiceDocumentProps) {
           {doc.lines.map((line) => (
             <tr key={line.id}>
               <td className="invoice-doc__td invoice-doc__td--item">
-                {line.description || "—"}
+                {line.description || "-"}
               </td>
               <td className="invoice-doc__td invoice-doc__td--qty">{line.qty || 0}</td>
               <td className="invoice-doc__td invoice-doc__td--price">

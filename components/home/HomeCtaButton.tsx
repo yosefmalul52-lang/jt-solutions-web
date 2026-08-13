@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import CtaButton, { type CtaButtonProps } from "@/components/ui/CtaButton";
 import { useMagnetic } from "@/hooks/useMagnetic";
 
-/** Homepage hero CTA — enterprise primary + subtle magnetic pull on desktop. */
+/** Homepage hero CTA - enterprise primary + subtle magnetic pull on desktop. */
 export default function HomeCtaButton({
   variant = "primary",
   shine = "auto",

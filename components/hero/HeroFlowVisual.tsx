@@ -49,7 +49,7 @@ type CardMotion = {
   floatDuration: string;
 };
 
-/** Deterministic per-step motion — avoids SSR/client Math.random hydration mismatch. */
+/** Deterministic per-step motion - avoids SSR/client Math.random hydration mismatch. */
 const CARD_MOTION_PRESETS: CardMotion[] = flowSteps.map((_, index) => ({
   scale: 0.96 + ((index * 17 + 11) % 80) / 1000,
   floatDelay: `${(index * 0.55 + (index % 3) * 0.27).toFixed(2)}s`,

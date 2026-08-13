@@ -10,7 +10,7 @@ export type SiteRedirect = {
  *
  * Path params use `([^/.]+)` so static assets under the same folder
  * (e.g. `/projects/magadim.webp`, `/services/websites.png`) are NOT redirected.
- * Destinations are plain paths (no hash) — crawlers ignore URL fragments.
+ * Destinations are plain paths (no hash) - crawlers ignore URL fragments.
  */
 export const LANDING_PAGE_REDIRECTS: SiteRedirect[] = [
   { source: "/about", destination: "/", permanent: true },
@@ -24,7 +24,7 @@ export const LANDING_PAGE_REDIRECTS: SiteRedirect[] = [
   { source: "/areas/:slug([^/.]+)", destination: "/", permanent: true },
 ];
 
-/** @deprecated kept for import compatibility — use LANDING_PAGE_REDIRECTS */
+/** @deprecated kept for import compatibility - use LANDING_PAGE_REDIRECTS */
 export const LEGACY_SERVICE_REDIRECTS = LANDING_PAGE_REDIRECTS;
 
 export function getLegacyServiceRedirects() {

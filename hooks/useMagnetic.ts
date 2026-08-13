@@ -13,7 +13,7 @@ type UseMagneticOptions = {
 };
 
 /**
- * Subtle cursor-attract offset for CTAs — desktop fine pointer only.
+ * Subtle cursor-attract offset for CTAs - desktop fine pointer only.
  */
 export function useMagnetic({
   strength = 0.22,

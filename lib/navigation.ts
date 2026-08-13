@@ -20,7 +20,7 @@ export function isNavLinkActive(href: string, pathname: string, activeHash: stri
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-/** Full homepage scroll order — includes sections not shown in the nav. */
+/** Full homepage scroll order - includes sections not shown in the nav. */
 export const HOME_SECTION_ORDER = [
   "#hero",
   "#problem",

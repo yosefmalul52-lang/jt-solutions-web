@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { Mail, Phone, Facebook, Instagram } from "lucide-react";
 import PremiumReveal from "@/components/motion/PremiumReveal";
+import JourneyPathBgCorner from "@/components/sections/JourneyPathBgCorner";
 import ContactForm from "@/components/ui/ContactForm";
 import SectionHeader from "@/components/ui/SectionHeader";
 import DiagnosticFormProgress, {
@@ -39,6 +40,7 @@ function HomeFinalCta() {
     >
       <div className="home-final-cta__mesh" aria-hidden />
       <div className="home-final-cta__grid-bg" aria-hidden />
+      <JourneyPathBgCorner position="bottom-right" />
 
       <SectionHeader
         titleId="contact-title"
@@ -113,7 +115,7 @@ function ContactStandalone() {
                 <li className="home-after-step">
                   <span className="home-after-step__num">3</span>
                   <p className="text-sm leading-relaxed text-slate-600">
-                    מציעים כיוון ברור — מה כדאי לבנות קודם
+                    מציעים כיוון ברור - מה כדאי לבנות קודם
                   </p>
                 </li>
               </ol>
@@ -122,7 +124,7 @@ function ContactStandalone() {
             <div className="home-card space-y-4 p-5 sm:p-6">
               <div>
                 <h3 className="text-base font-bold text-slate-900 mb-0.5">פרטי יצירת קשר</h3>
-                <p className="text-xs leading-relaxed text-slate-500">טלפון, מייל או וואטסאפ — מה שנוח לך.</p>
+                <p className="text-xs leading-relaxed text-slate-500">טלפון, מייל או וואטסאפ - מה שנוח לך.</p>
               </div>
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2.5">
@@ -201,7 +203,7 @@ function ContactStandalone() {
                   <span className="h-1.5 w-1.5 rounded-full bg-sky-500" aria-hidden />
                   אבחון קצר
                 </span>
-                <span className="text-xs text-slate-500">2 שדות חובה — שם וטלפון</span>
+                <span className="text-xs text-slate-500">2 שדות חובה - שם וטלפון</span>
               </div>
               <ol className="form-steps mb-5" aria-label="שלבי האבחון">
                 <li className="form-step form-step--1">

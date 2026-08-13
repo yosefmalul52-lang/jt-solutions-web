@@ -183,7 +183,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
       case "overdue":
         return {
           title: "אין משימות באיחור",
-          body: "הכל מעודכן — אין יעדים שעברו.",
+          body: "הכל מעודכן - אין יעדים שעברו.",
         };
       case "today":
         return {
@@ -198,7 +198,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
       case "all":
         return {
           title: "אין משימות עדיין",
-          body: "צור משימת מעקב לליד — או חכה לפנייה חדשה מהאתר.",
+          body: "צור משימת מעקב לליד - או חכה לפנייה חדשה מהאתר.",
         };
       default:
         return {

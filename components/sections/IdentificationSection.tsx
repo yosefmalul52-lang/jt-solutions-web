@@ -181,7 +181,7 @@ export default function IdentificationSection() {
         <SectionHeader
           before="אם זה נשמע "
           accent="מוּכָּר"
-          after="? — האתר שלך צריך לעבוד אחרת!"
+          after="? - האתר שלך צריך לעבוד אחרת!"
           accentColor={ACCENT}
         />
 

@@ -42,7 +42,7 @@ export function getSupabaseAdmin(): SupabaseClient {
 
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NODE_ENV === "production") {
     console.warn(
-      "[supabase] SUPABASE_SERVICE_ROLE_KEY missing — admin table access will fail; contact uses submit_site_lead RPC only.",
+      "[supabase] SUPABASE_SERVICE_ROLE_KEY missing - admin table access will fail; contact uses submit_site_lead RPC only.",
     );
   }
 

@@ -18,7 +18,7 @@ type MaskedHeadlineProps = {
   as: HeadlineTag;
   className?: string;
   children?: ReactNode;
-  /** Explicit lines — each renders as a masked row (best for `<br />` + gradient spans). */
+  /** Explicit lines - each renders as a masked row (best for `<br />` + gradient spans). */
   lines?: ReactNode[];
   /** `line` = row-by-row; `word` = split text nodes by spaces (single-line plain text). */
   mode?: "line" | "word";

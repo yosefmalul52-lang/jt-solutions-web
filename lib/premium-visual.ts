@@ -1,5 +1,5 @@
 /**
- * Premium visual system — Phase 6A design tokens.
+ * Premium visual system - Phase 6A design tokens.
  * Consumed by CSS classes in globals.css and motion primitives.
  */
 
@@ -21,7 +21,7 @@ export const PREMIUM_GLOWS = {
   editorial: "0 18px 42px rgba(15, 23, 42, 0.11), 0 4px 14px rgba(15, 23, 42, 0.06)",
 } as const;
 
-/** Homepage section rhythm — dark/light alternation for Phase 6B+. */
+/** Homepage section rhythm - dark/light alternation for Phase 6B+. */
 export const HOME_VISUAL_RHYTHM = [
   { id: "hero", tone: "dark", motion: "cinematic-entrance" },
   { id: "problem", tone: "light", motion: "dramatic-reveal" },

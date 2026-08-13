@@ -4,7 +4,7 @@ import { useLayoutEffect, useState } from "react";
 
 /**
  * False on server and on the first client render (matches SSR).
- * True only after mount — safe for pointer/magnetic effects without hydration mismatch.
+ * True only after mount - safe for pointer/magnetic effects without hydration mismatch.
  */
 export function useHydrated() {
   const [hydrated, setHydrated] = useState(false);

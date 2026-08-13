@@ -51,7 +51,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "landing-page-vs-full-website",
-    title: "דף נחיתה או אתר מלא — מה מתאים לעסק שלך?",
+    title: "דף נחיתה או אתר מלא - מה מתאים לעסק שלך?",
     description:
       "השוואה ברורה בין דף נחיתה לאתר תדמית: מתי כל אחד עדיף, כמה עולה, ואיך לא לבחור פתרון שמאחר את הצמיחה.",
     publishedAt: "2026-01-22",
@@ -75,7 +75,7 @@ const posts: BlogPost[] = [
     slug: "ecommerce-mistakes-small-business",
     title: "טעויות נפוצות בבניית חנות איקומרס קטנה",
     description:
-      "הטעויות שעולות לעסקים כסף בחנות אונליין — ומה לעשות במקום כדי להגדיל מכירות.",
+      "הטעויות שעולות לעסקים כסף בחנות אונליין - ומה לעשות במקום כדי להגדיל מכירות.",
     publishedAt: "2026-02-08",
     keywords: ["חנות אינטרנט", "איקומרס", "טעויות חנות"],
     relatedServices: ["ecommerce"],
@@ -86,7 +86,7 @@ const posts: BlogPost[] = [
     slug: "website-spec-before-development",
     title: "מה צריך לכלול אפיון אתר לפני פיתוח",
     description:
-      "רשימת בדיקה לאפיון אתר: קהל יעד, מסרים, מבנה עמודים, המרות ומדידה — כדי לא לשרוף תקציב על תיקונים.",
+      "רשימת בדיקה לאפיון אתר: קהל יעד, מסרים, מבנה עמודים, המרות ומדידה - כדי לא לשרוף תקציב על תיקונים.",
     publishedAt: "2026-02-15",
     keywords: ["אפיון אתר", "תכנון אתר", "UX"],
     relatedServices: ["business-websites", "web-development"],
@@ -95,7 +95,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "whatsapp-automation-worth-it",
-    title: "אוטומציה וואטסאפ לעסק — מתי זה משתלם",
+    title: "אוטומציה וואטסאפ לעסק - מתי זה משתלם",
     description:
       "מתי בוט וואטסאפ חוסך זמן אמיתי, מתי הוא מיותר, ואיך לחבר אותו ללידים ו-CRM.",
     publishedAt: "2026-02-22",
@@ -106,7 +106,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "digital-branding-small-business",
-    title: "מיתוג דיגיטלי לעסק קטן — צעדים מעשיים",
+    title: "מיתוג דיגיטלי לעסק קטן - צעדים מעשיים",
     description:
       "איך בונים זהות מותגית שמייצרת אמון: לוגו, צבעים, שפה ויזואלית ויישום באתר ובפרסום.",
     publishedAt: "2026-03-01",
@@ -150,7 +150,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "monthly-growth-retainer",
-    title: "ריטיינר חודשי לצמיחה דיגיטלית — למי זה מתאים",
+    title: "ריטיינר חודשי לצמיחה דיגיטלית - למי זה מתאים",
     description:
       "מתי ריטיינר חודשי עדיף מפרויקט חד-פעמי, ומה צריך לכלול כדי לראות תוצאות.",
     publishedAt: "2026-03-29",
@@ -163,7 +163,7 @@ const posts: BlogPost[] = [
     slug: "website-launch-checklist-14-days",
     title: "צ'ק-ליסט השקת אתר חדש ב-14 ימים",
     description:
-      "תוכנית השקה מסודרת: תוכן, QA, מדידה, SEO בסיסי והדרכת צוות — בלי הפתעות ביום העלייה.",
+      "תוכנית השקה מסודרת: תוכן, QA, מדידה, SEO בסיסי והדרכת צוות - בלי הפתעות ביום העלייה.",
     publishedAt: "2026-04-05",
     keywords: ["השקת אתר", "צ'ק ליסט אתר"],
     relatedServices: ["business-websites", "web-development"],
@@ -172,7 +172,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "digital-agency-north-israel",
-    title: "סוכנות דיגיטל בצפון — איך בוחרים נכון",
+    title: "סוכנות דיגיטל בצפון - איך בוחרים נכון",
     description:
       "מדריך לבחירת סוכנות דיגיטל בצפון ובחיפה: שאלות לשאול, דגלים אדומים, ומה לצפות מתהליך מקצועי.",
     publishedAt: "2026-04-12",
@@ -185,7 +185,7 @@ const posts: BlogPost[] = [
     slug: "website-cost-haifa-north",
     title: "כמה עולה אתר בחיפה ובצפון? טווחי מחיר 2026",
     description:
-      "טווחי מחיר לבניית אתר בחיפה, קריות והצפון — מה משפיע על העלות ואיך לקבל הצעה מדויקת.",
+      "טווחי מחיר לבניית אתר בחיפה, קריות והצפון - מה משפיע על העלות ואיך לקבל הצעה מדויקת.",
     publishedAt: "2026-04-19",
     keywords: ["כמה עולה אתר בחיפה", "מחיר אתר צפון", "בניית אתרים חיפה"],
     relatedServices: ["business-websites", "landing-pages"],

@@ -10,7 +10,7 @@ type UseTypewriterOptions = {
   linePause?: number;
   /** ms before typing starts */
   startDelay?: number;
-  /** skip animation — show full text immediately */
+  /** skip animation - show full text immediately */
   instant?: boolean;
 };
 

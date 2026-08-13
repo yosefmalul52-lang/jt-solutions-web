@@ -1,4 +1,4 @@
-/** Mobile hero LCP preload — real head link, not metadata.icons. */
+/** Mobile hero LCP preload - real head link, not metadata.icons. */
 export default function HeroMobilePreload() {
   return (
     <link

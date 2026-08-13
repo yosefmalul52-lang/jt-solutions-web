@@ -24,7 +24,7 @@ export const serviceHubPillars: ServiceHubPillar[] = [
     title: "אתרים, דפי נחיתה ואיקומרס",
     outcome: "נכס דיגיטלי שממיר מתעניינות לפניות",
     description:
-      "אתרי תדמית, דפי נחיתה ממירים וחנויות אונליין — מהירים, נגישים ומחוברים למדידה.",
+      "אתרי תדמית, דפי נחיתה ממירים וחנויות אונליין - מהירים, נגישים ומחוברים למדידה.",
     href: "/services/websites",
     icon: MonitorSmartphone,
     accent: "sky",
@@ -38,7 +38,7 @@ export const serviceHubPillars: ServiceHubPillar[] = [
     id: "branding",
     title: "מיתוג וזהות",
     outcome: "מראה מקצועי שבונה אמון לפני השיחה",
-    description: "לוגו, שפה ויזואלית ומדריך מותג — בסיס אחיד לכל הערוצים.",
+    description: "לוגו, שפה ויזואלית ומדריך מותג - בסיס אחיד לכל הערוצים.",
     href: "/services/branding",
     icon: Palette,
     accent: "violet",
@@ -50,8 +50,8 @@ export const serviceHubPillars: ServiceHubPillar[] = [
   {
     id: "automations",
     title: "אוטומציה ומדידה",
-    outcome: "לידים שמגיעים מסודר — בלי ליפול בין הכיסאות",
-    description: "חיבור CRM, בוט וואטסאפ, תורים ותהליכים — פחות עבודה ידנית.",
+    outcome: "לידים שמגיעים מסודר - בלי ליפול בין הכיסאות",
+    description: "חיבור CRM, בוט וואטסאפ, תורים ותהליכים - פחות עבודה ידנית.",
     href: "/services/automations",
     icon: Workflow,
     accent: "cyan",
@@ -65,7 +65,7 @@ export const serviceHubPillars: ServiceHubPillar[] = [
     id: "digital-marketing",
     title: "שיווק דיגיטלי וצמיחה",
     outcome: "תשתית שמאפשרת לצמוח בצורה מדידה",
-    description: "קמפיינים, תשתית פרסום וליווי שוטף — מחוברים לתוצאות עסקיות.",
+    description: "קמפיינים, תשתית פרסום וליווי שוטף - מחוברים לתוצאות עסקיות.",
     href: "/services/digital-marketing",
     icon: Megaphone,
     accent: "rose",
@@ -76,7 +76,7 @@ export const serviceHubPillars: ServiceHubPillar[] = [
   },
 ];
 
-/** All leaf service slugs for SEO — linked from hub footer area */
+/** All leaf service slugs for SEO - linked from hub footer area */
 export const allServiceSeoLinks: { label: string; href: string; slug: ServiceSlug }[] = [
   { slug: "landing-pages", label: "דפי נחיתה", href: "/services/websites#landing" },
   { slug: "business-websites", label: "אתרי תדמית", href: "/services/websites#corporate" },

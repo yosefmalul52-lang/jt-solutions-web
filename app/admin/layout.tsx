@@ -14,7 +14,7 @@ const googleSans = Google_Sans({
 
 export const metadata: Metadata = {
   title: "JT Admin",
-  description: "לוח ניהול לידים ומשימות — JT Solutions",
+  description: "לוח ניהול לידים ומשימות - JT Solutions",
   robots: {
     index: false,
     follow: false,

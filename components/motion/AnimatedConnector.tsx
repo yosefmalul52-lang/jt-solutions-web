@@ -9,7 +9,7 @@ type AnimatedConnectorProps = {
   /** Horizontal connector between cards (desktop). */
   orientation?: "horizontal" | "vertical";
   className?: string;
-  /** Stroke color — defaults to gradient via CSS class. */
+  /** Stroke color - defaults to gradient via CSS class. */
   strokeWidth?: number;
 };
 

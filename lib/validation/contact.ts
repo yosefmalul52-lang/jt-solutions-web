@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** Displayed as "מה הכי דחוף לך כרגע?" — stored in API field `service` for backward compatibility */
+/** Displayed as "מה הכי דחוף לך כרגע?" - stored in API field `service` */
 export const contactUrgencyOptions = [
   "אין לי אתר / האתר ישן",
   "אני צריך דף נחיתה לקמפיין",
@@ -9,7 +9,7 @@ export const contactUrgencyOptions = [
   "אני רוצה חנות אונליין",
   "אני רוצה לבנות את המותג שלי",
   "אני עדיין לא בטוח..",
-  "אני לא בטוח — צריך הכוונה",
+  "אני לא בטוח - צריך הכוונה",
 ] as const;
 
 export const contactServiceOptions = contactUrgencyOptions;

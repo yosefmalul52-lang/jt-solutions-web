@@ -7,18 +7,20 @@ import {
   useLayoutEffect,
   useRef,
   useState,
-  type CSSProperties,
   type RefObject,
 } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Bell,
   LayoutTemplate,
+  Link2,
   Megaphone,
   MessageCircle,
   UserPlus,
   type LucideIcon,
 } from "lucide-react";
+import JourneyStepGraphic from "@/components/sections/JourneyStepGraphic";
 import { useHydrated } from "@/hooks/useHydrated";
 import { problemSection } from "@/lib/home-funnel";
 import { EASE_OUT, motionTransition } from "@/lib/motion";
@@ -26,6 +28,7 @@ import "./problem-journey-section.css";
 
 const STEPS = problemSection.journeySteps;
 const STEP_COUNT = STEPS.length;
+const CLOSING_PIPELINE_LABELS = ["קמפיין", "אתר", "לידים", "CRM", "מעקב"] as const;
 const LINE_SCROLL_TRIGGER = 0.58;
 /** Extra viewport padding so each segment draws over a longer scroll distance */
 const LINE_SCROLL_LEAD = 0.2;
@@ -36,7 +39,7 @@ const SCROLL_IO = { root: null, rootMargin: "-6% 0px -28% 0px", threshold: 0.08 
 
 const PATH_CYAN = "#22D3EE";
 const PATH_PURPLE = "#8B5CF6";
-/** Line has reached the destination card — activate its color. */
+/** Line has reached the destination card - activate its color. */
 const CARD_CONNECT_PROGRESS = 0.9;
 
 const JOURNEY_ICONS: Record<(typeof STEPS)[number]["icon"], LucideIcon> = {
@@ -85,7 +88,7 @@ function bottomAnchor(rect: DOMRect, container: DOMRect): Point {
   };
 }
 
-/** Gap so the path starts outside a card edge — chain links, not through cards. */
+/** Gap so the path starts outside a card edge - chain links, not through cards. */
 const CHAIN_GAP = 12;
 
 function chainSegmentHorizontal(start: Point, end: Point): { start: Point; end: Point } {
@@ -302,20 +305,19 @@ function JourneyStepCard({
       className={`stjourney-leader__card stjourney-leader__card--${step.side}${
         "repair" in step && step.repair ? " stjourney-leader__card--repair" : ""
       }${active ? " stjourney-leader__card--active" : ""}`}
-      style={{ "--card-accent": step.color } as CSSProperties}
     >
       <div className="stjourney-leader__card-body">
-        <span className="stjourney-leader__card-index" aria-hidden>
-          {step.index}
-        </span>
         <div className="stjourney-leader__card-main">
           <div className="stjourney-leader__card-title-row">
             <span className="stjourney-leader__card-icon" aria-hidden>
-              <Icon size={18} strokeWidth={1.75} />
+              <Icon size={16} strokeWidth={1.75} />
             </span>
             <h3 className="stjourney-leader__card-label">{step.label}</h3>
           </div>
           <p className="stjourney-leader__card-desc">{step.description}</p>
+        </div>
+        <div className="stjourney-leader__card-graphic">
+          <JourneyStepGraphic id={step.id} accent={step.color} />
         </div>
       </div>
     </div>
@@ -719,6 +721,116 @@ function LeaderLineCanvas({
   );
 }
 
+function JourneyClosingShapes() {
+  return (
+    <div className="stjourney-leader__closing-decor" aria-hidden>
+      <span className="stjourney-leader__closing-shape stjourney-leader__closing-shape--end">
+        <Image
+          src="/journey/cloud-solid.png"
+          alt=""
+          fill
+          unoptimized
+          className="stjourney-leader__closing-shape-img"
+        />
+      </span>
+      <span className="stjourney-leader__closing-shape stjourney-leader__closing-shape--start">
+        <Image
+          src="/journey/cloud-solid.png"
+          alt=""
+          fill
+          unoptimized
+          className="stjourney-leader__closing-shape-img"
+        />
+      </span>
+    </div>
+  );
+}
+
+function JourneyClosingCard({
+  closingRevealed,
+  closingConnected,
+  closingPulse,
+  reduce,
+  onPulseEnd,
+}: {
+  closingRevealed: boolean;
+  closingConnected: boolean;
+  closingPulse: boolean;
+  reduce: boolean;
+  onPulseEnd: () => void;
+}) {
+  return (
+    <motion.div
+      className={`stjourney-leader__closing${
+        closingRevealed ? "" : " stjourney-leader__closing--pending"
+      }${closingConnected ? " stjourney-leader__closing--active" : ""}${
+        closingPulse ? " stjourney-leader__closing--pulse" : ""
+      }`}
+      initial={false}
+      animate={
+        closingConnected || Boolean(reduce)
+          ? { opacity: 1, scale: 1 }
+          : { opacity: 0, scale: 0.96 }
+      }
+      transition={motionTransition(reduce, { duration: 0.55, ease: EASE_OUT })}
+      style={{ transformOrigin: "center top" }}
+      onAnimationEnd={(event) => {
+        if (event.target !== event.currentTarget) return;
+        if (event.animationName !== "stjourney-closing-ring") return;
+        onPulseEnd();
+      }}
+    >
+      <JourneyClosingShapes />
+      <div className="stjourney-leader__closing-content">
+      <div className="stjourney-leader__closing-head">
+        <span className="stjourney-leader__closing-eyebrow">
+          <Link2 size={13} strokeWidth={2} aria-hidden />
+          {problemSection.journeyClosingEyebrow}
+        </span>
+        <h3 className="stjourney-leader__closing-label">{problemSection.journeyClosingLabel}</h3>
+      </div>
+
+      <ol
+        className="stjourney-leader__closing-flow"
+        aria-label="כל שלבי המסלול מחוברים"
+      >
+        {CLOSING_PIPELINE_LABELS.map((label, index) => (
+          <li key={label} className="stjourney-leader__closing-flow-item">
+            <span
+              className={`stjourney-leader__closing-flow-node${
+                closingConnected ? " stjourney-leader__closing-flow-node--live" : ""
+              }`}
+            >
+              <span className="stjourney-leader__closing-flow-dot" aria-hidden />
+              <span className="stjourney-leader__closing-flow-label">{label}</span>
+            </span>
+            {index < CLOSING_PIPELINE_LABELS.length - 1 ? (
+              <span
+                className={`stjourney-leader__closing-flow-connector${
+                  closingConnected ? " stjourney-leader__closing-flow-connector--live" : ""
+                }`}
+                aria-hidden
+              />
+            ) : null}
+          </li>
+        ))}
+      </ol>
+
+      <p className="stjourney-leader__closing-text">{problemSection.journeyClosing}</p>
+
+      <dl className="stjourney-leader__closing-stats">
+        {problemSection.journeyClosingHighlights.map((item) => (
+          <div key={item.title} className="stjourney-leader__closing-stat">
+            <dt className="stjourney-leader__closing-stat-title">{item.title}</dt>
+            <dd className="stjourney-leader__closing-stat-detail">{item.detail}</dd>
+          </div>
+        ))}
+      </dl>
+      </div>
+    </motion.div>
+  );
+}
+
 function LeaderLineJourney({ stacked }: { stacked: boolean }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const hydrated = useHydrated();
@@ -800,31 +912,13 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
           })}
         </ol>
         <div id="step_closing" className="stjourney-leader__closing-wrap">
-          <motion.div
-            className={`stjourney-leader__closing${
-              closingRevealed ? "" : " stjourney-leader__closing--pending"
-            }${closingConnected ? " stjourney-leader__closing--active" : ""}${
-              closingPulse ? " stjourney-leader__closing--pulse" : ""
-            }`}
-            initial={false}
-            animate={
-              closingConnected || Boolean(reduce)
-                ? { opacity: 1, scale: reduce ? 1 : 1.06 }
-                : { opacity: 0, scale: 0.92 }
-            }
-            transition={motionTransition(reduce, { duration: 0.55, ease: EASE_OUT })}
-            style={{ transformOrigin: "center top" }}
-            onAnimationEnd={(event) => {
-              if (event.target !== event.currentTarget) return;
-              if (event.animationName !== "stjourney-closing-ring") return;
-              setClosingPulse(false);
-            }}
-          >
-            <div className="stjourney-leader__closing-copy">
-              <p className="stjourney-leader__closing-label">{problemSection.journeyClosingLabel}</p>
-              <p className="stjourney-leader__closing-text">{problemSection.journeyClosing}</p>
-            </div>
-          </motion.div>
+          <JourneyClosingCard
+            closingRevealed={closingRevealed}
+            closingConnected={closingConnected}
+            closingPulse={closingPulse}
+            reduce={Boolean(reduce)}
+            onPulseEnd={() => setClosingPulse(false)}
+          />
         </div>
       </div>
     </div>
@@ -843,11 +937,7 @@ function StaticTimeline() {
                 className={`stjourney-static__body stjourney-static__body--active${
                   "repair" in step && step.repair ? " stjourney-static__body--repair" : ""
                 }`}
-                style={{ "--card-accent": step.color } as CSSProperties}
               >
-                <span className="stjourney-static__index" aria-hidden>
-                  {step.index}
-                </span>
                 <div className="stjourney-static__main">
                   <div className="stjourney-static__title-row">
                     <span className="stjourney-static__icon" aria-hidden>
@@ -857,13 +947,45 @@ function StaticTimeline() {
                   </div>
                   <p className="stjourney-static__desc">{step.description}</p>
                 </div>
+                <div className="stjourney-static__graphic">
+                  <JourneyStepGraphic id={step.id} accent={step.color} />
+                </div>
               </div>
             </li>
           );
         })}
         <li className="stjourney-static__closing">
+          <JourneyClosingShapes />
+          <span className="stjourney-static__closing-eyebrow">
+            <Link2 size={13} strokeWidth={2} aria-hidden />
+            {problemSection.journeyClosingEyebrow}
+          </span>
           <span className="stjourney-static__closing-label">{problemSection.journeyClosingLabel}</span>
+          <ol className="stjourney-static__closing-flow" aria-label="כל שלבי המסלול מחוברים">
+            {CLOSING_PIPELINE_LABELS.map((label, index) => (
+              <li key={label} className="stjourney-static__closing-flow-item">
+                <span className="stjourney-static__closing-flow-node stjourney-static__closing-flow-node--live">
+                  <span className="stjourney-static__closing-flow-dot" aria-hidden />
+                  <span>{label}</span>
+                </span>
+                {index < CLOSING_PIPELINE_LABELS.length - 1 ? (
+                  <span
+                    className="stjourney-static__closing-flow-connector stjourney-static__closing-flow-connector--live"
+                    aria-hidden
+                  />
+                ) : null}
+              </li>
+            ))}
+          </ol>
           <span className="stjourney-static__closing-text">{problemSection.journeyClosing}</span>
+          <dl className="stjourney-static__closing-stats">
+            {problemSection.journeyClosingHighlights.map((item) => (
+              <div key={item.title} className="stjourney-static__closing-stat">
+                <dt>{item.title}</dt>
+                <dd>{item.detail}</dd>
+              </div>
+            ))}
+          </dl>
         </li>
       </ol>
     </div>

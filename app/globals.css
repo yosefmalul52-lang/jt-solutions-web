@@ -55,7 +55,7 @@
   --premium-editorial-shadow: var(--shadow-soft);
   --premium-section-y: var(--space-section-y-lg);
   --prose-max: 42rem;
-  /* shadcn / admin semantic tokens — JT brand */
+  /* shadcn / admin semantic tokens - JT brand */
   --background: #f8fbff;
   --foreground: #0f172a;
   --card: #ffffff;
@@ -133,19 +133,21 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(74px + 0.75rem + 20px);
+  overflow-x: clip;
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-heebo), system-ui, sans-serif;
   line-height: 1.55;
+  overflow-x: clip;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(74px + 0.75rem + 20px);
-}
-
-/* Lenis owns inertia scrolling — native smooth conflicts with it */
+/* Lenis owns inertia scrolling - native smooth conflicts with it */
 html.lenis,
 html.lenis-smooth {
   scroll-behavior: auto;
@@ -161,7 +163,7 @@ html.lenis-smooth {
   text-align: right;
 }
 
-/* Dark page canvas — legacy alias, now light */
+/* Dark page canvas - legacy alias, now light */
 .dark-page-shell,
 .light-page-shell {
   position: relative;
@@ -248,7 +250,7 @@ html.lenis-smooth {
   opacity: 1;
 }
 
-/* Gradient text — subtle navy → cyan */
+/* Gradient text - subtle navy → cyan */
 .gradient-text {
   background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 45%, #bae6fd 100%);
   -webkit-background-clip: text;
@@ -263,7 +265,7 @@ html.lenis-smooth {
   background-clip: text;
 }
 
-/* Premium card — light surface */
+/* Premium card - light surface */
 .premium-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -302,7 +304,7 @@ html.lenis-smooth {
   max-width: var(--prose-max);
 }
 
-/* Form inputs — light default */
+/* Form inputs - light default */
 .form-input {
   width: 100%;
   min-height: 2.75rem;
@@ -345,7 +347,7 @@ html.lenis-smooth {
   color: #94a3b8;
 }
 
-/* Floating label fields — RTL-first */
+/* Floating label fields - RTL-first */
 .floating-field {
   position: relative;
   direction: rtl;
@@ -424,11 +426,17 @@ html.lenis-smooth {
 .section-shell {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
 }
 
 .section-shell > * {
   position: relative;
   z-index: 1;
+}
+
+.section-shell > .stjourney-path-bg-corner {
+  position: absolute;
+  z-index: 0;
 }
 
 .section-shell > .section-blob-layer {
@@ -484,7 +492,7 @@ html.lenis-smooth {
   flex-direction: column;
 }
 
-/* ─── Premium visual system (recovered — sharp, fast, intentional) ─── */
+/* ─── Premium visual system (recovered - sharp, fast, intentional) ─── */
 
 .premium-dark-section {
   background: transparent;
@@ -558,7 +566,7 @@ html.lenis-smooth {
     0 12px 32px rgba(15, 23, 42, 0.1);
 }
 
-/* Homepage — Light Premium Studio */
+/* Homepage - Light Premium Studio */
 .homepage-light-shell {
   position: relative;
   isolation: isolate;
@@ -584,7 +592,7 @@ html.lenis-smooth {
   contain-intrinsic-size: auto 720px;
 }
 
-/* Keep plans + form junctions continuously painted — avoids hard scroll seams */
+/* Keep plans + form junctions continuously painted - avoids hard scroll seams */
 .homepage-after-hero > .portfolio-curve-section,
 .homepage-after-hero > .home-section--pricing,
 .homepage-after-hero > .home-section--faq,
@@ -898,7 +906,7 @@ html.lenis-smooth {
   padding-top: 0.35rem;
 }
 
-/* Featured pathway — emphasis via border/shadow, same footprint as siblings */
+/* Featured pathway - emphasis via border/shadow, same footprint as siblings */
 .home-pricing-card--featured {
   --tier: #a21caf;
   border-color: color-mix(in srgb, #c026d3 34%, #e2e8f0);
@@ -983,7 +991,7 @@ html.lenis-smooth {
   color: #475569;
 }
 
-/* Homepage unified background story (legacy dark — kept for reference, unused on light shell) */
+/* Homepage unified background story (legacy dark - kept for reference, unused on light shell) */
 .homepage-story-shell {
   position: relative;
   isolation: isolate;
@@ -995,7 +1003,7 @@ html.lenis-smooth {
   z-index: 1;
 }
 
-/* One continuous dark cinematic canvas — no white bands */
+/* One continuous dark cinematic canvas - no white bands */
 .homepage-background-story {
   position: absolute;
   inset: 0;
@@ -1140,7 +1148,7 @@ html.lenis-smooth {
   animation: hero-typewriter-blink 1s step-end infinite;
 }
 
-/* Time tunnel — CSS only */
+/* Time tunnel - CSS only */
 .premium-tunnel-backdrop {
   position: absolute;
   inset: 0;
@@ -1260,7 +1268,7 @@ html.lenis-smooth {
 }
 
 .premium-motion-safe {
-  /* Marker class — reduced-motion overrides live in global block below */
+  /* Marker class - reduced-motion overrides live in global block below */
 }
 
 /* Premium typography */
@@ -1308,7 +1316,7 @@ html.lenis-smooth {
   color: #94a3b8;
 }
 
-/* Section atmospheres — transparent; global story provides canvas */
+/* Section atmospheres - transparent; global story provides canvas */
 .premium-problem-section,
 .premium-projects-section,
 .premium-services-section,
@@ -1702,7 +1710,7 @@ html:not(.lenis):not(.lenis-smooth) {
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
 
-/* כפתורים צפים — ערכים משותפים עם lib/floating-buttons.ts */
+/* כפתורים צפים - ערכים משותפים עם lib/floating-buttons.ts */
 :root {
   --jt-fab-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
   --jt-fab-end: max(1.5rem, env(safe-area-inset-right, 0px));
@@ -1726,7 +1734,7 @@ html:not(.lenis):not(.lenis-smooth) {
   }
 }
 
-/* Floating WhatsApp — see components/ui/button-system.css */
+/* Floating WhatsApp - see components/ui/button-system.css */
 
 .section-shell > .hero-flow-layer,
 .hero-flow-layer {
@@ -2486,7 +2494,7 @@ a.studio-footer-quiet:focus-visible {
   }
 }
 
-/* Service page shell — light canvas */
+/* Service page shell - light canvas */
 .studio-service-page {
   background: var(--bg-primary);
   color: var(--text-primary);
@@ -2592,7 +2600,7 @@ a.studio-footer-quiet:focus-visible {
 }
 
 /* =====================================================================
-   Creative Motion — Light Premium Futuristic Studio
+   Creative Motion - Light Premium Futuristic Studio
    All motion gated behind prefers-reduced-motion: no-preference.
    ===================================================================== */
 
@@ -2902,7 +2910,7 @@ a.studio-footer-quiet:focus-visible {
   }
 }
 
-/* Digital diagnosis section — ambient backdrop, cards, connecting lines */
+/* Digital diagnosis section - ambient backdrop, cards, connecting lines */
 .diag-section {
   overflow: hidden;
 }
@@ -3253,7 +3261,7 @@ a.studio-footer-quiet:focus-visible {
 
 /* Problem section journey styles → components/sections/problem-journey-section.css */
 
-/* Before / After panels (Problem) — legacy tiles kept for other pages */
+/* Before / After panels (Problem) - legacy tiles kept for other pages */
 .home-ba-panel {
   border-radius: 1rem;
   border: 1px solid #e2e8f0;
@@ -3390,7 +3398,7 @@ a.studio-footer-quiet:focus-visible {
   flex-shrink: 0;
 }
 
-/* Pricing featured — solid signal-blue emphasis (no gradient-mask border) */
+/* Pricing featured - solid signal-blue emphasis (no gradient-mask border) */
 .home-pricing-card--featured {
   position: relative;
 }
@@ -3433,7 +3441,7 @@ a.studio-footer-quiet:focus-visible {
   pointer-events: none;
 }
 
-/* Motion activation — only purposeful motion that supports the message.
+/* Motion activation - only purposeful motion that supports the message.
    Ambient drift/float/marquee removed for a calmer, more premium feel. */
 @media (prefers-reduced-motion: no-preference) {
   .home-system-pulse { animation: cm-pulse-ring 2.4s ease-out infinite; }
@@ -3596,7 +3604,7 @@ a.studio-footer-quiet:focus-visible {
 }
 
 /* =====================================================================
-   Color Motion Identity — scribble, accents, thread, carousel
+   Color Motion Identity - scribble, accents, thread, carousel
    ===================================================================== */
 
 /* Marker highlight on accent words */
@@ -3688,7 +3696,7 @@ a.studio-footer-quiet:focus-visible {
   50.01%, 100% { opacity: 0; }
 }
 
-/* Accent cards — colored top bar (white background stays) */
+/* Accent cards - colored top bar (white background stays) */
 .accent-card {
   position: relative;
   overflow: hidden;
@@ -4017,7 +4025,7 @@ a.studio-footer-quiet:focus-visible {
   transform: rotateZ(var(--angle, 0deg));
 }
 
-/* Trail locked to the lead node (angle 0) — moves on the same transform stack */
+/* Trail locked to the lead node (angle 0) - moves on the same transform stack */
 .orbit-carrier--trail::before {
   content: "";
   position: absolute;

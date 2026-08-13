@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import CtaButton from "@/components/ui/CtaButton";
+import JourneyPathBgCorner from "@/components/sections/JourneyPathBgCorner";
+import PricingCardShape from "@/components/sections/PricingCardShape";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { homePathways } from "@/lib/home-funnel";
 import { staggerVariants, viewport as motionViewport } from "@/lib/motion";
@@ -49,6 +51,7 @@ export default function Pricing() {
       dir="rtl"
       aria-labelledby="pathways-title"
     >
+      <JourneyPathBgCorner position="bottom-left" />
       <div className="home-section__atmosphere home-section__atmosphere--pricing" aria-hidden />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
@@ -95,6 +98,7 @@ export default function Pricing() {
                   )}
                   aria-hidden
                 />
+                <PricingCardShape id={pathway.id} />
 
                 <div className="home-pricing-card__body">
                   <header className="home-pricing-card__identity">
@@ -117,7 +121,7 @@ export default function Pricing() {
                   {/* Value prop */}
                   <p className="home-pricing-card__desc">{pathway.description}</p>
 
-                  {/* Features — medium density */}
+                  {/* Features - medium density */}
                   <div className="home-pricing-card__includes">
                     <p className={cn("home-pricing-card__includes-label", visual.accentColor)}>
                       {visual.featuresTitle}
@@ -137,7 +141,7 @@ export default function Pricing() {
                     </ul>
                   </div>
 
-                  {/* Action — last, always bottom-aligned */}
+                  {/* Action - last, always bottom-aligned */}
                   <div className="home-pricing-card__cta">
                     <CtaButton
                       href={pathway.ctaHref}

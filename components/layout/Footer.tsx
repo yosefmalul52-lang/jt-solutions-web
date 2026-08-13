@@ -3,16 +3,13 @@ import Link from "next/link";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
 import TrackedLink from "@/components/ui/TrackedLink";
+import { MAIN_NAV_LINKS } from "@/lib/navigation";
 import { contactLinks } from "@/lib/site";
 import { WHATSAPP_URL } from "@/lib/floating-buttons";
 
 const pageLinks = [
-  { label: "מה חוסם", href: "/#problem" },
-  { label: "איך זה עובד", href: "/#solution" },
-  { label: "עבודות", href: "/#projects" },
-  { label: "מסלולים", href: "/#pathways" },
+  ...MAIN_NAV_LINKS,
   { label: "שאלות נפוצות", href: "/#faq" },
-  { label: "אבחון", href: "/#contact" },
 ] as const;
 
 const socialLinks = [
@@ -34,7 +31,7 @@ export default function Footer() {
       <div className="studio-footer__inner">
         <div className="studio-footer__main">
           <div className="studio-footer__brand">
-            <Link href="/" className="studio-footer__logo" aria-label="JT Solutions — דף הבית">
+            <Link href="/" className="studio-footer__logo" aria-label="JT Solutions - דף הבית">
               <Image
                 src="/logo.png"
                 alt="JT Solutions"
@@ -45,7 +42,7 @@ export default function Footer() {
               />
             </Link>
             <p className="studio-footer__tagline">
-              מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה — מהאפיון ועד לידים שמגיעים מסודר.
+              מעטפת דיגיטלית אחת: אתרים ממירים, מיתוג, פרסום ואוטומציה - מהאפיון ועד לידים שמגיעים מסודר.
             </p>
           </div>
 

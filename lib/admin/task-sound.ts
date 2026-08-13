@@ -5,7 +5,7 @@ export function playTaskCompleteSound(): void {
     const audio = new Audio("/sounds/task-complete.mp3");
     audio.volume = 0.55;
     void audio.play().catch(() => {
-      /* autoplay / missing file — ignore */
+      /* autoplay / missing file - ignore */
     });
   } catch {
     /* ignore */

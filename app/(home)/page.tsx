@@ -31,7 +31,7 @@ const Contact = dynamic(() => import("@/components/sections/Contact"), {
 export const metadata: Metadata = createPageMetadata({
   title: "בניית אתר לעסק",
   description:
-    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל — אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
+    "בניית אתרים, דפי נחיתה ומעקב לידים לעסקים בישראל - אתר או דף נחיתה, מדידה, וואטסאפ, CRM ואוטומציות במעטפת אחת. אבחון חינם.",
   path: "/",
   keywords: [
     "בניית אתרים לעסקים",

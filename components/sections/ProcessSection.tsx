@@ -31,9 +31,9 @@ export default function ProcessSection() {
         <SectionHeader
           before="תהליך "
           accent="ברור"
-          after=" — ארבעה שלבים"
+          after=" - ארבעה שלבים"
           accentColor="#2563EB"
-          subline="אבחון, אפיון, בנייה ומדידה — עם שקיפות מלאה לאורך הדרך."
+          subline="אבחון, אפיון, בנייה ומדידה - עם שקיפות מלאה לאורך הדרך."
         />
 
         <div className="mt-10 hidden lg:block">

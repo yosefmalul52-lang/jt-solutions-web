@@ -18,7 +18,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "מגדים קייטרינג",
     type: "אתר קייטרינג / הזמנות אונליין",
     description:
-      "אתר קייטרינג מלא — תפריטים לאירועים ושבתות, לצד אפשרות לרכוש אוכל מוכן ישירות מהאתר ולהזמין בקלות.",
+      "אתר קייטרינג מלא - תפריטים לאירועים ושבתות, לצד אפשרות לרכוש אוכל מוכן ישירות מהאתר ולהזמין בקלות.",
     tags: ["אתר תדמית", "קייטרינג", "הזמנות אונליין"],
     href: "https://www.megadim-catering.com/",
     mockupClass: "mockup--catering",
@@ -31,7 +31,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "צמרת הזכוכית",
     type: "אתר לבעל מקצוע / זכוכית אדריכלית",
     description:
-      "אתר פרימיום לעבודות זכוכית אדריכלית — מקלחונים, מראות LED, מחיצות וחדרי ישיבות, עם הצגת שירותים ברורה ומעבר מהיר להצעת מחיר.",
+      "אתר פרימיום לעבודות זכוכית אדריכלית - מקלחונים, מראות LED, מחיצות וחדרי ישיבות, עם הצגת שירותים ברורה ומעבר מהיר להצעת מחיר.",
     tags: ["זכוכית", "לידים", "מיתוג"],
     href: "https://www.tzameret-glass.com/",
     mockupClass: "mockup--glass",
@@ -44,7 +44,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "FinUnit",
     type: "דף נחיתה / ייעוץ פיננסי",
     description:
-      "דף נחיתה לייעוץ פיננסי אישי — מסביר במהירות איך בונים שליטה בתזרים, מציב מטרות ברורות, ומזמין לשיחת אפיון ראשונית ללא עלות.",
+      "דף נחיתה לייעוץ פיננסי אישי - מסביר במהירות איך בונים שליטה בתזרים, מציב מטרות ברורות, ומזמין לשיחת אפיון ראשונית ללא עלות.",
     tags: ["דף נחיתה", "פיננסים", "לידים"],
     href: "https://www.meirdahanfinance.co.il/",
     mockupClass: "mockup--landing",
@@ -57,7 +57,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "אותנטי",
     type: "חנות אונליין / אופנת נשים",
     description:
-      "חנות אינטרנטית לאופנת נשים — קטלוג נקי, חווית קנייה פשוטה במובייל, ומסלול ברור מרפרוף בפריטים ועד רכישה.",
+      "חנות אינטרנטית לאופנת נשים - קטלוג נקי, חווית קנייה פשוטה במובייל, ומסלול ברור מרפרוף בפריטים ועד רכישה.",
     tags: ["Ecommerce", "אופנה", "מכירות"],
     href: "https://www.otenti-fashion.co.il/",
     mockupClass: "mockup--ecommerce",
@@ -70,7 +70,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "Pura Shalom",
     type: "אתר תדמית / נופש כשר",
     description:
-      "אתר פרימיום לנופש כשר בקוסטה ריקה — חוויית ריזורט, חדרים ובקתות, והזמנה מסודרת במקום אחד עם שפה יוקרתית וברורה.",
+      "אתר פרימיום לנופש כשר בקוסטה ריקה - חוויית ריזורט, חדרים ובקתות, והזמנה מסודרת במקום אחד עם שפה יוקרתית וברורה.",
     tags: ["אתר תדמית", "נופש", "מיתוג"],
     href: "/#contact",
     mockupClass: "mockup--landing",
@@ -83,7 +83,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "FinUnit Business",
     type: "דף נחיתה / ייעוץ פיננסי לעסקים",
     description:
-      "דף נחיתה לעסקים שצריכים בהירות בתזרים וברווחיות — מסביר את הערך מהר, בונה אמון, ומוביל לתיאום שיחת אפיון עסקית.",
+      "דף נחיתה לעסקים שצריכים בהירות בתזרים וברווחיות - מסביר את הערך מהר, בונה אמון, ומוביל לתיאום שיחת אפיון עסקית.",
     tags: ["דף נחיתה", "פיננסים", "עסקים"],
     href: "https://business.meirdahanfinance.co.il/",
     mockupClass: "mockup--landing",
@@ -96,7 +96,7 @@ export const curvedPortfolioProjects: CurvedPortfolioProject[] = [
     title: "Savyon Travel",
     type: "אתר תדמית / תיירות",
     description:
-      "אתר חווייתי לטיולים בעולם — סקי, מחלקת VIP ושירותי קרקע, עם מסר חזק שמזמין להתחיל את המסע ולהשאיר פנייה.",
+      "אתר חווייתי לטיולים בעולם - סקי, מחלקת VIP ושירותי קרקע, עם מסר חזק שמזמין להתחיל את המסע ולהשאיר פנייה.",
     tags: ["תיירות", "אתר תדמית", "לידים"],
     href: "https://savyon-travel.vercel.app/",
     mockupClass: "mockup--landing",

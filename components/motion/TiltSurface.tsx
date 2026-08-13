@@ -13,7 +13,7 @@ type TiltSurfaceProps = {
   style?: CSSProperties;
   as?: "div" | "article";
   disabled?: boolean;
-  /** Cursor-tracking color wash — off by default for clean cards. */
+  /** Cursor-tracking color wash - off by default for clean cards. */
   showHighlight?: boolean;
 };
 
