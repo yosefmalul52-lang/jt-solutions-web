@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
+
+const DEFAULT_FB_PIXEL_ID = "1070553158866028";
 
 export default function MetaPixel() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const pixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+  const pixelId = (process.env.NEXT_PUBLIC_FB_PIXEL_ID ?? DEFAULT_FB_PIXEL_ID).trim();
 
   useEffect(() => {
     if (!pixelId || typeof window === "undefined" || typeof window.fbq !== "function") return;
@@ -33,17 +34,16 @@ export default function MetaPixel() {
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${pixelId}');
-            fbq('track', 'PageView');
           `,
         }}
       />
 
       <noscript>
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           alt=""
-          width={1}
           height={1}
-          unoptimized
+          width={1}
           style={{ display: "none" }}
           src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
         />

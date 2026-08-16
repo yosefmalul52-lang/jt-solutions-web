@@ -1,11 +1,21 @@
+import { hasAnalyticsConsent } from "@/lib/cookie-consent";
+
 export function trackEvent(
   eventName: string,
   params?: Record<string, string | number | boolean>,
 ) {
   if (typeof window === "undefined") return;
+  if (!hasAnalyticsConsent()) return;
   if (typeof window.gtag !== "function") return;
 
   window.gtag("event", eventName, params);
+}
+
+export function trackMetaContact(contentName: string) {
+  if (!hasAnalyticsConsent()) return;
+  if (typeof window.fbq !== "function") return;
+
+  window.fbq("track", "Contact", { content_name: contentName });
 }
 
 export function trackPhoneClick(location: string) {
@@ -14,6 +24,7 @@ export function trackPhoneClick(location: string) {
 
 export function trackWhatsAppClick(location: string) {
   trackEvent("click_whatsapp", { location });
+  trackMetaContact(location);
 }
 
 export function trackCtaClick(location: string, label?: string) {

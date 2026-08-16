@@ -17,13 +17,16 @@
 
 1. [ ] היכנס ל-[Google Search Console](https://search.google.com/search-console)
 2. [ ] הוסף נכס URL-prefix: `https://www.jt-solutions.org`
-3. [ ] אימות בעלות — אחת מהאפשרויות:
-   - **DNS** (מומלץ ב-Vercel): רשומת TXT לפי ההוראות ב-GSC
-   - **HTML tag**: הוסף ב-Vercel Environment Variables:
+3. [ ] אימות בעלות — **הקובץ כבר באתר** (מומלץ):
+   - בחר **HTML file** ב-GSC
+   - Google מחפש: `https://www.jt-solutions.org/google1429ec72f15a268e.html`
+   - הקובץ קיים ב-[`public/google1429ec72f15a268e.html`](../public/google1429ec72f15a268e.html) — לחץ **Verify**
+   - חלופה — **HTML tag**: הוסף ב-Vercel:
      ```
      NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=הקוד-מ-GSC
      ```
-     ואז redeploy (האתר קורא את המשתנה ב-[`app/layout.tsx`](../app/layout.tsx))
+     ואז redeploy ([`app/layout.tsx`](../app/layout.tsx))
+   - חלופה — **DNS TXT** ב-Vercel Domains
 4. [ ] Sitemaps → הוסף: `https://www.jt-solutions.org/sitemap.xml`
 5. [ ] URL Inspection על `https://www.jt-solutions.org/` → **Request indexing**
 6. [ ] (אופציונלי) Request indexing גם ל-`/accessibility` ו-`/privacy-policy`

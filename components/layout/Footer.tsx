@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import FooterPhoneLink from "@/components/layout/FooterPhoneLink";
-import TrackedLink from "@/components/ui/TrackedLink";
+import FooterWhatsAppLink from "@/components/layout/FooterWhatsAppLink";
 import { MAIN_NAV_LINKS } from "@/lib/navigation";
 import { contactLinks } from "@/lib/site";
-import { WHATSAPP_URL } from "@/lib/floating-buttons";
 
 const pageLinks = [
   ...MAIN_NAV_LINKS,
@@ -76,15 +75,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <TrackedLink
-              href={WHATSAPP_URL}
-              ctaLocation="footer-whatsapp"
-              ctaLabel="שיחה ב-WhatsApp"
-              className="studio-footer__whatsapp"
-            >
-              <MessageCircle size={16} aria-hidden />
-              שיחה ב-WhatsApp
-            </TrackedLink>
+            <FooterWhatsAppLink className="studio-footer__whatsapp" />
 
             <div className="studio-footer__social">
               {socialLinks.map(({ icon: Icon, href, label }) => (

@@ -28,7 +28,7 @@ import "./problem-journey-section.css";
 
 const STEPS = problemSection.journeySteps;
 const STEP_COUNT = STEPS.length;
-const CLOSING_PIPELINE_LABELS = ["קמפיין", "אתר", "לידים", "CRM", "מעקב"] as const;
+const CLOSING_PIPELINE_LABELS = ["אתר", "קמפיין", "לידים", "CRM", "מעקב"] as const;
 const LINE_SCROLL_TRIGGER = 0.58;
 /** Extra viewport padding so each segment draws over a longer scroll distance */
 const LINE_SCROLL_LEAD = 0.2;

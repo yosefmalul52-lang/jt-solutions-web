@@ -1,5 +1,5 @@
 import { hasAnalyticsConsent } from "@/lib/cookie-consent";
-import { trackEvent } from "@/lib/analytics/track";
+import { trackEvent, trackMetaContact } from "@/lib/analytics/track";
 
 export type LeadFormLocation = "homepage_contact" | "contact_page";
 
@@ -44,6 +44,7 @@ export function trackWhatsAppClickPostLead(formLocation: LeadFormLocation) {
     source: "website",
     form_location: formLocation,
   });
+  trackMetaContact(`post_lead_${formLocation}`);
 }
 
 export function trackLeadConversion() {
