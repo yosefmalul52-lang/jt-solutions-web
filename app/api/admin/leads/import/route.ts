@@ -41,11 +41,12 @@ const statusByLabel = Object.fromEntries(
 function parseSource(raw?: string): LeadSource {
   if (!raw) return "whatsapp";
   const key = raw.trim().toLowerCase();
-  if (key === "site" || key === "whatsapp" || key === "referral") return key;
+  if (key === "site" || key === "whatsapp" || key === "referral" || key === "meta") return key;
   if (sourceByLabel[key]) return sourceByLabel[key];
   if (key.includes("whats") || key.includes("וואט")) return "whatsapp";
   if (key.includes("site") || key.includes("אתר") || key.includes("טופס")) return "site";
   if (key.includes("refer") || key.includes("המלצ")) return "referral";
+  if (key.includes("meta") || key.includes("פייסבוק") || key.includes("ממומן")) return "meta";
   return "whatsapp";
 }
 

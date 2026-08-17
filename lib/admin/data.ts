@@ -124,7 +124,7 @@ function buildChart(leads: Lead[], days = 7): { points: ChartPoint[]; total: num
 }
 
 function buildSources(leads: Lead[]): LeadSourceStat[] {
-  const counts: Record<LeadSource, number> = { site: 0, whatsapp: 0, referral: 0 };
+  const counts: Record<LeadSource, number> = { site: 0, whatsapp: 0, referral: 0, meta: 0 };
   for (const lead of leads) counts[lead.source] += 1;
   const total = leads.length || 1;
   return (Object.keys(counts) as LeadSource[]).map((source) => ({

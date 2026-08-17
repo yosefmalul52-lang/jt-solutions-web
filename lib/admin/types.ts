@@ -1,6 +1,6 @@
 export type LeadStatus = "new" | "contacted" | "qualified" | "won" | "lost";
 
-export type LeadSource = "site" | "whatsapp" | "referral";
+export type LeadSource = "site" | "whatsapp" | "referral" | "meta";
 
 export type Lead = {
   id: string;

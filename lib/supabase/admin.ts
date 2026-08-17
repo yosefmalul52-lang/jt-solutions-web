@@ -6,10 +6,11 @@ export type LeadRow = {
   phone: string;
   email: string | null;
   service: string;
-  source: "site" | "whatsapp" | "referral";
+  source: "site" | "whatsapp" | "referral" | "meta";
   status: "new" | "contacted" | "qualified" | "won" | "lost";
   notes: string | null;
   page_path: string | null;
+  meta_leadgen_id: string | null;
   created_at: string;
   updated_at: string;
 };

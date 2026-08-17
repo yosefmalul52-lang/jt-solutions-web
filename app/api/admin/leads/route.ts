@@ -15,7 +15,7 @@ const createLeadSchema = z.object({
   ),
   email: z.string().trim().email().optional().or(z.literal("")).transform((v) => (v ? v : undefined)),
   service: z.string().trim().min(2),
-  source: z.enum(["site", "whatsapp", "referral"]).default("whatsapp"),
+  source: z.enum(["site", "whatsapp", "referral", "meta"]).default("whatsapp"),
   notes: z.string().trim().max(2000).optional(),
   createdAt: z.string().trim().optional(),
   createFollowUpTask: z.boolean().optional().default(true),
