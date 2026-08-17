@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { saveMetaLeadToCrm } from "@/lib/contact/save-meta-lead";
-import { getMetaConfig } from "@/lib/meta/config";
+import { getMetaConfig, getMetaVerifyToken } from "@/lib/meta/config";
 import { fetchMetaLead, type MetaLeadgenPayload } from "@/lib/meta/fetch-lead";
 import { verifyMetaWebhookSignature } from "@/lib/meta/verify";
 
@@ -57,9 +57,9 @@ function collectLeadgenPayloads(body: MetaWebhookBody, expectedPageId: string): 
 }
 
 export async function GET(req: Request) {
-  const config = getMetaConfig();
-  if (!config) {
-    return NextResponse.json({ error: "Meta webhook is not configured" }, { status: 503 });
+  const verifyToken = getMetaVerifyToken();
+  if (!verifyToken) {
+    return NextResponse.json({ error: "META_VERIFY_TOKEN is not configured" }, { status: 503 });
   }
 
   const url = new URL(req.url);
@@ -67,7 +67,7 @@ export async function GET(req: Request) {
   const token = url.searchParams.get("hub.verify_token");
   const challenge = url.searchParams.get("hub.challenge");
 
-  if (mode === "subscribe" && token === config.verifyToken && challenge) {
+  if (mode === "subscribe" && token === verifyToken && challenge) {
     return new NextResponse(challenge, {
       status: 200,
       headers: { "Content-Type": "text/plain" },

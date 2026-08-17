@@ -5,8 +5,13 @@ export type MetaConfig = {
   pageAccessToken: string;
 };
 
-export function getMetaConfig(): MetaConfig | null {
+export function getMetaVerifyToken(): string | null {
   const verifyToken = process.env.META_VERIFY_TOKEN?.trim();
+  return verifyToken || null;
+}
+
+export function getMetaConfig(): MetaConfig | null {
+  const verifyToken = getMetaVerifyToken();
   const appSecret = process.env.META_APP_SECRET?.trim();
   const pageId = process.env.META_PAGE_ID?.trim();
   const pageAccessToken = process.env.META_PAGE_ACCESS_TOKEN?.trim();
