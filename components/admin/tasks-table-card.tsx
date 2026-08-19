@@ -29,10 +29,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BulkSelectionBar } from "@/components/admin/bulk-selection-bar";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { CreateTaskSheet } from "@/components/admin/create-task-sheet";
 import { googleCalendarUrl } from "@/lib/admin/calendar";
-import { playTaskCompleteSound } from "@/lib/admin/task-sound";
+import { waitForTaskCompleteAnimation } from "@/lib/admin/task-complete-animation";
+import { useTaskCompleteFlash } from "@/lib/admin/use-task-complete-flash";
 import type { Lead, Task } from "@/lib/admin/types";
 import { cn } from "@/lib/utils";
 
@@ -58,7 +60,7 @@ export function TasksTableCard({
   const router = useRouter();
   const [createOpen, setCreateOpen] = React.useState(false);
   const [pendingId, setPendingId] = React.useState<string | null>(null);
-  const [justDone, setJustDone] = React.useState<Set<string>>(new Set());
+  const { completing, popping, flashDone, flashMany, clearFlash } = useTaskCompleteFlash(tasks);
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [busy, setBusy] = React.useState(false);
   const [confirm, setConfirm] = React.useState<null | { ids: string[] }>(null);
@@ -88,28 +90,36 @@ export function TasksTableCard({
   const selectAll = () => setSelected(new Set(tasks.map((t) => t.id)));
   const clearSelection = () => setSelected(new Set());
 
-  const flashDone = (id: string, options?: { silent?: boolean }) => {
-    if (!options?.silent) playTaskCompleteSound();
-    setJustDone((prev) => new Set(prev).add(id));
-    window.setTimeout(() => {
-      setJustDone((prev) => {
-        const next = new Set(prev);
-        next.delete(id);
-        return next;
-      });
-    }, 700);
-  };
-
   const toggleDone = async (task: Task) => {
     if (!interactive) return;
-    setPendingId(task.id);
     const nextDone = !task.done;
-    if (nextDone) flashDone(task.id);
+
+    if (nextDone) {
+      flashDone(task.id);
+      try {
+        const res = await fetch(`/api/admin/tasks/${task.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ done: true }),
+        });
+        if (res.ok) {
+          await waitForTaskCompleteAnimation();
+          router.refresh();
+        } else {
+          clearFlash(task.id);
+        }
+      } catch {
+        clearFlash(task.id);
+      }
+      return;
+    }
+
+    setPendingId(task.id);
     try {
       const res = await fetch(`/api/admin/tasks/${task.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ done: nextDone }),
+        body: JSON.stringify({ done: false }),
       });
       if (res.ok) router.refresh();
     } finally {
@@ -120,8 +130,7 @@ export function TasksTableCard({
   const completeSelected = async (ids: string[]) => {
     if (!ids.length) return;
     setBusy(true);
-    playTaskCompleteSound();
-    ids.forEach((id) => flashDone(id, { silent: true }));
+    flashMany(ids);
     try {
       const res = await fetch("/api/admin/tasks/bulk", {
         method: "POST",
@@ -130,7 +139,10 @@ export function TasksTableCard({
       });
       if (res.ok) {
         clearSelection();
+        await waitForTaskCompleteAnimation(ids.length);
         router.refresh();
+      } else {
+        ids.forEach((id) => clearFlash(id));
       }
     } finally {
       setBusy(false);
@@ -162,11 +174,6 @@ export function TasksTableCard({
         <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2 px-0.5">
           <div className="flex min-w-0 items-center gap-2">
             <h2 className="text-sm font-semibold text-slate-900">{title}</h2>
-            {interactive && someSelected ? (
-              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
-                {selected.size} נבחרו
-              </span>
-            ) : null}
           </div>
           {interactive ? (
             <div className="flex items-center gap-0.5">
@@ -232,11 +239,8 @@ export function TasksTableCard({
           ) : null}
         </div>
 
-        {interactive && someSelected ? (
-          <div className="mb-2 flex flex-wrap items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5">
-            <span className="text-xs font-medium text-slate-700">
-              {selected.size} משימות נבחרו
-            </span>
+        {interactive ? (
+          <BulkSelectionBar open={someSelected} count={selected.size} label="משימות נבחרו">
             <Button
               type="button"
               size="sm"
@@ -265,10 +269,12 @@ export function TasksTableCard({
             >
               ביטול
             </Button>
-          </div>
-        ) : null}
+          </BulkSelectionBar>
+        ) : (
+          <div className="mb-2 h-9 shrink-0" aria-hidden />
+        )}
 
-        <div className="admin-inset min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div className="admin-inset admin-data-table admin-scroll min-h-0 flex-1">
           <Table>
             <TableHeader className="sticky top-0 z-[1] bg-slate-50">
               <TableRow className="hover:bg-transparent">
@@ -283,12 +289,12 @@ export function TasksTableCard({
                     />
                   </TableHead>
                 ) : null}
-                <TableHead className="h-9 text-xs font-medium text-slate-600">משימה</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">ליד</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">יעד</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">סטטוס</TableHead>
+                <TableHead className="h-9 w-[32%] text-xs font-medium text-slate-600">משימה</TableHead>
+                <TableHead className="h-9 w-[24%] text-xs font-medium text-slate-600">ליד</TableHead>
+                <TableHead className="h-9 w-[14%] text-xs font-medium text-slate-600">יעד</TableHead>
+                <TableHead className="h-9 w-[14%] text-xs font-medium text-slate-600">סטטוס</TableHead>
                 {interactive ? (
-                  <TableHead className="h-9 w-20 text-xs font-medium text-slate-600" />
+                  <TableHead className="h-9 w-[5.5rem] text-xs font-medium text-slate-600" />
                 ) : null}
               </TableRow>
             </TableHeader>
@@ -305,15 +311,17 @@ export function TasksTableCard({
               ) : (
                 tasks.map((task) => {
                   const isSelected = selected.has(task.id);
-                  const animating = justDone.has(task.id);
+                  const isCompleting = completing.has(task.id);
+                  const isPopping = popping.has(task.id);
                   const pending = pendingId === task.id;
+                  const showDone = task.done || isCompleting;
                   return (
                     <TableRow
                       key={task.id}
                       className={cn(
                         "bg-white transition-colors hover:bg-slate-50",
                         isSelected && "bg-blue-50/60 hover:bg-blue-50",
-                        animating && "admin-task-done-flash",
+                        isCompleting && "admin-task-done-flash",
                       )}
                     >
                       {interactive ? (
@@ -329,57 +337,56 @@ export function TasksTableCard({
                       ) : null}
                       <TableCell
                         className={cn(
-                          "min-w-[10rem] font-medium text-slate-900",
+                          "admin-table-cell font-medium text-slate-900",
                           compact ? "h-10 py-1.5 text-sm" : "h-11",
-                          task.done && "text-slate-500 line-through",
+                          showDone && "text-slate-500 line-through",
                         )}
                       >
-                        {task.title}
+                        <span className="admin-table-cell__text">{task.title}</span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-800",
+                          "admin-table-cell text-sm text-slate-800",
                           compact ? "h-10 py-1.5" : "h-11",
                         )}
                       >
-                        {task.leadName}
+                        <span className="admin-table-cell__text">{task.leadName}</span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-600",
+                          "admin-table-cell text-sm text-slate-600",
                           compact ? "h-10 py-1.5" : "h-11",
                         )}
                       >
-                        {new Date(task.dueDate).toLocaleDateString("he-IL")}
+                        <span className="admin-table-cell__text">
+                          {new Date(task.dueDate).toLocaleDateString("he-IL")}
+                        </span>
                       </TableCell>
                       <TableCell className={cn(compact ? "h-10 py-1.5" : "h-11")}>
                         <button
                           type="button"
                           disabled={!interactive || pending || busy}
                           onClick={() => void toggleDone(task)}
-                          aria-pressed={task.done}
-                          aria-label={task.done ? "סמן כפתוח" : "סמן כבוצע"}
+                          aria-pressed={showDone}
+                          aria-label={showDone ? "סמן כפתוח" : "סמן כבוצע"}
                           className={cn(
-                            "admin-task-toggle inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium transition-all",
-                            task.done
+                            "admin-task-toggle inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm font-medium",
+                            showDone
                               ? "bg-emerald-50 text-emerald-700"
                               : "bg-amber-50 text-amber-800 hover:bg-amber-100",
-                            interactive && "cursor-pointer active:scale-95",
-                            animating && "admin-task-toggle--pop",
+                            interactive && !isPopping && "cursor-pointer transition-colors active:scale-95",
+                            isPopping && "admin-task-toggle--pop",
                             pending && "opacity-70",
                           )}
                         >
                           {pending ? (
                             <Loader2 className="size-4 animate-spin" aria-hidden />
-                          ) : task.done || animating ? (
-                            <CheckCircle2
-                              className={cn("size-4", animating && "admin-task-check-pop")}
-                              aria-hidden
-                            />
+                          ) : showDone ? (
+                            <CheckCircle2 className="size-4" aria-hidden />
                           ) : (
                             <Circle className="size-4" aria-hidden />
                           )}
-                          {task.done ? "בוצע" : "פתוח"}
+                          {showDone ? "בוצע" : "פתוח"}
                         </button>
                       </TableCell>
                       {interactive ? (

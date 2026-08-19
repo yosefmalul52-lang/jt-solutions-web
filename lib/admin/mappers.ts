@@ -12,6 +12,7 @@ export function mapLeadRow(row: LeadRow): Lead {
     status: row.status,
     createdAt: row.created_at,
     notes: row.notes ?? undefined,
+    lostReason: row.lost_reason ?? undefined,
   };
 }
 

@@ -138,11 +138,11 @@ export function DashboardSidebar() {
                 >
                   <Avatar className="size-6 shrink-0">
                     <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">
-                      יו
+                      י מ
                     </AvatarFallback>
                   </Avatar>
                   <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-sm font-medium group-data-[collapsible=icon]:hidden">
-                    יוסף מלול
+                    יוסף מ
                   </span>
                   <ChevronDown className="size-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
                 </SidebarMenuButton>

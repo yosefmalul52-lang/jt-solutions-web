@@ -10,6 +10,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <TooltipProvider>
       <SidebarProvider
         className="jt-admin h-svh min-h-0 overflow-hidden bg-background text-foreground"
+        data-lenis-prevent
         style={
           {
             "--sidebar-width": "15rem",

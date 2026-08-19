@@ -7,7 +7,6 @@ import { RecentSourcesPanel } from "@/components/admin/recent-leads-panel";
 import { StatGrid } from "@/components/admin/stat-grid";
 import { TasksTableCard } from "@/components/admin/tasks-table-card";
 import type {
-  ChartPoint,
   Lead,
   LeadSourceStat,
   LeadStatus,
@@ -18,12 +17,9 @@ import type {
 type DashboardViewProps = {
   configured: boolean;
   stats: StatItem[];
-  chart: ChartPoint[];
-  chartTotal: number;
-  chartDeltaLabel: string;
   sources: LeadSourceStat[];
   leads: Lead[];
-  /** Full lead list for linking when creating tasks */
+  /** Full lead list for chart + task linking */
   allLeads?: Lead[];
   tasks: Task[];
   statusFilter: LeadStatus | "all";
@@ -33,9 +29,6 @@ type DashboardViewProps = {
 export default function DashboardView({
   configured,
   stats,
-  chart,
-  chartTotal,
-  chartDeltaLabel,
   sources,
   leads,
   allLeads = [],
@@ -58,11 +51,7 @@ export default function DashboardView({
       <div className="mx-auto grid min-h-0 w-full flex-1 grid-rows-[auto_minmax(0,1.05fr)_minmax(0,1fr)] gap-2 pt-2">
         <StatGrid stats={stats} />
         <section className="grid min-h-0 gap-2 xl:grid-cols-4">
-          <LeadsChartPanel
-            data={chart}
-            total={chartTotal}
-            deltaLabel={chartDeltaLabel}
-          />
+          <LeadsChartPanel leads={allLeads.length ? allLeads : leads} />
           <RecentSourcesPanel sources={sources} />
         </section>
         <section className="grid min-h-0 gap-2 overflow-hidden xl:grid-cols-5">
@@ -71,6 +60,7 @@ export default function DashboardView({
               title="לידים פתוחים"
               leads={leads}
               compact
+              dense
               showAction={false}
               interactive
             />

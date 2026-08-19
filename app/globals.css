@@ -92,9 +92,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-heebo), system-ui, sans-serif;
+  --font-sans: var(--font-google-sans), var(--font-heebo), system-ui, sans-serif;
   --font-display: var(--font-tel-aviv), var(--font-heebo);
-  --font-heading: var(--font-heebo), system-ui, sans-serif;
+  --font-heading: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -142,9 +142,33 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-heebo), system-ui, sans-serif;
+  font-family: var(--font-google-sans), var(--font-heebo), system-ui, sans-serif;
   line-height: 1.55;
   overflow-x: clip;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+select,
+button,
+.home-subline {
+  font-family: var(--font-google-sans), var(--font-heebo), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.home-headline,
+.home-hero-title,
+.hero-display-title,
+.display-title,
+.text-display,
+.text-section {
+  font-family: var(--font-tel-aviv), var(--font-heebo), system-ui, sans-serif;
 }
 
 /* Lenis owns inertia scrolling - native smooth conflicts with it */
@@ -812,11 +836,13 @@ html.lenis-smooth {
   padding: var(--pricing-pad);
   min-height: 100%;
   height: 100%;
+  text-align: center;
 }
 
 .home-pricing-card__identity {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--pricing-gap-tight);
   min-height: 6.5rem;
 }
@@ -865,6 +891,7 @@ html.lenis-smooth {
 .home-pricing-card__includes {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.75rem;
   padding-top: 0.15rem;
   flex: 1 1 auto;
@@ -883,17 +910,21 @@ html.lenis-smooth {
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.65rem;
   flex: 1 1 auto;
+  width: 100%;
 }
 
 .home-pricing-card__features li {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 0.55rem;
   font-size: 0.875rem;
   line-height: 1.4;
   color: #334155;
+  text-align: center;
 }
 
 .home-pricing-card__check {
@@ -3831,8 +3862,8 @@ a.studio-footer-quiet:focus-visible {
 .faq-plus {
   position: relative;
   display: inline-flex;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 9999px;
   background: #eff6ff;
   color: #2563eb;

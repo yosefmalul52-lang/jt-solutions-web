@@ -28,7 +28,9 @@ export function LeadsChart({ data }: { data: ChartPoint[] }) {
             reversed
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#475569", fontSize: 12 }}
+            tick={{ fill: "#475569", fontSize: 11 }}
+            interval="preserveStartEnd"
+            tickFormatter={(value: string) => value || ""}
           />
           <YAxis
             orientation="right"

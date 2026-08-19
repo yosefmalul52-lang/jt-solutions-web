@@ -83,7 +83,7 @@ export default function CtaButton({
   disabled,
   loading = false,
   fullWidth,
-  shine = true,
+  shine = false,
   hideIcon = false,
   ctaLocation,
 }: CtaButtonProps) {

@@ -22,6 +22,8 @@ type DashboardTopbarProps = {
   statusFilter?: LeadStatus | "all";
   searchQuery?: string;
   showLeadFilters?: boolean;
+  showStatusDropdown?: boolean;
+  showCreateButton?: boolean;
 };
 
 export function DashboardTopbar({
@@ -29,6 +31,8 @@ export function DashboardTopbar({
   statusFilter = "all",
   searchQuery = "",
   showLeadFilters = true,
+  showStatusDropdown = true,
+  showCreateButton = true,
 }: DashboardTopbarProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -117,30 +121,32 @@ export function DashboardTopbar({
                   placeholder="חיפוש שם, טלפון, שירות..."
                 />
               </div>
-              <Select
-                value={statusFilter}
-                onValueChange={(value) => pushFilters({ status: value })}
-              >
-                <SelectTrigger
-                  className="admin-control w-[11.5rem] justify-between border-border bg-white text-slate-900"
-                  aria-label="סינון סטטוס"
+              {showStatusDropdown ? (
+                <Select
+                  value={statusFilter}
+                  onValueChange={(value) => pushFilters({ status: value })}
                 >
-                  <SelectValue placeholder="סטטוס" />
-                </SelectTrigger>
-                <SelectContent
-                  position="popper"
-                  align="start"
-                  sideOffset={6}
-                  className="z-[60] w-[var(--radix-select-trigger-width)] rounded-[var(--admin-radius-sm)] border border-border bg-white p-1 text-slate-900 shadow-md"
-                >
-                  <SelectItem value="all">כל הסטטוסים</SelectItem>
-                  {Object.entries(leadStatusLabels).map(([value, label]) => (
-                    <SelectItem key={value} value={value}>
-                      {label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                  <SelectTrigger
+                    className="admin-control w-[11.5rem] justify-between border-border bg-white text-slate-900"
+                    aria-label="סינון סטטוס"
+                  >
+                    <SelectValue placeholder="סטטוס" />
+                  </SelectTrigger>
+                  <SelectContent
+                    position="popper"
+                    align="start"
+                    sideOffset={6}
+                    className="z-[60] w-[var(--radix-select-trigger-width)] rounded-[var(--admin-radius-sm)] border border-border bg-white p-1 text-slate-900 shadow-md"
+                  >
+                    <SelectItem value="all">כל הסטטוסים</SelectItem>
+                    {Object.entries(leadStatusLabels).map(([value, label]) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : null}
             </>
           ) : null}
 
@@ -157,17 +163,21 @@ export function DashboardTopbar({
             </Button>
           ) : null}
 
-          <Button
-            className="admin-control bg-[#1e3a8a] px-3 text-white hover:bg-[#1e40af]"
-            type="button"
-            onClick={() => setCreateOpen(true)}
-          >
-            ליד חדש
-            <Plus className="size-4" />
-          </Button>
+          {showCreateButton ? (
+            <Button
+              className="admin-control bg-[#1e3a8a] px-3 text-white hover:bg-[#1e40af]"
+              type="button"
+              onClick={() => setCreateOpen(true)}
+            >
+              ליד חדש
+              <Plus className="size-4" />
+            </Button>
+          ) : null}
         </div>
       </header>
-      <CreateLeadSheet open={createOpen} onOpenChange={setCreateOpen} />
+      {showCreateButton ? (
+        <CreateLeadSheet open={createOpen} onOpenChange={setCreateOpen} />
+      ) : null}
     </>
   );
 }

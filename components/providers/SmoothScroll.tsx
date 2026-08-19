@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import "lenis/dist/lenis.css";
 
@@ -14,9 +15,15 @@ const LENIS_OPTIONS = {
 } as const;
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    if (pathname.startsWith("/admin")) {
+      setEnabled(false);
+      return;
+    }
+
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarse = window.matchMedia("(pointer: coarse)");
     const narrow = window.matchMedia("(max-width: 900px)");
@@ -33,7 +40,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       coarse.removeEventListener("change", sync);
       narrow.removeEventListener("change", sync);
     };
-  }, []);
+  }, [pathname]);
 
   if (!enabled) return children;
 

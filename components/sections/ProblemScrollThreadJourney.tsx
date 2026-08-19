@@ -3,14 +3,13 @@
 import {
   useCallback,
   useEffect,
-  useId,
   useLayoutEffect,
   useRef,
   useState,
   type RefObject,
 } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import {
   Bell,
   LayoutTemplate,
@@ -23,7 +22,6 @@ import {
 import JourneyStepGraphic from "@/components/sections/JourneyStepGraphic";
 import { useHydrated } from "@/hooks/useHydrated";
 import { problemSection } from "@/lib/home-funnel";
-import { EASE_OUT, motionTransition } from "@/lib/motion";
 import "./problem-journey-section.css";
 
 const STEPS = problemSection.journeySteps;
@@ -37,8 +35,7 @@ const LINE_SCROLL_TRAIL = 0.14;
 const LINE_SMOOTH_LAMBDA = 11;
 const SCROLL_IO = { root: null, rootMargin: "-6% 0px -28% 0px", threshold: 0.08 } as const;
 
-const PATH_CYAN = "#22D3EE";
-const PATH_PURPLE = "#8B5CF6";
+const PATH_COLOR = "#2563eb";
 /** Line has reached the destination card - activate its color. */
 const CARD_CONNECT_PROGRESS = 0.9;
 
@@ -58,8 +55,6 @@ type LineGeometry = {
   d: string;
   length: number;
   color: string;
-  fromColor: string;
-  toColor: string;
   repair: boolean;
   startX: number;
   startY: number;
@@ -288,62 +283,36 @@ function queryStep(root: HTMLElement, id: string) {
 function JourneyStepCard({
   step,
   stepId,
-  visible,
   active,
 }: {
   step: JourneyStep;
   stepId: string;
-  visible: boolean;
   active: boolean;
 }) {
-  const reduce = useReducedMotion();
-  const slideX = step.side === "right" ? 20 : -20;
   const Icon = JOURNEY_ICONS[step.icon];
 
-  const card = (
-    <div
-      className={`stjourney-leader__card stjourney-leader__card--${step.side}${
-        "repair" in step && step.repair ? " stjourney-leader__card--repair" : ""
-      }${active ? " stjourney-leader__card--active" : ""}`}
-    >
-      <div className="stjourney-leader__card-body">
-        <div className="stjourney-leader__card-main">
-          <div className="stjourney-leader__card-title-row">
-            <span className="stjourney-leader__card-icon" aria-hidden>
-              <Icon size={16} strokeWidth={1.75} />
-            </span>
-            <h3 className="stjourney-leader__card-label">{step.label}</h3>
+  return (
+    <div id={stepId} className="stjourney-leader__card-wrap">
+      <div
+        className={`stjourney-leader__card stjourney-leader__card--${step.side}${
+          "repair" in step && step.repair ? " stjourney-leader__card--repair" : ""
+        }${active ? " stjourney-leader__card--active" : ""}`}
+      >
+        <div className="stjourney-leader__card-body">
+          <div className="stjourney-leader__card-main">
+            <div className="stjourney-leader__card-title-row">
+              <span className="stjourney-leader__card-icon" aria-hidden>
+                <Icon size={16} strokeWidth={1.75} />
+              </span>
+              <h3 className="stjourney-leader__card-label">{step.label}</h3>
+            </div>
+            <p className="stjourney-leader__card-desc">{step.description}</p>
           </div>
-          <p className="stjourney-leader__card-desc">{step.description}</p>
-        </div>
-        <div className="stjourney-leader__card-graphic">
-          <JourneyStepGraphic id={step.id} accent={step.color} />
+          <div className="stjourney-leader__card-graphic">
+            <JourneyStepGraphic id={step.id} accent={step.color} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-
-  return (
-    <div
-      id={stepId}
-      className={`stjourney-leader__card-wrap${visible ? "" : " stjourney-leader__card-wrap--pending"}`}
-    >
-      {reduce ? (
-        card
-      ) : (
-        <motion.div
-          className="stjourney-leader__card-motion"
-          initial={false}
-          animate={
-            visible
-              ? { opacity: 1, y: 0, x: 0 }
-              : { opacity: 0, y: 14, x: slideX }
-          }
-          transition={motionTransition(reduce, { duration: 0.45, ease: EASE_OUT })}
-        >
-          {card}
-        </motion.div>
-      )}
     </div>
   );
 }
@@ -381,9 +350,7 @@ function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>, stacked: 
         id: `line_${i + 1}_${i + 2}`,
         d,
         length,
-        color: PATH_PURPLE,
-        fromColor: PATH_CYAN,
-        toColor: PATH_PURPLE,
+        color: PATH_COLOR,
         repair: Boolean("repair" in toStep && toStep.repair),
         startX: start.x,
         startY: start.y,
@@ -412,9 +379,7 @@ function useLeaderLineGeometry(rootRef: RefObject<HTMLElement | null>, stacked: 
         id: "line_closing",
         d,
         length: probe.getTotalLength(),
-        color: PATH_PURPLE,
-        fromColor: PATH_CYAN,
-        toColor: PATH_PURPLE,
+        color: PATH_COLOR,
         repair: true,
         startX: start.x,
         startY: start.y,
@@ -624,6 +589,48 @@ function useSequentialJourneyReveal(
   return { revealedSteps, lineProgress, closingRevealed };
 }
 
+function PathCurrent({
+  d,
+  progress,
+  length,
+  color,
+  radius,
+}: {
+  d: string;
+  progress: number;
+  length: number;
+  color: string;
+  radius: number;
+}) {
+  const pathRef = useRef<SVGPathElement>(null);
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
+
+  useLayoutEffect(() => {
+    const el = pathRef.current;
+    if (!el || length <= 0 || progress < 0.03 || progress > 0.97) {
+      setPoint(null);
+      return;
+    }
+    const at = el.getPointAtLength(length * progress);
+    setPoint({ x: at.x, y: at.y });
+  }, [d, length, progress]);
+
+  return (
+    <>
+      <path ref={pathRef} d={d} fill="none" stroke="none" />
+      {point ? (
+        <circle
+          className="stjourney-leader__current"
+          cx={point.x}
+          cy={point.y}
+          r={radius}
+          fill={color}
+        />
+      ) : null}
+    </>
+  );
+}
+
 function LeaderLineCanvas({
   lines,
   stacked,
@@ -636,26 +643,9 @@ function LeaderLineCanvas({
   closingPulse: boolean;
 }) {
   const reduce = useReducedMotion();
-  const uid = useId().replace(/:/g, "");
 
   return (
-    <svg className="stjourney-leader__svg" aria-hidden="true">
-      <defs>
-        {lines.map((line, index) => (
-          <linearGradient
-            key={`grad-${line.id}`}
-            id={`stj-grad-${uid}-${index}`}
-            gradientUnits="userSpaceOnUse"
-            x1={line.startX}
-            y1={line.startY}
-            x2={line.endX}
-            y2={line.endY}
-          >
-            <stop offset="0%" stopColor={line.fromColor} />
-            <stop offset="100%" stopColor={line.toColor} />
-          </linearGradient>
-        ))}
-      </defs>
+    <div className="stjourney-leader__strokes" aria-hidden="true">
       {lines.map((line, index) => {
         const progress = reduce ? 1 : Math.min(1, Math.max(0, lineProgress[index] ?? 0));
         const drawn = progress > 0.01;
@@ -666,42 +656,49 @@ function LeaderLineCanvas({
           progress < 0.98 &&
           (index === 0 || (lineProgress[index - 1] ?? 0) > 0.9);
         const closingHit = !reduce && isClosingLine && closingPulse;
-        const strokeWidth = stacked ? 3 : 3.5;
+        const strokeWidth = stacked ? 4 : 4.5;
         const dashOffset = line.length * (1 - progress);
 
         return (
-          <g
+          <svg
             key={line.id}
-            className={
+            className={`stjourney-leader__svg${
               drawn || reduce
-                ? "stjourney-leader__segment--active"
-                : "stjourney-leader__segment--idle"
-            }
+                ? " stjourney-leader__segment--active"
+                : " stjourney-leader__segment--idle"
+            }`}
+            style={{ zIndex: lines.length - index }}
           >
             <path
-              className="stjourney-leader__track"
+              className="stjourney-leader__track stjourney-leader__track--ghost"
               d={line.d}
               strokeWidth={strokeWidth}
-              strokeDasharray={`${line.length}`}
-              strokeDashoffset={dashOffset}
-              style={{ opacity: drawn || reduce ? undefined : 0 }}
             />
             <path
               className={`stjourney-leader__path${line.repair ? " stjourney-leader__path--repair" : ""}`}
               d={line.d}
-              stroke={`url(#stj-grad-${uid}-${index})`}
+              stroke={line.color}
               strokeWidth={strokeWidth}
               strokeLinecap="round"
               strokeDasharray={`${line.length}`}
               strokeDashoffset={dashOffset}
               style={{ opacity: drawn || reduce ? undefined : 0 }}
             />
+            {!reduce && drawn ? (
+              <PathCurrent
+                d={line.d}
+                progress={progress}
+                length={line.length}
+                color={line.color}
+                radius={stacked ? 4.5 : 5}
+              />
+            ) : null}
             <circle
               className="stjourney-leader__link"
               cx={line.startX}
               cy={line.startY}
-              r={stacked ? 3 : 3.25}
-              fill={line.fromColor}
+              r={stacked ? 3.5 : 3.75}
+              fill={line.color}
               style={{ opacity: progress > 0.04 || reduce ? 1 : 0 }}
             />
             <circle
@@ -710,14 +707,14 @@ function LeaderLineCanvas({
               }${closingHit ? " stjourney-leader__link--closing-hit" : ""}`}
               cx={line.endX}
               cy={line.endY}
-              r={stacked ? 3.25 : 3.5}
-              fill={line.toColor}
+              r={stacked ? 3.75 : 4}
+              fill={line.color}
               style={{ opacity: progress > 0.92 || reduce ? 1 : 0 }}
             />
-          </g>
+          </svg>
         );
       })}
-    </svg>
+    </div>
   );
 }
 
@@ -747,36 +744,22 @@ function JourneyClosingShapes() {
 }
 
 function JourneyClosingCard({
-  closingRevealed,
   closingConnected,
   closingPulse,
-  reduce,
   onPulseEnd,
 }: {
-  closingRevealed: boolean;
   closingConnected: boolean;
   closingPulse: boolean;
-  reduce: boolean;
   onPulseEnd: () => void;
 }) {
   return (
-    <motion.div
+    <div
       className={`stjourney-leader__closing${
-        closingRevealed ? "" : " stjourney-leader__closing--pending"
-      }${closingConnected ? " stjourney-leader__closing--active" : ""}${
-        closingPulse ? " stjourney-leader__closing--pulse" : ""
-      }`}
-      initial={false}
-      animate={
-        closingConnected || Boolean(reduce)
-          ? { opacity: 1, scale: 1 }
-          : { opacity: 0, scale: 0.96 }
-      }
-      transition={motionTransition(reduce, { duration: 0.55, ease: EASE_OUT })}
-      style={{ transformOrigin: "center top" }}
+        closingConnected ? " stjourney-leader__closing--active" : ""
+      }${closingPulse ? " stjourney-leader__closing--pulse" : ""}`}
       onAnimationEnd={(event) => {
         if (event.target !== event.currentTarget) return;
-        if (event.animationName !== "stjourney-closing-ring") return;
+        if (event.animationName !== "stjourney-closing-hit") return;
         onPulseEnd();
       }}
     >
@@ -800,6 +783,7 @@ function JourneyClosingCard({
               className={`stjourney-leader__closing-flow-node${
                 closingConnected ? " stjourney-leader__closing-flow-node--live" : ""
               }`}
+              style={{ ["--i" as string]: index }}
             >
               <span className="stjourney-leader__closing-flow-dot" aria-hidden />
               <span className="stjourney-leader__closing-flow-label">{label}</span>
@@ -809,6 +793,7 @@ function JourneyClosingCard({
                 className={`stjourney-leader__closing-flow-connector${
                   closingConnected ? " stjourney-leader__closing-flow-connector--live" : ""
                 }`}
+                style={{ ["--i" as string]: index }}
                 aria-hidden
               />
             ) : null}
@@ -827,7 +812,7 @@ function JourneyClosingCard({
         ))}
       </dl>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -904,7 +889,6 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
                 <JourneyStepCard
                   step={step}
                   stepId={`step_${index + 1}`}
-                  visible={revealedSteps[index] ?? false}
                   active={connected}
                 />
               </li>
@@ -913,10 +897,8 @@ function LeaderLineJourney({ stacked }: { stacked: boolean }) {
         </ol>
         <div id="step_closing" className="stjourney-leader__closing-wrap">
           <JourneyClosingCard
-            closingRevealed={closingRevealed}
             closingConnected={closingConnected}
             closingPulse={closingPulse}
-            reduce={Boolean(reduce)}
             onPulseEnd={() => setClosingPulse(false)}
           />
         </div>

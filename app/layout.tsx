@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Heebo } from "next/font/google";
+import { Google_Sans, Heebo } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "@/components/ui/button-system.css";
@@ -18,6 +18,15 @@ const heebo = Heebo({
   subsets: ["hebrew", "latin"],
   display: "swap",
   adjustFontFallback: true,
+  preload: true,
+});
+
+const googleSans = Google_Sans({
+  variable: "--font-google-sans",
+  subsets: ["hebrew", "latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  adjustFontFallback: false,
   preload: true,
 });
 
@@ -109,7 +118,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="he-IL"
       dir="rtl"
-      className={cn("h-full antialiased font-sans", heebo.variable, telAvivDisplay.variable)}
+      className={cn(
+        "h-full antialiased font-sans",
+        heebo.variable,
+        googleSans.variable,
+        telAvivDisplay.variable,
+      )}
     >
       <body className="min-h-full flex flex-col bg-[#F8FAFC] text-slate-950">
         <SmoothScroll>

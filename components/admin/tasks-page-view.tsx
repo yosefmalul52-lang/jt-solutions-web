@@ -13,6 +13,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BulkSelectionBar } from "@/components/admin/bulk-selection-bar";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { CreateTaskSheet } from "@/components/admin/create-task-sheet";
 import { googleCalendarUrl } from "@/lib/admin/calendar";
@@ -27,7 +28,8 @@ import {
   type TaskDueKind,
   type TaskViewFilter,
 } from "@/lib/admin/task-due";
-import { playTaskCompleteSound } from "@/lib/admin/task-sound";
+import { waitForTaskCompleteAnimation } from "@/lib/admin/task-complete-animation";
+import { useTaskCompleteFlash } from "@/lib/admin/use-task-complete-flash";
 import type { Lead, Task } from "@/lib/admin/types";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +62,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
 
   const [createOpen, setCreateOpen] = React.useState(false);
   const [pendingId, setPendingId] = React.useState<string | null>(null);
-  const [justDone, setJustDone] = React.useState<Set<string>>(new Set());
+  const { completing, popping, flashDone, flashMany, clearFlash } = useTaskCompleteFlash(tasks);
   const [selected, setSelected] = React.useState<Set<string>>(new Set());
   const [busy, setBusy] = React.useState(false);
   const [confirm, setConfirm] = React.useState<null | { ids: string[] }>(null);
@@ -111,27 +113,35 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
   const selectAll = () => setSelected(new Set(visible.map((t) => t.id)));
   const clearSelection = () => setSelected(new Set());
 
-  const flashDone = (id: string, options?: { silent?: boolean }) => {
-    if (!options?.silent) playTaskCompleteSound();
-    setJustDone((prev) => new Set(prev).add(id));
-    window.setTimeout(() => {
-      setJustDone((prev) => {
-        const next = new Set(prev);
-        next.delete(id);
-        return next;
-      });
-    }, 700);
-  };
-
   const toggleDone = async (task: Task) => {
-    setPendingId(task.id);
     const nextDone = !task.done;
-    if (nextDone) flashDone(task.id);
+
+    if (nextDone) {
+      flashDone(task.id);
+      try {
+        const res = await fetch(`/api/admin/tasks/${task.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ done: true }),
+        });
+        if (res.ok) {
+          await waitForTaskCompleteAnimation();
+          router.refresh();
+        } else {
+          clearFlash(task.id);
+        }
+      } catch {
+        clearFlash(task.id);
+      }
+      return;
+    }
+
+    setPendingId(task.id);
     try {
       const res = await fetch(`/api/admin/tasks/${task.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ done: nextDone }),
+        body: JSON.stringify({ done: false }),
       });
       if (res.ok) router.refresh();
     } finally {
@@ -142,8 +152,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
   const completeSelected = async (ids: string[]) => {
     if (!ids.length) return;
     setBusy(true);
-    playTaskCompleteSound();
-    ids.forEach((id) => flashDone(id, { silent: true }));
+    flashMany(ids);
     try {
       const res = await fetch("/api/admin/tasks/bulk", {
         method: "POST",
@@ -152,7 +161,10 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
       });
       if (res.ok) {
         clearSelection();
+        await waitForTaskCompleteAnimation(ids.length);
         router.refresh();
+      } else {
+        ids.forEach((id) => clearFlash(id));
       }
     } finally {
       setBusy(false);
@@ -264,43 +276,38 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
           </Button>
         </div>
 
-        {someSelected ? (
-          <div className="flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-            <span className="text-sm font-medium text-slate-800">
-              {selected.size} נבחרו
-            </span>
-            <Button
-              type="button"
-              size="sm"
-              className="h-8 bg-[#1e3a8a] text-white hover:bg-[#1e40af]"
-              disabled={busy}
-              onClick={() => void completeSelected(Array.from(selected))}
-            >
-              <CheckCheck className="size-3.5" />
-              סמן כבוצע
-            </Button>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              className="h-8 border-red-200 text-red-700 hover:bg-red-50"
-              disabled={busy}
-              onClick={() => setConfirm({ ids: Array.from(selected) })}
-            >
-              <Trash2 className="size-3.5" />
-              מחק
-            </Button>
-            <Button
-              type="button"
-              size="sm"
-              variant="ghost"
-              className="h-8 text-slate-700"
-              onClick={clearSelection}
-            >
-              ביטול
-            </Button>
-          </div>
-        ) : null}
+        <BulkSelectionBar open={someSelected} count={selected.size} label="נבחרו">
+          <Button
+            type="button"
+            size="sm"
+            className="h-7 bg-[#1e3a8a] text-white hover:bg-[#1e40af]"
+            disabled={busy}
+            onClick={() => void completeSelected(Array.from(selected))}
+          >
+            <CheckCheck className="size-3.5" />
+            סמן כבוצע
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="h-7 border-red-200 text-red-700 hover:bg-red-50"
+            disabled={busy}
+            onClick={() => setConfirm({ ids: Array.from(selected) })}
+          >
+            <Trash2 className="size-3.5" />
+            מחק
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant="ghost"
+            className="h-7 text-slate-700"
+            onClick={clearSelection}
+          >
+            ביטול
+          </Button>
+        </BulkSelectionBar>
 
         <section className="admin-surface flex min-h-0 flex-1 flex-col overflow-hidden">
           <div className="flex shrink-0 items-center justify-between gap-2 border-b border-slate-100 px-3 py-2">
@@ -322,7 +329,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
             ) : null}
           </div>
 
-          <div className="min-h-0 flex-1 overflow-auto">
+          <div className="admin-scroll min-h-0 flex-1">
             {visible.length === 0 ? (
               <div className="flex h-full min-h-48 flex-col items-center justify-center gap-3 px-6 py-12 text-center">
                 <div className="flex size-12 items-center justify-center rounded-full bg-slate-100 text-slate-500">
@@ -348,15 +355,17 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
                 {visible.map((task) => {
                   const kind = taskDueKind(task);
                   const isSelected = selected.has(task.id);
-                  const animating = justDone.has(task.id);
+                  const isCompleting = completing.has(task.id);
+                  const isPopping = popping.has(task.id);
                   const pending = pendingId === task.id;
+                  const showDone = task.done || isCompleting;
                   return (
                     <li
                       key={task.id}
                       className={cn(
                         "flex items-center gap-2.5 px-3 py-2.5 transition-colors duration-150",
                         isSelected && "bg-blue-50/70",
-                        animating && "admin-task-done-flash",
+                        isCompleting && "admin-task-done-flash",
                         !isSelected && "hover:bg-slate-50/80",
                       )}
                     >
@@ -372,24 +381,22 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
                         type="button"
                         disabled={pending || busy}
                         onClick={() => void toggleDone(task)}
-                        aria-pressed={task.done}
-                        aria-label={task.done ? "סמן כפתוח" : "סמן כבוצע"}
+                        aria-pressed={showDone}
+                        aria-label={showDone ? "סמן כפתוח" : "סמן כבוצע"}
                         className={cn(
-                          "flex size-8 shrink-0 items-center justify-center rounded-md transition-colors duration-150",
-                          task.done
+                          "flex size-8 shrink-0 items-center justify-center rounded-md",
+                          showDone
                             ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                             : "bg-white text-slate-500 ring-1 ring-slate-200 hover:bg-slate-50 hover:text-[#1e3a8a]",
+                          !isPopping && "transition-colors duration-150",
                           pending && "opacity-70",
-                          animating && "admin-task-toggle--pop",
+                          isPopping && "admin-task-toggle--pop",
                         )}
                       >
                         {pending ? (
                           <Loader2 className="size-4 animate-spin" aria-hidden />
-                        ) : task.done || animating ? (
-                          <CheckCircle2
-                            className={cn("size-5", animating && "admin-task-check-pop")}
-                            aria-hidden
-                          />
+                        ) : showDone ? (
+                          <CheckCircle2 className="size-5" aria-hidden />
                         ) : (
                           <Circle className="size-5" aria-hidden />
                         )}
@@ -399,7 +406,7 @@ export function TasksPageView({ tasks, leads }: TasksPageViewProps) {
                         <p
                           className={cn(
                             "truncate text-[0.9375rem] font-semibold leading-snug text-slate-900",
-                            task.done && "text-slate-500 line-through",
+                            showDone && "text-slate-500 line-through",
                           )}
                         >
                           {task.title}

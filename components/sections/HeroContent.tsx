@@ -5,7 +5,10 @@ import HomeCtaButton from "@/components/home/HomeCtaButton";
 import LeadOrbitVisual from "@/components/home/LeadOrbitVisual";
 import HomeHeroHeadline from "@/components/home/HomeHeroHeadline";
 import PremiumTypewriter from "@/components/home/PremiumTypewriter";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useHydrated } from "@/hooks/useHydrated";
+import { trackWhatsAppClick } from "@/lib/analytics/track";
+import { WHATSAPP_URL } from "@/lib/floating-buttons";
 import { heroCopy } from "@/lib/hero-content";
 import { staggerVariants } from "@/lib/motion";
 
@@ -61,6 +64,19 @@ export default function HeroContent() {
               label={heroCopy.ctaLabel}
               className="w-full sm:w-auto"
             />
+            <HomeCtaButton
+              id="hero-whatsapp-cta"
+              variant="whatsapp"
+              href={WHATSAPP_URL}
+              hideIcon
+              className="w-full sm:w-auto"
+              onClick={() => trackWhatsAppClick("hero")}
+            >
+              <span className="inline-flex items-center justify-center gap-2">
+                <WhatsAppIcon size={17} className="shrink-0" aria-hidden />
+                {heroCopy.whatsappCtaLabel}
+              </span>
+            </HomeCtaButton>
           </Item>
         </Wrap>
 

@@ -21,15 +21,11 @@ export type ButtonClassOptions = {
 };
 
 export function shouldShowShine(
-  variant: ButtonVariant,
-  shine: ButtonShine | undefined,
-  disabled?: boolean,
-  loading?: boolean,
+  _variant: ButtonVariant,
+  _shine: ButtonShine | undefined,
+  _disabled?: boolean,
+  _loading?: boolean,
 ): { show: boolean; auto: boolean } {
-  if (disabled || loading) return { show: false, auto: false };
-  if (shine === false) return { show: false, auto: false };
-  if (shine === "auto") return { show: true, auto: true };
-  if (shine === true) return { show: true, auto: false };
   return { show: false, auto: false };
 }
 

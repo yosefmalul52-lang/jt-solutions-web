@@ -22,9 +22,6 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
     <DashboardView
       configured={configured}
       stats={data?.stats ?? []}
-      chart={data?.chart ?? []}
-      chartTotal={data?.chartTotal ?? 0}
-      chartDeltaLabel={data?.chartDeltaLabel ?? "-"}
       sources={data?.sources ?? []}
       leads={data?.openLeads ?? []}
       allLeads={data?.leads ?? []}

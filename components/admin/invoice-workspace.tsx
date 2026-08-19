@@ -110,7 +110,7 @@ export function InvoiceWorkspace() {
 
           <div
             ref={editorScrollRef}
-            className="invoice-editor-scroll min-h-0 flex-1 overflow-y-scroll overscroll-y-contain px-3 py-3"
+            className="invoice-editor-scroll admin-scroll min-h-0 flex-1 px-3 py-3"
             style={{ WebkitOverflowScrolling: "touch" }}
           >
             <div className="space-y-4 pb-2">
@@ -337,7 +337,7 @@ export function InvoiceWorkspace() {
           </div>
         </aside>
 
-        <section className="invoice-preview min-h-0 overflow-y-scroll overscroll-y-contain rounded-xl border border-slate-200 bg-slate-100/80 p-3 sm:p-5 print:border-0 print:bg-white print:p-0">
+        <section className="invoice-preview admin-scroll min-h-0 rounded-xl border border-slate-200 bg-slate-100/80 p-3 sm:p-5 print:border-0 print:bg-white print:p-0">
           <InvoiceDocument doc={doc} className="mx-auto shadow-sm print:shadow-none" />
         </section>
       </div>

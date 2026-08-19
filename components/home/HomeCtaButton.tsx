@@ -7,7 +7,7 @@ import { useMagnetic } from "@/hooks/useMagnetic";
 /** Homepage hero CTA - enterprise primary + subtle magnetic pull on desktop. */
 export default function HomeCtaButton({
   variant = "primary",
-  shine = "auto",
+  shine = false,
   hideIcon = false,
   ...props
 }: CtaButtonProps) {
@@ -21,7 +21,7 @@ export default function HomeCtaButton({
   return (
     <motion.div
       ref={ref}
-      className="inline-flex max-w-full"
+      className="inline-flex w-full max-w-full sm:w-auto"
       style={disabled ? undefined : { x, y }}
       whileTap={reduce ? undefined : { scale: 0.97 }}
       transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}

@@ -1,10 +1,11 @@
 import { createHmac, timingSafeEqual } from "crypto";
+import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_SALT } from "@/lib/admin/auth-constants";
 
-export const ADMIN_SESSION_COOKIE = "jt_admin_session";
+export { ADMIN_SESSION_COOKIE };
 
 export function createAdminSessionToken(password = process.env.ADMIN_PASSWORD): string | null {
   if (!password) return null;
-  return createHmac("sha256", password).update("jt-admin-session-v1").digest("hex");
+  return createHmac("sha256", password).update(ADMIN_SESSION_SALT).digest("hex");
 }
 
 export function isValidAdminSession(token: string | undefined | null): boolean {

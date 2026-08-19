@@ -174,7 +174,7 @@ export function ImportLeadsSheet({ open, onOpenChange }: ImportLeadsSheetProps) 
           <SheetTitle>ייבוא לידים מ-CSV</SheetTitle>
         </SheetHeader>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-auto p-4">
+        <div className="flex min-h-0 flex-1 flex-col gap-4 admin-scroll p-4">
           {step === "upload" ? (
             <div className="flex flex-col gap-3">
               <p className="text-sm text-slate-600">
@@ -288,7 +288,7 @@ export function ImportLeadsSheet({ open, onOpenChange }: ImportLeadsSheetProps) 
                 ) : null}
               </p>
               {result.errors.length > 0 ? (
-                <ul className="max-h-40 space-y-1 overflow-auto rounded-md border border-amber-100 bg-amber-50 p-2 text-xs text-amber-900">
+                <ul className="max-h-40 space-y-1 admin-scroll rounded-md border border-amber-100 bg-amber-50 p-2 text-xs text-amber-900">
                   {result.errors.map((e) => (
                     <li key={`${e.row}-${e.error}`}>
                       שורה {e.row}: {e.error}

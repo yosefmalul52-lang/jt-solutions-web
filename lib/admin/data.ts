@@ -196,8 +196,15 @@ export async function fetchDashboardBundle(options?: {
   status?: LeadStatus | "all";
   q?: string;
 }): Promise<DashboardBundle> {
-  const [leads, tasks] = await Promise.all([fetchLeads(options), fetchTasks()]);
-  const chart = buildChart(leads);
+  const [allLeads, tasks] = await Promise.all([
+    fetchLeads({ q: options?.q }),
+    fetchTasks(),
+  ]);
+  const leads =
+    options?.status && options.status !== "all"
+      ? allLeads.filter((lead) => lead.status === options.status)
+      : allLeads;
+  const chart = buildChart(allLeads);
   const openLeads = leads.filter((lead) =>
     ["new", "contacted", "qualified"].includes(lead.status),
   );

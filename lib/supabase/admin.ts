@@ -9,6 +9,7 @@ export type LeadRow = {
   source: "site" | "whatsapp" | "referral" | "meta";
   status: "new" | "contacted" | "qualified" | "won" | "lost";
   notes: string | null;
+  lost_reason: string | null;
   page_path: string | null;
   meta_leadgen_id: string | null;
   created_at: string;
@@ -41,10 +42,15 @@ export function getSupabaseAdmin(): SupabaseClient {
     throw new Error("Missing Supabase URL or key (SUPABASE_SERVICE_ROLE_KEY / SUPABASE_ANON_KEY)");
   }
 
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NODE_ENV === "production") {
-    console.warn(
-      "[supabase] SUPABASE_SERVICE_ROLE_KEY missing - admin table access will fail; contact uses submit_site_lead RPC only.",
-    );
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()) {
+    const message =
+      "[supabase] SUPABASE_SERVICE_ROLE_KEY is required for admin CRM access. " +
+      "Add it to .env.local from Supabase → Project Settings → API → service_role.";
+    if (process.env.NODE_ENV === "production") {
+      console.warn(message);
+    } else {
+      console.error(message);
+    }
   }
 
   cached = createClient(url, key, {

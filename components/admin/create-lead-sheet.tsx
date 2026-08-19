@@ -99,7 +99,7 @@ export function CreateLeadSheet({ open, onOpenChange }: CreateLeadSheetProps) {
         <SheetHeader className="border-b border-slate-100 pe-12">
           <SheetTitle>ליד חדש</SheetTitle>
         </SheetHeader>
-        <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-4 py-4">
+        <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col gap-3 admin-scroll px-4 py-4">
           <label className="text-sm font-medium text-slate-800">
             שם
             <Input className="mt-1" value={name} onChange={(e) => setName(e.target.value)} required />

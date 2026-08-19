@@ -58,13 +58,20 @@
   margin-inline: auto;
 }
 
+.stjourney-leader__strokes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  isolation: isolate;
+}
+
 .stjourney-leader__svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
   overflow: visible;
 }
 
@@ -74,6 +81,10 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0.9;
+}
+
+.stjourney-leader__track--ghost {
+  opacity: 0.55;
 }
 
 .stjourney-leader__segment--idle {
@@ -104,18 +115,23 @@
   opacity: 0.92;
 }
 
+.stjourney-leader__current {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+}
+
 .stjourney-leader__link {
   opacity: 0.95;
   stroke: #ffffff;
   stroke-width: 1.5px;
-  filter: drop-shadow(0 0 3px rgba(34, 211, 238, 0.28))
-    drop-shadow(0 0 6px rgba(139, 92, 246, 0.18));
+  filter: none;
 }
 
 .stjourney-leader__link--active {
   opacity: 1;
-  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.4))
-    drop-shadow(0 0 9px rgba(139, 92, 246, 0.3));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: stjourney-link-tip 0.9s ease-in-out infinite;
 }
 
 .stjourney-leader__link--closing-hit {
@@ -125,24 +141,36 @@
   animation: stjourney-link-closing-pulse 0.85s ease-out 1;
 }
 
+@keyframes stjourney-link-tip {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.28);
+  }
+}
+
 @keyframes stjourney-link-closing-pulse {
   0% {
-    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.35))
-      drop-shadow(0 0 8px rgba(139, 92, 246, 0.25));
+    transform: scale(1);
   }
   40% {
-    filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.85))
-      drop-shadow(0 0 20px rgba(139, 92, 246, 0.65));
+    transform: scale(1.45);
   }
   100% {
-    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.35))
-      drop-shadow(0 0 8px rgba(139, 92, 246, 0.25));
+    transform: scale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .stjourney-leader__link--active,
   .stjourney-leader__link--closing-hit {
     animation: none;
+  }
+
+  .stjourney-leader__current {
+    display: none;
   }
 }
 
@@ -175,20 +203,7 @@
   width: min(100%, 18.5rem);
   max-width: 100%;
   height: auto;
-}
-
-.stjourney-leader__card-wrap--pending {
-  pointer-events: none;
-}
-
-.stjourney-leader__card-wrap--pending .stjourney-leader__card-motion {
-  visibility: hidden;
-}
-
-.stjourney-leader__closing--pending {
-  pointer-events: none;
-  /* Keep layout space; hide without transform jumps */
-  visibility: hidden;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .stjourney-leader-wrap--static {
@@ -224,9 +239,9 @@
   background: #ffffff;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
   transition:
-    border-color 0.45s ease,
-    box-shadow 0.45s ease,
-    background 0.45s ease;
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -253,9 +268,20 @@
 .stjourney-leader__card--active {
   border-color: color-mix(in srgb, #2563eb 28%, #e8edf3);
   background: #ffffff;
-  box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.03),
-    0 12px 28px color-mix(in srgb, #2563eb 12%, transparent);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  animation: stjourney-card-connect 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stjourney-card-connect {
+  0% {
+    border-color: #e8edf3;
+  }
+  40% {
+    border-color: color-mix(in srgb, #2563eb 52%, #e8edf3);
+  }
+  100% {
+    border-color: color-mix(in srgb, #2563eb 28%, #e8edf3);
+  }
 }
 
 .stjourney-leader__card--active::before {
@@ -393,6 +419,12 @@
   border: none;
 }
 
+.stjourney-leader__card--active .stjourney-leader__graphic {
+  border-color: color-mix(in srgb, #2563eb 26%, #e2e8f0);
+  box-shadow: none;
+  transition: border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .stjourney-leader__card-label {
   margin: 0;
   font-size: 1rem;
@@ -471,39 +503,31 @@
 
 .stjourney-leader__closing--active {
   border-color: color-mix(in srgb, #2563eb 24%, #e2e8f0);
-  box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.03),
-    0 14px 32px color-mix(in srgb, #2563eb 10%, transparent);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .stjourney-leader__closing--active::before {
   opacity: 1;
 }
 
-.stjourney-leader__closing--pulse::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  border: 1.5px solid color-mix(in srgb, #2563eb 55%, #e2e8f0);
-  pointer-events: none;
-  opacity: 0;
-  animation: stjourney-closing-ring 0.65s cubic-bezier(0.22, 1, 0.36, 1) 1;
+.stjourney-leader__closing--pulse {
+  animation: stjourney-closing-hit 0.65s cubic-bezier(0.22, 1, 0.36, 1) 1;
 }
 
-@keyframes stjourney-closing-ring {
+@keyframes stjourney-closing-hit {
   0% {
-    opacity: 0.65;
-    transform: scale(1);
+    border-color: color-mix(in srgb, #2563eb 18%, #e2e8f0);
+  }
+  40% {
+    border-color: color-mix(in srgb, #2563eb 55%, #e2e8f0);
   }
   100% {
-    opacity: 0;
-    transform: scale(1.03);
+    border-color: color-mix(in srgb, #2563eb 24%, #e2e8f0);
   }
 }
 
 @media (max-width: 760px) {
-  .stjourney-leader__closing--pulse::after {
+  .stjourney-leader__closing--pulse {
     animation-duration: 0.5s;
   }
 }
@@ -514,7 +538,7 @@
     transition: none;
   }
 
-  .stjourney-leader__closing--pulse::after {
+  .stjourney-leader__closing--pulse {
     animation: none;
   }
 }
@@ -672,7 +696,20 @@
 .stjourney-leader__closing-flow-node--live .stjourney-leader__closing-flow-dot {
   background: #2563eb;
   border-color: color-mix(in srgb, #2563eb 70%, #ffffff);
-  box-shadow: 0 0 0 3px color-mix(in srgb, #2563eb 14%, transparent);
+  box-shadow: none;
+  animation: stjourney-flow-live 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes stjourney-flow-live {
+  from {
+    transform: scale(0.72);
+    opacity: 0.35;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .stjourney-leader__closing-flow-label {
@@ -698,11 +735,25 @@
   margin: 0.25rem 0.05rem 0;
   align-self: flex-start;
   background: #e2e8f0;
+  transform-origin: center;
   transition: background 0.35s ease;
 }
 
 .stjourney-leader__closing-flow-connector--live {
   background: color-mix(in srgb, #2563eb 45%, #e2e8f0);
+  animation: stjourney-flow-connector 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 40ms);
+}
+
+@keyframes stjourney-flow-connector {
+  from {
+    opacity: 0.25;
+    transform: scaleX(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 }
 
 .stjourney-leader__closing-text {
@@ -788,7 +839,7 @@
   right: 0.625rem;
   width: 3px;
   border-radius: 9999px;
-  background: linear-gradient(180deg, #22d3ee, #8b5cf6);
+  background: #2563eb;
   opacity: 0.55;
 }
 
@@ -844,9 +895,7 @@
 .stjourney-static__body--active {
   border-color: color-mix(in srgb, #2563eb 28%, #e8edf3);
   background: #ffffff;
-  box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.03),
-    0 12px 28px color-mix(in srgb, #2563eb 12%, transparent);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .stjourney-static__body--active::before {
@@ -936,7 +985,7 @@
     );
   text-align: center;
   list-style: none;
-  box-shadow: 0 10px 24px color-mix(in srgb, #2563eb 8%, transparent);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
   overflow: visible;
   isolation: isolate;
 }
@@ -1004,7 +1053,6 @@
   height: 0.5rem;
   border-radius: 50%;
   background: #2563eb;
-  box-shadow: 0 0 0 3px color-mix(in srgb, #2563eb 14%, transparent);
 }
 
 .stjourney-static__closing-flow-connector {
@@ -1124,27 +1172,31 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .stjourney-leader__card-motion:hover .stjourney-leader__card {
+  .stjourney-leader__card-wrap:hover .stjourney-leader__card:not(.stjourney-leader__card--active) {
     border-color: #cbd5e1;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
   }
 
-  .stjourney-leader__card-motion:hover .stjourney-leader__card-icon {
+  .stjourney-leader__card-wrap:hover .stjourney-leader__card-icon {
     color: #2563eb;
   }
 
-  .stjourney-leader__card-motion:hover {
+  .stjourney-leader__card-wrap:hover {
     transform: translateY(-2px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .stjourney-leader__path,
-  .stjourney-leader__card-motion {
+  .stjourney-leader__card-wrap {
     transition: none;
+    animation: none;
   }
 
-  .stjourney-leader__link--active {
-    filter: none;
+  .stjourney-leader__card--active,
+  .stjourney-leader__closing-flow-node--live .stjourney-leader__closing-flow-dot,
+  .stjourney-leader__closing-flow-connector--live,
+  .stjourney-leader__closing--pulse {
+    animation: none;
   }
 }

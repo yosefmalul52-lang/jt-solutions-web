@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 const patchSchema = z.object({
   status: z.enum(["new", "contacted", "qualified", "won", "lost"]).optional(),
   notes: z.string().trim().max(2000).optional().nullable(),
+  lostReason: z.string().trim().max(500).optional().nullable(),
   name: z.string().trim().min(2).optional(),
   service: z.string().trim().min(2).optional(),
 });
@@ -29,8 +30,16 @@ export async function PATCH(req: Request, ctx: Ctx) {
   const updates: Record<string, unknown> = {
     updated_at: new Date().toISOString(),
   };
-  if (parsed.data.status !== undefined) updates.status = parsed.data.status;
+  if (parsed.data.status !== undefined) {
+    updates.status = parsed.data.status;
+    if (parsed.data.status !== "lost") {
+      updates.lost_reason = null;
+    }
+  }
   if (parsed.data.notes !== undefined) updates.notes = parsed.data.notes;
+  if (parsed.data.lostReason !== undefined) {
+    updates.lost_reason = parsed.data.lostReason || null;
+  }
   if (parsed.data.name !== undefined) updates.name = parsed.data.name;
   if (parsed.data.service !== undefined) updates.service = parsed.data.service;
 

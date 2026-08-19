@@ -12,6 +12,7 @@ export type Lead = {
   status: LeadStatus;
   createdAt: string;
   notes?: string;
+  lostReason?: string;
 };
 
 export type Task = {

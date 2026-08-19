@@ -37,9 +37,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { BulkSelectionBar } from "@/components/admin/bulk-selection-bar";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { CopiedToast, useCopiedToast } from "@/components/admin/copied-toast";
 import { CreateLeadSheet } from "@/components/admin/create-lead-sheet";
 import { ImportLeadsSheet } from "@/components/admin/import-leads-sheet";
+import { LeadDetailDialog } from "@/components/admin/lead-detail-dialog";
+import { LeadLostReasonDialog } from "@/components/admin/lead-lost-reason-dialog";
+import { LeadLostReasonNote } from "@/components/admin/lead-lost-reason-note";
 import { leadSourceLabels, leadStatusLabels } from "@/lib/admin/labels";
 import { leadStatusChip, leadStatusChipClass, leadStatusDot } from "@/lib/admin/status-styles";
 import { telHref, whatsappHref } from "@/lib/admin/phone";
@@ -52,8 +57,12 @@ type LeadsTableCardProps = {
   leads: Lead[];
   actionLabel?: string;
   compact?: boolean;
+  /** Tighter rows/columns for dashboard overview table. */
+  dense?: boolean;
   showAction?: boolean;
   interactive?: boolean;
+  /** Renders without outer card shell — parent provides the surface. */
+  embedded?: boolean;
 };
 
 export function LeadsTableCard({
@@ -61,10 +70,13 @@ export function LeadsTableCard({
   leads,
   actionLabel = "הוסף ליד",
   compact = false,
+  dense = false,
   showAction = true,
   interactive = false,
+  embedded = false,
 }: LeadsTableCardProps) {
   const router = useRouter();
+  const { open: copiedOpen, showCopied } = useCopiedToast();
   const [sortDir, setSortDir] = React.useState<"asc" | "desc" | null>("desc");
   const [createOpen, setCreateOpen] = React.useState(false);
   const [importOpen, setImportOpen] = React.useState(false);
@@ -74,7 +86,17 @@ export function LeadsTableCard({
   const [confirm, setConfirm] = React.useState<
     null | { mode: "one" | "selected"; ids: string[] }
   >(null);
+  const [detailLead, setDetailLead] = React.useState<Lead | null>(null);
+  const [lostReasonPrompt, setLostReasonPrompt] = React.useState<Lead | null>(null);
+  const [statusSelectKey, setStatusSelectKey] = React.useState(0);
   const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL;
+
+  React.useEffect(() => {
+    setDetailLead((current) => {
+      if (!current) return null;
+      return leads.find((l) => l.id === current.id) ?? current;
+    });
+  }, [leads]);
 
   React.useEffect(() => {
     setSelected((prev) => {
@@ -118,19 +140,60 @@ export function LeadsTableCard({
   const selectAll = () => setSelected(new Set(sorted.map((l) => l.id)));
   const clearSelection = () => setSelected(new Set());
 
-  const updateStatus = async (id: string, status: LeadStatus) => {
+  const updateStatus = async (
+    id: string,
+    status: LeadStatus,
+    options?: { lostReason?: string | null },
+  ) => {
     if (!interactive) return;
     setPendingId(id);
     try {
+      const body: { status: LeadStatus; lostReason?: string | null } = { status };
+      if (status === "lost" && options?.lostReason !== undefined) {
+        body.lostReason = options.lostReason || null;
+      }
       const res = await fetch(`/api/admin/leads/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify(body),
       });
       if (res.ok) router.refresh();
     } finally {
       setPendingId(null);
     }
+  };
+
+  const handleStatusChange = (lead: Lead, status: LeadStatus) => {
+    if (status === "lost" && lead.status !== "lost") {
+      setLostReasonPrompt(lead);
+      return;
+    }
+    void updateStatus(lead.id, status);
+  };
+
+  const confirmLostReason = async (reason: string) => {
+    if (!lostReasonPrompt) return;
+    setBusy(true);
+    try {
+      await updateStatus(lostReasonPrompt.id, "lost", { lostReason: reason || null });
+      setDetailLead((current) =>
+        current?.id === lostReasonPrompt.id
+          ? {
+              ...current,
+              status: "lost",
+              lostReason: reason.trim() || undefined,
+            }
+          : current,
+      );
+      setLostReasonPrompt(null);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const cancelLostReason = () => {
+    setLostReasonPrompt(null);
+    setStatusSelectKey((k) => k + 1);
   };
 
   const copySummary = async (lead: Lead) => {
@@ -140,12 +203,14 @@ export function LeadsTableCard({
       lead.email ? `אימייל: ${lead.email}` : null,
       `שירות: ${lead.service}`,
       `סטטוס: ${leadStatusLabels[lead.status]}`,
+      lead.lostReason ? `סיבת אי-רלוונטיות: ${lead.lostReason}` : null,
       lead.notes ? `הערות: ${lead.notes}` : null,
       bookingUrl ? `קביעת שיחה: ${bookingUrl}` : null,
     ]
       .filter(Boolean)
       .join("\n");
     await navigator.clipboard.writeText(text);
+    showCopied();
   };
 
   const runDelete = async () => {
@@ -171,20 +236,42 @@ export function LeadsTableCard({
     }
   };
 
+  const stopRowClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const openLeadDetail = (lead: Lead) => {
+    setDetailLead(lead);
+  };
+
+  const rowCellClass = dense ? "h-8 py-1" : compact ? "h-10 py-1.5" : "h-11";
+  const headRowClass = dense ? "h-8" : "h-9";
+  const bodyTextClass = dense ? "text-xs" : "text-sm";
+
+  const shellClass = cn(
+    "flex h-full min-h-0 flex-col overflow-hidden",
+    !embedded && "admin-surface p-2.5",
+  );
+
   return (
     <>
-      <section className="admin-surface flex h-full min-h-0 flex-col overflow-hidden p-2.5">
-        <div className="mb-1.5 flex shrink-0 items-center justify-between gap-2 px-0.5">
-          <div className="flex min-w-0 items-center gap-2">
-            <h2 className="text-sm font-semibold text-slate-900">{title}</h2>
-            {interactive && someSelected ? (
-              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
-                {selected.size} נבחרו
-              </span>
+      <section className={shellClass}>
+        <div
+          className={cn(
+            "mb-2 flex shrink-0 items-center justify-between gap-3",
+            embedded && "px-0.5",
+          )}
+        >
+          <div className="min-w-0">
+            <h2 className="truncate text-sm font-semibold text-slate-900">{title}</h2>
+            {interactive ? (
+              <p className="mt-0.5 text-xs text-slate-500 tabular-nums">
+                {leads.length} לידים
+              </p>
             ) : null}
           </div>
           {interactive ? (
-            <div className="flex items-center gap-1">
+            <div className="flex shrink-0 items-center gap-1.5">
               <Button
                 variant="outline"
                 size="sm"
@@ -193,9 +280,21 @@ export function LeadsTableCard({
                 onClick={() => setImportOpen(true)}
               >
                 <FileUp className="size-3.5" />
-                ייבוא CSV
+                <span className="hidden sm:inline">ייבוא CSV</span>
+                <span className="sm:hidden">ייבוא</span>
               </Button>
-            <DropdownMenu>
+              {!showAction ? (
+                <Button
+                  size="sm"
+                  className="h-8 gap-1.5 bg-[#1e3a8a] text-white hover:bg-[#1e40af]"
+                  type="button"
+                  onClick={() => setCreateOpen(true)}
+                >
+                  <Plus className="size-3.5" />
+                  {actionLabel}
+                </Button>
+              ) : null}
+              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
@@ -233,11 +332,13 @@ export function LeadsTableCard({
           ) : null}
         </div>
 
-        {interactive && someSelected ? (
-          <div className="mb-2 flex flex-wrap items-center gap-2 rounded-md border border-red-100 bg-red-50 px-2.5 py-1.5">
-            <span className="text-xs font-medium text-red-800">
-              {selected.size} לידים נבחרו
-            </span>
+        {interactive ? (
+          <BulkSelectionBar
+            open={someSelected}
+            count={selected.size}
+            label="לידים נבחרו"
+            tone="danger"
+          >
             <Button
               type="button"
               size="sm"
@@ -256,33 +357,57 @@ export function LeadsTableCard({
             >
               ביטול
             </Button>
-          </div>
-        ) : null}
+          </BulkSelectionBar>
+        ) : (
+          <div className="mb-2 h-9 shrink-0" aria-hidden />
+        )}
 
-        <div className="admin-inset min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <div
+          className={cn(
+            "admin-inset admin-data-table admin-scroll min-h-0 flex-1",
+            dense && "admin-data-table--dense",
+          )}
+        >
           <Table>
             <TableHeader className="sticky top-0 z-[1] bg-slate-50">
               <TableRow className="hover:bg-transparent">
                 {interactive ? (
-                  <TableHead className="h-9 w-10">
+                  <TableHead className={cn(headRowClass, dense ? "w-8 px-1" : "w-10")}>
                     <input
                       type="checkbox"
                       className="size-3.5 accent-[#1e3a8a]"
                       checked={allSelected}
                       aria-label="בחר הכל"
                       onChange={(e) => (e.target.checked ? selectAll() : clearSelection())}
+                      onClick={stopRowClick}
                     />
                   </TableHead>
                 ) : null}
-                <TableHead className="h-9 text-xs font-medium text-slate-600">שם</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">טלפון</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">שירות</TableHead>
-                <TableHead className="h-9 text-xs font-medium text-slate-600">מקור</TableHead>
-                <TableHead className="h-9 text-center text-xs font-medium text-slate-600">
+                <TableHead className={cn(headRowClass, "w-[12%] px-1.5 text-xs font-medium text-slate-600")}>
+                  שם
+                </TableHead>
+                <TableHead className={cn(headRowClass, "w-[11%] px-1.5 text-xs font-medium text-slate-600")}>
+                  טלפון
+                </TableHead>
+                <TableHead className={cn(headRowClass, "w-[26%] px-1.5 text-xs font-medium text-slate-600")}>
+                  שירות
+                </TableHead>
+                <TableHead className={cn(headRowClass, "w-[9%] px-1.5 text-xs font-medium text-slate-600")}>
+                  מקור
+                </TableHead>
+                <TableHead
+                  className={cn(
+                    headRowClass,
+                    "w-[12%] px-1.5 text-center text-xs font-medium text-slate-600",
+                  )}
+                >
                   סטטוס
                 </TableHead>
                 <TableHead
-                  className="h-9 cursor-pointer select-none text-xs font-medium text-slate-600 transition-colors hover:text-slate-900"
+                  className={cn(
+                    headRowClass,
+                    "w-[9%] cursor-pointer select-none px-1.5 text-xs font-medium text-slate-600 transition-colors hover:text-slate-900",
+                  )}
                   onClick={toggleSort}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
@@ -303,7 +428,15 @@ export function LeadsTableCard({
                   </span>
                 </TableHead>
                 {interactive ? (
-                  <TableHead className="h-9 text-xs font-medium text-slate-600">פעולות</TableHead>
+                  <TableHead
+                    className={cn(
+                      headRowClass,
+                      dense ? "w-[4.25rem] px-1" : "w-[5.5rem]",
+                      "text-xs font-medium text-slate-600",
+                    )}
+                  >
+                    פעולות
+                  </TableHead>
                 ) : null}
               </TableRow>
             </TableHeader>
@@ -326,72 +459,95 @@ export function LeadsTableCard({
                     <TableRow
                       key={lead.id}
                       className={cn(
-                        "bg-white hover:bg-slate-50",
+                        "cursor-pointer bg-white hover:bg-slate-50",
                         isSelected && "bg-blue-50/60 hover:bg-blue-50",
                       )}
+                      onClick={() => openLeadDetail(lead)}
                     >
                       {interactive ? (
-                        <TableCell className={cn(compact ? "h-10 py-1.5" : "h-11")}>
+                        <TableCell
+                          className={cn(rowCellClass, dense && "px-1.5")}
+                          onClick={stopRowClick}
+                        >
                           <input
                             type="checkbox"
-                            className="size-3.5 accent-[#1e3a8a]"
+                            className={cn("accent-[#1e3a8a]", dense ? "size-3" : "size-3.5")}
                             checked={isSelected}
                             aria-label={`בחר ${lead.name}`}
                             onChange={() => toggleOne(lead.id)}
+                            onClick={stopRowClick}
                           />
                         </TableCell>
                       ) : null}
                       <TableCell
                         className={cn(
-                          "min-w-[7rem] font-medium text-slate-900",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell font-medium text-slate-900",
+                          rowCellClass,
+                          dense && "px-1.5",
                         )}
                       >
-                        <div className="text-sm">{lead.name}</div>
+                        <span className={cn("admin-table-cell__text", bodyTextClass)}>{lead.name}</span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-700",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell text-slate-700",
+                          rowCellClass,
+                          dense && "px-1.5",
+                          bodyTextClass,
                         )}
                       >
-                        <span dir="ltr">{lead.phone}</span>
+                        <span className="admin-table-cell__text" dir="ltr">
+                          {lead.phone}
+                        </span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-800",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell text-slate-800",
+                          rowCellClass,
+                          dense && "px-1.5",
+                          bodyTextClass,
                         )}
                       >
-                        {lead.service}
+                        <span className="admin-table-cell__text">{lead.service}</span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-700",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell text-slate-700",
+                          rowCellClass,
+                          dense && "px-1.5",
+                          bodyTextClass,
                         )}
                       >
-                        {leadSourceLabels[lead.source]}
+                        <span className="admin-table-cell__text">
+                          {leadSourceLabels[lead.source]}
+                        </span>
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "text-center",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell text-center",
+                          rowCellClass,
+                          dense && "px-1.5",
                         )}
+                        onClick={stopRowClick}
                       >
                         {interactive ? (
-                          <Select
-                            value={lead.status}
-                            disabled={pendingId === lead.id}
-                            onValueChange={(value) =>
-                              updateStatus(lead.id, value as LeadStatus)
-                            }
-                          >
+                          <div className="mx-auto flex min-w-0 max-w-full flex-col items-center gap-1">
+                            <Select
+                              key={`${lead.id}-${statusSelectKey}`}
+                              value={lead.status}
+                              disabled={pendingId === lead.id}
+                              onValueChange={(value) =>
+                                handleStatusChange(lead, value as LeadStatus)
+                              }
+                            >
                             <SelectTrigger
                               size="sm"
                               aria-label={`סטטוס של ${lead.name}`}
                               className={cn(
-                                "mx-auto h-8 min-w-[8.75rem] justify-center gap-1 rounded-md px-2.5",
+                                "mx-auto w-full justify-center gap-0.5 rounded-md",
+                                dense
+                                  ? "h-7 max-w-[6.75rem] px-1.5 text-xs"
+                                  : "h-8 max-w-[8.75rem] gap-1 px-2.5",
                                 leadStatusChipClass,
                                 leadStatusChip[lead.status],
                                 "focus-visible:ring-2 focus-visible:ring-cyan-400/40",
@@ -421,31 +577,52 @@ export function LeadsTableCard({
                               ))}
                             </SelectContent>
                           </Select>
+                          {lead.status === "lost" ? (
+                            <LeadLostReasonNote reason={lead.lostReason} />
+                          ) : null}
+                        </div>
                         ) : (
-                          <Badge
-                            variant="outline"
-                            className={cn(
-                              "mx-auto rounded-md border font-bold",
-                              leadStatusChip[lead.status],
-                            )}
-                          >
-                            {leadStatusLabels[lead.status]}
-                          </Badge>
+                          <div className="mx-auto flex min-w-0 max-w-full flex-col items-center gap-1">
+                            <Badge
+                              variant="outline"
+                              className={cn(
+                                "rounded-md border font-bold",
+                                leadStatusChip[lead.status],
+                              )}
+                            >
+                              {leadStatusLabels[lead.status]}
+                            </Badge>
+                            {lead.status === "lost" ? (
+                              <LeadLostReasonNote reason={lead.lostReason} />
+                            ) : null}
+                          </div>
                         )}
                       </TableCell>
                       <TableCell
                         className={cn(
-                          "whitespace-nowrap text-sm text-slate-600",
-                          compact ? "h-10 py-1.5" : "h-11",
+                          "admin-table-cell text-slate-600",
+                          rowCellClass,
+                          dense && "px-1.5",
+                          bodyTextClass,
                         )}
                       >
-                        {new Date(lead.createdAt).toLocaleDateString("he-IL")}
+                        <span className="admin-table-cell__text">
+                          {new Date(lead.createdAt).toLocaleDateString("he-IL")}
+                        </span>
                       </TableCell>
                       {interactive ? (
-                        <TableCell className={cn(compact ? "h-10 py-1.5" : "h-11")}>
-                          <div className="flex items-center gap-0.5">
+                        <TableCell
+                          className={cn(rowCellClass, dense && "px-1")}
+                          onClick={stopRowClick}
+                        >
+                          <div className="flex items-center gap-0">
                             {wa ? (
-                              <Button asChild size="icon" variant="ghost" className="size-8">
+                              <Button
+                                asChild
+                                size="icon"
+                                variant="ghost"
+                                className={dense ? "size-7" : "size-8"}
+                              >
                                 <a
                                   href={wa}
                                   target="_blank"
@@ -457,7 +634,12 @@ export function LeadsTableCard({
                               </Button>
                             ) : null}
                             {tel ? (
-                              <Button asChild size="icon" variant="ghost" className="size-8">
+                              <Button
+                                asChild
+                                size="icon"
+                                variant="ghost"
+                                className={dense ? "size-7" : "size-8"}
+                              >
                                 <a href={tel} aria-label="התקשרות">
                                   <Phone className="size-4 text-slate-700" />
                                 </a>
@@ -466,7 +648,7 @@ export function LeadsTableCard({
                             <Button
                               size="icon"
                               variant="ghost"
-                              className="size-8"
+                              className={dense ? "size-7" : "size-8"}
                               type="button"
                               aria-label="העתק סיכום"
                               onClick={() => copySummary(lead)}
@@ -476,7 +658,10 @@ export function LeadsTableCard({
                             <Button
                               size="icon"
                               variant="ghost"
-                              className="size-8 text-red-600 hover:bg-red-50 hover:text-red-700"
+                              className={cn(
+                                dense ? "size-7" : "size-8",
+                                "text-red-600 hover:bg-red-50 hover:text-red-700",
+                              )}
                               type="button"
                               aria-label={`מחק את ${lead.name}`}
                               onClick={() => setConfirm({ mode: "one", ids: [lead.id] })}
@@ -519,6 +704,18 @@ export function LeadsTableCard({
           </div>
         ) : null}
       </section>
+      <LeadDetailDialog
+        lead={detailLead}
+        open={Boolean(detailLead)}
+        onClose={() => setDetailLead(null)}
+      />
+      <LeadLostReasonDialog
+        open={Boolean(lostReasonPrompt)}
+        leadName={lostReasonPrompt?.name ?? ""}
+        loading={busy || pendingId === lostReasonPrompt?.id}
+        onConfirm={(reason) => void confirmLostReason(reason)}
+        onCancel={cancelLostReason}
+      />
       <CreateLeadSheet open={createOpen} onOpenChange={setCreateOpen} />
       <ImportLeadsSheet open={importOpen} onOpenChange={setImportOpen} />
       <ConfirmDialog
@@ -535,6 +732,7 @@ export function LeadsTableCard({
         onCancel={() => (busy ? undefined : setConfirm(null))}
         onConfirm={() => void runDelete()}
       />
+      <CopiedToast open={copiedOpen} />
     </>
   );
 }
