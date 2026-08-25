@@ -66,6 +66,16 @@
   padding-top: var(--home-nav-offset);
 }
 
+.home-hero-scroll-scale {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-scroll-scale {
+    will-change: auto;
+  }
+}
+
 .home-hero-grid {
   opacity: 0.14;
 }
